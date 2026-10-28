@@ -4,6 +4,9 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './Pages/Home';
 import ServicesPage from './Pages/Services';
+import ITStaffingPage from './Pages/ITStaffing';
+import EcommercePage from './Pages/Ecommerce';
+import ContactPage from './Pages/Contact';
 import InquiryModal from './components/InquiryModal';
 import './App.css';
 
@@ -40,6 +43,11 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage onOpenInquiry={handleOpenInquiry} />} />
           <Route path="/services" element={<ServicesPage onOpenInquiry={handleOpenInquiry} />} />
+          <Route path="/it-staffing" element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />} />
+          <Route path="/staffing" element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />} />
+          <Route path="/ecommerce" element={<EcommercePage onOpenContact={() => handleOpenInquiry('E-Commerce')} />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact-us" element={<ContactPage />} />
           {/* Fallback to Services page */}
           <Route path="*" element={<ServicesPage onOpenInquiry={handleOpenInquiry} />} />
         </Routes>

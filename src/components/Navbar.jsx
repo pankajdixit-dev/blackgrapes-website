@@ -89,11 +89,24 @@ export default function Navbar({ onOpenInquiry }) {
           </Link>
 
           <Link 
-            to="/services?category=advisory" 
-            className="nav-link"
+            to="/it-staffing" 
+            className={`nav-link ${location.pathname === '/it-staffing' ? 'active' : ''}`}
           >
-            <FileCheck2 size={15} className="nav-link-icon" />
-            <span>Advisory</span>
+            <span>Staffing</span>
+          </Link>
+
+          <Link 
+            to="/ecommerce" 
+            className={`nav-link ${location.pathname === '/ecommerce' ? 'active' : ''}`}
+          >
+            <span>E-Commerce</span>
+          </Link>
+
+          <Link 
+            to="/contact" 
+            className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+          >
+            <span>Contact</span>
           </Link>
         </nav>
 
@@ -153,6 +166,19 @@ export default function Navbar({ onOpenInquiry }) {
           </Link>
           <Link to="/services?category=realestate" className="mobile-nav-link">
             <span>Real Estate & Investments</span>
+            <ChevronRight size={18} />
+          </Link>
+
+          <Link to="/it-staffing" className="mobile-nav-link">
+            <span>IT & Manpower Staffing</span>
+            <ChevronRight size={18} />
+          </Link>
+          <Link to="/ecommerce" className="mobile-nav-link">
+            <span>E-Commerce (Naya Purana Bazaar)</span>
+            <ChevronRight size={18} />
+          </Link>
+          <Link to="/contact" className="mobile-nav-link">
+            <span>Contact Black Grapes</span>
             <ChevronRight size={18} />
           </Link>
 

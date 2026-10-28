@@ -20,6 +20,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import '../Styles/Services.css';
+import '../Styles/CyberServices.css';
 
 export default function ServicesPage({ onOpenInquiry }) {
   const [searchParams, setSearchParams] = useSearchParams();

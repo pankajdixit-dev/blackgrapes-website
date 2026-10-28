@@ -21,10 +21,9 @@ import {
   Home,
   GraduationCap,
   UtensilsCrossed,
-  Stethoscope,
-  Briefcase,
-  MessageCircle
+  Stethoscope
 } from 'lucide-react';
+import '../Styles/CyberServices.css';
 
 // Exact 7 Industries from original blackgrapessoftech.com/services/
 const originalIndustries = [

@@ -21,6 +21,7 @@ import {
   MessageCircle,
   Copy
 } from 'lucide-react';
+import '../Styles/CyberServices.css';
 
 export default function EcommercePage({ onOpenContact }) {
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'new', 'used'

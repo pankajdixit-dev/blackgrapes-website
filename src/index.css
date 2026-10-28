@@ -604,34 +604,41 @@ button, input, select, textarea {
 }
 
 /* Mobile Navigation Drawer */
-.mobile-nav-drawer {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  height: 100vh;
-  background: rgba(8, 7, 13, 0.85);
-  backdrop-filter: blur(16px);
-  z-index: 105;
-  transition: right var(--transition-smooth);
-  display: flex;
-  justify-content: flex-end;
+.mobile-nav-drawer,
+.mobile-drawer {
+  display: none;
 }
 
-.drawer-open {
-  right: 0;
-}
+@media (max-width: 1024px) {
+  .mobile-nav-drawer {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(8, 7, 13, 0.85);
+    backdrop-filter: blur(16px);
+    z-index: 105;
+    transition: right var(--transition-smooth);
+    justify-content: flex-end;
+  }
 
-.mobile-drawer-content {
-  width: 85%;
-  max-width: 360px;
-  height: 100%;
-  background: #110d22;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  .mobile-nav-drawer.drawer-open {
+    right: 0;
+  }
+
+  .mobile-drawer-content {
+    width: 85%;
+    max-width: 360px;
+    height: 100%;
+    background: #110d22;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
 }
 
 .mobile-drawer-header {

@@ -171,7 +171,7 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
               <span>Get Quote / Demo</span>
             </button>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Hamburger Toggle (hidden on desktop) */}
             <button
               type="button"
               className={`mobile-toggle ${mobileMenuOpen ? 'mobile-toggle-active' : ''}`}
@@ -185,20 +185,34 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Navigation Drawer */}
-        <div
-          className={`mobile-drawer ${mobileMenuOpen ? 'drawer-open' : ''}`}
-          aria-hidden={!mobileMenuOpen}
-        >
-          <div className="mobile-drawer-inner">
-            <div className="mobile-nav-list">
+      {/* Mobile Sliding Overlay Drawer - Only rendered when mobileMenuOpen is true */}
+      {mobileMenuOpen && (
+        <div className="mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)}>
+          <div className="mobile-nav-drawer-box" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-drawer-top">
+              <div className="brand-text-block">
+                <span className="brand-title">BLACK GRAPES</span>
+                <span className="brand-subtitle">NAVIGATION MENU</span>
+              </div>
+              <button
+                type="button"
+                className="close-drawer-btn"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Navigation Menu"
+              >
+                ✕
+              </button>
+            </div>
+
+            <nav className="mobile-drawer-links">
               {NAV_LINKS.map((link) => (
-                <div key={link.name} className="mobile-nav-item">
-                  <div className="mobile-nav-row">
+                <div key={link.name} className="mobile-link-group">
+                  <div className="mobile-link-row">
                     <Link
                       to={link.href}
-                      className={`mobile-link ${isLinkActive(link.href) ? 'mobile-link-active' : ''}`}
+                      className={`mobile-link-item ${isLinkActive(link.href) ? 'active' : ''}`}
                       onClick={() => !link.dropdown && setMobileMenuOpen(false)}
                     >
                       {link.name}
@@ -206,11 +220,9 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
                     {link.dropdown && (
                       <button
                         type="button"
-                        className="mobile-dropdown-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleDropdown(link.name);
-                        }}
+                        className="mobile-expand-btn"
+                        onClick={() => toggleDropdown(link.name)}
+                        aria-label="Toggle submenu"
                       >
                         {activeDropdown === link.name ? '−' : '+'}
                       </button>
@@ -218,15 +230,14 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
                   </div>
 
                   {link.dropdown && activeDropdown === link.name && (
-                    <div className="mobile-subnav-list">
+                    <div className="mobile-submenu-list">
                       {link.dropdown.map((sub) => (
                         <Link
                           key={sub.name}
                           to={sub.href}
-                          className="mobile-subnav-link"
+                          className="mobile-submenu-link"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <span className="mobile-sub-bullet">•</span>
                           {sub.name}
                         </Link>
                       ))}
@@ -234,27 +245,10 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
                   )}
                 </div>
               ))}
-            </div>
-
-            <div className="mobile-drawer-cta">
-              <button
-                type="button"
-                className="btn btn-primary btn-full"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleOpenAction('Request a Demo');
-                }}
-              >
-                Request a Demo
-              </button>
-              <div className="mobile-contact-pill">
-                <span>Call Us:</span>
-                <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`}>{COMPANY_INFO.phones[0]}</a>
-              </div>
-            </div>
+            </nav>
           </div>
         </div>
-      </header>
+      )}
     </>
   );
 }

@@ -544,21 +544,187 @@
   width: 100%;
 }
 
-/* Responsive */
+/* Clean Mobile Navigation Overlay & Drawer */
+.mobile-drawer,
+.mobile-nav-drawer,
+.mobile-nav-overlay {
+  display: none;
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.mobile-toggle .bar {
+  width: 100%;
+  height: 2.5px;
+  background: #ffffff;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.mobile-toggle.mobile-toggle-active .bar-1 {
+  transform: translateY(9px) rotate(45deg);
+  background: var(--brand-orange, #f86200);
+}
+
+.mobile-toggle.mobile-toggle-active .bar-2 {
+  opacity: 0;
+}
+
+.mobile-toggle.mobile-toggle-active .bar-3 {
+  transform: translateY(-9px) rotate(-45deg);
+  background: var(--brand-orange, #f86200);
+}
+
 @media (max-width: 1024px) {
-  .nav-phone-link {
-    display: none;
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-toggle {
+    display: flex !important;
+  }
+
+  .mobile-nav-overlay {
+    display: flex !important;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(4, 5, 10, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    justify-content: flex-end;
+    animation: fadeInOverlay 0.25s ease forwards;
+  }
+
+  .mobile-nav-drawer-box {
+    width: 85%;
+    max-width: 340px;
+    height: 100%;
+    background: rgba(14, 11, 24, 0.98);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: -15px 0 40px rgba(0, 0, 0, 0.85);
+    animation: slideInDrawer 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .mobile-drawer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .close-drawer-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .close-drawer-btn:hover {
+    background: rgba(248, 98, 0, 0.2);
+    border-color: rgba(248, 98, 0, 0.5);
+    color: #ff7a1a;
+  }
+
+  .mobile-drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-link-group {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 0.4rem;
+  }
+
+  .mobile-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  .mobile-link-item {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-link-item:hover,
+  .mobile-link-item.active {
+    color: var(--brand-orange, #f86200);
+  }
+
+  .mobile-expand-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--brand-orange, #f86200);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-submenu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.5rem 0 0.5rem 1rem;
+    border-left: 2px solid rgba(248, 98, 0, 0.4);
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .mobile-submenu-link {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.35rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-submenu-link:hover {
+    color: #ffffff;
   }
 }
 
-@media (max-width: 860px) {
-  .desktop-nav {
-    display: none;
-  }
-  .mobile-toggle-btn {
-    display: flex;
-  }
-  .mobile-nav-drawer {
-    display: block;
-  }
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
+
+@keyframes slideInDrawer {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+

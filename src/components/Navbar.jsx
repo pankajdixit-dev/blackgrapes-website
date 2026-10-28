@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_INFO, NAV_LINKS } from '../data/siteData';
 
-export default function Navbar({ onOpenModal }) {
+export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+
+  const handleOpenAction = (title = 'Request a Demo') => {
+    if (onOpenModal) {
+      onOpenModal(title);
+    } else if (onOpenInquiry) {
+      onOpenInquiry(title);
+    } else if (onOpenDemoModal) {
+      onOpenDemoModal();
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,9 +39,10 @@ export default function Navbar({ onOpenModal }) {
   const isLinkActive = (href) => {
     if (href === '/' && location.pathname === '/') return true;
     if (href !== '/' && (location.pathname === href || location.pathname.startsWith(href))) return true;
-    if (href === '/about-us' && location.pathname === '/about') return true;
-    if (href === '/our-products' && location.pathname === '/products') return true;
-    if (href === '/our-clients' && location.pathname === '/clients') return true;
+    if (href === '/about-us' && (location.pathname === '/about' || location.pathname === '/about-us')) return true;
+    if (href === '/our-products' && (location.pathname === '/products' || location.pathname === '/our-products')) return true;
+    if (href === '/our-clients' && (location.pathname === '/clients' || location.pathname === '/our-clients')) return true;
+    if (href === '/contact-us' && (location.pathname === '/contact' || location.pathname === '/contact-us')) return true;
     return false;
   };
 
@@ -80,6 +91,10 @@ export default function Navbar({ onOpenModal }) {
                 src="/bgst-logo.png"
                 alt="Black Grapes Softech Logo"
                 className="logo-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/logo.png';
+                }}
               />
             </div>
             <div className="brand-text-block">
@@ -150,62 +165,48 @@ export default function Navbar({ onOpenModal }) {
             <button
               type="button"
               className="btn btn-primary nav-cta-btn"
-              onClick={() => onOpenModal('Request a Demo')}
+              onClick={() => handleOpenAction('Request a Demo')}
             >
               <span className="btn-sparkle">✨</span>
-              <span>Request a Demo</span>
+              <span>Get Quote / Demo</span>
             </button>
 
             {/* Mobile Hamburger Toggle */}
             <button
               type="button"
-              className="mobile-menu-toggle"
+              className={`mobile-toggle ${mobileMenuOpen ? 'mobile-toggle-active' : ''}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle Mobile Menu"
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
             >
-              <span className={`hamburger-line ${mobileMenuOpen ? 'open-1' : ''}`}></span>
-              <span className={`hamburger-line ${mobileMenuOpen ? 'open-2' : ''}`}></span>
-              <span className={`hamburger-line ${mobileMenuOpen ? 'open-3' : ''}`}></span>
+              <span className="bar bar-1"></span>
+              <span className="bar bar-2"></span>
+              <span className="bar bar-3"></span>
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Drawer */}
-        <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'drawer-open' : ''}`}>
-          <div className="mobile-drawer-content">
-            <div className="mobile-drawer-header">
-              <span className="mobile-drawer-title">Navigation</span>
-              <button
-                type="button"
-                className="close-drawer-btn"
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close Menu"
-              >
-                &times;
-              </button>
-            </div>
-
+        <div
+          className={`mobile-drawer ${mobileMenuOpen ? 'drawer-open' : ''}`}
+          aria-hidden={!mobileMenuOpen}
+        >
+          <div className="mobile-drawer-inner">
             <div className="mobile-nav-list">
               {NAV_LINKS.map((link) => (
                 <div key={link.name} className="mobile-nav-item">
-                  <div
-                    className="mobile-nav-header-row"
-                    onClick={() => link.dropdown ? toggleDropdown(link.name) : setMobileMenuOpen(false)}
-                  >
+                  <div className="mobile-nav-row">
                     <Link
                       to={link.href}
-                      className="mobile-nav-link"
-                      onClick={(e) => {
-                        if (link.dropdown) e.preventDefault();
-                        else setMobileMenuOpen(false);
-                      }}
+                      className={`mobile-link ${isLinkActive(link.href) ? 'mobile-link-active' : ''}`}
+                      onClick={() => !link.dropdown && setMobileMenuOpen(false)}
                     >
                       {link.name}
                     </Link>
                     {link.dropdown && (
                       <button
                         type="button"
-                        className="mobile-expand-btn"
+                        className="mobile-dropdown-btn"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleDropdown(link.name);
@@ -241,7 +242,7 @@ export default function Navbar({ onOpenModal }) {
                 className="btn btn-primary btn-full"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenModal('Request a Demo');
+                  handleOpenAction('Request a Demo');
                 }}
               >
                 Request a Demo

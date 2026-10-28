@@ -4,25 +4,32 @@ import ParticleCanvas from './components/ParticleCanvas';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
+import DemoModal from './components/DemoModal';
+import InquiryModal from './components/InquiryModal';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import FloatingWidgets from './components/FloatingWidgets';
 import ScrollToTop from './components/ScrollToTop';
 
 import HomePage from './pages/HomePage';
+import About from './Pages/About';
+import OurProducts from './Pages/OurProducts';
+import OurClients from './Pages/OurClients';
+import ServicesPage from './Pages/Services';
+import SoftechServicesPage from './Pages/SoftechServices';
+import ITStaffingPage from './Pages/ITStaffing';
+import EcommercePage from './Pages/Ecommerce';
+import ContactPage from './Pages/Contact';
 import PartnershipPage from './pages/PartnershipPage';
-import ContactUsPage from './pages/ContactUsPage';
-import ServicesPage from './pages/ServicesPage';
-import EcommercePage from './pages/EcommercePage';
-import ITStaffingPage from './pages/ITStaffingPage';
-import AboutPage from './pages/AboutPage';
-import ProductsPage from './pages/ProductsPage';
-import ClientsPage from './pages/ClientsPage';
+import './App.css';
 
-function App() {
+export default function App() {
   const [modalState, setModalState] = useState({
     isOpen: false,
     title: 'Request a Demo'
   });
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [inquiryService, setInquiryService] = useState('');
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
   const handleOpenModal = (title = 'Request a Demo') => {
@@ -39,6 +46,24 @@ function App() {
     });
   };
 
+  const handleOpenInquiry = (serviceName = '') => {
+    setInquiryService(serviceName);
+    setInquiryModalOpen(true);
+  };
+
+  const handleCloseInquiry = () => {
+    setInquiryModalOpen(false);
+    setInquiryService('');
+  };
+
+  const handleOpenDemoModal = () => {
+    setDemoModalOpen(true);
+  };
+
+  const handleCloseDemoModal = () => {
+    setDemoModalOpen(false);
+  };
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -53,56 +78,94 @@ function App() {
         <div className="ambient-glow glow-bottom-left" aria-hidden="true"></div>
 
         {/* Top Navbar */}
-        <Navbar onOpenModal={handleOpenModal} />
+        <Navbar 
+          onOpenModal={handleOpenModal} 
+          onOpenInquiry={handleOpenInquiry}
+          onOpenDemoModal={handleOpenDemoModal}
+        />
 
         {/* Main Routed Content */}
         <main className="main-content">
           <Routes>
+            {/* Home Page */}
             <Route
               path="/"
               element={
                 <HomePage
                   onOpenModal={handleOpenModal}
+                  onOpenInquiry={handleOpenInquiry}
                   onSelectService={(service) => setSelectedService(service)}
                 />
               }
             />
-            <Route
-              path="/services"
-              element={<ServicesPage onOpenInquiry={handleOpenModal} />}
-            />
-            <Route
-              path="/ecommerce"
-              element={<EcommercePage onOpenModal={handleOpenModal} />}
-            />
-            <Route
-              path="/it-staffing"
-              element={<ITStaffingPage onOpenModal={handleOpenModal} />}
-            />
+
+            {/* About Us Pages (Mahesh's complete page) */}
             <Route
               path="/about"
-              element={<AboutPage onOpenModal={handleOpenModal} />}
+              element={<About onOpenDemoModal={handleOpenDemoModal} />}
             />
             <Route
               path="/about-us"
-              element={<AboutPage onOpenModal={handleOpenModal} />}
+              element={<About onOpenDemoModal={handleOpenDemoModal} />}
+            />
+
+            {/* Services Pages (Abadh's complete hub) */}
+            <Route
+              path="/services"
+              element={<ServicesPage onOpenInquiry={handleOpenInquiry} />}
             />
             <Route
+              path="/softech-services"
+              element={<SoftechServicesPage onOpenInquiry={handleOpenInquiry} />}
+            />
+
+            {/* Products Pages (Mahesh's proprietary catalog) */}
+            <Route
               path="/products"
-              element={<ProductsPage onOpenModal={handleOpenModal} />}
+              element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
             />
             <Route
               path="/our-products"
-              element={<ProductsPage onOpenModal={handleOpenModal} />}
+              element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
             />
+
+            {/* Clients Pages (Mahesh's global portfolio) */}
             <Route
               path="/clients"
-              element={<ClientsPage onOpenModal={handleOpenModal} />}
+              element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
             />
             <Route
               path="/our-clients"
-              element={<ClientsPage onOpenModal={handleOpenModal} />}
+              element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
             />
+
+            {/* IT Staffing Solutions (Abadh's full staffing page) */}
+            <Route
+              path="/it-staffing"
+              element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />}
+            />
+            <Route
+              path="/staffing"
+              element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />}
+            />
+
+            {/* E-Commerce Solutions (Abadh's full ecommerce page) */}
+            <Route
+              path="/ecommerce"
+              element={<EcommercePage onOpenContact={() => handleOpenInquiry('E-Commerce Solutions')} />}
+            />
+
+            {/* Contact Pages (Abadh's full contact page) */}
+            <Route
+              path="/contact"
+              element={<ContactPage />}
+            />
+            <Route
+              path="/contact-us"
+              element={<ContactPage />}
+            />
+
+            {/* Partnership Pages */}
             <Route
               path="/partnership"
               element={<PartnershipPage onOpenModal={handleOpenModal} />}
@@ -111,19 +174,30 @@ function App() {
               path="/business-partners"
               element={<PartnershipPage onOpenModal={handleOpenModal} />}
             />
-            <Route
-              path="/contact-us"
-              element={<ContactUsPage onOpenModal={handleOpenModal} />}
-            />
-            <Route path="/contact" element={<Navigate to="/contact-us" replace />} />
+
+            {/* Fallback to Home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
-        {/* Site Footer */}
-        <Footer onOpenModal={handleOpenModal} />
+        {/* Universal Footer */}
+        <Footer 
+          onOpenModal={handleOpenModal} 
+          onOpenInquiry={handleOpenInquiry}
+        />
 
-        {/* Interactive Modals */}
+        {/* Global Interactive Modals */}
+        <InquiryModal
+          isOpen={inquiryModalOpen}
+          onClose={handleCloseInquiry}
+          initialService={inquiryService}
+        />
+
+        <DemoModal
+          isOpen={demoModalOpen}
+          onClose={handleCloseDemoModal}
+        />
+
         <ContactModal
           isOpen={modalState.isOpen}
           onClose={handleCloseModal}
@@ -137,10 +211,8 @@ function App() {
         />
 
         {/* Floating Action Buttons */}
-        <FloatingWidgets />
+        <FloatingWidgets onOpenContact={() => handleOpenInquiry('Direct Desk')} />
       </div>
     </BrowserRouter>
   );
 }
-
-export default App;

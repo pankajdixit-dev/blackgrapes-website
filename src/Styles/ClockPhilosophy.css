@@ -1,0 +1,285 @@
+/* ========================================================
+   CLOCK PHILOSOPHY STYLES (04 O'CLOCK LUXURY DIAL - BLACK & ORANGE)
+   ======================================================== */
+
+.brand-philosophy-section {
+  width: 100%;
+  position: relative;
+  padding: 90px 0 110px;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 107, 0, 0.15) 0%, transparent 60%);
+}
+
+.philosophy-hero {
+  max-width: 820px;
+  margin: 0 auto 3.5rem;
+}
+
+.philosophy-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-orange-light);
+  text-transform: uppercase;
+  background: #000000;
+  padding: 4px 14px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 107, 0, 0.4);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.15);
+}
+
+.philosophy-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-orange);
+  box-shadow: 0 0 8px var(--brand-orange);
+  animation: pulseGlow 2s infinite;
+}
+
+.philosophy-main-title {
+  font-size: 2.8rem;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.philosophy-hero-desc {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #a1a1aa;
+  margin-bottom: 1.75rem;
+}
+
+.philosophy-hero-mantra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mantra-pill {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  background: #000000;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 107, 0, 0.4);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.mantra-sep {
+  color: var(--brand-orange);
+  font-weight: 900;
+}
+
+/* Pillar Card & Grid */
+.philosophy-pillar {
+  padding: 3.5rem;
+  background: #000000;
+  border: 1.5px solid rgba(255, 107, 0, 0.4);
+  border-radius: 32px;
+  box-shadow: 0 16px 45px -12px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 107, 0, 0.15);
+}
+
+.pillar-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.pillar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pillar-label-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-orange);
+  text-transform: uppercase;
+}
+
+.pillar-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.pillar-paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pillar-p {
+  font-size: 0.98rem;
+  color: #a1a1aa;
+  line-height: 1.65;
+}
+
+.pillar-p strong {
+  color: #ffffff;
+}
+
+.pillar-p em {
+  font-style: italic;
+  color: var(--brand-orange-light);
+}
+
+.pillar-highlight-quote {
+  position: relative;
+  margin-top: 1rem;
+  padding: 1.25rem 1.75rem 1.25rem 3rem;
+  background: #000000;
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  border-left: 4px solid var(--brand-orange);
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+.quote-mark {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.85rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--brand-orange);
+  font-family: Georgia, serif;
+}
+
+.quote-text {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Luxury Black Grapes Visualizer Card */
+.pillar-visual-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grapes-visual-card {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: #000000;
+  border: 3px solid #ff6b00;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.95), 0 0 45px rgba(255, 107, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+  transition: transform var(--transition-normal);
+}
+
+.grapes-visual-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 60px rgba(255, 107, 0, 0.65);
+}
+
+.grapes-ambient-glow {
+  position: absolute;
+  inset: -25px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 0, 0.35) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseGlow 3s infinite alternate;
+}
+
+.grapes-img-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+.luxury-grapes-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grapes-visual-card:hover .luxury-grapes-artwork {
+  transform: scale(1.08) rotate(1deg);
+}
+
+.grapes-ring-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 107, 0, 0.5);
+  pointer-events: none;
+}
+
+.grapes-badge-label {
+  position: absolute;
+  bottom: 22px;
+  background: #000000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 107, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 107, 0, 0.3);
+  padding: 6px 20px;
+  border-radius: 99px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.badge-time {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+.badge-sub {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--brand-orange-light);
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .pillar-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .philosophy-main-title {
+    font-size: 2.2rem;
+  }
+  .philosophy-pillar {
+    padding: 2rem 1.5rem;
+  }
+}

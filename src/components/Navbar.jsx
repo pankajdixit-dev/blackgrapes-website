@@ -28,7 +28,10 @@ export default function Navbar({ onOpenModal }) {
 
   const isLinkActive = (href) => {
     if (href === '/' && location.pathname === '/') return true;
-    if (href !== '/' && location.pathname.startsWith(href)) return true;
+    if (href !== '/' && (location.pathname === href || location.pathname.startsWith(href))) return true;
+    if (href === '/about-us' && location.pathname === '/about') return true;
+    if (href === '/our-products' && location.pathname === '/products') return true;
+    if (href === '/our-clients' && location.pathname === '/clients') return true;
     return false;
   };
 

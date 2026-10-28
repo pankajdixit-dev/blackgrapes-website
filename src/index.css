@@ -453,7 +453,7 @@ button, input, select, textarea {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.15rem;
 }
 
 .nav-item-wrapper {
@@ -463,12 +463,13 @@ button, input, select, textarea {
 .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.92rem;
-  font-weight: 500;
+  gap: 0.25rem;
+  padding: 0.5rem 0.62rem;
+  font-size: 0.86rem;
+  font-weight: 600;
   color: var(--text-secondary);
   border-radius: 8px;
+  white-space: nowrap;
   transition: all var(--transition-fast);
 }
 

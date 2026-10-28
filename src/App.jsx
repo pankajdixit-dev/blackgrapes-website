@@ -11,6 +11,12 @@ import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import PartnershipPage from './pages/PartnershipPage';
 import ContactUsPage from './pages/ContactUsPage';
+import ServicesPage from './pages/ServicesPage';
+import EcommercePage from './pages/EcommercePage';
+import ITStaffingPage from './pages/ITStaffingPage';
+import AboutPage from './pages/AboutPage';
+import ProductsPage from './pages/ProductsPage';
+import ClientsPage from './pages/ClientsPage';
 
 function App() {
   const [modalState, setModalState] = useState({
@@ -62,7 +68,47 @@ function App() {
               }
             />
             <Route
+              path="/services"
+              element={<ServicesPage onOpenInquiry={handleOpenModal} />}
+            />
+            <Route
+              path="/ecommerce"
+              element={<EcommercePage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/it-staffing"
+              element={<ITStaffingPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/about"
+              element={<AboutPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/about-us"
+              element={<AboutPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/products"
+              element={<ProductsPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/our-products"
+              element={<ProductsPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/clients"
+              element={<ClientsPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/our-clients"
+              element={<ClientsPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
               path="/partnership"
+              element={<PartnershipPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/business-partners"
               element={<PartnershipPage onOpenModal={handleOpenModal} />}
             />
             <Route

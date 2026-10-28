@@ -30,41 +30,35 @@ export const COMPANY_INFO = {
 
 export const NAV_LINKS = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/#about" },
+  { name: "About Us", href: "/about-us" },
   {
     name: "Services",
-    href: "/#services",
+    href: "/services",
     dropdown: [
-      { name: "Website Designing and Development", desc: "Responsive, high-conversion web platforms", href: "/#services" },
-      { name: "Mobile App Development", desc: "Native iOS, Android & Flutter cross-platform", href: "/#services" },
-      { name: "Software Development", desc: "Custom enterprise software & cloud backends", href: "/#services" },
-      { name: "CRM Software Development", desc: "Custom lead & relationship tracking tools", href: "/#services" },
-      { name: "MLM Software Development", desc: "Binary, matrix, generation plans & digital wallets", href: "/#services" },
-      { name: "Digital Marketing", desc: "ROI-driven SEO, SEM, and social growth", href: "/#services" },
-      { name: "Graphic Designing", desc: "UI/UX, branding identities & visual media", href: "/#services" },
-      { name: "Game Development", desc: "Immersive 2D & 3D gaming experiences", href: "/#services" }
+      { name: "Software Development", desc: "Custom enterprise software & cloud backends", href: "/services" },
+      { name: "Mobile App Development", desc: "Native iOS, Android & Flutter cross-platform", href: "/services" },
+      { name: "Digital Marketing", desc: "ROI-driven SEO, SEM, and social growth", href: "/services" },
+      { name: "Graphic Designing", desc: "UI/UX, branding identities & visual media", href: "/services" },
+      { name: "Web Designing and Development", desc: "Responsive, high-conversion web platforms", href: "/services" },
+      { name: "CRM Software Development", desc: "Custom lead & relationship tracking tools", href: "/services" },
+      { name: "MLM Software Development", desc: "Binary, matrix, generation plans & digital wallets", href: "/services" },
+      { name: "Game Development", desc: "Immersive 2D & 3D gaming experiences", href: "/services" },
+      { name: "Government Tender Services", desc: "GeM & e-Procurement technical bidding", href: "/services" },
+      { name: "Private Tender Services", desc: "Corporate RFP execution & compliance", href: "/services" }
     ]
   },
+  { name: "Our Products", href: "/our-products" },
+  { name: "Ecommerce", href: "/ecommerce" },
+  { name: "Our Clients", href: "/our-clients" },
+  { name: "IT Staffing", href: "/it-staffing" },
   {
     name: "Partnership",
     href: "/partnership",
     dropdown: [
-      { name: "Partner With Us", desc: "Offshore development centre & resource sharing", href: "/partnership#partner-form" },
-      { name: "Business Partners", desc: "Product companies tie-up & alliances", href: "/partnership#tie-ups" },
-      { name: "Partnership Models", desc: "Dedicated pods, staff aug & white-label", href: "/partnership#models" }
+      { name: "Partner with Us", desc: "Offshore development centre & resource sharing", href: "/partnership" },
+      { name: "Business Partners", desc: "Product companies tie-up & alliances", href: "/business-partners" }
     ]
   },
-  {
-    name: "Tendering",
-    href: "/#tendering",
-    dropdown: [
-      { name: "Government Tender Services", desc: "GeM & e-Procurement technical bidding", href: "/#tendering" },
-      { name: "Private Tender Services", desc: "Corporate RFP execution & compliance", href: "/#tendering" }
-    ]
-  },
-  { name: "Our Projects", href: "/#projects" },
-  { name: "Why Us", href: "/#why-us" },
-  { name: "Industries", href: "/#industries" },
   { name: "Contact Us", href: "/contact-us" }
 ];
 

@@ -27,7 +27,7 @@ export default function WhyChooseUs({ onOpenModal }) {
                 <img
                   src={pillar.image}
                   alt={pillar.title}
-                  className="why-us-img"
+                  className={`why-us-img why-us-img-${idx + 1}`}
                   loading="lazy"
                 />
                 <div className="why-us-img-gradient"></div>

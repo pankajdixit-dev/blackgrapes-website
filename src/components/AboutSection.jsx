@@ -1,40 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { ABOUT_CONTENT } from '../data/siteData';
 
 export default function AboutSection({ onOpenModal }) {
-  const [openFaq, setOpenFaq] = useState(0);
-  const [activeValueTab, setActiveValueTab] = useState(0);
-
   return (
     <section id="about" className="section about-section">
       <div className="container">
-        {/* Section Header */}
-        <div className="section-header text-center">
-          <div className="section-badge">
-            <span className="badge-sparkle">✦</span>
-            <span>{ABOUT_CONTENT.badge}</span>
-          </div>
-          <h2 className="section-title">
-            Best Website Development Company <span className="title-gradient-separator">|</span> Best IT Software Company <span className="title-gradient-separator">|</span> Best Mobile App Development Company
-          </h2>
-          <p className="section-subtitle">
-            {ABOUT_CONTENT.subtitle}
-          </p>
-        </div>
-
-        {/* Main 2-Column Content Grid */}
-        <div className="about-grid">
-          {/* Left Column: Visual Infographic & Modern Technology Visual Card */}
+        {/* Block 1: ABOUT COMPANY */}
+        <div className="about-grid mb-5">
+          {/* Left Column: Visual Showcase */}
           <div className="about-visual-col">
-            {/* Top Showcase Card */}
             <div className="about-image-card">
               <div className="about-img-wrapper">
                 <img
-                  src="/images/blackgrapes-1.png"
-                  alt="Black Grapes Softech Team & Architecture"
+                  src="/images/services-infograph.png"
+                  alt="Black Grapes Softech Innovation"
                   className="about-main-img"
                   onError={(e) => {
-                    e.currentTarget.src = '/images/services-infograph.png';
+                    e.currentTarget.src = '/bgst-logo.png';
                   }}
                 />
                 <div className="img-overlay-gradient"></div>
@@ -48,136 +31,62 @@ export default function AboutSection({ onOpenModal }) {
                   <span className="stat-floating-label">of IT &amp; Software Innovation</span>
                 </div>
               </div>
-
-              {/* Floating Technology Badge */}
-              <div className="about-tech-floating-pill">
-                <span className="pill-dot"></span>
-                <span>Web &bull; Mobile &bull; Cloud &bull; AI</span>
-              </div>
-            </div>
-
-            {/* Modern Technology Innovation Visual Card (Fills Left Side Beautifully) */}
-            <div className="about-tech-visual-card">
-              <div className="tech-visual-img-wrapper">
-                <img
-                  src="/images/tech-innovation.jpg"
-                  alt="Modern Cloud Network and Software Engineering"
-                  className="tech-visual-img"
-                  loading="lazy"
-                />
-                <div className="tech-visual-overlay"></div>
-
-                <div className="tech-visual-tag">
-                  <span className="pulse-dot"></span>
-                  <span>AI &amp; CLOUD ARCHITECTURE</span>
-                </div>
-
-                <div className="tech-visual-kpi-pill">
-                  <span>⚡ 99.9% Uptime &bull; Global Data Flow</span>
-                </div>
-              </div>
-
-              <div className="tech-visual-details">
-                <div className="tech-visual-header">
-                  <h4 className="tech-visual-title">High-Velocity Software Ecosystems</h4>
-                  <span className="tech-visual-badge">Enterprise Ready</span>
-                </div>
-                <p className="tech-visual-desc">
-                  Architecting resilient microservices, distributed cloud backends, and smart automation pipelines that empower modern digital enterprises.
-                </p>
-                <div className="tech-visual-chips">
-                  <span className="tech-chip">Microservices</span>
-                  <span className="tech-chip">Cloud Network</span>
-                  <span className="tech-chip">API Gateways</span>
-                  <span className="tech-chip">Automated CI/CD</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Lifecycle Engineering Sub-Card */}
-            <div className="about-sub-card">
-              <div className="sub-card-header">
-                <span className="sub-card-icon">⚡</span>
-                <span className="sub-card-title">Full Lifecycle Engineering</span>
-              </div>
-              <p className="sub-card-text">
-                From technical discovery to deployment and 24/7 proactive monitoring, we build software engineered to scale with your enterprise.
-              </p>
             </div>
           </div>
 
-          {/* Right Column: Detailed Narrative & Interactive Values */}
+          {/* Right Column: ABOUT COMPANY Text */}
           <div className="about-text-col">
             <div className="about-narrative-card">
-              <h3 className="narrative-heading">
-                Transforming Your Boldest Visions Into <span className="text-highlight">High-Performance Reality</span>
-              </h3>
+              <div className="section-badge mb-3">
+                <span className="badge-sparkle">✦</span>
+                <span>{ABOUT_CONTENT.badge}</span>
+              </div>
+
+              <h2 className="narrative-heading">
+                We're Not Just Another Company; <span className="text-highlight">We’re Your Innovation Partner.</span>
+              </h2>
 
               <p className="narrative-body">
                 {ABOUT_CONTENT.primaryParagraph}
               </p>
 
-              <p className="narrative-body secondary-paragraph">
+              <div className="mt-4">
+                <Link to="/about-us" className="btn btn-primary">
+                  <span>Read More</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Block 2: Secondary Banner - Best Website Development Company */}
+        <div className="about-secondary-card glass-card p-4 p-md-5 mt-5">
+          <div className="row align-items-center">
+            <div className="col-lg-8">
+              <span className="badge-pill mb-2">⭐ LEADING IT DEVELOPMENT COMPANY</span>
+              <h3 className="h2 mb-3 text-white">
+                {ABOUT_CONTENT.mainTitle}
+              </h3>
+              <h5 className="text-orange mb-3" style={{ color: 'var(--color-primary, #f86200)', fontSize: '1.1rem' }}>
+                {ABOUT_CONTENT.subtitle}
+              </h5>
+              <p className="text-muted-light mb-4" style={{ color: 'var(--color-text-muted, #cbd5e1)', lineHeight: '1.8' }}>
                 {ABOUT_CONTENT.secondaryParagraph}
               </p>
             </div>
-
-            {/* Interactive Core Values Tabs */}
-            <div className="values-tabs-wrapper">
-              <div className="values-tab-buttons">
-                {ABOUT_CONTENT.coreValues.map((val, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className={`value-tab-btn ${activeValueTab === idx ? 'value-tab-active' : ''}`}
-                    onClick={() => setActiveValueTab(idx)}
-                  >
-                    <span>0{idx + 1}.</span> {val.title}
-                  </button>
-                ))}
-              </div>
-
-              <div className="value-tab-content">
-                <div className="value-tab-icon">🎯</div>
-                <p>{ABOUT_CONTENT.coreValues[activeValueTab].desc}</p>
-              </div>
-            </div>
-
-            {/* Strategic Q&A Accordion */}
-            <div className="about-qa-wrapper">
-              <div className="qa-section-title-row">
-                <h4 className="qa-heading">Strategic Consultation Highlights</h4>
-                <button
-                  type="button"
-                  className="btn btn-outline btn-sm"
-                  onClick={() => onOpenModal('Ask a Question')}
-                >
-                  Ask a Question
-                </button>
-              </div>
-
-              <div className="qa-accordion">
-                {ABOUT_CONTENT.qaItems.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={`qa-item ${openFaq === idx ? 'qa-item-open' : ''}`}
-                  >
-                    <button
-                      type="button"
-                      className="qa-question-btn"
-                      onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    >
-                      <span className="qa-q-text">{item.q}</span>
-                      <span className="qa-toggle-icon">{openFaq === idx ? '−' : '+'}</span>
-                    </button>
-                    {openFaq === idx && (
-                      <div className="qa-answer-pane">
-                        <p>{item.a}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+            <div className="col-lg-4 text-lg-end text-start mt-3 mt-lg-0">
+              <button
+                type="button"
+                className="btn btn-primary btn-lg"
+                onClick={() => onOpenModal('Ask a Question')}
+              >
+                <span>Ask a Question</span>
+                <span className="btn-sparkle">💬</span>
+              </button>
             </div>
           </div>
         </div>

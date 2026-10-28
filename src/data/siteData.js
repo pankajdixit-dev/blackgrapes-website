@@ -177,39 +177,39 @@ export const WHY_CHOOSE_US = {
   vision: "To be the most admired creative and affordable IT solutions company in the world.",
   pillars: [
     {
-      title: "Security Assurance",
-      subtitle: "Uncompromised Data & Infrastructure Safety",
-      description: "We never compromise with security. We use best technology with expert developers to develop your product or service. Never worry about vulnerabilities with our rigorous code audits and encryption protocols.",
+      title: "Security assurance",
+      subtitle: "Never care about security with us",
+      description: "We never compromise with security. We use best technology with expert developer to develop your product or service. Never care about security with us.",
       image: "/images/Security-1.jpg",
       points: [
         "End-to-End Data Encryption",
-        "Rigorous Code Audits & Pen-testing",
-        "OWASP Compliance & Secure Auth",
-        "Automated Vulnerability Monitoring"
+        "Expert Developers & Best Technology",
+        "Zero Compromise on Software Security",
+        "Continuous Vulnerability Safeguards"
       ]
     },
     {
-      title: "Quality Assurance",
-      subtitle: "Software Built Like Modern Craftsmanship",
-      description: "We are known for providing best services and developing top notch quality of software in the market. For us maintaining quality of software is same as maintaining yourself in a society.",
+      title: "Quality assurance",
+      subtitle: "Top notch quality of softwares",
+      description: "We are known for providing best services and developing top notch quality of softwares in the market. For us maintaining quality of software is same as maintaining yourself in a society.",
       image: "/images/quality.jpg",
       points: [
-        "Automated & Manual Regression Testing",
-        "Sub-second Response Times & 99.9% Uptime",
-        "Clean, Maintainable Architecture",
-        "Cross-Browser & Multi-Device Parity"
+        "Rigorous Quality Assurance Standards",
+        "Top Notch Software Performance",
+        "Consistent & Reliable Deployments",
+        "Long-term Code Maintainability"
       ]
     },
     {
       title: "Good Relationship",
-      subtitle: "Long-Term Collaborative Technology Partners",
-      description: "We are not just fulfilling client’s requirement, we maintain best relationship with our client so that we can work together to grow our businesses. Plan to work together for new ideas.",
+      subtitle: "Work together to grow our businesses",
+      description: "We are not just full filling client's requirement, we maintain best relationship with our client so that we can work together to grow our businesses. Plan to work together for new ideas.",
       image: "/images/good-business-relationship-2.jpg",
       points: [
-        "Dedicated Account & Project Manager",
-        "Transparent Sprint Updates & Demos",
-        "Continuous Post-Launch Maintenance",
-        "Strategic Product Co-Innovation"
+        "Collaborative Long-Term Partnership",
+        "Joint Ideation for Business Growth",
+        "Dedicated Support & Continuous Value",
+        "Transparent Communication"
       ]
     }
   ]
@@ -219,85 +219,85 @@ export const PROJECTS = [
   {
     name: "www.borit.com",
     category: "Website",
-    type: "Corporate Web Experience",
-    desc: "Precision engineering corporate portal with sleek branding and multi-language support.",
+    type: "Corporate Website",
+    desc: "Precision engineering corporate website with sleek modern branding.",
     url: "https://www.borit.com"
   },
   {
     name: "blushandbloom.co.in",
-    category: "E-Commerce",
-    type: "Luxury Cosmetics & Lifestyle",
-    desc: "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
+    category: "Website",
+    type: "Cosmetics & Lifestyle",
+    desc: "Luxury cosmetics and lifestyle online platform.",
     url: "https://blushandbloom.co.in"
   },
   {
     name: "atonfitness.in",
     category: "Website",
-    type: "Health & Fitness Platform",
-    desc: "Interactive fitness training, membership management, and workout schedule ecosystem.",
+    type: "Health & Fitness",
+    desc: "Interactive health, gym, and fitness training portal.",
     url: "https://atonfitness.in"
   },
   {
     name: "IOS App - ReadMore",
     category: "Android / IOS - Mobile Apps",
-    type: "Digital Reading & E-Book Utility",
-    desc: "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
+    type: "iOS Application",
+    desc: "Feature-rich iOS reading and book exploration utility.",
     url: "#"
   },
   {
     name: "IOS App - DBT 24/7",
     category: "Android / IOS - Mobile Apps",
-    type: "FinTech & Banking Service App",
-    desc: "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
+    type: "iOS Application",
+    desc: "Secure 24/7 financial and banking utility app.",
     url: "#"
   },
   {
     name: "IOS App - Beauty Counter",
     category: "Android / IOS - Mobile Apps",
-    type: "Cosmetics Catalog & Consultation",
-    desc: "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
+    type: "iOS Application",
+    desc: "Cosmetics and beauty product catalog application.",
     url: "#"
   },
   {
     name: "Android App - Eduvacancy - Teaching Jobs",
     category: "Android / IOS - Mobile Apps",
-    type: "Education Recruitment Portal",
-    desc: "Scalable Android recruitment app connecting verified educators with top academic institutions.",
+    type: "Android Application",
+    desc: "Education recruitment platform connecting teachers with academic institutions.",
     url: "#"
   },
   {
     name: "Android App - HoneyliaEmart",
     category: "Android / IOS - Mobile Apps",
-    type: "Hyperlocal E-Commerce & Delivery",
-    desc: "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
+    type: "Android Application",
+    desc: "Hyperlocal grocery and consumer e-commerce ordering app.",
     url: "#"
   },
   {
     name: "www.jobberman.com",
     category: "Web Apps",
-    type: "Enterprise Career Portal",
-    desc: "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
+    type: "Web Application",
+    desc: "Enterprise recruitment engine and career portal.",
     url: "https://www.jobberman.com"
   },
   {
     name: "Stavanger Parkering",
     category: "Web Apps",
-    type: "Smart Mobility & Parking System",
-    desc: "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
+    type: "Web Application",
+    desc: "Smart parking management and reservation system.",
     url: "#"
   },
   {
     name: "DC Shoes",
     category: "E-Commerce",
-    type: "Global Apparel & Footwear Store",
-    desc: "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
+    type: "E-Commerce Store",
+    desc: "Action sports footwear and apparel digital storefront.",
     url: "#"
   },
   {
     name: "Pikto.com",
-    category: "Web Apps",
-    type: "Creative Visual Media SaaS",
-    desc: "Cloud-based visual editing and asset management suite with real-time browser rendering.",
+    category: "E-Commerce",
+    type: "E-Commerce Platform",
+    desc: "Visual media and custom photo printing e-commerce platform.",
     url: "https://pikto.com"
   }
 ];
@@ -305,31 +305,17 @@ export const PROJECTS = [
 export const TESTIMONIALS = [
   {
     name: "Subodh Bhandari",
-    role: "Enterprise Client",
+    role: "Verified Client",
     rating: 5,
     quote: "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.",
     avatar: "SB"
   },
   {
     name: "Kartik Mali",
-    role: "Business Director",
+    role: "Verified Client",
     rating: 5,
     quote: "From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.",
     avatar: "KM"
-  },
-  {
-    name: "Joel Burdine",
-    role: "Senior UI/UX Designer",
-    rating: 5,
-    quote: "Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.",
-    avatar: "JB"
-  },
-  {
-    name: "Ashley Hoyt",
-    role: "Creative Director",
-    rating: 5,
-    quote: "Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.",
-    avatar: "AH"
   }
 ];
 

@@ -641,7 +641,7 @@
   background: #000000;
 }
 
-.why-us-grid {
+.services-why-us-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
@@ -861,7 +861,7 @@
   .services-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .why-us-grid {
+  .services-why-us-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .workflow-steps-grid {
@@ -884,7 +884,7 @@
   .services-cards-grid {
     grid-template-columns: 1fr;
   }
-  .why-us-grid {
+  .services-why-us-grid {
     grid-template-columns: 1fr;
   }
   .workflow-steps-grid {

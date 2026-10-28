@@ -20,9 +20,9 @@ export default function WhyChooseUs({ onOpenModal }) {
         </div>
 
         {/* 3 Pillars Grid */}
-        <div className="why-us-grid">
+        <div className="why-us-grid home-why-us-grid">
           {WHY_CHOOSE_US.pillars.map((pillar, idx) => (
-            <div key={idx} className="why-us-card">
+            <div key={idx} className="why-us-card home-why-us-card">
               <div className="why-us-img-container">
                 <img
                   src={pillar.image}

@@ -34,36 +34,34 @@ export default function HeroSection({ onOpenModal }) {
           </h1>
 
           <p className="hero-description">
-            {COMPANY_INFO.consultationText}
+            {COMPANY_INFO.consultationText}. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.
           </p>
 
           <div className="hero-cta-group">
             <button
               type="button"
               className="btn btn-primary btn-lg"
-              onClick={() => onOpenModal('Get the offer')}
-            >
-              <span className="btn-icon">🎁</span>
-              <span>Get the offer</span>
-            </button>
-
-            <button
-              type="button"
-              className="btn btn-outline btn-lg"
               onClick={() => onOpenModal('Request a Demo')}
             >
               <span className="btn-icon">⚡</span>
               <span>Request a Demo</span>
             </button>
 
-            <a
-              href="https://apprenticeship.blackgrapessoftech.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               className="btn btn-outline btn-lg"
+              onClick={() => onOpenModal('Get the offer')}
             >
-              <span className="btn-icon">🎓</span>
-              <span>Apprenticeship Program</span>
+              <span className="btn-icon">🎁</span>
+              <span>Get the offer</span>
+            </button>
+
+            <a href="#services" className="hero-link-btn">
+              <span>View Services</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
             </a>
           </div>
 

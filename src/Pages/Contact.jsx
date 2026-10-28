@@ -93,7 +93,7 @@ export default function ContactPage() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <span className="hero-top-pill">
               <Sparkles size={13} color="#f86200" />
-              <span>BLACK GRAPES SOFTECH</span>
+              <span>BLACK GRAPES GROUP</span>
             </span>
           </div>
 
@@ -231,7 +231,7 @@ export default function ContactPage() {
                 Feel free to contact us for any questions or doubts.
               </h3>
               <p className="leave-desc">
-                Whether you need custom software development, mobile apps, web solutions, CRM/MLM platforms, or IT staffing, our dedicated leadership team is ready to assist.
+                Whether you need technical software consultation, property valuation, real estate advice, or securities advisory, our dedicated leadership team is ready to assist.
               </p>
 
               <div className="contact-illustration-wrap">
@@ -277,7 +277,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="success-title">Message Sent Successfully!</h3>
                   <p className="success-desc">
-                    Thank you for reaching out to Black Grapes Softech. We have received your message and our team will get back to you shortly.
+                    Thank you for reaching out to Black Grapes Group. We have received your message and our team will get back to you shortly.
                   </p>
                   <button
                     type="button"
@@ -324,7 +324,7 @@ export default function ContactPage() {
                       id="cnt-project"
                       name="project"
                       type="text"
-                      placeholder="e.g. Web Development / Mobile App / CRM"
+                      placeholder="e.g. Valuation Advisory / Softech Project"
                       value={formData.project}
                       onChange={handleChange}
                       className="form-input"

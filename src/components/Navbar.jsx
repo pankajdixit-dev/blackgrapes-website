@@ -37,13 +37,38 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
   };
 
   const isLinkActive = (href) => {
-    if (href === '/' && location.pathname === '/') return true;
-    if (href !== '/' && (location.pathname === href || location.pathname.startsWith(href))) return true;
-    if (href === '/about-us' && (location.pathname === '/about' || location.pathname === '/about-us')) return true;
-    if (href === '/our-products' && (location.pathname === '/products' || location.pathname === '/our-products')) return true;
-    if (href === '/our-clients' && (location.pathname === '/clients' || location.pathname === '/our-clients')) return true;
-    if (href === '/contact-us' && (location.pathname === '/contact' || location.pathname === '/contact-us')) return true;
-    return false;
+    const current = location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    const target = href.toLowerCase().replace(/\/$/, '') || '/';
+
+    if (target === '/') {
+      return current === '/';
+    }
+    if (target === '/about-us') {
+      return current === '/about' || current === '/about-us';
+    }
+    if (target === '/services') {
+      return current === '/services' || current === '/softech-services';
+    }
+    if (target === '/our-products') {
+      return current === '/products' || current === '/our-products';
+    }
+    if (target === '/ecommerce') {
+      return current === '/ecommerce';
+    }
+    if (target === '/our-clients') {
+      return current === '/clients' || current === '/our-clients';
+    }
+    if (target === '/it-staffing') {
+      return current === '/it-staffing' || current === '/staffing';
+    }
+    if (target === '/partnership') {
+      return current === '/partnership' || current === '/business-partners';
+    }
+    if (target === '/contact-us') {
+      return current === '/contact' || current === '/contact-us';
+    }
+
+    return current === target || current.startsWith(target + '/');
   };
 
   return (
@@ -138,20 +163,22 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
                   {link.dropdown && (
                     <div className={`nav-dropdown-menu ${activeDropdown === link.name ? 'show-dropdown' : ''}`}>
                       <div className="dropdown-grid">
-                        {link.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            to={subItem.href}
-                            className="dropdown-item"
-                            onClick={() => setActiveDropdown(null)}
-                          >
+                        {link.dropdown.map((subItem) => {
+                          const isSubActive = location.pathname.toLowerCase().replace(/\/$/, '') === subItem.href.toLowerCase().replace(/\/$/, '');
+                          return (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              className={`dropdown-item ${isSubActive ? 'dropdown-item-active' : ''}`}
+                              onClick={() => setActiveDropdown(null)}
+                            >
                             <div className="dropdown-item-content">
                               <span className="dropdown-item-title">{subItem.name}</span>
                               <span className="dropdown-item-desc">{subItem.desc}</span>
                             </div>
                             <span className="dropdown-item-arrow">&rarr;</span>
                           </Link>
-                        ))}
+                        );})}
                       </div>
                     </div>
                   )}
@@ -231,16 +258,19 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
 
                   {link.dropdown && activeDropdown === link.name && (
                     <div className="mobile-submenu-list">
-                      {link.dropdown.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          to={sub.href}
-                          className="mobile-submenu-link"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
+                      {link.dropdown.map((sub) => {
+                        const isSubActive = location.pathname.toLowerCase().replace(/\/$/, '') === sub.href.toLowerCase().replace(/\/$/, '');
+                        return (
+                          <Link
+                            key={sub.name}
+                            to={sub.href}
+                            className={`mobile-submenu-link ${isSubActive ? 'active' : ''}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {sub.name}
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

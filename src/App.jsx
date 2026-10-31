@@ -11,15 +11,16 @@ import FloatingWidgets from './components/FloatingWidgets';
 import ScrollToTop from './components/ScrollToTop';
 
 import HomePage from './pages/HomePage';
-import About from './Pages/About';
-import OurProducts from './Pages/OurProducts';
-import OurClients from './Pages/OurClients';
-import ServicesPage from './Pages/Services';
-import SoftechServicesPage from './Pages/SoftechServices';
-import ITStaffingPage from './Pages/ITStaffing';
-import EcommercePage from './Pages/Ecommerce';
-import ContactPage from './Pages/Contact';
+import About from './pages/About';
+import OurProducts from './pages/OurProducts';
+import OurClients from './pages/OurClients';
+import ServicesPage from './pages/Services';
+import SoftechServicesPage from './pages/SoftechServices';
+import ITStaffingPage from './pages/ITStaffing';
+import EcommercePage from './pages/Ecommerce';
+import ContactPage from './pages/Contact';
 import PartnershipPage from './pages/PartnershipPage';
+import BusinessPartnersPage from './pages/BusinessPartnersPage';
 import './App.css';
 
 export default function App() {
@@ -172,7 +173,7 @@ export default function App() {
             />
             <Route
               path="/business-partners"
-              element={<PartnershipPage onOpenModal={handleOpenModal} />}
+              element={<BusinessPartnersPage onOpenModal={handleOpenModal} />}
             />
 
             {/* Fallback to Home */}

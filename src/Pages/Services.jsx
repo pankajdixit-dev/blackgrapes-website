@@ -36,7 +36,7 @@ export default function ServicesPage({ onOpenInquiry }) {
     const categoryParam = searchParams.get('category');
 
     if (tabParam) {
-      if (['group', 'softech', 'staffing', 'ecommerce'].includes(tabParam.toLowerCase())) {
+      if (['group', 'staffing', 'ecommerce'].includes(tabParam.toLowerCase())) {
         setActiveTab(tabParam.toLowerCase());
       }
     } else if (categoryParam) {
@@ -117,15 +117,6 @@ export default function ServicesPage({ onOpenInquiry }) {
             >
               <Building2 size={16} />
               <span>Group Companies (6 Core)</span>
-            </button>
-
-            <button
-              type="button"
-              className={`services-tab-btn ${activeTab === 'softech' ? 'active' : ''}`}
-              onClick={() => handleTabSwitch('softech')}
-            >
-              <Code2 size={16} />
-              <span>Softech IT &amp; Software Hub</span>
             </button>
 
             <button
@@ -211,75 +202,9 @@ export default function ServicesPage({ onOpenInquiry }) {
                 </div>
               )}
 
-              {/* Softech IT Special Highlight Strip */}
-              <div 
-                style={{
-                  marginTop: '3.5rem',
-                  padding: '2rem 2.5rem',
-                  borderRadius: '1rem',
-                  background: 'linear-gradient(135deg, rgba(248, 98, 0, 0.12) 0%, rgba(147, 51, 234, 0.14) 100%)',
-                  border: '1px solid rgba(248, 98, 0, 0.35)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '1.5rem',
-                  flexWrap: 'wrap'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#f86200', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem' }}>
-                    <Sparkles size={14} />
-                    <span>LOOKING FOR CUSTOM SOFTWARE, WEB, APP OR MLM DEVELOPMENT?</span>
-                  </div>
-                  <h3 style={{ fontSize: '1.45rem', color: '#ffffff', marginBottom: '0.3rem' }}>
-                    Explore Black Grapes Softech Detailed IT &amp; Tech Stack
-                  </h3>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '620px' }}>
-                    Dive into our full-stack engineering portfolio, interactive scope estimator, live tech matrix, and industry-specific case studies.
-                  </p>
-                </div>
+              
 
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={() => handleTabSwitch('softech')}
-                  style={{ whiteSpace: 'nowrap' }}
-                >
-                  <span>Explore Softech Suite</span>
-                  <ArrowRight size={16} />
-                </button>
               </div>
-
-              {/* Quick Direct Contact Strip */}
-              <div className="services-quick-contact" style={{ marginTop: '2.5rem' }}>
-                <div className="quick-contact-info">
-                  <div className="quick-contact-tag">Direct Group Assistance</div>
-                  <div className="quick-contact-title">Have questions about our services?</div>
-                  <div className="quick-contact-numbers">
-                    <a href="tel:+919039397884" className="quick-contact-link">
-                      <Phone size={15} /> +91 9039397884
-                    </a>
-                    <span className="contact-sep">•</span>
-                    <a href="tel:+917470997884" className="quick-contact-link">
-                      <Phone size={15} /> +91 7470997884
-                    </a>
-                    <span className="contact-sep">•</span>
-                    <a href="tel:+916262414463" className="quick-contact-link">
-                      <Phone size={15} /> +91 6262414463
-                    </a>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={() => handleOpenInquiryInternal(null)}
-                >
-                  <span>Get In Touch</span>
-                  <ArrowUpRight size={16} />
-                </button>
-              </div>
-            </div>
           </section>
 
           {/* Internal Inquiry Consultation Modal if used standalone */}
@@ -293,15 +218,6 @@ export default function ServicesPage({ onOpenInquiry }) {
             />
           )}
         </main>
-      )}
-
-      {/* View 2: Black Grapes Softech Deep IT & Digital Solutions Hub */}
-      {activeTab === 'softech' && (
-        <div className="animate-fade-in">
-          <SoftechServicesPage 
-            onOpenInquiry={handleOpenInquiryInternal}
-          />
-        </div>
       )}
 
       {/* View 3: Black Grapes Softech IT & Manpower Staffing */}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Send, 
-  CheckCircle2, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Send,
+  CheckCircle2,
   ExternalLink,
   Sparkles
 } from 'lucide-react';
@@ -12,33 +12,33 @@ import {
 // Clean SVG Icons for Social Channels
 const FacebookIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
   </svg>
 );
 
 const TwitterIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
 const InstagramIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
   </svg>
 );
 
 const LinkedinIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
   </svg>
 );
 
 const YoutubeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
 import '../Styles/CyberServices.css';
@@ -114,11 +114,11 @@ export default function ContactPage() {
               <MapPin size={26} color="#f86200" />
             </div>
             <h3 className="contact-card-title">Address</h3>
-            
+
             <div className="contact-address-block">
-              <a 
-                href="https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8" 
-                target="_blank" 
+              <a
+                href="https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="contact-address-link"
               >
@@ -129,9 +129,9 @@ export default function ContactPage() {
 
               <div className="contact-card-divider" />
 
-              <a 
-                href="https://maps.app.goo.gl/yahxDsm7BLK652mA8" 
-                target="_blank" 
+              <a
+                href="https://maps.app.goo.gl/yahxDsm7BLK652mA8"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="contact-address-link"
               >
@@ -148,7 +148,7 @@ export default function ContactPage() {
               <Phone size={26} color="#f86200" />
             </div>
             <h3 className="contact-card-title">Call Us</h3>
-            
+
             <div className="contact-call-block">
               <div className="contact-person-row">
                 <span className="person-label">Arpit Jain:</span>
@@ -176,7 +176,7 @@ export default function ContactPage() {
               <Mail size={26} color="#f86200" />
             </div>
             <h3 className="contact-card-title">Email Us</h3>
-            
+
             <div className="contact-email-block">
               <a href="mailto:blackgrapesgroups@gmail.com" className="contact-mail-link">
                 blackgrapesgroups@gmail.com
@@ -236,9 +236,9 @@ export default function ContactPage() {
               </p>
 
               <div className="contact-illustration-wrap">
-                <img 
-                  src="/contact-img.png" 
-                  alt="Black Grapes Contact" 
+                <img
+                  src="/contact-img.png"
+                  alt="Black Grapes Contact"
                   className="contact-illustration-img"
                   onError={(e) => {
                     e.target.src = "https://blackgrapessoftech.com/wp-content/uploads/2023/11/4849052-1.png";
@@ -292,13 +292,13 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="contact-form-box">
                   <div>
-                    <label className="form-label" htmlFor="cnt-name">Your Name *</label>
+                    <label className="form-label" htmlFor="cnt-name"> Name</label>
                     <input
                       id="cnt-name"
                       name="name"
                       type="text"
                       required
-                      placeholder="e.g. Arpit Jain"
+                      placeholder=" Your Name"
                       value={formData.name}
                       onChange={handleChange}
                       className="form-input"
@@ -306,13 +306,13 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="form-label" htmlFor="cnt-email">Your Email *</label>
+                    <label className="form-label" htmlFor="cnt-email">Email</label>
                     <input
                       id="cnt-email"
                       name="email"
                       type="email"
                       required
-                      placeholder="your.email@example.com"
+                      placeholder="Your Email"
                       value={formData.email}
                       onChange={handleChange}
                       className="form-input"
@@ -320,12 +320,12 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="form-label" htmlFor="cnt-project">Project / Subject</label>
+                    <label className="form-label" htmlFor="cnt-project">Requirement</label>
                     <input
                       id="cnt-project"
                       name="project"
                       type="text"
-                      placeholder="e.g. Valuation Advisory / Softech Project"
+                      placeholder="Your Requirement"
                       value={formData.project}
                       onChange={handleChange}
                       className="form-input"
@@ -333,13 +333,13 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="form-label" htmlFor="cnt-msg">Message *</label>
+                    <label className="form-label" htmlFor="cnt-msg">Message</label>
                     <textarea
                       id="cnt-msg"
                       name="message"
                       rows={5}
                       required
-                      placeholder="Type your message, queries, or requirements here..."
+                      placeholder="Your Message"
                       value={formData.message}
                       onChange={handleChange}
                       className="form-input"

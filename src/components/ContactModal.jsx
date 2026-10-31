@@ -89,7 +89,6 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
                   id="form-name"
                   type="text"
                   required
-                  placeholder="e.g. John Doe"
                   className="form-input"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -103,7 +102,6 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
                     id="form-email"
                     type="email"
                     required
-                    placeholder="e.g. john@example.com"
                     className="form-input"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -116,7 +114,6 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
                     id="form-phone"
                     type="tel"
                     required
-                    placeholder="e.g. +91 9876543210"
                     className="form-input"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -143,7 +140,6 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
                 <textarea
                   id="form-msg"
                   rows="3"
-                  placeholder="Briefly describe your goals, budget or timeline..."
                   className="form-textarea"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}

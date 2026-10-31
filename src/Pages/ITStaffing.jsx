@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { 
-  Users, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowRight, 
-  ShieldCheck, 
-  Briefcase, 
-  TrendingUp, 
-  Clock, 
-  Award, 
-  Phone, 
-  Mail, 
-  UserCheck, 
-  GraduationCap, 
-  Send, 
-  FileText, 
-  Building2, 
-  Quote, 
-  Check, 
+import {
+  Users,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Briefcase,
+  TrendingUp,
+  Clock,
+  Award,
+  Phone,
+  Mail,
+  UserCheck,
+  GraduationCap,
+  Send,
+  FileText,
+  Building2,
+  Quote,
+  Check,
   X,
   MessageCircle,
   Layers,
@@ -165,7 +165,7 @@ export default function ITStaffingPage({ onOpenContact }) {
       <section className="staffing-hero-v2">
         <div className="content-wrapper">
           <div className="hero-grid-v2">
-            
+
             {/* Left Column: Authentic Title, Subtitle, Silhouette Hero Image, Key Highlights */}
             <div className="hero-left-v2">
               <div className="hero-badge-wrap" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
@@ -193,13 +193,13 @@ export default function ITStaffingPage({ onOpenContact }) {
               {/* Authentic Business Image with Cyber Grape High-Tech Frame & Floating Stats */}
               <div className="hero-image-showcase">
                 <div className="hero-image-wrapper cyber-glass-border">
-                  <img 
-                    src="/it-staffing/staffing-hero.jpg" 
-                    alt="Black Grapes Softech Contractual Staffing" 
+                  <img
+                    src="/it-staffing/staffing-hero.jpg"
+                    alt="Black Grapes Softech Contractual Staffing"
                     className="hero-staffing-img"
                   />
                   <div className="hero-image-overlay-glow" />
-                  
+
                   {/* Floating Glass Badges */}
                   <div className="floating-stat-badge badge-top-right cyber-glass-pill">
                     <ShieldCheck size={18} color="#10b981" />
@@ -239,11 +239,11 @@ export default function ITStaffingPage({ onOpenContact }) {
                   <form onSubmit={handleHeroFormSubmit} className="hero-actual-form">
                     {/* Full Name */}
                     <div className="form-group">
-                      <label className="form-label">Full Name *</label>
-                      <input 
+                      <label className="form-label">Full Name</label>
+                      <input
                         type="text"
                         required
-                        placeholder="Full Name"
+                        placeholder="Name"
                         value={heroForm.fullName}
                         onChange={(e) => setHeroForm({ ...heroForm, fullName: e.target.value })}
                         className="form-input cyber-input"
@@ -253,7 +253,7 @@ export default function ITStaffingPage({ onOpenContact }) {
                     {/* Company Name */}
                     <div className="form-group">
                       <label className="form-label">Company Name *</label>
-                      <input 
+                      <input
                         type="text"
                         required
                         placeholder="Company Name"
@@ -267,10 +267,10 @@ export default function ITStaffingPage({ onOpenContact }) {
                     <div className="form-row-2">
                       <div className="form-group">
                         <label className="form-label">Company Email *</label>
-                        <input 
+                        <input
                           type="email"
                           required
-                          placeholder="Company Email"
+                          placeholder="Email"
                           value={heroForm.companyEmail}
                           onChange={(e) => setHeroForm({ ...heroForm, companyEmail: e.target.value })}
                           className="form-input cyber-input"
@@ -279,11 +279,11 @@ export default function ITStaffingPage({ onOpenContact }) {
 
                       <div className="form-group">
                         <label className="form-label">Mobile Number *</label>
-                        <input 
+                        <input
                           type="tel"
                           required
-                          placeholder="Mobile Number"
                           pattern="[0-9()#&amp;+*-=.]+"
+                          placeholder="Your Contact Number"
                           value={heroForm.mobileNumber}
                           onChange={(e) => setHeroForm({ ...heroForm, mobileNumber: e.target.value })}
                           className="form-input cyber-input"
@@ -322,8 +322,8 @@ export default function ITStaffingPage({ onOpenContact }) {
                     </div>
 
                     {/* Submit Button */}
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       className="hero-submit-btn neon-flame-btn"
                       disabled={heroFormSubmitting}
                     >
@@ -465,8 +465,8 @@ export default function ITStaffingPage({ onOpenContact }) {
               <p className="scenario-card-desc" style={{ color: 'rgba(255,255,255,0.92)' }}>
                 You might require additional HR assistance. <strong>This is where we can offer support!</strong> We take over sourcing, background checks, and payroll management.
               </p>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="scenario-action-btn"
                 onClick={() => openInquiryModal('Expansion HR Support')}
               >
@@ -510,8 +510,8 @@ export default function ITStaffingPage({ onOpenContact }) {
               Rapid multi-city deployment of technical squads, developers, QA engineers, and operations staff. Pre-screened talent pools ready for immediate onsite or remote integration.
             </p>
             <div className="way-card-action">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="way-learn-more"
                 onClick={() => openInquiryModal('Bulk Hiring Assistance')}
               >
@@ -534,8 +534,8 @@ export default function ITStaffingPage({ onOpenContact }) {
               Comprehensive payroll processing, salary disbursement, digital employee self-service slips, TDS calculations, and full monthly statutory filings with zero compliance slip-ups.
             </p>
             <div className="way-card-action">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="way-learn-more"
                 onClick={() => openInquiryModal('Payroll Operations Assistance')}
               >
@@ -558,8 +558,8 @@ export default function ITStaffingPage({ onOpenContact }) {
               Relieve leadership and core department heads from staffing friction. Focus 100% on product development, client acquisition, and core business growth while we manage human capital.
             </p>
             <div className="way-card-action">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="way-learn-more"
                 onClick={() => openInquiryModal('Strategic Staffing Partnership')}
               >
@@ -576,8 +576,8 @@ export default function ITStaffingPage({ onOpenContact }) {
             <h4>Ready to discuss your contractual staff requirements?</h4>
             <p>Our talent advisors will configure an agile staffing model custom tailored to your timelines.</p>
           </div>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="enquire-cta-btn neon-flame-btn"
             onClick={() => openInquiryModal('Enquire Now')}
           >
@@ -811,8 +811,8 @@ export default function ITStaffingPage({ onOpenContact }) {
 
         {/* SECTION 7 CTA Button: Contact Now */}
         <div className="contact-now-action-row">
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="contact-now-btn neon-flame-btn"
             onClick={scrollToHeroForm}
           >
@@ -869,9 +869,9 @@ export default function ITStaffingPage({ onOpenContact }) {
           {/* Map Graphic Presentation Card */}
           <div className="compliance-graphic-frame">
             <div className="compliance-img-container">
-              <img 
-                src="/it-staffing/staffing-compliance.png" 
-                alt="28 States Compliance Expertise Black Grapes Softech" 
+              <img
+                src="/it-staffing/staffing-compliance.png"
+                alt="28 States Compliance Expertise Black Grapes Softech"
                 className="compliance-showcase-img"
               />
             </div>
@@ -887,44 +887,7 @@ export default function ITStaffingPage({ onOpenContact }) {
         </div>
       </section>
 
-      {/* =========================================================================
-          DIRECT CONTACT & HELPLINE BAR
-          ========================================================================= */}
-      <section className="content-wrapper" style={{ paddingBottom: '5rem' }}>
-        <div className="direct-helpline-box translucent-glass-panel">
-          <div className="helpline-info">
-            <div className="helpline-badge cyber-glass-badge">Direct Staffing Helpline</div>
-            <h3 className="helpline-heading">Ready to hire contractual staff for your company?</h3>
-            <div className="helpline-contact-row">
-              <a href="tel:+917470997884" className="helpline-link">
-                <Phone size={16} color="#f86200" />
-                <span>+91 7470997884</span>
-              </a>
-              <span className="helpline-sep">•</span>
-              <a href="tel:+916262414463" className="helpline-link">
-                <Phone size={16} color="#f86200" />
-                <span>+91 6262414463</span>
-              </a>
-              <span className="helpline-sep">•</span>
-              <a href="mailto:info@blackgrapessoftech.com" className="helpline-link">
-                <Mail size={16} color="#c084fc" />
-                <span>info@blackgrapessoftech.com</span>
-              </a>
-            </div>
-          </div>
 
-          <div className="helpline-actions">
-            <button
-              type="button"
-              className="helpline-cta-btn neon-flame-btn"
-              onClick={() => openInquiryModal('Direct Staffing Helpline')}
-            >
-              <span>Contact Staffing Team</span>
-              <ArrowRight size={16} />
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* =========================================================================
           AUTHENTIC INQUIRY MODAL (Request a Demo / Enquiry / Get the Offer)
@@ -932,9 +895,9 @@ export default function ITStaffingPage({ onOpenContact }) {
       {modalOpen && (
         <div className="modal-backdrop-overlay" onClick={() => setModalOpen(false)}>
           <div className="modal-container-card translucent-glass-panel" onClick={(e) => e.stopPropagation()}>
-            <button 
-              type="button" 
-              className="modal-close-trigger" 
+            <button
+              type="button"
+              className="modal-close-trigger"
               onClick={() => setModalOpen(false)}
               aria-label="Close modal"
             >
@@ -958,10 +921,10 @@ export default function ITStaffingPage({ onOpenContact }) {
                 <form onSubmit={handleModalSubmit} className="modal-form-body">
                   <div className="modal-input-group">
                     <label className="modal-label">Your Name *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
-                      placeholder="Your name"
+                      placeholder="Name"
                       value={modalForm.name}
                       onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
                       className="modal-text-input cyber-input"
@@ -970,10 +933,10 @@ export default function ITStaffingPage({ onOpenContact }) {
 
                   <div className="modal-input-group">
                     <label className="modal-label">Your Email *</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       required
-                      placeholder="Your email"
+                      placeholder="Email"
                       value={modalForm.email}
                       onChange={(e) => setModalForm({ ...modalForm, email: e.target.value })}
                       className="modal-text-input cyber-input"
@@ -982,10 +945,10 @@ export default function ITStaffingPage({ onOpenContact }) {
 
                   <div className="modal-input-group">
                     <label className="modal-label">Your Contact Number *</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       required
-                      placeholder="Your Contact"
+                      placeholder="Your Contact Number"
                       value={modalForm.contact}
                       onChange={(e) => setModalForm({ ...modalForm, contact: e.target.value })}
                       className="modal-text-input cyber-input"
@@ -1015,15 +978,15 @@ export default function ITStaffingPage({ onOpenContact }) {
                     <label className="modal-label">Your Message</label>
                     <textarea
                       rows={3}
-                      placeholder="Your message / specific project requirements"
+                      placeholder="Your Message"
                       value={modalForm.message}
                       onChange={(e) => setModalForm({ ...modalForm, message: e.target.value })}
                       className="modal-textarea-input cyber-input"
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="modal-submit-btn neon-flame-btn"
                     disabled={modalSubmitting}
                   >
@@ -1056,7 +1019,7 @@ export default function ITStaffingPage({ onOpenContact }) {
       {/* =========================================================================
           FLOATING WHATSAPP BUTTON (Authentic Widget)
           ========================================================================= */}
-      <a 
+      <a
         href="https://wa.me/917470997884?text=Hello%20Black%20Grapes%20Softech,%20I%20want%20to%20inquire%20about%20IT%20Staffing%20Services"
         target="_blank"
         rel="noopener noreferrer"

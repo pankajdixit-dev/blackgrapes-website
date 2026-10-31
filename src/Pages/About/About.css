@@ -985,3 +985,13 @@
     margin: 1rem;
   }
 }
+
+/* SS1 Matched Text Gradient for About Headings */
+.text-gradient {
+  background: linear-gradient(135deg, #f86200 0%, #ff8c3b 40%, #c084fc 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}

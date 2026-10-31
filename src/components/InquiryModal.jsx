@@ -90,8 +90,8 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
                   <label>Full Name *</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. Rahul Sharma" 
                     required 
+                    placeholder="Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
@@ -100,8 +100,8 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
                   <label>Official Email *</label>
                   <input 
                     type="email" 
-                    placeholder="name@company.com" 
                     required 
+                    placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -113,8 +113,8 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
                   <label>Phone / WhatsApp Number *</label>
                   <input 
                     type="tel" 
-                    placeholder="+91 98930 XXXXX" 
                     required 
+                    placeholder="Your Contact Number"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
@@ -123,7 +123,7 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
                   <label>Company / Organization Name</label>
                   <input 
                     type="text" 
-                    placeholder="Company or Firm Name" 
+                    placeholder="Company Name"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   />
@@ -180,8 +180,8 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
               <div className="form-group">
                 <label>Project Scope or Requirements Overview</label>
                 <textarea 
-                  rows="3" 
-                  placeholder="Share a brief overview of your business goals, target deliverables, or specific requirements..."
+                  rows="3"
+                  placeholder="Your Message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 ></textarea>

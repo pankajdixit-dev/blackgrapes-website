@@ -81,7 +81,7 @@ export default function DemoModal({ isOpen, onClose }) {
                   type="text"
                   name="name"
                   required
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="Name"
                   value={formData.name}
                   onChange={handleChange}
                   className="form-input"
@@ -97,7 +97,7 @@ export default function DemoModal({ isOpen, onClose }) {
                     type="email"
                     name="email"
                     required
-                    placeholder="name@company.com"
+                    placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
                     className="form-input"
@@ -112,7 +112,7 @@ export default function DemoModal({ isOpen, onClose }) {
                     type="tel"
                     name="phone"
                     required
-                    placeholder="+91 98765 43210"
+                    placeholder="Your Contact Number"
                     value={formData.phone}
                     onChange={handleChange}
                     className="form-input"
@@ -149,7 +149,7 @@ export default function DemoModal({ isOpen, onClose }) {
                 <textarea
                   name="message"
                   rows="3"
-                  placeholder="Tell us about your project vision, timeline, or specific challenges..."
+                  placeholder="Your Message"
                   value={formData.message}
                   onChange={handleChange}
                   className="form-textarea"

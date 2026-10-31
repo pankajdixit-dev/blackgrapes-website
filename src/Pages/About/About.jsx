@@ -525,75 +525,9 @@ export default function About({ onOpenDemoModal }) {
         </div>
       </section>
 
-      {/* ========================================================
-          8. CULTURE & HEADQUARTERS
-          ======================================================== */}
-      <section className="hq-section">
-        <div className="container">
-          <div className="hq-grid">
-            <div className="hq-image-box">
-              <img
-                src={workspaceImg}
-                alt="Black Grapes Softech Office & Engineering Culture"
-                className="hq-img"
-              />
-              <div className="hq-location-tag">
-                <Building2 size={16} className="text-orange" />
-                <span>Indore Tech Hub — Madhya Pradesh, India</span>
-              </div>
-            </div>
+      
 
-            <div className="hq-text-box">
-              <span className="badge">
-                <Building2 size={14} /> HEADQUARTERS & CULTURE
-              </span>
-              <h2 className="hq-title">
-                Where Passionate Technologists Thrive
-              </h2>
-              <p className="hq-paragraph">
-                Situated at <strong>252-F/H Scheme No 54, Vijaynagar, Indore</strong>, our software development center is where bold ideas turn into robust reality.
-              </p>
-              <p className="hq-paragraph">
-                We cultivate an open culture of perpetual learning, deep code reviews, creative freedom, and rigorous problem-solving. This energetic environment inspires our engineers to push boundaries and build applications that inspire.
-              </p>
-
-              <div className="hq-highlights-grid">
-                <div className="hq-item">
-                  <span className="hq-item-num">50+</span>
-                  <span className="hq-item-label">In-House Engineers & Designers</span>
-                </div>
-                <div className="hq-item">
-                  <span className="hq-item-num">100%</span>
-                  <span className="hq-item-label">Code Quality & Transparency</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================
-          9. FINAL CALL TO ACTION
-          ======================================================== */}
-      <section className="about-final-cta">
-        <div className="container">
-          <div className="final-cta-banner">
-            <div className="cta-ambient"></div>
-            <h2 className="final-cta-heading">
-              Ready to Accelerate Your Business With Custom Tech?
-            </h2>
-            <p className="final-cta-text">
-              Speak directly with our technical leadership. Let's design, engineer, and deploy your software solution with unmatched precision.
-            </p>
-            <div className="final-cta-buttons">
-              <button onClick={onOpenDemoModal} className="btn btn-primary btn-glow">
-                <span>Book a Technical Discovery Session</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ShoppingBag, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowRight, 
-  ExternalLink, 
-  ShieldCheck, 
-  Truck, 
-  RefreshCw, 
-  Tag, 
-  Phone, 
-  Mail, 
-  Store, 
-  Users, 
-  Lock, 
-  Zap, 
-  Clock, 
-  Check, 
+import {
+  ShoppingBag,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+  ExternalLink,
+  ShieldCheck,
+  Truck,
+  RefreshCw,
+  Tag,
+  Phone,
+  Mail,
+  Store,
+  Users,
+  Lock,
+  Zap,
+  Clock,
+  Check,
   X,
   MessageCircle,
   Copy
@@ -72,9 +72,9 @@ export default function EcommercePage({ onOpenContact }) {
           {/* Subtitle & Official Byline */}
           <div className="ecommerce-byline">
             <span className="byline-tag">An Online Marketplace By Black Grapes Softech</span>
-            <button 
-              type="button" 
-              className="domain-badge-btn" 
+            <button
+              type="button"
+              className="domain-badge-btn"
               onClick={handleCopyDomain}
               title="Click to copy official website URL"
             >
@@ -95,9 +95,9 @@ export default function EcommercePage({ onOpenContact }) {
 
           {/* Action Buttons */}
           <div className="hero-actions-row">
-            <button 
-              type="button" 
-              className="btn-primary" 
+            <button
+              type="button"
+              className="btn-primary"
               onClick={() => setWaitlistModalOpen(true)}
               style={{ padding: '0.85rem 1.85rem', fontSize: '1rem' }}
             >
@@ -105,10 +105,10 @@ export default function EcommercePage({ onOpenContact }) {
               <ArrowRight size={16} />
             </button>
 
-            <a 
-              href="https://www.nayapuranabazaar.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://www.nayapuranabazaar.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary"
               style={{ padding: '0.85rem 1.6rem', fontSize: '0.95rem' }}
             >
@@ -194,8 +194,8 @@ export default function EcommercePage({ onOpenContact }) {
           {(activeTab === 'all' || activeTab === 'new') && (
             <div className="product-pillar-card">
               <div className="pillar-image-wrap">
-                <img 
-                  src="/ecommerce/new-products.jpg" 
+                <img
+                  src="/ecommerce/new-products.jpg"
                   alt="New Products Household Appliances on Naya Purana Bazaar"
                   className="pillar-image"
                 />
@@ -240,9 +240,9 @@ export default function EcommercePage({ onOpenContact }) {
                 </div>
 
                 <div className="pillar-action-row">
-                  <button 
-                    type="button" 
-                    className="btn-primary" 
+                  <button
+                    type="button"
+                    className="btn-primary"
                     onClick={() => setWaitlistModalOpen(true)}
                     style={{ flex: 1, justifyContent: 'center' }}
                   >
@@ -258,8 +258,8 @@ export default function EcommercePage({ onOpenContact }) {
           {(activeTab === 'all' || activeTab === 'used') && (
             <div className="product-pillar-card">
               <div className="pillar-image-wrap">
-                <img 
-                  src="/ecommerce/used-products.jpg" 
+                <img
+                  src="/ecommerce/used-products.jpg"
                   alt="Used Products Certified Pre-Owned on Naya Purana Bazaar"
                   className="pillar-image"
                 />
@@ -304,9 +304,9 @@ export default function EcommercePage({ onOpenContact }) {
                 </div>
 
                 <div className="pillar-action-row">
-                  <button 
-                    type="button" 
-                    className="btn-primary" 
+                  <button
+                    type="button"
+                    className="btn-primary"
                     onClick={() => setWaitlistModalOpen(true)}
                     style={{ flex: 1, justifyContent: 'center', background: '#10b981' }}
                   >
@@ -374,87 +374,17 @@ export default function EcommercePage({ onOpenContact }) {
         </div>
       </section>
 
-      {/* Merchant / Vendor Onboarding CTA Banner */}
-      <section className="content-wrapper" style={{ padding: '2rem 1.5rem 4rem' }}>
-        <div className="merchant-banner-card">
-          <div className="merchant-info-col">
-            <span className="badge-pill" style={{ background: 'rgba(248, 98, 0, 0.2)', color: '#ff7a1a', border: '1px solid rgba(248, 98, 0, 0.4)', marginBottom: '0.75rem' }}>
-              <Store size={13} /> Seller & Merchant Program
-            </span>
-            <h3 className="merchant-title">Are you a Retailer, Wholesaler or Second-Hand Seller?</h3>
-            <p className="merchant-desc">
-              Pre-register your store on Naya Purana Bazaar today! Enjoy <strong>0% Marketplace Commission</strong> for the first 3 months of launch, free featured store placement, and dedicated merchant onboarding support from Black Grapes Softech.
-            </p>
-            <div className="merchant-perks-row">
-              <span>✓ 0% Platform Commission (90 Days)</span>
-              <span>✓ Priority Product Placement</span>
-              <span>✓ Instant Daily Bank Payouts</span>
-            </div>
-          </div>
 
-          <div className="merchant-cta-col">
-            <button 
-              type="button" 
-              className="btn-primary" 
-              onClick={() => {
-                setFormData(prev => ({ ...prev, interest: 'seller' }));
-                setWaitlistModalOpen(true);
-              }}
-              style={{ width: '100%', justifyContent: 'center', padding: '0.9rem 1.5rem' }}
-            >
-              <span>Pre-Register as Seller</span>
-              <ArrowRight size={16} />
-            </button>
-            <a 
-              href="tel:+917470997884" 
-              className="merchant-call-link"
-            >
-              <Phone size={14} color="#f86200" />
-              <span>Merchant Hotline: +91 7470997884</span>
-            </a>
-          </div>
-        </div>
-      </section>
 
-      {/* Direct Contact Bar */}
-      <section className="content-wrapper" style={{ paddingBottom: '5rem' }}>
-        <div className="services-quick-contact">
-          <div className="quick-contact-info">
-            <div className="quick-contact-tag">Black Grapes Softech • Ecommerce Division</div>
-            <div className="quick-contact-title">Have questions about Naya Purana Bazaar?</div>
-            <div className="quick-contact-numbers">
-              <a href="tel:+917470997884" className="quick-contact-link">
-                <Phone size={15} /> +91 7470997884
-              </a>
-              <span className="contact-sep">•</span>
-              <a href="tel:+916262414463" className="quick-contact-link">
-                <Phone size={15} /> +91 6262414463
-              </a>
-              <span className="contact-sep">•</span>
-              <a href="mailto:info@blackgrapessoftech.com" className="quick-contact-link">
-                <Mail size={15} /> info@blackgrapessoftech.com
-              </a>
-            </div>
-          </div>
 
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={() => setWaitlistModalOpen(true)}
-          >
-            <span>Request Demo / Launch Offer</span>
-            <ArrowRight size={16} />
-          </button>
-        </div>
-      </section>
 
       {/* Pre-Launch Waitlist / Get The Offer Modal */}
       {waitlistModalOpen && (
         <div className="modal-overlay" onClick={() => setWaitlistModalOpen(false)}>
           <div className="modal-dialog-black" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
-            <button 
-              type="button" 
-              className="modal-close-btn" 
+            <button
+              type="button"
+              className="modal-close-btn"
               onClick={() => setWaitlistModalOpen(false)}
             >
               <X size={20} />
@@ -479,10 +409,10 @@ export default function EcommercePage({ onOpenContact }) {
                     <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#f1f5f9', marginBottom: '0.35rem' }}>
                       Full Name *
                     </label>
-                    <input 
-                      type="text" 
-                      required 
-                      placeholder="Enter your name" 
+                    <input
+                      type="text"
+                      required
+                      placeholder="Name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="black-search-input"
@@ -495,10 +425,10 @@ export default function EcommercePage({ onOpenContact }) {
                       <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#f1f5f9', marginBottom: '0.35rem' }}>
                         Phone Number *
                       </label>
-                      <input 
-                        type="tel" 
-                        required 
-                        placeholder="+91 98765 43210" 
+                      <input
+                        type="tel"
+                        required
+                        placeholder="Your Contact Number"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="black-search-input"
@@ -509,10 +439,10 @@ export default function EcommercePage({ onOpenContact }) {
                       <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#f1f5f9', marginBottom: '0.35rem' }}>
                         Email Address *
                       </label>
-                      <input 
-                        type="email" 
-                        required 
-                        placeholder="you@example.com" 
+                      <input
+                        type="email"
+                        required
+                        placeholder="Email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="black-search-input"
@@ -578,9 +508,9 @@ export default function EcommercePage({ onOpenContact }) {
                     </select>
                   </div>
 
-                  <button 
-                    type="submit" 
-                    className="btn-primary" 
+                  <button
+                    type="submit"
+                    className="btn-primary"
                     style={{ justifyContent: 'center', padding: '0.85rem', marginTop: '0.5rem', fontSize: '0.95rem' }}
                   >
                     <span>Claim Launch Pass & Discounts</span>
@@ -617,7 +547,7 @@ export default function EcommercePage({ onOpenContact }) {
       )}
 
       {/* Floating WhatsApp Us Button (Original Website Feature) */}
-      <a 
+      <a
         href="https://wa.me/917470997884?text=Hello%20Black%20Grapes%20Softech,%20I%20want%20to%20inquire%20about%20Naya%20Purana%20Bazaar%20Ecommerce%20Platform"
         target="_blank"
         rel="noopener noreferrer"

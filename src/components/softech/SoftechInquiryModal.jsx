@@ -117,7 +117,7 @@ export default function SoftechInquiryModal({ initialService, onClose }) {
                     name="name"
                     type="text"
                     required
-                    placeholder="e.g. Sameer Verma"
+                    placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
                     className="form-input"
@@ -135,7 +135,7 @@ export default function SoftechInquiryModal({ initialService, onClose }) {
                       name="email"
                       type="email"
                       required
-                      placeholder="sameer@company.com"
+                      placeholder="Email"
                       value={formData.email}
                       onChange={handleChange}
                       className="form-input"
@@ -152,7 +152,7 @@ export default function SoftechInquiryModal({ initialService, onClose }) {
                       name="phone"
                       type="tel"
                       required
-                      placeholder="+91 98000 00000"
+                      placeholder="Your Contact Number"
                       value={formData.phone}
                       onChange={handleChange}
                       className="form-input"
@@ -196,7 +196,7 @@ export default function SoftechInquiryModal({ initialService, onClose }) {
                   id="sf-msg"
                   name="message"
                   rows={3}
-                  placeholder="Tell us about features, timeline, target platforms..."
+                  placeholder="Your Message"
                   value={formData.message}
                   onChange={handleChange}
                   className="form-input"

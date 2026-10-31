@@ -50,8 +50,8 @@ export const servicesData = [
     title: "Black Grapes Investment & Securities",
     tagline: "Financial & Investment Services",
     description: "Black Grapes Investment Pvt. Ltd. is a trusted and reliable financial services company specializing in investment managemen.",
-    image: "/services-logos/investment.jpg",
-    remoteImage: "https://blackgrapesinvestments.com/static/media/logo-invest.edaad81845c941fb8f3d.jpeg",
+    image: "/services-logos/valuers.webp",
+    remoteImage: "https://www.blackgrapesvaluers.com/wp-content/uploads/2023/12/LOGO.webp",
     url: "https://blackgrapesinvestments.com/",
     category: "investment",
     accentColor: "#3b82f6"
@@ -72,8 +72,8 @@ export const servicesData = [
     title: "Black Grapes Insurance Surveyors & Loss Assessors",
     tagline: "Insurance Survey & Loss Assessment",
     description: "This is a trusted name in the insurance industry, specializing in providing accurate, unbiased, and professional survey and loss assessment services.",
-    image: "/services-logos/insurance.jpg",
-    remoteImage: "https://blackgrapesinvestments.com/static/media/logo-invest.edaad81845c941fb8f3d.jpeg",
+    image: "/services-logos/valuers.webp",
+    remoteImage: "https://www.blackgrapesvaluers.com/wp-content/uploads/2023/12/LOGO.webp",
     url: "https://www.blackgrapesgroup.com/aso",
     category: "insurance",
     accentColor: "#f43f5e"

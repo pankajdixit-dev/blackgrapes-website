@@ -473,8 +473,8 @@ export default function ContactUsPage({ onOpenModal }) {
                         id="contact-form-name"
                         type="text"
                         required
+                        placeholder="Name"
                         className="form-input"
-                        placeholder="e.g. John Doe / Rakesh Sharma"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       />
@@ -489,8 +489,8 @@ export default function ContactUsPage({ onOpenModal }) {
                           id="contact-form-phone"
                           type="tel"
                           required
+                          placeholder="Your Contact Number"
                           className="form-input"
-                          placeholder="e.g. +91 7470997884"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         />
@@ -504,8 +504,8 @@ export default function ContactUsPage({ onOpenModal }) {
                           id="contact-form-email"
                           type="email"
                           required
+                          placeholder="Email"
                           className="form-input"
-                          placeholder="e.g. name@domain.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
@@ -535,8 +535,8 @@ export default function ContactUsPage({ onOpenModal }) {
                       <textarea
                         id="contact-form-msg"
                         rows="3"
+                        placeholder="Your Message"
                         className="form-textarea"
-                        placeholder="Tell us what you want to achieve, features required, tech stack preference..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       ></textarea>

@@ -1236,7 +1236,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-title-accent {
   display: block;
-  background: linear-gradient(135deg, #f86200 0%, #ff7a1a 50%, #fba721 100%);
+  background: linear-gradient(135deg, #f86200 0%, #ff8c3b 40%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -2162,7 +2162,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-title-accent {
-  background: linear-gradient(135deg, #ff7a1a 0%, #f86200 48%, #fba721 100%);
+  background: linear-gradient(135deg, #f86200 0%, #ff8c3b 40%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3493,10 +3493,28 @@ h1, h2, h3, h4, h5, h6 {
   background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.03) 0%, transparent 70%);
 }
 
+.industries-section {
+  padding: 3.5rem 0 1.5rem !important;
+}
+
 .industries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
+}
+
+@media (max-width: 1200px) {
+  .industries-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .industries-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
 }
 
 .industry-card {
@@ -4107,7 +4125,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
 }
 .neon-flame-text {
-  background: linear-gradient(135deg, #ff7a1a 0%, #f86200 60%, #fba721 100%);
+  background: linear-gradient(135deg, #f86200 0%, #ff8c3b 40%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

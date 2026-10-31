@@ -36,7 +36,7 @@ export default function IndustriesSection({ onOpenModal }) {
         <div className="industries-grid">
           {INDUSTRIES.map((ind, idx) => (
             <div key={idx} className="industry-card">
-              <div className="industry-icon-wrapper">
+              <div className="industry-icon-wrapper" style={{ margin: "0 auto 1.25rem" }}>
                 <span className="industry-icon-emoji">{getIndustryIcon(ind.name)}</span>
               </div>
               <h3 className="industry-name">{ind.name}</h3>

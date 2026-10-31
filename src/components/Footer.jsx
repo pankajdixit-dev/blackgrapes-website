@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
   MapPin, 
@@ -13,7 +13,44 @@ import {
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/siteData';
 
+// Social Channel SVG Icons
+const LinkedinIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
+
+const TwitterIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
+  </svg>
+);
+
+const YoutubeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  </svg>
+);
+
 export default function Footer({ onOpenModal, onOpenInquiry }) {
+  const location = useLocation();
+  const hideTopCta = ['/services', '/products', '/our-products', '/softech-services'].some(p => 
+    location.pathname.toLowerCase().startsWith(p)
+  );
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -38,34 +75,8 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
 
   return (
     <footer className="site-footer">
-      {/* Top CTA Banner */}
-      <div className="container footer-cta-container">
-        <div className="footer-cta-card">
-          <div className="cta-left">
-            <span className="badge-pill mb-2">✨ Transform Your Vision</span>
-            <h3 className="footer-cta-title">
-              Ready to Accelerate Your Business with <span className="text-gradient">Next-Gen Tech</span>?
-            </h3>
-            <p className="footer-cta-desc">
-              From enterprise software engineering and bespoke mobile apps to certified asset valuation and statutory approvals.
-            </p>
-          </div>
-          <div className="cta-right">
-            <button
-              type="button"
-              className="btn btn-primary cta-btn"
-              onClick={() => handleOpenAction('Free Consultation & Proposal')}
-            >
-              <Sparkles size={16} />
-              <span>Request Free Consultation</span>
-              <ArrowRight size={16} />
-            </button>
-            <Link to="/services" className="btn btn-secondary cta-btn">
-              Explore All Services
-            </Link>
-          </div>
-        </div>
-      </div>
+      {/* Top CTA Banner (Hidden on Services and Products pages as requested) */}
+      
 
       {/* Main Footer Directory */}
       <div className="container footer-main-content">
@@ -100,10 +111,56 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
             </div>
 
             <div className="social-links-row mt-3">
-              <a href="https://www.linkedin.com/in/black-grapes-softech/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-circle">in</a>
-              <a href="https://twitter.com/grapessoftech" target="_blank" rel="noreferrer" aria-label="Twitter" className="social-circle">𝕏</a>
-              <a href="https://www.instagram.com/blackgrapessoftech/" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-circle">ig</a>
-              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook" className="social-circle">fb</a>
+              <a
+                href="https://www.linkedin.com/in/black-grapes-softech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+                className="social-circle"
+              >
+                <LinkedinIcon />
+              </a>
+              <a
+                href="https://twitter.com/grapessoftech"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X"
+                title="Twitter / X"
+                className="social-circle"
+              >
+                <TwitterIcon />
+              </a>
+              <a
+                href="https://www.instagram.com/blackgrapessoftech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
+                className="social-circle"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://www.facebook.com/blackgrapessoftech.fb"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+                className="social-circle"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                title="YouTube"
+                className="social-circle"
+              >
+                <YoutubeIcon />
+              </a>
             </div>
           </div>
 
@@ -191,7 +248,6 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
                 <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="contact-link">
                   {COMPANY_INFO.phones[0]}
                 </a>
-                <span className="text-dim">, </span>
                 <a href={`tel:${COMPANY_INFO.phones[1].replace(/\s+/g, '')}`} className="contact-link">
                   {COMPANY_INFO.phones[1]}
                 </a>

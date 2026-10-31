@@ -438,6 +438,8 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  margin-left: 2.25rem;
+  flex-shrink: 0;
 }
 
 .nav-phone-link {

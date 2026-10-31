@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   Cpu
 } from 'lucide-react';
-import '../Styles/Estimator.css';
+import '../styles/Estimator.css';
 
 export default function ServiceEstimator({ onInquireEstimate }) {
   const [domain, setDomain] = useState('software');

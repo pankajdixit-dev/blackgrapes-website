@@ -16,7 +16,7 @@ import {
   ArrowRight, 
   Sparkles 
 } from 'lucide-react';
-import '../Styles/Honeycomb.css';
+import '../styles/Honeycomb.css';
 
 export default function HoneycombIndustries({ onOpenInquiry }) {
   const [selectedIndustry, setSelectedIndustry] = useState(null);

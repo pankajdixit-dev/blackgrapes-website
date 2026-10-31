@@ -1,0 +1,425 @@
+/* ========================================================
+   SERVICES BRANCH STYLES (04 O'CLOCK RADIAL NETWORK - BLACK & ORANGE)
+   ======================================================== */
+
+.services-branch-section {
+  width: 100%;
+  position: relative;
+  padding: 90px 0 110px;
+  overflow: hidden;
+  user-select: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 0, 0.16) 0%, transparent 70%);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.gradient-gold-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Top Live Badge */
+.hub-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-orange-light);
+  text-transform: uppercase;
+  background: rgba(255, 107, 0, 0.15);
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  padding: 4px 14px;
+  border-radius: 99px;
+  margin-bottom: 1.25rem;
+}
+
+.live-dot-ping {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff6b00;
+  box-shadow: 0 0 10px #ff6b00;
+  animation: pulseGlow 1.8s infinite;
+}
+
+.services-branch-container {
+  position: relative;
+  width: 100%;
+  max-width: 1380px;
+  margin: 3.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.services-branch-layout {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  min-height: 820px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.services-svg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.branch-path {
+  transition: all 0.35s ease;
+}
+
+.branch-path.active-path {
+  filter: drop-shadow(0 0 10px rgba(255, 107, 0, 0.9));
+}
+
+/* Central Black Grapes Radar Hub */
+.services-center-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: #000000;
+  border: 3px solid #ff6b00;
+  box-shadow: 0 0 50px rgba(255, 107, 0, 0.5), inset 0 0 30px rgba(255, 107, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.services-center-hub:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 0 70px rgba(255, 107, 0, 0.7), inset 0 0 35px rgba(255, 107, 0, 0.35);
+}
+
+/* Radar Ping Waves */
+.hub-radar-ring {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 107, 0, 0.6);
+  pointer-events: none;
+  animation: radarPing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  z-index: -1;
+}
+
+.hub-radar-ring.ring-2 {
+  animation-delay: 1.75s;
+}
+
+@keyframes radarPing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+.hub-ambient-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 0, 0.35) 0%, transparent 70%);
+  animation: pulseGlow 3s infinite alternate;
+}
+
+.hub-inner-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 107, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  overflow: hidden;
+}
+
+.hub-grapes-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  opacity: 0.65;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 1;
+}
+
+.services-center-hub:hover .hub-grapes-img {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+.hub-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.92) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hub-clock-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  z-index: 3;
+  position: relative;
+}
+
+.hub-brand-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.hub-brand-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--brand-orange-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.hub-time-display {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid rgba(255, 107, 0, 0.5);
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-top: 4px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Service Pill Columns */
+.services-column-left,
+.services-column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  z-index: 20;
+  width: 440px;
+}
+
+.service-pill-card {
+  background: #000000;
+  border: 1.5px solid rgba(255, 107, 0, 0.32);
+  border-radius: 100px;
+  padding: 14px 22px 14px 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  height: 94px;
+  box-sizing: border-box;
+}
+
+.service-pill-card:hover,
+.service-pill-card.active {
+  border-color: #ff6b00;
+  background: #000000;
+  box-shadow: 0 14px 35px rgba(255, 107, 0, 0.4), 0 0 20px rgba(255, 107, 0, 0.25);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.service-pill-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #000000;
+  border: 1.5px solid rgba(255, 107, 0, 0.45);
+  color: var(--brand-orange-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.service-pill-card:hover .service-pill-icon,
+.service-pill-card.active .service-pill-icon {
+  transform: scale(1.08) rotate(5deg);
+  background: var(--gradient-brand);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 0 18px rgba(255, 107, 0, 0.6);
+}
+
+.service-pill-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pill-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2px;
+}
+
+.pill-number {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-orange);
+  letter-spacing: 0.06em;
+}
+
+.pill-tag-badge {
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-orange-light);
+  background: rgba(255, 107, 0, 0.15);
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.service-pill-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.service-pill-desc {
+  font-size: 0.76rem;
+  color: #a1a1aa;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pill-arrow-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #000000;
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-orange-light);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.service-pill-card:hover .pill-arrow-indicator,
+.service-pill-card.active .pill-arrow-indicator {
+  background: var(--brand-orange);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateX(3px);
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+}
+
+.branch-mobile-hint {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--brand-orange-light);
+  background: #000000;
+  border: 1px solid rgba(255, 107, 0, 0.45);
+  padding: 6px 14px;
+  border-radius: 99px;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .services-column-left,
+  .services-column-right {
+    width: 380px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .services-svg-canvas {
+    display: none;
+  }
+  .services-branch-layout {
+    flex-direction: column;
+    min-height: auto;
+    gap: 2rem;
+  }
+  .services-center-hub {
+    position: static;
+    transform: none;
+    margin: 1.5rem auto;
+  }
+  .services-center-hub:hover {
+    transform: scale(1.04);
+  }
+  .services-column-left,
+  .services-column-right {
+    width: 100%;
+    max-width: 600px;
+    gap: 1.25rem;
+  }
+  .branch-mobile-hint {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .service-pill-card {
+    height: auto;
+    padding: 14px 18px;
+    border-radius: 20px;
+  }
+  .service-pill-title,
+  .service-pill-desc {
+    white-space: normal;
+  }
+}

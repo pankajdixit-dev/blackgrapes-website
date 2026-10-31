@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sparkles, Compass, ShieldCheck } from 'lucide-react';
-import '../Styles/ClockPhilosophy.css';
+import '../styles/ClockPhilosophy.css';
 
 export default function ClockPhilosophy() {
   return (

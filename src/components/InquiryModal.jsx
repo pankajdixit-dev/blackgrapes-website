@@ -9,7 +9,7 @@ import {
   Building, 
   FileText 
 } from 'lucide-react';
-import '../Styles/Modal.css';
+import '../styles/Modal.css';
 
 export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
   const [formData, setFormData] = useState({

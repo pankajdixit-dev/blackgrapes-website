@@ -9,7 +9,7 @@ import {
   ArrowRight,
   FileText
 } from 'lucide-react';
-import '../Styles/Modal.css';
+import '../styles/Modal.css';
 
 export default function ServiceModal({ service, onClose, onSelectForInquiry }) {
   if (!service) return null;

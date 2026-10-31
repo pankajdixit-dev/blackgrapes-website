@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Sparkles, Building, Mail, Phone, User, MessageSquare } from 'lucide-react';
-import '../Styles/DemoModal.css';
+import '../styles/DemoModal.css';
 
 export default function DemoModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({

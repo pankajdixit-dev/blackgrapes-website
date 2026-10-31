@@ -13,7 +13,7 @@ import {
   ExternalLink,
   ArrowRight
 } from 'lucide-react';
-import '../Styles/ServicesBranch.css';
+import '../styles/ServicesBranch.css';
 
 export default function ServicesBranch({ onSelectService, onOpenInquiry }) {
   const [activeServiceId, setActiveServiceId] = useState('01');

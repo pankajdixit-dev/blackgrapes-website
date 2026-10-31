@@ -27,7 +27,7 @@ import HoneycombIndustries from '../components/HoneycombIndustries';
 import ClockPhilosophy from '../components/ClockPhilosophy';
 import ServiceModal from '../components/ServiceModal';
 import ServiceEstimator from '../components/ServiceEstimator';
-import '../Styles/Services.css';
+import '../styles/Services.css';
 
 // All Services Data
 const servicesData = [

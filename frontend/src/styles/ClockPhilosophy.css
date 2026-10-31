@@ -205,6 +205,12 @@
   animation: pulseGlow 3s infinite alternate;
 }
 
+@media (max-width: 480px) {
+  .grapes-ambient-glow {
+    inset: -6px !important;
+  }
+}
+
 .grapes-img-container {
   position: relative;
   width: 100%;

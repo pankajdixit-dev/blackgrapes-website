@@ -208,7 +208,8 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
               onClick={() => handleOpenAction('Request a Demo')}
             >
               <span className="btn-sparkle">✨</span>
-              <span>Get Quote / Demo</span>
+              <span className="nav-cta-text-full">Get Quote / Demo</span>
+              <span className="nav-cta-text-short">Quote</span>
             </button>
 
             {/* Mobile Hamburger Toggle (hidden on desktop) */}

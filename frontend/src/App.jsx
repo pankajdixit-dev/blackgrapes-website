@@ -73,10 +73,12 @@ export default function App() {
         <ParticleCanvas />
 
         {/* Ambient Radial Lights / Glow Meshes */}
-        <div className="ambient-glow glow-top-left" aria-hidden="true"></div>
-        <div className="ambient-glow glow-hero-center" aria-hidden="true"></div>
-        <div className="ambient-glow glow-mid-right" aria-hidden="true"></div>
-        <div className="ambient-glow glow-bottom-left" aria-hidden="true"></div>
+        <div className="ambient-glow-wrapper" aria-hidden="true">
+          <div className="ambient-glow glow-top-left"></div>
+          <div className="ambient-glow glow-hero-center"></div>
+          <div className="ambient-glow glow-mid-right"></div>
+          <div className="ambient-glow glow-bottom-left"></div>
+        </div>
 
         {/* Top Navbar */}
         <Navbar 

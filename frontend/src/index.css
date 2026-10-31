@@ -156,8 +156,19 @@ button, input, select, textarea {
   z-index: 1;
 }
 
-.ambient-glow {
+.ambient-glow-wrapper {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-glow {
+  position: absolute;
   border-radius: 50%;
   filter: blur(120px);
   pointer-events: none;
@@ -450,6 +461,31 @@ button, input, select, textarea {
   letter-spacing: 0.12em;
   color: var(--brand-orange-light);
   margin-top: 2px;
+}
+
+/* Small Laptop (1025px - 1320px) Nav Compacting */
+@media (min-width: 1025px) and (max-width: 1320px) {
+  .desktop-nav {
+    gap: 0.1rem !important;
+  }
+  .nav-link {
+    padding: 0.45rem 0.42rem !important;
+    font-size: 0.82rem !important;
+  }
+  .navbar-actions {
+    margin-left: 0.85rem !important;
+    gap: 0.6rem !important;
+  }
+  .nav-cta-btn {
+    padding: 0.55rem 1rem !important;
+    font-size: 0.82rem !important;
+  }
+  .brand-logo {
+    gap: 0.65rem !important;
+  }
+  .brand-title {
+    font-size: 1.15rem !important;
+  }
 }
 
 /* Desktop Nav Links */
@@ -2538,15 +2574,22 @@ button, input, select, textarea {
 
 @media (max-width: 1200px) {
   .industries-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 992px) {
   .industries-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .industries-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 }
 
@@ -2560,6 +2603,11 @@ button, input, select, textarea {
   transition: all var(--transition-smooth);
   text-align: center;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  word-break: break-word;
 }
 
 .industry-card:hover {
@@ -2614,7 +2662,9 @@ button, input, select, textarea {
   cursor: pointer;
   transition: color var(--transition-fast);
   padding: 0;
-  white-space: nowrap;
+  white-space: normal !important;
+  text-align: center !important;
+  max-width: 100% !important;
 }
 
 .industry-explore-btn:hover {
@@ -4878,5 +4928,391 @@ html, body {
 
   .card-kpis {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==========================================================================
+   STRICT ROOT-CAUSE RESPONSIVE FIXES (Zero Overflow, Natural Wrap, 320px-1920px)
+   ========================================================================== */
+
+/* 1. Global Box Model & Media Fluidity */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+}
+
+img, video, canvas, svg {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* 2. Fluid Containers */
+.container {
+  width: 100% !important;
+  max-width: var(--container-max, 1280px) !important;
+  margin: 0 auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
+/* 3. Header & Navigation Fixes */
+@media (max-width: 1024px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+  .navbar-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+  .navbar-actions {
+    margin-left: auto !important;
+    gap: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+  .brand-logo {
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    display: none !important;
+  }
+  .nav-cta-text-full {
+    display: none !important;
+  }
+  .nav-cta-text-short {
+    display: inline !important;
+  }
+  .nav-cta-btn {
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 8px !important;
+    gap: 0.25rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .brand-title {
+    font-size: 1.05rem !important;
+  }
+  .brand-subtitle {
+    font-size: 0.58rem !important;
+  }
+  .logo-glow-wrapper {
+    width: 38px !important;
+    height: 38px !important;
+  }
+  .logo-img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-cta-btn {
+    display: none !important; /* Preserved in drawer & hero */
+  }
+  .brand-subtitle {
+    display: none !important;
+  }
+  .brand-title {
+    font-size: 0.95rem !important;
+  }
+  .mobile-toggle {
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+/* 4. Hero Section Root-Cause Overflow Fixes */
+.hero-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.hero-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.hero-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Hero Badge Pill */
+.hero-badge-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  white-space: normal !important;
+  padding: 0.4rem 0.85rem !important;
+  line-height: 1.35 !important;
+}
+
+.badge-text {
+  font-size: clamp(0.72rem, 2.4vw, 0.84rem) !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  line-height: 1.35 !important;
+}
+
+/* Hero Title & Inline Natural Wrapping */
+.hero-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.55rem, 5vw, 3.4rem) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.02em !important;
+  color: #ffffff !important;
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  box-sizing: border-box !important;
+}
+
+.hero-prefix {
+  display: block !important;
+  font-size: clamp(0.95rem, 3.2vw, 1.8rem) !important;
+  font-weight: 700 !important;
+  color: var(--brand-amber) !important;
+  margin-bottom: 0.25rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  word-break: break-word !important;
+}
+
+.hero-break {
+  display: inline !important;
+  word-break: break-word !important;
+}
+
+.hero-gradient-brand {
+  background: linear-gradient(135deg, #f86200 0%, #ff8c3b 40%, #c084fc 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline !important;
+  -webkit-box-decoration-break: clone !important;
+  box-decoration-break: clone !important;
+  text-shadow: 0 0 40px rgba(248, 98, 0, 0.3) !important;
+  word-break: break-word !important;
+}
+
+.hero-suffix {
+  font-size: clamp(0.85rem, 2.6vw, 1.45rem) !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+  display: inline !important;
+  margin-top: 0.4rem !important;
+  word-break: break-word !important;
+}
+
+.hero-description {
+  font-size: clamp(0.92rem, 2.6vw, 1.12rem) !important;
+  line-height: 1.65 !important;
+  color: var(--text-secondary) !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+}
+
+/* Hero Action CTA Buttons */
+.hero-cta-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 640px) {
+  .hero-cta-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  .hero-cta-group .btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+  }
+  .hero-link-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.65rem 1rem !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Hero Metrics Bar */
+@media (max-width: 640px) {
+  .hero-metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding-top: 1.25rem !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .hero-metric-divider {
+    display: none !important;
+  }
+  .hero-metric-item {
+    min-width: 0 !important;
+  }
+  .metric-number {
+    font-size: 1.5rem !important;
+  }
+  .metric-label {
+    font-size: 0.75rem !important;
+    word-break: break-word !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-metrics-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+}
+
+/* Hero Visual Showcase */
+.hero-visual,
+.hero-glass-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.code-block {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-sizing: border-box !important;
+}
+
+/* Tech Marquee */
+.tech-marquee-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* 5. All Section Grids Collapse for Mobile */
+@media (max-width: 768px) {
+  .industries-grid,
+  .projects-grid,
+  .services-grid,
+  .testimonials-grid,
+  .home-why-us-grid,
+  .why-us-grid,
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .tendering-callout-card,
+  .testimonial-featured-card,
+  .cta-banner-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1.15rem !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+  }
+  .section-title {
+    font-size: clamp(1.45rem, 5vw, 2.5rem) !important;
+    word-break: break-word !important;
+  }
+  .section-lead {
+    font-size: clamp(0.92rem, 2.5vw, 1.1rem) !important;
+    word-break: break-word !important;
+  }
+}
+
+/* 6. Floating Widgets Safe Positioning */
+@media (max-width: 640px) {
+  .floating-widgets-container {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    gap: 0.65rem !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+  .floating-whatsapp-btn {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .whatsapp-tooltip {
+    display: none !important;
+  }
+  .footer-bottom-container {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 0.85rem !important;
+  }
+  .footer-bottom-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+  }
+}
+
+/* 7. Form Inputs & Touch Targets */
+input, select, textarea {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS auto-zoom */
   }
 }

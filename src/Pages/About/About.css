@@ -995,3 +995,36 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+@media (max-width: 480px) {
+  .about-hero-section {
+    padding: 3.5rem 0 2.5rem;
+  }
+  .hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+  }
+  .hero-main-img {
+    height: clamp(220px, 55vw, 320px);
+  }
+  .hero-cta-group,
+  .final-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+  .hero-cta-group .btn,
+  .final-cta-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .founders-main-card,
+  .domains-box,
+  .tab-pane {
+    padding: 1.25rem 0.85rem;
+    border-radius: 16px;
+  }
+  .final-cta-banner {
+    padding: 2.25rem 1rem;
+    border-radius: 18px;
+  }
+}

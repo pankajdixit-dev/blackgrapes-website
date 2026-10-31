@@ -900,3 +900,17 @@
     font-size: 1.75rem;
   }
 }
+
+@media (max-width: 480px) {
+  .services-hero-title {
+    font-size: clamp(1.75rem, 6.2vw, 2.3rem) !important;
+  }
+  .cta-banner {
+    padding: 2rem 1rem !important;
+    border-radius: 18px !important;
+  }
+  .service-card-item {
+    padding: 1.25rem 0.85rem !important;
+    border-radius: 16px !important;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_INFO, NAV_LINKS } from '../data/siteData';
+import '../styles/Navbar.css';
 
 export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,6 +32,18 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
     setMobileMenuOpen(false);
     setActiveDropdown(null);
   }, [location.pathname]);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const toggleDropdown = (name) => {
     setActiveDropdown(activeDropdown === name ? null : name);
@@ -276,6 +289,20 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
                 </div>
               ))}
             </nav>
+
+            <div className="mobile-drawer-cta">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleOpenAction('Request a Demo');
+                }}
+              >
+                <span className="btn-sparkle">✨</span>
+                <span>Get Quote / Demo</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

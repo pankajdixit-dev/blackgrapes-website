@@ -399,3 +399,28 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+@media (max-width: 480px) {
+  .partner-hero-section {
+    padding: 3.5rem 0 2.5rem;
+  }
+  .partner-heading-main {
+    font-size: clamp(1.4rem, 5.5vw, 1.85rem) !important;
+  }
+  .partner-content-card,
+  .partner-form-box,
+  .bp-intro-card {
+    padding: 1.25rem 0.85rem;
+    border-radius: 16px;
+  }
+  .partner-form-box input,
+  .partner-form-box select,
+  .partner-form-box textarea {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 360px) {
+  .bp-partners-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

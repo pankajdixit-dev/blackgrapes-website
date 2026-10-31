@@ -4643,3 +4643,240 @@ button, input, select, textarea {
 .social-circle:hover svg {
   transform: scale(1.12);
 }
+
+
+/* ==========================================================================
+   GLOBAL COMPREHENSIVE RESPONSIVE ENHANCEMENTS (320px - 1920px)
+   ========================================================================== */
+
+/* Strict Horizontal Overflow Guard for Mobile Browsers */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  position: relative;
+}
+
+/* Fluid Responsive Typography */
+.hero-title {
+  font-size: clamp(1.75rem, 5.8vw, 3.4rem) !important;
+  line-height: 1.18 !important;
+}
+
+.hero-prefix {
+  font-size: clamp(1.05rem, 3.4vw, 1.8rem) !important;
+}
+
+.hero-suffix {
+  font-size: clamp(0.9rem, 2.8vw, 1.45rem) !important;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 5vw, 2.6rem) !important;
+}
+
+.page-hero-title {
+  font-size: clamp(1.75rem, 5.8vw, 3rem) !important;
+}
+
+/* Responsive Containers across Screen Breakpoints */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
+/* Mobile & Tablet Refinements (<= 1024px) */
+@media (max-width: 1024px) {
+  .top-bar {
+    display: none !important;
+  }
+  .hero-container {
+    grid-template-columns: 1fr !important;
+    gap: 2.75rem !important;
+  }
+}
+
+/* Tablet & Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 0 2rem !important;
+  }
+
+  .industries-grid,
+  .projects-grid,
+  .services-grid,
+  .testimonials-grid,
+  .home-why-us-grid,
+  .why-us-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .tendering-callout-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+}
+
+/* Small Smartphone Breakpoints (<= 640px) */
+@media (max-width: 640px) {
+  /* Hero Metrics: Clean 2x2 Grid with removed dividers */
+  .hero-metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+    padding-top: 1.5rem !important;
+  }
+
+  .hero-metric-divider {
+    display: none !important;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .floating-widgets-container {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .floating-whatsapp-btn {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .whatsapp-tooltip {
+    display: none !important;
+  }
+}
+
+/* Compact Mobile Breakpoints (<= 480px) */
+@media (max-width: 480px) {
+  .hero-cta-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .hero-cta-group .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .hero-link-btn {
+    justify-content: center !important;
+    padding: 0.6rem 1rem !important;
+  }
+
+  .hero-badge-pill {
+    max-width: 100% !important;
+    white-space: normal !important;
+    line-height: 1.35 !important;
+    padding: 0.4rem 0.85rem !important;
+  }
+
+  .hero-glass-card {
+    border-radius: 16px !important;
+  }
+
+  .glass-card-body {
+    padding: 1rem 0.85rem !important;
+  }
+
+  .code-block {
+    font-size: 0.72rem !important;
+    padding: 0.75rem !important;
+    overflow-x: auto !important;
+  }
+
+  .card-kpis {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.4rem !important;
+  }
+
+  .kpi-box {
+    padding: 0.5rem 0.25rem !important;
+    text-align: center !important;
+  }
+
+  .kpi-val {
+    font-size: 0.82rem !important;
+  }
+
+  .kpi-label {
+    font-size: 0.62rem !important;
+  }
+
+  .cta-banner-card {
+    padding: 2.25rem 1.25rem !important;
+  }
+
+  .cta-title {
+    font-size: clamp(1.5rem, 6.2vw, 2.2rem) !important;
+  }
+
+  .cta-buttons-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  .cta-buttons-group .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .service-card-modern,
+  .project-card,
+  .testimonial-card,
+  .why-us-card {
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 16px !important;
+  }
+
+  /* Prevent auto zoom on iOS inputs */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Extra Compact Screens (<= 360px: iPhone SE, Galaxy Fold) */
+@media (max-width: 360px) {
+  .hero-metrics-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .card-kpis {
+    grid-template-columns: 1fr !important;
+  }
+}

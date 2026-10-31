@@ -5611,3 +5611,30 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
+@media (max-width: 480px) {
+  .ecommerce-hero {
+    padding: 3.5rem 0 2rem !important;
+  }
+  .ecommerce-announcement-box,
+  .pillar-card-body,
+  .hero-form-card,
+  .expansion-card-v2,
+  .contingent-growth-section,
+  .compliance-expert-card,
+  .direct-helpline-box,
+  .testimonial-display-card {
+    padding: 1.25rem 0.85rem !important;
+    border-radius: 16px !important;
+  }
+  .staffing-hero-v2 {
+    padding: 3rem 0 2rem !important;
+  }
+  .hero-staffing-img {
+    height: clamp(200px, 50vw, 300px);
+  }
+  .floating-stat-badge {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}

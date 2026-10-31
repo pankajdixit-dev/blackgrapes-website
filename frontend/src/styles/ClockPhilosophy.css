@@ -176,8 +176,8 @@
 
 .grapes-visual-card {
   position: relative;
-  width: 360px;
-  height: 360px;
+  width: min(360px, 84vw);
+  height: min(360px, 84vw);
   border-radius: 50%;
   background: #000000;
   border: 3px solid #ff6b00;
@@ -281,5 +281,35 @@
   }
   .philosophy-pillar {
     padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-philosophy-section {
+    padding: 50px 0 65px;
+  }
+  .philosophy-main-title {
+    font-size: clamp(1.65rem, 6.5vw, 2.2rem);
+  }
+  .philosophy-pillar {
+    padding: 1.5rem 1rem;
+    border-radius: 20px;
+  }
+  .pillar-title {
+    font-size: 1.45rem;
+  }
+  .pillar-highlight-quote {
+    padding: 1rem 1rem 1rem 2.25rem;
+  }
+  .quote-mark {
+    font-size: 2.25rem;
+    left: 0.5rem;
+  }
+  .grapes-badge-label {
+    bottom: 12px;
+    padding: 4px 14px;
+  }
+  .badge-time {
+    font-size: 0.85rem;
   }
 }

@@ -11,16 +11,21 @@ function getDefaultSections(pageSlug) {
 // @access  Public / Admin
 export const getAllPagesSummary = async (req, res, next) => {
   try {
-    const docs = await PageContent.find({}, 'pageSlug sections updatedAt lastUpdatedBy');
+    let docs = [];
+    try {
+      docs = await PageContent.find({}, 'pageSlug sections updatedAt lastUpdatedBy').maxTimeMS(2500).lean();
+    } catch (e) {
+      docs = [];
+    }
     const docMap = {};
-    docs.forEach((d) => {
+    (docs || []).forEach((d) => {
       docMap[d.pageSlug] = d;
     });
 
     const pages = ALL_PAGE_DEFINITIONS.map((def) => {
       const doc = docMap[def.slug];
       const sections = doc?.sections || getDefaultSections(def.slug);
-      const sectionKeys = Object.keys(sections);
+      const sectionKeys = Object.keys(sections || {});
       const visibleCount = sectionKeys.filter((k) => sections[k]?.is_visible !== false).length;
       const unpublishedCount = sectionKeys.filter((k) => sections[k]?.has_unpublished_changes).length;
 
@@ -42,7 +47,26 @@ export const getAllPagesSummary = async (req, res, next) => {
       data: pages
     });
   } catch (error) {
-    next(error);
+    const fallbackPages = ALL_PAGE_DEFINITIONS.map((def) => {
+      const sections = getDefaultSections(def.slug);
+      const sectionKeys = Object.keys(sections || {});
+      return {
+        slug: def.slug,
+        name: def.name,
+        path: def.path,
+        totalSections: sectionKeys.length,
+        visibleSections: sectionKeys.length,
+        hasUnpublished: false,
+        lastUpdatedBy: 'System',
+        updatedAt: null
+      };
+    });
+    res.json({
+      success: true,
+      count: fallbackPages.length,
+      data: fallbackPages,
+      fallback: true
+    });
   }
 };
 

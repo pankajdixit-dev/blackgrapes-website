@@ -2,15 +2,19 @@
    GLOBAL APP LAYOUT & ROUTE HELPERS
    ======================================================== */
 
-.app-layout {
+.app-layout,
+.app-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  position: relative;
+  background-color: var(--bg-dark, #08070d);
 }
 
 .main-content {
   flex: 1 0 auto;
+  width: 100%;
 }
 
 /* Collaborative Workspace Placeholder */

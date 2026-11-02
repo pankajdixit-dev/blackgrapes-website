@@ -1,11 +1,29 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
+// Global Visuals & Modals from main branch
+import ParticleCanvas from './components/ParticleCanvas';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ContactModal from './components/ContactModal';
 import DemoModal from './components/DemoModal';
-import About from './Pages/About';
-import OurProducts from './Pages/OurProducts';
-import OurClients from './Pages/OurClients';
+import InquiryModal from './components/InquiryModal';
+import ServiceDetailModal from './components/ServiceDetailModal';
+import FloatingWidgets from './components/FloatingWidgets';
+import ScrollToTop from './components/ScrollToTop';
+
+// Public Pages from main branch
+import HomePage from './pages/HomePage';
+import About from './pages/About';
+import OurProducts from './pages/OurProducts';
+import OurClients from './pages/OurClients';
+import ServicesPage from './pages/Services';
+import SoftechServicesPage from './pages/SoftechServices';
+import ITStaffingPage from './pages/ITStaffing';
+import EcommercePage from './pages/Ecommerce';
+import ContactPage from './pages/Contact';
+import PartnershipPage from './pages/PartnershipPage';
+import BusinessPartnersPage from './pages/BusinessPartnersPage';
 
 // Code-Split Admin Panel for High Performance (Isolated in root /admin directory)
 const AdminLayout = lazy(() => import('@admin/components/AdminLayout'));
@@ -51,37 +69,50 @@ function AdminLoadingSpinner() {
   );
 }
 
-// Placeholder view for services/contact partner routes
-function PartnerRoutePlaceholder({ title, description, onOpenDemoModal }) {
-  return (
-    <div className="container partner-placeholder-section">
-      <div className="partner-placeholder-card glass-card text-center">
-        <span className="badge badge-purple mb-3">COLLABORATIVE WORKSPACE</span>
-        <h2 className="section-title">{title}</h2>
-        <p className="section-subtitle mb-4">{description}</p>
-        <div className="partner-actions">
-          <a href="/about" className="btn btn-primary">
-            Explore About Us Page
-          </a>
-          <button onClick={onOpenDemoModal} className="btn btn-secondary">
-            Request Demo
-          </button>
-        </div>
-      </div>
-      {/* Also show About Us preview below for comprehensive showcase */}
-      <div className="placeholder-about-preview">
-        <About onOpenDemoModal={onOpenDemoModal} />
-      </div>
-    </div>
-  );
-}
-
 function MainAppShell() {
-  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const location = useLocation();
 
-  const handleOpenDemoModal = () => setIsDemoModalOpen(true);
-  const handleCloseDemoModal = () => setIsDemoModalOpen(false);
+  // State for interactive modals from main branch
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    title: 'Request a Demo'
+  });
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [inquiryService, setInquiryService] = useState('');
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+
+  const handleOpenModal = (title = 'Request a Demo') => {
+    setModalState({
+      isOpen: true,
+      title
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalState({
+      isOpen: false,
+      title: 'Request a Demo'
+    });
+  };
+
+  const handleOpenInquiry = (serviceName = '') => {
+    setInquiryService(serviceName);
+    setInquiryModalOpen(true);
+  };
+
+  const handleCloseInquiry = () => {
+    setInquiryModalOpen(false);
+    setInquiryService('');
+  };
+
+  const handleOpenDemoModal = () => {
+    setDemoModalOpen(true);
+  };
+
+  const handleCloseDemoModal = () => {
+    setDemoModalOpen(false);
+  };
 
   const isAdminRoute = location.pathname.startsWith('/admin');
 
@@ -117,92 +148,159 @@ function MainAppShell() {
     );
   }
 
-  // Public Website Shell (100% UNTOUCHED DESIGN & LAYOUT)
+  // Public Website Shell (100% UNTOUCHED DESIGN, LAYOUT & MAIN BRANCH FEATURES)
   return (
-    <div className="app-layout">
-      {/* Navigation Bar */}
-      <Navbar onOpenDemoModal={handleOpenDemoModal} />
+    <>
+      <ScrollToTop />
+      <div className="app-layout">
+        {/* Dynamic Animated Background Particle Canvas */}
+        <ParticleCanvas />
 
-      {/* Main Content Area */}
-      <main className="main-content">
-        <Routes>
-          {/* Primary About Us Page */}
-          <Route
-            path="/about"
-            element={<About onOpenDemoModal={handleOpenDemoModal} />}
-          />
-          <Route
-            path="/about-us"
-            element={<Navigate to="/about" replace />}
-          />
+        {/* Ambient Radial Lights / Glow Meshes */}
+        <div className="ambient-glow-wrapper" aria-hidden="true">
+          <div className="ambient-glow glow-top-left"></div>
+          <div className="ambient-glow glow-hero-center"></div>
+          <div className="ambient-glow glow-mid-right"></div>
+          <div className="ambient-glow glow-bottom-left"></div>
+        </div>
 
-          {/* Home Page */}
-          <Route
-            path="/"
-            element={<About onOpenDemoModal={handleOpenDemoModal} />}
-          />
+        {/* Top Navbar */}
+        <Navbar 
+          onOpenModal={handleOpenModal} 
+          onOpenInquiry={handleOpenInquiry}
+          onOpenDemoModal={handleOpenDemoModal}
+        />
 
-          {/* Services Page */}
-          <Route
-            path="/services"
-            element={
-              <PartnerRoutePlaceholder
-                title="Services & Solutions Hub"
-                description="Our service ecosystem covers Custom Software, Mobile Apps, CRM, MLM, Web Architecture, and Digital Marketing."
-                onOpenDemoModal={handleOpenDemoModal}
-              />
-            }
-          />
+        {/* Main Routed Content */}
+        <main className="main-content">
+          <Routes>
+            {/* Home Page */}
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  onOpenModal={handleOpenModal}
+                  onOpenInquiry={handleOpenInquiry}
+                  onSelectService={(service) => setSelectedService(service)}
+                />
+              }
+            />
 
-          {/* Products Page - Black Grapes Proprietary Products */}
-          <Route
-            path="/products"
-            element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
-          />
-          <Route
-            path="/our-products"
-            element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
-          />
+            {/* About Us Pages */}
+            <Route
+              path="/about"
+              element={<About onOpenDemoModal={handleOpenDemoModal} />}
+            />
+            <Route
+              path="/about-us"
+              element={<About onOpenDemoModal={handleOpenDemoModal} />}
+            />
 
-          {/* Clients Page - Global Client Portfolio & Case Studies */}
-          <Route
-            path="/clients"
-            element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
-          />
-          <Route
-            path="/our-clients"
-            element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
-          />
+            {/* Services Pages */}
+            <Route
+              path="/services"
+              element={<ServicesPage onOpenInquiry={handleOpenInquiry} />}
+            />
+            <Route
+              path="/softech-services"
+              element={<SoftechServicesPage onOpenInquiry={handleOpenInquiry} />}
+            />
 
-          {/* Contact Page */}
-          <Route
-            path="/contact"
-            element={
-              <PartnerRoutePlaceholder
-                title="Contact Black Grapes Softech"
-                description="Office: 252-F/H Scheme No 54, Vijaynagar, Indore-452010. Direct Line: +91 7470997884."
-                onOpenDemoModal={handleOpenDemoModal}
-              />
-            }
-          />
+            {/* Products Pages */}
+            <Route
+              path="/products"
+              element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
+            />
+            <Route
+              path="/our-products"
+              element={<OurProducts onOpenDemoModal={handleOpenDemoModal} />}
+            />
 
-          {/* Fallback to About */}
-          <Route
-            path="*"
-            element={<Navigate to="/about" replace />}
-          />
-        </Routes>
-      </main>
+            {/* Clients Pages */}
+            <Route
+              path="/clients"
+              element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
+            />
+            <Route
+              path="/our-clients"
+              element={<OurClients onOpenDemoModal={handleOpenDemoModal} />}
+            />
 
-      {/* Universal Footer */}
-      <Footer onOpenDemoModal={handleOpenDemoModal} />
+            {/* IT Staffing Solutions */}
+            <Route
+              path="/it-staffing"
+              element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />}
+            />
+            <Route
+              path="/staffing"
+              element={<ITStaffingPage onOpenContact={() => handleOpenInquiry('IT Staffing')} />}
+            />
 
-      {/* Universal Interactive Demo / Quote Modal */}
-      <DemoModal
-        isOpen={isDemoModalOpen}
-        onClose={handleCloseDemoModal}
-      />
-    </div>
+            {/* E-Commerce Solutions */}
+            <Route
+              path="/ecommerce"
+              element={<EcommercePage onOpenContact={() => handleOpenInquiry('E-Commerce Solutions')} />}
+            />
+
+            {/* Contact Pages */}
+            <Route
+              path="/contact"
+              element={<ContactPage />}
+            />
+            <Route
+              path="/contact-us"
+              element={<ContactPage />}
+            />
+
+            {/* Partnership Pages */}
+            <Route
+              path="/partnership"
+              element={<PartnershipPage onOpenModal={handleOpenModal} />}
+            />
+            <Route
+              path="/business-partners"
+              element={<BusinessPartnersPage onOpenModal={handleOpenModal} />}
+            />
+
+            {/* Fallback to Home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+
+        {/* Universal Footer */}
+        <Footer 
+          onOpenModal={handleOpenModal} 
+          onOpenInquiry={handleOpenInquiry}
+        />
+
+        {/* Global Interactive Modals */}
+        <InquiryModal
+          isOpen={inquiryModalOpen}
+          onClose={handleCloseInquiry}
+          initialService={inquiryService}
+        />
+
+        <DemoModal
+          isOpen={demoModalOpen}
+          onClose={handleCloseDemoModal}
+        />
+
+        <ContactModal
+          isOpen={modalState.isOpen}
+          onClose={handleCloseModal}
+          modalTitle={modalState.title}
+        />
+
+        <ServiceDetailModal
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+          onOpenEstimate={handleOpenModal}
+        />
+
+        {/* Floating Action Buttons */}
+        <FloatingWidgets onOpenContact={() => handleOpenInquiry('Direct Desk')} />
+      </div>
+    </>
   );
 }
 

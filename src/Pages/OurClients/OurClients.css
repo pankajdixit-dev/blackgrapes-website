@@ -1208,3 +1208,33 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .clients-hero-section {
+    padding: 3.5rem 0 2.5rem;
+  }
+  .clients-hero-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.4rem) !important;
+  }
+  .clients-metrics-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .client-case-card,
+  .engagement-model-card {
+    padding: 1.25rem 0.85rem;
+    border-radius: 16px;
+  }
+  .clients-cta-banner {
+    padding: 2rem 1rem;
+    border-radius: 18px;
+  }
+  .client-search-field input {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 360px) {
+  .clients-metrics-row {
+    grid-template-columns: 1fr !important;
+  }
+}

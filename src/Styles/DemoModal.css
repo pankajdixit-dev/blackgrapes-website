@@ -27,6 +27,9 @@
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 87, 34, 0.15);
   overflow: hidden;
   animation: zoomUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-dialog::before {
@@ -212,5 +215,28 @@
   }
   .modal-body {
     padding: 1.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-backdrop {
+    padding: 0.75rem 0.5rem;
+  }
+  .modal-dialog {
+    border-radius: 18px;
+  }
+  .modal-body {
+    padding: 1.5rem 1rem;
+  }
+  .modal-close-btn {
+    width: 40px;
+    height: 40px;
+    top: 1rem;
+    right: 1rem;
+  }
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
   }
 }

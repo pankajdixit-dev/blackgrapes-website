@@ -1,161 +1,312 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight, Sparkles, PhoneCall, Mail } from 'lucide-react';
-import logoImg from '../assets/bgst-logo.png';
-import { useSiteSettings, useMenus } from '@backend/useContent';
-import '../Styles/Navbar.css';
+import { COMPANY_INFO, NAV_LINKS } from '../data/siteData';
+import '../styles/Navbar.css';
 
-export default function Navbar({ onOpenDemoModal }) {
+export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
 
-  const { settings } = useSiteSettings();
-  const { menus } = useMenus();
+  const handleOpenAction = (title = 'Request a Demo') => {
+    if (onOpenModal) {
+      onOpenModal(title);
+    } else if (onOpenInquiry) {
+      onOpenInquiry(title);
+    } else if (onOpenDemoModal) {
+      onOpenDemoModal();
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = (menus && menus.length > 0)
-    ? menus.filter((m) => m.is_active !== false)
-    : [
-        { label: 'Home', path: '/' },
-        { label: 'About Us', path: '/about' },
-        { label: 'Services', path: '/services' },
-        { label: 'Our Products', path: '/products' },
-        { label: 'Our Clients', path: '/clients' },
-        { label: 'Contact', path: '/contact' }
-      ];
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
 
-  const topStripText = settings?.top_strip_text || 'Empowering Enterprises Worldwide with Next-Gen Tech';
-  const showTopStrip = settings?.top_strip_enabled !== false;
-  const primaryEmail = settings?.primary_email || 'info@blackgrapessoftech.com';
-  const primaryPhone = settings?.primary_phone || '+91 7470997884';
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  const toggleDropdown = (name) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
+  };
+
+  const isLinkActive = (href) => {
+    const current = location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    const target = href.toLowerCase().replace(/\/$/, '') || '/';
+
+    if (target === '/') {
+      return current === '/';
+    }
+    if (target === '/about-us') {
+      return current === '/about' || current === '/about-us';
+    }
+    if (target === '/services') {
+      return current === '/services' || current === '/softech-services';
+    }
+    if (target === '/our-products') {
+      return current === '/products' || current === '/our-products';
+    }
+    if (target === '/ecommerce') {
+      return current === '/ecommerce';
+    }
+    if (target === '/our-clients') {
+      return current === '/clients' || current === '/our-clients';
+    }
+    if (target === '/it-staffing') {
+      return current === '/it-staffing' || current === '/staffing';
+    }
+    if (target === '/partnership') {
+      return current === '/partnership' || current === '/business-partners';
+    }
+    if (target === '/contact-us') {
+      return current === '/contact' || current === '/contact-us';
+    }
+
+    return current === target || current.startsWith(target + '/');
+  };
 
   return (
     <>
-      {/* Top Notification / Contact Strip */}
-      {showTopStrip && (
-        <div className="top-banner-strip">
-          <div className="container top-strip-inner">
-            <div className="strip-left">
-              <span className="live-dot"></span>
-              <span>{topStripText}</span>
-            </div>
-            <div className="strip-right">
-              <a href={`mailto:${primaryEmail}`} className="strip-link">
-                <Mail size={13} />
-                <span>{primaryEmail}</span>
-              </a>
-              <span className="strip-divider">|</span>
-              <a href={`tel:${primaryPhone.replace(/\s+/g, '')}`} className="strip-link">
-                <PhoneCall size={13} />
-                <span>{primaryPhone}</span>
-              </a>
-            </div>
+      {/* Top Info Bar */}
+      <div className="top-bar">
+        <div className="container top-bar-container">
+          <div className="top-bar-left">
+            <span className="top-pill">
+              <span className="pulse-dot"></span>
+              Accepting New Projects
+            </span>
+            <span className="top-divider">|</span>
+            <span className="top-badge">Apprenticeship &amp; Partner Program Open</span>
+          </div>
+
+          <div className="top-bar-right">
+            <a href={`mailto:${COMPANY_INFO.emails[0]}`} className="top-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              {COMPANY_INFO.emails[0]}
+            </a>
+            <span className="top-divider">|</span>
+            <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="top-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              {COMPANY_INFO.phones[0]}
+            </a>
+            <span className="top-divider">|</span>
+            <span className="top-location">Indore, MP, India</span>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Main Header */}
-      <header className={`site-navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="container nav-container">
-          {/* Brand Logo */}
-          <Link to="/" className="brand-logo">
-            <img src={settings?.logo_url || logoImg} alt="Black Grapes Softech" className="logo-img" />
-            <div className="brand-text">
-              <span className="brand-name">BLACK <span className="brand-highlight">GRAPES</span></span>
-              <span className="brand-sub">SOFTECH PVT. LTD.</span>
+      {/* Main Sticky Navbar */}
+      <header className={`main-navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+        <div className="container navbar-container">
+          {/* Logo Branding */}
+          <Link to="/" className="brand-logo" aria-label="Black Grapes Softech Home">
+            <div className="logo-glow-wrapper">
+              <img
+                src="/bgst-logo.png"
+                alt="Black Grapes Softech Logo"
+                className="logo-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/logo.png';
+                }}
+              />
+            </div>
+            <div className="brand-text-block">
+              <span className="brand-title">BLACK GRAPES</span>
+              <span className="brand-subtitle">SOFTECH &bull; IT INNOVATION</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="desktop-nav">
-            <ul className="nav-list">
-              {navLinks.map((link) => {
-                const isActive =
-                  location.pathname === link.path ||
-                  (link.path === '/about' && location.pathname.startsWith('/about')) ||
-                  (link.path === '/products' && (location.pathname.startsWith('/product') || location.pathname.startsWith('/our-product'))) ||
-                  (link.path === '/clients' && (location.pathname.startsWith('/client') || location.pathname.startsWith('/our-client')));
-                return (
-                  <li key={link.label} className="nav-item">
-                    <Link
-                      to={link.path}
-                      className={`nav-link ${isActive ? 'active' : ''}`}
-                    >
-                      {link.label}
-                      {isActive && <span className="active-glow-pill"></span>}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-
-          {/* Header Action Buttons */}
-          <div className="nav-actions">
-            <button
-              onClick={onOpenDemoModal}
-              className="btn btn-primary nav-cta-btn"
-            >
-              <Sparkles size={16} />
-              <span>Request Demo</span>
-            </button>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              className="mobile-toggle-btn"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Drawer */}
-        <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}>
-          <ul className="mobile-nav-list">
-            {navLinks.map((link) => {
-              const isActive =
-                location.pathname === link.path ||
-                (link.path === '/about' && location.pathname.startsWith('/about')) ||
-                (link.path === '/products' && (location.pathname.startsWith('/product') || location.pathname.startsWith('/our-product'))) ||
-                (link.path === '/clients' && (location.pathname.startsWith('/client') || location.pathname.startsWith('/our-client')));
+          <nav className="desktop-nav" aria-label="Main Navigation">
+            {NAV_LINKS.map((link) => {
+              const active = isLinkActive(link.href);
               return (
-                <li key={link.label} className="mobile-nav-item">
+                <div
+                  key={link.name}
+                  className={`nav-item-wrapper ${link.dropdown ? 'has-dropdown' : ''}`}
+                  onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+                  onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
+                >
                   <Link
-                    to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`mobile-nav-link ${isActive ? 'active' : ''}`}
+                    to={link.href}
+                    className={`nav-link ${active ? 'nav-link-active' : ''}`}
                   >
-                    <span>{link.label}</span>
-                    <ArrowRight size={18} className="mobile-arrow" />
+                    {link.name}
+                    {link.dropdown && (
+                      <svg
+                        className={`dropdown-chevron ${activeDropdown === link.name ? 'chevron-rotated' : ''}`}
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    )}
                   </Link>
-                </li>
+
+                  {/* Dropdown Menu */}
+                  {link.dropdown && (
+                    <div className={`nav-dropdown-menu ${activeDropdown === link.name ? 'show-dropdown' : ''}`}>
+                      <div className="dropdown-grid">
+                        {link.dropdown.map((subItem) => {
+                          const isSubActive = location.pathname.toLowerCase().replace(/\/$/, '') === subItem.href.toLowerCase().replace(/\/$/, '');
+                          return (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              className={`dropdown-item ${isSubActive ? 'dropdown-item-active' : ''}`}
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                            <div className="dropdown-item-content">
+                              <span className="dropdown-item-title">{subItem.name}</span>
+                              <span className="dropdown-item-desc">{subItem.desc}</span>
+                            </div>
+                            <span className="dropdown-item-arrow">&rarr;</span>
+                          </Link>
+                        );})}
+                      </div>
+                    </div>
+                  )}
+                </div>
               );
             })}
-          </ul>
-          <div className="mobile-drawer-cta">
+          </nav>
+
+          {/* Header Action CTA */}
+          <div className="navbar-actions">
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (onOpenDemoModal) onOpenDemoModal();
-              }}
-              className="btn btn-primary w-full"
+              type="button"
+              className="btn btn-primary nav-cta-btn"
+              onClick={() => handleOpenAction('Request a Demo')}
             >
-              <Sparkles size={16} />
-              <span>Request a Demo</span>
+              <span className="btn-sparkle">✨</span>
+              <span className="nav-cta-text-full">Get Quote / Demo</span>
+              <span className="nav-cta-text-short">Quote</span>
+            </button>
+
+            {/* Mobile Hamburger Toggle (hidden on desktop) */}
+            <button
+              type="button"
+              className={`mobile-toggle ${mobileMenuOpen ? 'mobile-toggle-active' : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              <span className="bar bar-1"></span>
+              <span className="bar bar-2"></span>
+              <span className="bar bar-3"></span>
             </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Sliding Overlay Drawer - Only rendered when mobileMenuOpen is true */}
+      {mobileMenuOpen && (
+        <div className="mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)}>
+          <div className="mobile-nav-drawer-box" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-drawer-top">
+              <div className="brand-text-block">
+                <span className="brand-title">BLACK GRAPES</span>
+                <span className="brand-subtitle">NAVIGATION MENU</span>
+              </div>
+              <button
+                type="button"
+                className="close-drawer-btn"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Navigation Menu"
+              >
+                ✕
+              </button>
+            </div>
+
+            <nav className="mobile-drawer-links">
+              {NAV_LINKS.map((link) => (
+                <div key={link.name} className="mobile-link-group">
+                  <div className="mobile-link-row">
+                    <Link
+                      to={link.href}
+                      className={`mobile-link-item ${isLinkActive(link.href) ? 'active' : ''}`}
+                      onClick={() => !link.dropdown && setMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                    {link.dropdown && (
+                      <button
+                        type="button"
+                        className="mobile-expand-btn"
+                        onClick={() => toggleDropdown(link.name)}
+                        aria-label="Toggle submenu"
+                      >
+                        {activeDropdown === link.name ? '−' : '+'}
+                      </button>
+                    )}
+                  </div>
+
+                  {link.dropdown && activeDropdown === link.name && (
+                    <div className="mobile-submenu-list">
+                      {link.dropdown.map((sub) => {
+                        const isSubActive = location.pathname.toLowerCase().replace(/\/$/, '') === sub.href.toLowerCase().replace(/\/$/, '');
+                        return (
+                          <Link
+                            key={sub.name}
+                            to={sub.href}
+                            className={`mobile-submenu-link ${isSubActive ? 'active' : ''}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {sub.name}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+
+            <div className="mobile-drawer-cta">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleOpenAction('Request a Demo');
+                }}
+              >
+                <span className="btn-sparkle">✨</span>
+                <span>Get Quote / Demo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

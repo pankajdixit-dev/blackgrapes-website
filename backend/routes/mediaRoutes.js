@@ -3,7 +3,13 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { getMediaList, uploadMedia, deleteMedia } from '../controllers/mediaController.js';
+import {
+  getMediaList,
+  uploadMedia,
+  deleteMedia,
+  assignMedia,
+  checkMediaUsage
+} from '../controllers/mediaController.js';
 import { protect } from '../middleware/auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +20,7 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Multer storage
+// Multer disk storage for receiving upload before streaming to Cloudinary or local serving
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadsDir);
@@ -26,26 +32,30 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter (Images only)
+// File filter (Images and Videos allowed)
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
+  const isImage = file.mimetype.startsWith('image/');
+  const isVideo = file.mimetype.startsWith('video/');
+
+  if (isImage || isVideo) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files (JPEG, PNG, WEBP, GIF, SVG) are allowed!'), false);
+    cb(new Error('Only image (JPEG, PNG, WEBP, GIF, SVG) and video files (MP4, WEBM, MOV) are allowed!'), false);
   }
 };
 
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB
+  limits: { fileSize: 50 * 1024 * 1024 } // 50MB
 });
 
 const router = express.Router();
 
 router.get('/', getMediaList);
+router.get('/check-usage/:id', protect, checkMediaUsage);
 router.post('/upload', protect, upload.single('file'), uploadMedia);
+router.put('/:id/assign', protect, assignMedia);
 router.delete('/:id', protect, deleteMedia);
 
 export default router;
-

@@ -22,6 +22,40 @@ const mediaItemSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    publicId: {
+      type: String,
+      default: null,
+      index: true
+    },
+    resourceType: {
+      type: String,
+      enum: ['image', 'video'],
+      default: 'image'
+    },
+    format: {
+      type: String,
+      default: ''
+    },
+    width: {
+      type: Number,
+      default: 0
+    },
+    height: {
+      type: Number,
+      default: 0
+    },
+    duration: {
+      type: Number,
+      default: 0
+    },
+    assignedPage: {
+      type: String,
+      default: ''
+    },
+    assignedSection: {
+      type: String,
+      default: ''
+    },
     uploadedBy: {
       type: String,
       default: 'Admin'
@@ -34,4 +68,3 @@ const mediaItemSchema = new mongoose.Schema(
 
 const MediaItem = mongoose.model('MediaItem', mediaItemSchema);
 export default MediaItem;
-

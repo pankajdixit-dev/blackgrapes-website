@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Layers, Handshake, ExternalLink, Plus } from 'lucide-react';
 import {
   PRODUCT_PARTNERS_INTRO,
@@ -7,8 +7,36 @@ import {
   SERVICE_PARTNERS
 } from '../data/businessPartnersData';
 import '../styles/Partnership.css';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function BusinessPartnersPage() {
+  const [pageSections, setPageSections] = useState(null);
+
+  useEffect(() => {
+    getPageSections('business-partners').then((secs) => {
+      if (secs) setPageSections(secs);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'business-partners' && detail.sections) {
+        setPageSections(detail.sections);
+      } else {
+        getPageSections('business-partners').then((secs) => {
+          if (secs) setPageSections(secs);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = pageSections?.business_partners_hero?.content;
+  const eyebrow = heroContent?.badge || 'WHAT WE DO';
+  const heroTitle = heroContent?.title || 'Business Partners';
+  const heroSubtitle = heroContent?.subtitle || 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.';
   return (
     <div className="business-partners-container">
       <div className="container">
@@ -16,11 +44,11 @@ export default function BusinessPartnersPage() {
         <div className="partner-page-header">
           <div className="partner-eyebrow">
             <Sparkles size={14} />
-            <span>WHAT WE DO</span>
+            <span>{eyebrow}</span>
           </div>
-          <h1 className="partner-page-title">Our <span className="text-gradient">Business Partners</span></h1>
+          <h1 className="partner-page-title">Our <span className="text-gradient">{heroTitle}</span></h1>
           <p className="partner-page-subtitle">
-            Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.
+            {heroSubtitle}
           </p>
         </div>
 

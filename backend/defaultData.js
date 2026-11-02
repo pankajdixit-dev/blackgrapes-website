@@ -90,6 +90,141 @@ export const DEFAULT_HOME_SECTIONS = {
       pillarTitle: 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.'
     }
   },
+
+  home_services: {
+    id: 'sec-home-services',
+    page: 'home',
+    section_key: 'home_services',
+    section_name: 'Services Grid Showcase',
+    order_index: 3,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'WHAT WE DO',
+      title: 'We Provide Best Quality Services & Products At',
+      titleHighlight: 'Affordable Price',
+      subtitle: 'Here is the list of specialized IT services and scalable digital solutions that we provide to elevate your business.'
+    }
+  },
+  home_about: {
+    id: 'sec-home-about',
+    page: 'home',
+    section_key: 'home_about',
+    section_name: 'About Section Showcase',
+    order_index: 4,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'ABOUT BLACK GRAPES SOFTECH',
+      title: 'Best Website Development Company | Best IT Software Company | Best Mobile App Development Company',
+      lead: 'Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.'
+    }
+  },
+  home_why_us: {
+    id: 'sec-home-why-us',
+    page: 'home',
+    section_key: 'home_why_us',
+    section_name: 'Why Choose Us Section',
+    order_index: 5,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'WHY CHOOSE US ?',
+      title: 'Built On Security, Uncompromising Quality &',
+      titleHighlight: 'Lifelong Relationships',
+      vision: 'Our commitment is to eliminate technological roadblocks, provide unmatched security, and build software that scales effortlessly with your commercial ambition.',
+      pillars: [
+        {
+          title: 'High Security & Rock-Solid Reliability',
+          subtitle: 'Security & Reliability',
+          description: 'Every software build incorporates enterprise-grade cryptographic controls, zero-trust protocols, continuous vulnerability scanning, and reliable data pipelines.',
+          image: '/images/services-infograph.png',
+          points: [
+            'Zero-trust access architectures & hardened endpoints',
+            'ISO and statutory data compliance safeguards',
+            '24/7 proactive monitoring & self-healing cloud nodes'
+          ]
+        },
+        {
+          title: 'Unmatched Perfection & Clean Architecture',
+          subtitle: 'Pure Perfection',
+          description: 'We adhere to clean code principles, test-driven methodologies, and modular microservices to ensure software that never degrades over time.',
+          image: '/images/tech-innovation.jpg',
+          points: [
+            'High test coverage & automated CI/CD pipelines',
+            'Sub-second page loads & optimized SQL/NoSQL indexes',
+            'Enterprise design systems & accessible interfaces'
+          ]
+        },
+        {
+          title: 'Lifelong Partnership & Continuous Evolution',
+          subtitle: 'Strategic Evolution',
+          description: 'We view ourselves as dedicated technology co-founders. Our commitment extends far past deployment to ongoing modernization and scaling.',
+          image: '/images/workspace.jpg',
+          points: [
+            'Dedicated technical account management',
+            'SLA-backed priority engineering support',
+            'Quarterly cloud cost optimization & performance tuning'
+          ]
+        }
+      ]
+    }
+  },
+  home_projects: {
+    id: 'sec-home-projects',
+    page: 'home',
+    section_key: 'home_projects',
+    section_name: 'Portfolio / Projects Showcase',
+    order_index: 6,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'OUR PORTFOLIO',
+      title: 'Explore Some of Our Best',
+      titleHighlight: 'Development Work',
+      subtitle: 'Browse through custom websites, cross-platform mobile apps, enterprise web applications, and e-commerce platforms we have delivered globally.'
+    }
+  },
+  home_testimonials: {
+    id: 'sec-home-testimonials',
+    page: 'home',
+    section_key: 'home_testimonials',
+    section_name: 'Client Testimonials Showcase',
+    order_index: 7,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'CLIENT TESTIMONIALS',
+      title: 'What Global Leaders Say About',
+      titleHighlight: 'Our Partnership',
+      subtitle: 'Direct feedback from startup founders and enterprise CTOs who trusted us to engineer their flagship software products.'
+    }
+  },
+  home_industries: {
+    id: 'sec-home-industries',
+    page: 'home',
+    section_key: 'home_industries',
+    section_name: 'Industries We Serve',
+    order_index: 8,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'INDUSTRIES',
+      title: 'Tailored IT Solutions Across',
+      titleHighlight: 'High-Growth Industries',
+      subtitle: 'From regulated healthcare ecosystems to high-velocity on-demand logistics, we engineer software built for specific market dynamics.',
+      industries: [
+        { name: 'Healthcare', desc: 'HIPAA-ready telemedicine, patient portals, and automated diagnostic workflows.' },
+        { name: 'Food Delivery', desc: 'Real-time GPS dispatch, restaurant partner dashboards, and multi-currency checkouts.' },
+        { name: 'E-Commerce', desc: 'Headless storefronts, custom CRM integration, and high-concurrency payment engines.' },
+        { name: 'Taxi and Transportation', desc: 'Live ride hailing, driver telemetry, dynamic surge pricing, and fleet tracking.' },
+        { name: 'Home Services', desc: 'On-demand service booking, verified technician scheduling, and instant escrow billing.' },
+        { name: 'Education', desc: 'Interactive LMS suites, live virtual classrooms, proctored exams, and student analytics.' },
+        { name: 'Real Estate', desc: 'Virtual 3D property tours, MLS feeds, agent CRM platforms, and escrow agreements.' },
+        { name: 'FinTech & Banking', desc: 'Multi-tiered wallet engines, automated compliance checks, and micro-lending portals.' }
+      ]
+    }
+  },
   home_cta: {
     id: 'sec-home-cta',
     page: 'home',
@@ -678,3 +813,260 @@ export const DEFAULT_ACTIVITY_LOGS = [
   }
 ];
 
+
+export const DEFAULT_SERVICES_PAGE_SECTIONS = {
+  services_hero: {
+    id: 'sec-services-hero',
+    page: 'services',
+    section_key: 'services_hero',
+    section_name: 'Services Hero Banner',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'ENTERPRISE TECH STACK',
+      title: 'Specialized IT Services & High-Yield Solutions',
+      titleHighlight: 'For Ambitious Enterprises',
+      subtitle: 'From bespoke ERPs and CRM engines to native mobile apps and scalable cloud architectures.',
+      stat1Num: '50+',
+      stat1Label: 'Specialized Services',
+      stat2Num: '99.9%',
+      stat2Label: 'SLA Reliability',
+      stat3Num: '24/7',
+      stat3Label: 'Architecture Support'
+    }
+  },
+  services_intro: {
+    id: 'sec-services-intro',
+    page: 'services',
+    section_key: 'services_intro',
+    section_name: 'Services Group Overview',
+    order_index: 2,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'WHAT WE DO',
+      title: 'Empowering Modern Enterprises with Transformational Tech',
+      description: 'Explore our multi-disciplinary engineering hubs designed for high conversion, compliance, and enterprise scalability.'
+    }
+  },
+  services_cta: {
+    id: 'sec-services-cta',
+    page: 'services',
+    section_key: 'services_cta',
+    section_name: 'Services Inquiry Callout',
+    order_index: 3,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      title: 'Need a Custom Technology Architecture?',
+      subtitle: 'Speak directly with our principal architects for sprint estimates and tech stack advisory.',
+      btnText: 'Request Technical Discovery'
+    }
+  }
+};
+
+export const DEFAULT_PRODUCTS_PAGE_SECTIONS = {
+  products_hero: {
+    id: 'sec-products-hero',
+    page: 'products',
+    section_key: 'products_hero',
+    section_name: 'Products Hero Showcase',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'PROPRIETARY PLATFORMS',
+      title: 'Turnkey Enterprise Software Solutions',
+      titleHighlight: 'Ready for Deployment',
+      subtitle: 'Battle-tested CRM suites, MLM architectures, multi-vendor marketplaces, and ERP solutions built for high concurrency.',
+      ctaBtnText: 'Explore Catalog',
+      demoBtnText: 'Request Live Demo'
+    }
+  },
+  products_video: {
+    id: 'sec-products-video',
+    page: 'products',
+    section_key: 'products_video',
+    section_name: 'Product Demonstration Video',
+    order_index: 2,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'LIVE DEMO',
+      title: 'Experience Our Platforms in Action',
+      subtitle: 'Interactive walk-through of the administrative dashboard, high-concurrency payment engine, and analytics.',
+      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+    }
+  }
+};
+
+export const DEFAULT_CLIENTS_PAGE_SECTIONS = {
+  clients_hero: {
+    id: 'sec-clients-hero',
+    page: 'clients',
+    section_key: 'clients_hero',
+    section_name: 'Clients Hero Banner',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'GLOBAL IMPACT & PARTNERSHIPS',
+      title: 'Trusted By Ambitious Enterprises',
+      titleHighlight: 'Across 15+ Countries',
+      subtitle: 'From disruptive startups to Fortune-caliber institutions, discover how our software engineering accelerates market leadership.',
+      stat1Num: '150+',
+      stat1Label: 'Deployments',
+      stat2Num: '15+',
+      stat2Label: 'Countries',
+      stat3Num: '99%',
+      stat3Label: 'Retention'
+    }
+  }
+};
+
+export const DEFAULT_STAFFING_PAGE_SECTIONS = {
+  staffing_hero: {
+    id: 'sec-staffing-hero',
+    page: 'it-staffing',
+    section_key: 'staffing_hero',
+    section_name: 'IT Staffing Hero & Lead Form',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'CONTRACT & DEDICATED IT TALENT',
+      title: 'High-Velocity Contract & Permanent',
+      titleHighlight: 'Staffing Solutions',
+      subtitle: 'Pre-vetted software engineers, full-stack developers, cloud architects, and tech leaders ready to deploy within 48 to 72 hours.',
+      stat1Num: '25,000+',
+      stat1Label: 'Active on Payroll',
+      stat2Num: '28 States',
+      stat2Label: 'Pan-India Reach',
+      stat3Num: '48 Hours',
+      stat3Label: 'Rapid Deployment SLA',
+      stat4Num: '100%',
+      stat4Label: 'Statutory Compliant'
+    }
+  }
+};
+
+export const DEFAULT_ECOMMERCE_PAGE_SECTIONS = {
+  ecommerce_hero: {
+    id: 'sec-ecommerce-hero',
+    page: 'ecommerce',
+    section_key: 'ecommerce_hero',
+    section_name: 'E-Commerce Platform Hero',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'NEXT-GEN MULTI-VENDOR MARKETPLACE',
+      title: 'Empowering India’s New & Pre-Owned',
+      titleHighlight: 'Trade Ecosystem',
+      subtitle: 'An end-to-end scalable marketplace platform connecting verified buyers and sellers nationwide with instant escrow.',
+      domainUrl: 'https://www.nayapuranabazaar.com',
+      waitlistBtnText: 'Join Seller Waitlist'
+    }
+  }
+};
+
+export const DEFAULT_CONTACT_PAGE_SECTIONS = {
+  contact_hero: {
+    id: 'sec-contact-hero',
+    page: 'contact',
+    section_key: 'contact_hero',
+    section_name: 'Contact Header & Coordinates',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'GET IN TOUCH',
+      title: 'Let’s Engineer Something Extraordinary',
+      titleHighlight: 'Together',
+      subtitle: 'Reach out to our principal consultants in Indore, India. We are ready to translate your hurdles into robust digital engines.',
+      address: '252-F/H, Scheme No 54, PU 4, Commercial, Vijay Nagar, Indore, Madhya Pradesh 452010',
+      phone: '+91 7470997884',
+      email: 'info@blackgrapessoftech.com',
+      hours: 'Monday - Saturday: 10:00 AM - 7:00 PM IST',
+      mapUrl: 'https://maps.google.com'
+    }
+  }
+};
+
+export const DEFAULT_PARTNERSHIP_PAGE_SECTIONS = {
+  partnership_hero: {
+    id: 'sec-partnership-hero',
+    page: 'partnership',
+    section_key: 'partnership_hero',
+    section_name: 'Partnership Program Hero',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'GLOBAL STRATEGIC ALLIANCES',
+      title: 'Build High-Yield Tech Partnerships with',
+      titleHighlight: 'Black Grapes Softech',
+      subtitle: 'We act as your dedicated offshore engineering arm, technology incubator, and scalable co-founding team.',
+      btnText: 'Submit Alliance Proposal'
+    }
+  }
+};
+
+export const DEFAULT_BUSINESS_PARTNERS_PAGE_SECTIONS = {
+  bp_hero: {
+    id: 'sec-bp-hero',
+    page: 'business-partners',
+    section_key: 'bp_hero',
+    section_name: 'Business Partners Hero',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'ENTERPRISE TIE-UPS',
+      title: 'Our Strategic Business Partners &',
+      titleHighlight: 'Alliance Ecosystem',
+      subtitle: 'Forging deep integrations with global cloud networks, enterprise ERPs, and specialized technology ecosystems.'
+    }
+  }
+};
+
+export const ALL_PAGE_DEFINITIONS = [
+  { slug: 'home', name: 'Home Page', path: '/' },
+  { slug: 'about', name: 'About Us', path: '/about' },
+  { slug: 'services', name: 'Services Hub', path: '/services' },
+  { slug: 'products', name: 'Products & Platforms', path: '/products' },
+  { slug: 'clients', name: 'Clients & Portfolio', path: '/clients' },
+  { slug: 'it-staffing', name: 'IT Staffing Solutions', path: '/it-staffing' },
+  { slug: 'ecommerce', name: 'E-Commerce Solutions', path: '/ecommerce' },
+  { slug: 'contact', name: 'Contact & Coordinates', path: '/contact' },
+  { slug: 'partnership', name: 'Partnership Program', path: '/partnership' },
+  { slug: 'business-partners', name: 'Business Partners', path: '/business-partners' }
+];
+
+export function getPageDefaultSections(pageSlug) {
+  switch (pageSlug) {
+    case 'home':
+      return DEFAULT_HOME_SECTIONS;
+    case 'about':
+      return DEFAULT_PAGE_SECTIONS;
+    case 'services':
+      return DEFAULT_SERVICES_PAGE_SECTIONS;
+    case 'products':
+      return DEFAULT_PRODUCTS_PAGE_SECTIONS;
+    case 'clients':
+      return DEFAULT_CLIENTS_PAGE_SECTIONS;
+    case 'it-staffing':
+      return DEFAULT_STAFFING_PAGE_SECTIONS;
+    case 'ecommerce':
+      return DEFAULT_ECOMMERCE_PAGE_SECTIONS;
+    case 'contact':
+      return DEFAULT_CONTACT_PAGE_SECTIONS;
+    case 'partnership':
+      return DEFAULT_PARTNERSHIP_PAGE_SECTIONS;
+    case 'business-partners':
+      return DEFAULT_BUSINESS_PARTNERS_PAGE_SECTIONS;
+    default:
+      return {};
+  }
+}

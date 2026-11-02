@@ -20,6 +20,8 @@ import {
   DEFAULT_ACTIVITY_LOGS,
   DEFAULT_PAGE_SECTIONS,
   DEFAULT_HOME_SECTIONS,
+  getPageDefaultSections,
+  ALL_PAGE_DEFINITIONS,
 } from './defaultData.js';
 import { getStoredToken } from './authService.js';
 import { realtimeSync } from './realtimeSync.js';
@@ -102,7 +104,7 @@ export async function saveMenus(menuItems) {
 // 3. PAGE SECTIONS & CONTENT
 // ==============================================================================
 export async function getPageSections(pageSlug = 'about') {
-  const fallbackDefaults = pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS;
+  const fallbackDefaults = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections(pageSlug) : null) || (pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS);
 
   try {
     const res = await fetch(`${API_BASE_URL}/content/${pageSlug}`);
@@ -242,6 +244,134 @@ export async function revertSectionDraft(sectionKey, pageSlug = 'about') {
   });
 
   return { success: true, sectionKey };
+}
+
+
+// ==============================================================================
+// 3.1 DYNAMIC CMS EXTENSIONS & MULTI-PAGE MANAGEMENT
+// ==============================================================================
+export async function getAllPagesSummary() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/all-pages`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data)) return json.data;
+    }
+  } catch (err) {}
+  return (ALL_PAGE_DEFINITIONS || []).map(p => ({
+    slug: p.slug,
+    name: p.name,
+    path: p.path,
+    totalSections: Object.keys(getPageDefaultSections(p.slug) || {}).length,
+    visibleSections: Object.keys(getPageDefaultSections(p.slug) || {}).length,
+    hasUnpublished: false
+  }));
+}
+
+export async function addPageSection(pageSlug, sectionData) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}/section`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(sectionData)
+    });
+    if (res.ok) {
+      const json = await res.json();
+      realtimeSync.broadcast({ type: 'content_updated', pageSlug, action: 'section_add' });
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
+}
+
+export async function deletePageSection(pageSlug, sectionKey) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}/section/${sectionKey}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    if (res.ok) {
+      const json = await res.json();
+      realtimeSync.broadcast({ type: 'content_updated', pageSlug, action: 'section_delete' });
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
+}
+
+export async function duplicatePageSection(pageSlug, sectionKey) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}/duplicate/${sectionKey}`, {
+      method: 'POST',
+      headers: getAuthHeaders()
+    });
+    if (res.ok) {
+      const json = await res.json();
+      realtimeSync.broadcast({ type: 'content_updated', pageSlug, action: 'section_duplicate' });
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
+}
+
+export async function reorderPageSections(pageSlug, orderedKeys) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}/reorder`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ orderedKeys })
+    });
+    if (res.ok) {
+      const json = await res.json();
+      realtimeSync.broadcast({ type: 'content_updated', pageSlug, action: 'section_reorder' });
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
+}
+
+export async function toggleSectionVisibility(pageSlug, sectionKey, isVisible) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}/visibility/${sectionKey}`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ isVisible })
+    });
+    if (res.ok) {
+      const json = await res.json();
+      realtimeSync.broadcast({ type: 'content_updated', pageSlug, action: 'visibility_toggle' });
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
+}
+
+export async function checkMediaUsage(mediaId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/media/check-usage/${mediaId}`, {
+      headers: getAuthHeaders()
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return json;
+    }
+  } catch (err) {}
+  return { inUse: false, usageCount: 0, usedIn: [] };
+}
+
+export async function assignMediaItem(mediaId, assignedPage, assignedSection) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/media/${mediaId}/assign`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ assignedPage, assignedSection })
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
+    }
+  } catch (err) {}
+  return { success: false };
 }
 
 // ==============================================================================

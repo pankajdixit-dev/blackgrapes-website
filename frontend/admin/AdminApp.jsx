@@ -15,6 +15,7 @@ import HeaderManager from './pages/HeaderManager';
 import FooterManager from './pages/FooterManager';
 import MenuManager from './pages/MenuManager';
 import MediaLibrary from './pages/MediaLibrary';
+import PageContentManager from './pages/PageContentManager';
 import SeoManager from './pages/SeoManager';
 import EnquiryManager from './pages/EnquiryManager';
 import WebsiteSettings from './pages/WebsiteSettings';
@@ -38,6 +39,8 @@ export default function AdminApp() {
           <Route index element={<Dashboard />} />
           <Route path="home" element={<HomePageManager />} />
           <Route path="about" element={<AboutPageManager />} />
+          <Route path="pages" element={<PageContentManager />} />
+          <Route path="pages/:pageSlug" element={<PageContentManager />} />
           <Route path="services" element={<ServicesManager />} />
           <Route path="projects" element={<ProjectsManager />} />
           <Route path="team" element={<TeamManager />} />

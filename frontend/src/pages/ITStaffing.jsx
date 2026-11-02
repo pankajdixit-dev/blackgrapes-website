@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Users,
   Sparkles,
@@ -30,8 +30,11 @@ import {
   Flame
 } from 'lucide-react';
 import '../styles/CyberServices.css';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function ITStaffingPage({ onOpenContact }) {
+  const [pageSections, setPageSections] = useState(null);
   // Hero Lead Form State
   const [heroForm, setHeroForm] = useState({
     fullName: '',
@@ -59,6 +62,36 @@ export default function ITStaffingPage({ onOpenContact }) {
 
   // Interactive Testimonial Carousel
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    getPageSections('it-staffing').then((secs) => {
+      if (secs) setPageSections(secs);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'it-staffing' && detail.sections) {
+        setPageSections(detail.sections);
+      } else {
+        getPageSections('it-staffing').then((secs) => {
+          if (secs) setPageSections(secs);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = pageSections?.staffing_hero?.content;
+  const eyebrow = heroContent?.eyebrow || 'BLACK GRAPES SOFTECH • IT STAFFING & MANPOWER SOLUTIONS';
+  const heroTitle = heroContent?.title || 'Stay on course with growth plans by';
+  const heroHighlight = heroContent?.highlight || 'hiring contractual staff';
+  const heroLead = heroContent?.subtitle || 'Outsource your manpower needs with prompt.';
+  const heroDesc = heroContent?.description || 'Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states with full statutory compliance, zero long-term liabilities, and guaranteed rapid onboarding.';
+  const heroImage = heroContent?.heroImage || '/it-staffing/staffing-hero.jpg';
+  const stateCount = heroContent?.stateCount || '28 States';
+  const activeStaff = heroContent?.activeStaff || '25,000+ Staff';
 
   const staffingServices = [
     'NAPS/Apprenticeship Hiring',
@@ -171,30 +204,30 @@ export default function ITStaffingPage({ onOpenContact }) {
               <div className="hero-badge-wrap" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
                 <span className="hero-top-pill cyber-pill-flame">
                   <Flame size={14} color="#f86200" />
-                  <span>BLACK GRAPES SOFTECH • IT STAFFING & MANPOWER SOLUTIONS</span>
+                  <span>{eyebrow}</span>
                 </span>
               </div>
 
               {/* Exact H1 from https://blackgrapessoftech.com/it-staffing/ */}
               <h1 className="staffing-h1">
-                Stay on course with growth plans by{' '}
-                <span className="neon-flame-text">hiring contractual staff</span>
+                {heroTitle}{' '}
+                <span className="neon-flame-text">{heroHighlight}</span>
               </h1>
 
               {/* Exact Subtitle from original site */}
               <p className="staffing-lead-text">
-                Outsource your manpower needs with prompt.
+                {heroLead}
               </p>
 
               <p className="staffing-sub-desc">
-                Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states with full statutory compliance, zero long-term liabilities, and guaranteed rapid onboarding.
+                {heroDesc}
               </p>
 
               {/* Authentic Business Image with Cyber Grape High-Tech Frame & Floating Stats */}
               <div className="hero-image-showcase">
                 <div className="hero-image-wrapper cyber-glass-border">
                   <img
-                    src="/it-staffing/staffing-hero.jpg"
+                    src={heroImage}
                     alt="Black Grapes Softech Contractual Staffing"
                     className="hero-staffing-img"
                   />
@@ -204,7 +237,7 @@ export default function ITStaffingPage({ onOpenContact }) {
                   <div className="floating-stat-badge badge-top-right cyber-glass-pill">
                     <ShieldCheck size={18} color="#10b981" />
                     <div>
-                      <div className="badge-bold">28 States</div>
+                      <div className="badge-bold">{stateCount}</div>
                       <div className="badge-sub">100% Compliant</div>
                     </div>
                   </div>
@@ -212,7 +245,7 @@ export default function ITStaffingPage({ onOpenContact }) {
                   <div className="floating-stat-badge badge-bottom-left cyber-glass-pill">
                     <Users size={18} color="#f86200" />
                     <div>
-                      <div className="badge-bold">25,000+ Staff</div>
+                      <div className="badge-bold">{activeStaff}</div>
                       <div className="badge-sub">Active on Payroll</div>
                     </div>
                   </div>

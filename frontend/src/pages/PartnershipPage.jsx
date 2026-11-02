@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 import '../styles/Partnership.css';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function PartnershipPage() {
   const [formData, setFormData] = useState({
@@ -34,6 +36,38 @@ export default function PartnershipPage() {
     setIsSubmitted(false);
   };
 
+  const [pageSections, setPageSections] = useState(null);
+
+  useEffect(() => {
+    getPageSections('partnership').then((secs) => {
+      if (secs) setPageSections(secs);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'partnership' && detail.sections) {
+        setPageSections(detail.sections);
+      } else {
+        getPageSections('partnership').then((secs) => {
+          if (secs) setPageSections(secs);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = pageSections?.partnership_hero?.content;
+  const contentData = pageSections?.partnership_content?.content;
+
+  const eyebrow = heroContent?.badge || 'PARTNERSHIP';
+  const heroTitle = heroContent?.title || 'Partnership';
+  const heroSubtitle = heroContent?.subtitle || 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.';
+  const contentHeading = contentData?.heading || 'Partner With Us';
+  const contentDesc = contentData?.description || 'If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.';
+  const contentImg = contentData?.image || '/partners/partner_with_us.webp';
+
   return (
     <div className="partnership-page-container">
       <div className="container">
@@ -41,11 +75,11 @@ export default function PartnershipPage() {
         <div className="partner-page-header">
           <div className="partner-eyebrow">
             <Sparkles size={14} />
-            <span>PARTNERSHIP</span>
+            <span>{eyebrow}</span>
           </div>
-          <h1 className="partner-page-title"><span className="text-gradient">Partnership</span></h1>
+          <h1 className="partner-page-title"><span className="text-gradient">{heroTitle}</span></h1>
           <p className="partner-page-subtitle">
-            Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.
+            {heroSubtitle}
           </p>
         </div>
 
@@ -53,14 +87,14 @@ export default function PartnershipPage() {
         <div className="partner-with-us-grid">
           {/* Left Column: Authentic Content from https://blackgrapessoftech.com/partnership/ */}
           <div className="partner-content-card">
-            <h2 className="partner-heading-main">Partner With Us</h2>
+            <h2 className="partner-heading-main">{contentHeading}</h2>
             <p className="partner-desc-text">
-              If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.
+              {contentDesc}
             </p>
 
             <div className="partner-img-wrapper">
               <img
-                src="/partners/partner_with_us.webp"
+                src={contentImg}
                 alt="Partner With Us - Black Grapes Softech"
                 className="partner-feature-img"
                 onError={(e) => {

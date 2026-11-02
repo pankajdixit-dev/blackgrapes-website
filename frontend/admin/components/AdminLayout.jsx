@@ -13,6 +13,7 @@ import {
   Menu as MenuIcon,
   X,
   Sliders,
+  Globe,
   Image as ImageIcon,
   Search,
   Inbox,
@@ -84,6 +85,7 @@ export default function AdminLayout() {
     {
       group: 'Page Content',
       items: [
+        { label: 'All Pages CMS (Universal)', path: '/admin/pages', icon: Globe },
         { label: 'Home Page', path: '/admin/home', icon: Home },
         { label: 'About Us Page', path: '/admin/about', icon: Info },
         { label: 'Services', path: '/admin/services', icon: Layers },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Phone,
@@ -42,8 +42,11 @@ const YoutubeIcon = () => (
   </svg>
 );
 import '../styles/CyberServices.css';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function ContactPage() {
+  const [pageSections, setPageSections] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,6 +56,32 @@ export default function ContactPage() {
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    getPageSections('contact').then((secs) => {
+      if (secs) setPageSections(secs);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'contact' && detail.sections) {
+        setPageSections(detail.sections);
+      } else {
+        getPageSections('contact').then((secs) => {
+          if (secs) setPageSections(secs);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = pageSections?.contact_hero?.content;
+  const eyebrow = heroContent?.badge || 'BLACK GRAPES GROUP';
+  const heroTitle = heroContent?.title || 'Get in';
+  const heroHighlight = heroContent?.highlight || 'Touch';
+  const heroSubtitle = heroContent?.subtitle || 'We are here to help and answer any questions you might have. We look forward to hearing from you.';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,15 +123,15 @@ export default function ContactPage() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <span className="hero-top-pill">
               <Sparkles size={13} color="#f86200" />
-              <span>BLACK GRAPES GROUP</span>
+              <span>{eyebrow}</span>
             </span>
           </div>
 
           <h1 className="black-hero-title">
-            Get in <span className="hero-title-accent">Touch</span>
+            {heroTitle} <span className="hero-title-accent">{heroHighlight}</span>
           </h1>
           <p className="black-hero-subtitle">
-            We are here to help and answer any questions you might have. We look forward to hearing from you.
+            {heroSubtitle}
           </p>
         </div>
 

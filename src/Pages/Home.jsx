@@ -16,7 +16,7 @@ import {
   Award,
   ChevronRight
 } from 'lucide-react';
-import '../Styles/Home.css';
+import '../styles/Home.css';
 
 export default function HomePage({ onOpenInquiry }) {
   const [heroContent, setHeroContent] = useState({

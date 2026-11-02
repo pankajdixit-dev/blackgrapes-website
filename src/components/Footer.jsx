@@ -1,172 +1,303 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
-  Mail, 
-  Phone, 
+  Building2, 
   MapPin, 
+  Phone, 
+  Mail, 
   ArrowRight, 
-  CheckCircle2, 
   ShieldCheck, 
-  ExternalLink 
+  CheckCircle2, 
+  Heart, 
+  Sparkles 
 } from 'lucide-react';
-import '../Styles/Footer.css';
+import { COMPANY_INFO } from '../data/siteData';
 
-export default function Footer({ onOpenInquiry }) {
-  const [email, setEmail] = useState('');
+// Social Channel SVG Icons
+const LinkedinIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
+
+const TwitterIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
+  </svg>
+);
+
+const YoutubeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  </svg>
+);
+
+export default function Footer({ onOpenModal, onOpenInquiry }) {
+  const location = useLocation();
+  const hideTopCta = ['/services', '/products', '/our-products', '/softech-services'].some(p => 
+    location.pathname.toLowerCase().startsWith(p)
+  );
+  const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleOpenAction = (title = 'Request a Demo') => {
+    if (onOpenModal) {
+      onOpenModal(title);
+    } else if (onOpenInquiry) {
+      onOpenInquiry(title);
+    }
+  };
+
+  const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (newsletterEmail.trim()) {
       setSubscribed(true);
       setTimeout(() => {
-        setEmail('');
-      }, 3000);
+        setNewsletterEmail('');
+        setSubscribed(false);
+      }, 3500);
     }
   };
 
   return (
-    <footer className="footer-root">
-      <div className="container">
-        {/* Top CTA Banner */}
-        <div className="footer-cta-banner">
-          <div className="cta-banner-text">
-            <span className="badge-pill">✨ Transform Your Vision</span>
-            <h2>Ready to Elevate Your Business with Black Grapes?</h2>
-            <p>From cutting-edge digital platforms to certified asset valuations and corporate compliance.</p>
-          </div>
-          <div className="cta-banner-actions">
-            <button 
-              type="button" 
-              className="btn-primary"
-              onClick={() => onOpenInquiry && onOpenInquiry('General Consultation')}
-            >
-              <span>Schedule a Free Strategy Call</span>
-              <ArrowRight size={18} />
-            </button>
-            <Link to="/services" className="btn-secondary">
-              Explore All Services
-            </Link>
-          </div>
-        </div>
+    <footer className="site-footer">
+      {/* Top CTA Banner (Hidden on Services and Products pages as requested) */}
+      
 
-        {/* Main Footer Links */}
+      {/* Main Footer Directory */}
+      <div className="container footer-main-content">
         <div className="footer-grid">
-          {/* Col 1: Brand Info */}
+          {/* Column 1: Brand & Profile */}
           <div className="footer-col brand-col">
-            <div className="footer-brand">
-              <div className="brand-icon-wrapper">
-                <img 
-                  src="/images/black_grapes_emblem.jpg" 
-                  alt="Black Grapes Logo" 
-                  className="brand-icon-img" 
+            <Link to="/" className="footer-brand" aria-label="Black Grapes Softech">
+              <div className="brand-logo-wrap">
+                <img
+                  src="/bgst-logo.png"
+                  alt="Black Grapes Logo"
+                  className="footer-logo-img"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/logo.png';
+                  }}
                 />
               </div>
-              <span className="brand-title">BLACK <span className="gradient-text">GRAPES</span></span>
-            </div>
-            <p className="brand-bio">
-              A premier integrated business conglomerate offering end-to-end IT engineering, government-approved asset valuation, chartered engineering certifications, and strategic corporate advisory.
+              <div>
+                <span className="footer-brand-title">BLACK <span className="text-orange">GRAPES</span></span>
+                <span className="footer-brand-sub">SOFTECH &bull; GROUP</span>
+              </div>
+            </Link>
+
+            <p className="footer-about-text">
+              10+ Years of Proven IT Excellence. We engineer scalable custom software, iOS &amp; Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion portals.
             </p>
-            <div className="cert-badge">
-              <ShieldCheck size={18} className="cert-icon" />
-              <span>Registered & ISO Compliant Group</span>
+
+            <div className="footer-trust-badge">
+              <ShieldCheck size={18} className="trust-icon" />
+              <span>ISO 9001:2015 &amp; Quality Assured Engineering</span>
             </div>
-            <div className="social-links">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+
+            <div className="social-links-row mt-3">
+              <a
+                href="https://www.linkedin.com/in/black-grapes-softech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+                className="social-circle"
+              >
+                <LinkedinIcon />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="social-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+              <a
+                href="https://twitter.com/grapessoftech"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X"
+                title="Twitter / X"
+                className="social-circle"
+              >
+                <TwitterIcon />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" className="social-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <a
+                href="https://www.instagram.com/blackgrapessoftech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
+                className="social-circle"
+              >
+                <InstagramIcon />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              <a
+                href="https://www.facebook.com/blackgrapessoftech.fb"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+                className="social-circle"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                title="YouTube"
+                className="social-circle"
+              >
+                <YoutubeIcon />
               </a>
             </div>
           </div>
 
-          {/* Col 2: IT & Softech Services */}
+          {/* Column 2: Core Services */}
           <div className="footer-col">
-            <h4 className="footer-heading">Black Grapes Softech</h4>
-            <ul className="footer-list">
-              <li><Link to="/services?category=softech">Custom Software & ERP</Link></li>
-              <li><Link to="/services?category=softech">Web & Cloud Platforms</Link></li>
-              <li><Link to="/services?category=softech">Mobile App Development</Link></li>
-              <li><Link to="/services?category=softech">MLM & Direct Sales Systems</Link></li>
-              <li><Link to="/services?category=softech">Private Tender Services</Link></li>
-              <li><Link to="/services?category=softech">Digital Marketing & SEO</Link></li>
+            <h4 className="footer-heading">
+              <Link to="/services" className="footer-heading-link">Services Hub</Link>
+            </h4>
+            <ul className="footer-link-list">
+              <li><Link to="/services">Software Development</Link></li>
+              <li><Link to="/services">Mobile App Engineering</Link></li>
+              <li><Link to="/services">Enterprise CRM &amp; ERP</Link></li>
+              <li><Link to="/services">MLM Software Systems</Link></li>
+              <li><Link to="/services">Web Portals &amp; Cloud Apps</Link></li>
+              <li><Link to="/services">Digital Growth &amp; SEO</Link></li>
+              <li><Link to="/services">UI/UX &amp; Brand Systems</Link></li>
+              <li><Link to="/services">Interactive Game Dev</Link></li>
             </ul>
           </div>
 
-          {/* Col 3: Valuation & Engineering */}
+          {/* Column 3: Proprietary Products & Solutions */}
           <div className="footer-col">
-            <h4 className="footer-heading">Valuers & Advisory</h4>
-            <ul className="footer-list">
-              <li><Link to="/services?category=valuation">Immovable Property Valuation</Link></li>
-              <li><Link to="/services?category=valuation">Plant & Machinery Valuation</Link></li>
-              <li><Link to="/services?category=valuation">Chartered Engineer Certification</Link></li>
-              <li><Link to="/services?category=valuation">TEV & Feasibility Studies</Link></li>
-              <li><Link to="/services?category=advisory">Municipal / IDA Naksha Pass</Link></li>
-              <li><Link to="/services?category=realestate">Prime Commercial Real Estate</Link></li>
+            <h4 className="footer-heading">Solutions &amp; Ecosystem</h4>
+            <ul className="footer-link-list">
+              <li><Link to="/products">Proprietary Software Catalog</Link></li>
+              <li><Link to="/clients">Client Case Studies</Link></li>
+              <li><Link to="/it-staffing">IT &amp; Technical Staffing</Link></li>
+              <li><Link to="/ecommerce">E-Commerce &amp; Hardware</Link></li>
+              <li><Link to="/partnership">Partner Program (ODC)</Link></li>
+              <li><Link to="/about">About Black Grapes</Link></li>
+              <li>
+                <button
+                  type="button"
+                  className="footer-link-btn"
+                  onClick={() => handleOpenAction('Schedule Demo')}
+                >
+                  Request a Live Demo
+                </button>
+              </li>
             </ul>
           </div>
 
-          {/* Col 4: Contact & Newsletter */}
-          <div className="footer-col">
-            <h4 className="footer-heading">Corporate Headquarters</h4>
-            <div className="contact-items">
-              <div className="contact-item">
-                <MapPin size={18} className="contact-icon" />
-                <span>Indore, Madhya Pradesh, India - 452010</span>
-              </div>
-              <div className="contact-item">
-                <Phone size={18} className="contact-icon" />
-                <span>+91 (0731) 400-GRAPES / +91 98930 00000</span>
-              </div>
-              <div className="contact-item">
-                <Mail size={18} className="contact-icon" />
-                <span>contact@blackgrapesgroup.com</span>
+          {/* Column 4: Contact & Office */}
+          <div className="footer-col contact-col">
+            <h4 className="footer-heading">
+              <Link to="/contact" className="footer-heading-link">Contact &amp; Offices</Link>
+            </h4>
+
+            {/* Address 1 */}
+            <div className="footer-contact-item">
+              <MapPin size={18} className="contact-icon text-orange" />
+              <div className="contact-details">
+                <strong>Registered Office:</strong>
+                <address className="contact-address">{COMPANY_INFO.address}</address>
               </div>
             </div>
 
-            <div className="footer-newsletter">
-              <span className="newsletter-title">Subscribe for Strategic Insights</span>
+            {/* Address 2 */}
+            <div className="footer-contact-item">
+              <Building2 size={18} className="contact-icon text-purple" />
+              <div className="contact-details">
+                <strong>Corporate Office:</strong>
+                <address className="contact-address">
+                  252-F/H Scheme No 54, Vijaynagar, Indore - 452010, MP
+                </address>
+              </div>
+            </div>
+
+            {/* Emails */}
+            <div className="footer-contact-item">
+              <Mail size={18} className="contact-icon" />
+              <div className="contact-details">
+                <strong>Direct Inquiries:</strong>
+                <a href={`mailto:${COMPANY_INFO.emails[0]}`} className="contact-link">
+                  {COMPANY_INFO.emails[0]}
+                </a>
+              </div>
+            </div>
+
+            {/* Phones */}
+            <div className="footer-contact-item">
+              <Phone size={18} className="contact-icon" />
+              <div className="contact-details">
+                <strong>Call / WhatsApp:</strong>
+                <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="contact-link">
+                  {COMPANY_INFO.phones[0]}
+                </a>
+                <a href={`tel:${COMPANY_INFO.phones[1].replace(/\s+/g, '')}`} className="contact-link">
+                  {COMPANY_INFO.phones[1]}
+                </a>
+              </div>
+            </div>
+
+            {/* Quick newsletter */}
+            <div className="footer-newsletter mt-3">
+              <span className="newsletter-title text-sm font-semibold">Stay Updated:</span>
               {subscribed ? (
-                <div className="subscribe-success">
-                  <CheckCircle2 size={16} />
-                  <span>Thank you for subscribing!</span>
+                <div className="subscribe-success text-green-400 flex items-center gap-1 text-xs">
+                  <CheckCircle2 size={14} /> Subscribed successfully!
                 </div>
               ) : (
-                <form onSubmit={handleSubscribe} className="newsletter-form">
-                  <input 
-                    type="email" 
-                    placeholder="Enter official email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                <form onSubmit={handleNewsletterSubmit} className="newsletter-form mt-1">
+                  <input
+                    type="email"
+                    placeholder="Enter business email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
                     required
                   />
-                  <button type="submit" aria-label="Subscribe">
-                    <ArrowRight size={16} />
+                  <button type="submit" aria-label="Subscribe to newsletter">
+                    <ArrowRight size={14} />
                   </button>
                 </form>
               )}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Black Grapes Group. All Rights Reserved.</p>
+      {/* Bottom Copyright Bar */}
+      <div className="footer-bottom">
+        <div className="container footer-bottom-container">
+          <p className="footer-copy-text">
+            {COMPANY_INFO.copyright}
+          </p>
           <div className="footer-bottom-links">
-            <Link to="/services">Services Directory</Link>
-            <span>&bull;</span>
-            <a href="#privacy">Privacy Policy</a>
-            <span>&bull;</span>
-            <a href="#terms">Terms of Engagement</a>
-            <span>&bull;</span>
-            <a href="#compliance">Regulatory Disclosures</a>
+            <Link to="/about">About Us</Link>
+            <span className="dot-sep">&bull;</span>
+            <Link to="/services">Services</Link>
+            <span className="dot-sep">&bull;</span>
+            <Link to="/products">Products</Link>
+            <span className="dot-sep">&bull;</span>
+            <Link to="/contact">Contact</Link>
+            <span className="dot-sep">&bull;</span>
+            <span className="built-with">
+              Crafted with <Heart size={13} className="heart-icon text-red-500" /> in Indore, India
+            </span>
           </div>
         </div>
       </div>

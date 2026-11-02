@@ -18,6 +18,7 @@
 .gradient-gold-text {
   background: var(--gradient-brand);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
@@ -420,5 +421,23 @@
   .service-pill-title,
   .service-pill-desc {
     white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-branch-section {
+    padding: 55px 0 70px !important;
+  }
+  .services-center-hub {
+    width: min(200px, 68vw) !important;
+    height: min(200px, 68vw) !important;
+  }
+  .service-pill-card {
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+  }
+  .pill-icon-box {
+    width: 44px !important;
+    height: 44px !important;
   }
 }

@@ -1,4 +1,3 @@
-
 # Logs
 logs
 *.log
@@ -27,6 +26,7 @@ dist-ssr
 
 # Local workspace folders
 servie page/
+scratch/
 
 # Environment Variables & Uploads
 .env

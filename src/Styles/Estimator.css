@@ -368,3 +368,25 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .estimator-wrapper {
+    padding: 1.5rem 1rem !important;
+    border-radius: 18px !important;
+    margin: 2.5rem 0 !important;
+  }
+  .estimator-title {
+    font-size: clamp(1.5rem, 6vw, 1.9rem) !important;
+  }
+  .summary-stat-row {
+    grid-template-columns: 1fr !important;
+  }
+  .card-action-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .card-action-btns .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

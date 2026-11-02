@@ -82,7 +82,8 @@ app.get('/api', (req, res) => {
       blogs: '/api/blogs',
       settings: '/api/settings',
       logs: '/api/logs',
-      media: '/api/media'
+      media: '/api/media',
+      content: '/api/content'
     }
   });
 });

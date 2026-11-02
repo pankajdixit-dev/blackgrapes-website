@@ -23,7 +23,11 @@ import {
   ExternalLink,
   ChevronRight,
   Database,
-  Radio
+  Radio,
+  Briefcase,
+  ShoppingBag,
+  Handshake,
+  Building2
 } from 'lucide-react';
 import { getCurrentSession, logoutAdmin } from '@backend/authService';
 import { getEnquiries, checkBackendHealth } from '@backend/dataService';
@@ -85,8 +89,13 @@ export default function AdminLayout() {
       items: [
         { label: 'Home Page', path: '/admin/home', icon: Home },
         { label: 'About Us Page', path: '/admin/about', icon: Info },
-        { label: 'Services', path: '/admin/services', icon: Layers },
-        { label: 'Projects / Products', path: '/admin/projects', icon: Package },
+        { label: 'Services & Softech', path: '/admin/services', icon: Layers },
+        { label: 'Products & Projects', path: '/admin/projects', icon: Package },
+        { label: 'Client Portfolio', path: '/admin/clients', icon: Building2 },
+        { label: 'IT Staffing Solutions', path: '/admin/it-staffing', icon: Briefcase },
+        { label: 'E-Commerce Platform', path: '/admin/ecommerce', icon: ShoppingBag },
+        { label: 'Partnership & Alliances', path: '/admin/partnership', icon: Handshake },
+        { label: 'Contact Coordinates', path: '/admin/contact', icon: MapPin },
         { label: 'Leadership & Team', path: '/admin/team', icon: Users },
         { label: 'Client Testimonials', path: '/admin/testimonials', icon: MessageSquareQuote },
         { label: 'Blog & Insights', path: '/admin/blog', icon: BookOpen }

@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useServices, useSeo } from '@backend/useContent';
 import ServicesHero from '../components/services/ServicesHero';
 import CategoryFilter from '../components/services/CategoryFilter';
 import ServiceCard from '../components/services/ServiceCard';
@@ -23,12 +24,16 @@ import '../styles/Services.css';
 import '../styles/CyberServices.css';
 
 export default function ServicesPage({ onOpenInquiry }) {
+  useSeo('/services');
+  const { services } = useServices();
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('group'); // 'group', 'softech', 'staffing', 'ecommerce'
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [inquiryService, setInquiryService] = useState(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+
+  const activeServices = (services && services.length > 0) ? services : servicesData;
 
   // Sync tab and category from URL query parameters
   useEffect(() => {
@@ -69,31 +74,31 @@ export default function ServicesPage({ onOpenInquiry }) {
 
   // Category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: servicesData.length };
+    const counts = { all: activeServices.length };
     serviceCategories.forEach((cat) => {
       if (cat.id !== 'all') {
-        counts[cat.id] = servicesData.filter((s) => s.category === cat.id).length;
+        counts[cat.id] = activeServices.filter((s) => s.category === cat.id).length;
       }
     });
     return counts;
-  }, []);
+  }, [activeServices]);
 
   // Filter services by category and search
   const filteredServices = useMemo(() => {
-    return servicesData.filter((service) => {
+    return activeServices.filter((service) => {
       const matchesCategory =
         selectedCategory === 'all' || service.category === selectedCategory;
 
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
-        service.title.toLowerCase().includes(q) ||
-        service.description.toLowerCase().includes(q) ||
-        service.tagline.toLowerCase().includes(q);
+        service.title?.toLowerCase().includes(q) ||
+        service.description?.toLowerCase().includes(q) ||
+        (service.tagline && service.tagline.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, activeServices]);
 
   const handleOpenInquiryInternal = (service = null) => {
     if (onOpenInquiry) {

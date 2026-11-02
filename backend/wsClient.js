@@ -121,3 +121,4 @@ export function sendWsBroadcast(moduleName, data) {
 if (typeof window !== 'undefined') {
   initWebSocket();
 }
+

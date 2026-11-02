@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { usePartnership, useSeo } from '@backend/useContent';
+import { submitEnquiry } from '@backend/dataService';
 import { Sparkles, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 import '../styles/Partnership.css';
 
 export default function PartnershipPage() {
+  useSeo('/partnership');
+  const { partnershipData } = usePartnership();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,13 +18,24 @@ export default function PartnershipPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.contact,
+        service: 'Partnership & Alliances',
+        source: 'Partnership Page Form',
+        message: `City: ${formData.city} | Message: ${formData.message}`
+      });
+    } catch {
+      // fallback
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 900);
+    }
   };
 
   const handleReset = () => {
@@ -41,21 +56,21 @@ export default function PartnershipPage() {
         <div className="partner-page-header">
           <div className="partner-eyebrow">
             <Sparkles size={14} />
-            <span>PARTNERSHIP</span>
+            <span>{partnershipData?.heroBadge || 'PARTNERSHIP'}</span>
           </div>
-          <h1 className="partner-page-title"><span className="text-gradient">Partnership</span></h1>
+          <h1 className="partner-page-title"><span className="text-gradient">{partnershipData?.heroTitle || 'Partnership'}</span></h1>
           <p className="partner-page-subtitle">
-            Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.
+            {partnershipData?.heroSubtitle || 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.'}
           </p>
         </div>
 
         {/* 2-Column Split Layout: Partner With Us Content + Form */}
         <div className="partner-with-us-grid">
-          {/* Left Column: Authentic Content from https://blackgrapessoftech.com/partnership/ */}
+          {/* Left Column: Authentic Content */}
           <div className="partner-content-card">
-            <h2 className="partner-heading-main">Partner With Us</h2>
+            <h2 className="partner-heading-main">{partnershipData?.partnerWithUsTitle || 'Partner With Us'}</h2>
             <p className="partner-desc-text">
-              If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.
+              {partnershipData?.partnerWithUsText || 'If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.'}
             </p>
 
             <div className="partner-img-wrapper">

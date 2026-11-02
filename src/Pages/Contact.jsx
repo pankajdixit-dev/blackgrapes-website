@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSiteSettings, useContactPage, useSeo } from '@backend/useContent';
+import { submitEnquiry } from '@backend/dataService';
 import {
   MapPin,
   Phone,
@@ -44,6 +46,10 @@ const YoutubeIcon = () => (
 import '../styles/CyberServices.css';
 
 export default function ContactPage() {
+  useSeo('/contact');
+  const { settings } = useSiteSettings();
+  const { contactData } = useContactPage();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -64,16 +70,13 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      await fetch('http://localhost:5000/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: 'Via Contact Form',
-          service: formData.project || 'General Contact',
-          message: formData.message
-        })
+      await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: 'Via Contact Page Form',
+        service: formData.project || 'General Contact',
+        source: 'Contact Us Page',
+        message: formData.message
       });
     } catch {
       // Local graceful fallback
@@ -117,26 +120,26 @@ export default function ContactPage() {
 
             <div className="contact-address-block">
               <a
-                href="https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8"
+                href={contactData?.address1MapUrl || 'https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-address-link"
               >
                 <span className="address-label">Address 1: </span>
-                252-F/H, Scheme No 54, Vijay Nagar, Indore-452010, Madhya Pradesh.
+                {contactData?.address1Text || settings?.office_address || '252-F/H, Scheme No 54, Vijay Nagar, Indore-452010, Madhya Pradesh.'}
                 <ExternalLink size={13} className="ext-icon" />
               </a>
 
               <div className="contact-card-divider" />
 
               <a
-                href="https://maps.app.goo.gl/yahxDsm7BLK652mA8"
+                href={contactData?.address2MapUrl || 'https://maps.app.goo.gl/yahxDsm7BLK652mA8'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-address-link"
               >
                 <span className="address-label">Address 2: </span>
-                Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore-452010, Madhya Pradesh.
+                {contactData?.address2Text || 'Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore-452010, Madhya Pradesh.'}
                 <ExternalLink size={13} className="ext-icon" />
               </a>
             </div>
@@ -153,16 +156,20 @@ export default function ContactPage() {
               <div className="contact-person-row">
                 <span className="person-label">Arpit Jain:</span>
                 <div className="person-phones">
-                  <a href="tel:+919039397884" className="contact-tel-link">+91 9039397884</a>
+                  <a href={`tel:${settings?.primary_phone || '+91 9039397884'}`} className="contact-tel-link">
+                    {settings?.primary_phone || '+91 9039397884'}
+                  </a>
                   <span className="sep-pipe">|</span>
-                  <a href="tel:+917470997884" className="contact-tel-link">+91 7470997884</a>
+                  <a href={`tel:${settings?.secondary_phone || '+91 7470997884'}`} className="contact-tel-link">
+                    {settings?.secondary_phone || '+91 7470997884'}
+                  </a>
                 </div>
               </div>
 
               <div className="contact-card-divider" />
 
               <div className="contact-person-row">
-                <span className="person-label">Deepika Jain:</span>
+                <span className="person-label">Support Desk:</span>
                 <div className="person-phones">
                   <a href="tel:+916262414463" className="contact-tel-link">+91 6262414463</a>
                 </div>
@@ -178,16 +185,16 @@ export default function ContactPage() {
             <h3 className="contact-card-title">Email Us</h3>
 
             <div className="contact-email-block">
+              <a href={`mailto:${settings?.primary_email || 'info@blackgrapessoftech.com'}`} className="contact-mail-link">
+                {settings?.primary_email || 'info@blackgrapessoftech.com'}
+              </a>
+              <div className="contact-card-divider" />
+              <a href={`mailto:${settings?.support_email || 'support@blackgrapessoftech.com'}`} className="contact-mail-link">
+                {settings?.support_email || 'support@blackgrapessoftech.com'}
+              </a>
+              <div className="contact-card-divider" />
               <a href="mailto:blackgrapesgroups@gmail.com" className="contact-mail-link">
                 blackgrapesgroups@gmail.com
-              </a>
-              <div className="contact-card-divider" />
-              <a href="mailto:blackgrapes.arpitjain@gmail.com" className="contact-mail-link">
-                blackgrapes.arpitjain@gmail.com
-              </a>
-              <div className="contact-card-divider" />
-              <a href="mailto:blackgrapes.deepikajain@gmail.com" className="contact-mail-link">
-                blackgrapes.deepikajain@gmail.com
               </a>
             </div>
           </div>

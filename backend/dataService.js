@@ -14,7 +14,12 @@ import {
   DEFAULT_ENQUIRIES,
   DEFAULT_SEO_METADATA,
   DEFAULT_ADMIN_USERS,
-  DEFAULT_ACTIVITY_LOGS
+  DEFAULT_ACTIVITY_LOGS,
+  DEFAULT_IT_STAFFING,
+  DEFAULT_ECOMMERCE,
+  DEFAULT_PARTNERSHIP,
+  DEFAULT_CONTACT_PAGE,
+  DEFAULT_CLIENTS_PAGE
 } from './defaultData';
 import { sendWsBroadcast } from './wsClient';
 
@@ -803,3 +808,74 @@ export async function getContentRevisions(sectionKey = null) {
   if (!sectionKey) return all;
   return all.filter((r) => r.section_key === sectionKey);
 }
+
+// ==========================================
+// 17. IT STAFFING PAGE
+// ==========================================
+export async function getITStaffing() {
+  return await fetchModuleApi('it_staffing', DEFAULT_IT_STAFFING);
+}
+
+export async function saveITStaffing(data) {
+  await saveModuleApi('it_staffing', data);
+  logActivity('IT Staffing Updated', 'IT Staffing', 'it_staffing', 'Saved live modifications to IT Staffing solutions');
+  notifyContentUpdated('it_staffing', data);
+  return data;
+}
+
+// ==========================================
+// 18. E-COMMERCE PAGE
+// ==========================================
+export async function getEcommerce() {
+  return await fetchModuleApi('ecommerce_page', DEFAULT_ECOMMERCE);
+}
+
+export async function saveEcommerce(data) {
+  await saveModuleApi('ecommerce_page', data);
+  logActivity('Ecommerce Updated', 'Ecommerce', 'ecommerce_page', 'Saved live modifications to E-Commerce platform');
+  notifyContentUpdated('ecommerce_page', data);
+  return data;
+}
+
+// ==========================================
+// 19. PARTNERSHIP & ALLIANCES PAGE
+// ==========================================
+export async function getPartnership() {
+  return await fetchModuleApi('partnership_page', DEFAULT_PARTNERSHIP);
+}
+
+export async function savePartnership(data) {
+  await saveModuleApi('partnership_page', data);
+  logActivity('Partnership Updated', 'Partnership', 'partnership_page', 'Saved live modifications to Partnership & Alliances');
+  notifyContentUpdated('partnership_page', data);
+  return data;
+}
+
+// ==========================================
+// 20. CONTACT PAGE DETAILS
+// ==========================================
+export async function getContactPage() {
+  return await fetchModuleApi('contact_page', DEFAULT_CONTACT_PAGE);
+}
+
+export async function saveContactPage(data) {
+  await saveModuleApi('contact_page', data);
+  logActivity('Contact Page Updated', 'Contact', 'contact_page', 'Saved live modifications to Contact Page coordinates');
+  notifyContentUpdated('contact_page', data);
+  return data;
+}
+
+// ==========================================
+// 21. CLIENTS PAGE DATA
+// ==========================================
+export async function getClientsPage() {
+  return await fetchModuleApi('clients_page', DEFAULT_CLIENTS_PAGE);
+}
+
+export async function saveClientsPage(data) {
+  await saveModuleApi('clients_page', data);
+  logActivity('Clients Page Updated', 'Clients', 'clients_page', 'Saved live modifications to Clients page impact stats');
+  notifyContentUpdated('clients_page', data);
+  return data;
+}
+

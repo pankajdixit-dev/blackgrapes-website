@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useEcommerce, useSeo } from '@backend/useContent';
+import { submitEnquiry } from '@backend/dataService';
 import {
   ShoppingBag,
   Sparkles,
@@ -24,6 +26,8 @@ import {
 import '../styles/CyberServices.css';
 
 export default function EcommercePage({ onOpenContact }) {
+  useSeo('/ecommerce');
+  const { ecommerceData } = useEcommerce();
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'new', 'used'
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
   const [copiedDomain, setCopiedDomain] = useState(false);
@@ -36,15 +40,31 @@ export default function EcommercePage({ onOpenContact }) {
     productCategory: 'Electronics & Appliances'
   });
 
+  const targetDomain = ecommerceData?.domain || 'https://www.nayapuranabazaar.com';
+  const displayDomain = ecommerceData?.domainDisplay || 'nayapuranabazaar.com';
+
   const handleCopyDomain = () => {
-    navigator.clipboard.writeText('https://www.nayapuranabazaar.com');
+    navigator.clipboard.writeText(targetDomain);
     setCopiedDomain(true);
     setTimeout(() => setCopiedDomain(false), 2000);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setWaitlistSubmitted(true);
+    try {
+      await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: 'Ecommerce Waitlist',
+        source: 'Naya Purana Bazaar Waitlist',
+        message: `Interest: ${formData.interest}, Category: ${formData.productCategory}`
+      });
+    } catch {
+      // fallback
+    } finally {
+      setWaitlistSubmitted(true);
+    }
   };
 
   return (
@@ -59,37 +79,45 @@ export default function EcommercePage({ onOpenContact }) {
           <div className="hero-badge-wrap">
             <span className="hero-top-pill" style={{ borderColor: 'rgba(248, 98, 0, 0.4)', background: 'rgba(248, 98, 0, 0.1)' }}>
               <Sparkles size={14} color="#f86200" />
-              <span>BLACK GRAPES SOFTECH • OFFICIAL ECOMMERCE PLATFORM</span>
+              <span>{ecommerceData?.badge || 'BLACK GRAPES SOFTECH • OFFICIAL ECOMMERCE PLATFORM'}</span>
             </span>
           </div>
 
-          {/* Main Title */}
+          {/* Dynamic Main Title */}
           <h1 className="black-hero-title">
-            Exciting News! <br />
-            <span className="hero-title-accent">Naya Purana Bazaar</span> is Coming Soon!
+            {ecommerceData?.title || (
+              <>
+                Exciting News! <br />
+                <span className="hero-title-accent">Naya Purana Bazaar</span> is Coming Soon!
+              </>
+            )}
           </h1>
 
           {/* Subtitle & Official Byline */}
           <div className="ecommerce-byline">
-            <span className="byline-tag">An Online Marketplace By Black Grapes Softech</span>
+            <span className="byline-tag">{ecommerceData?.byline || 'An Online Marketplace By Black Grapes Softech'}</span>
             <button
               type="button"
               className="domain-badge-btn"
               onClick={handleCopyDomain}
               title="Click to copy official website URL"
             >
-              <span>www.nayapuranabazaar.com</span>
+              <span>{displayDomain}</span>
               {copiedDomain ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
             </button>
           </div>
 
-          {/* Authentic Announcement Text from Original Site */}
+          {/* Dynamic Announcement Text */}
           <div className="ecommerce-announcement-box">
             <p className="announcement-lead">
-              We are thrilled to announce the upcoming launch of <strong>Naya Purana Bazaar</strong>, your future favourite destination for online shopping. Our platform is under development, and we are working hard to bring you a seamless, user-friendly shopping experience with a wide range of <strong>“New And Used Products”</strong>.
+              {ecommerceData?.summary || (
+                <>
+                  We are thrilled to announce the upcoming launch of <strong>Naya Purana Bazaar</strong>, your future favourite destination for online shopping. Our platform is under development, and we are working hard to bring you a seamless, user-friendly shopping experience with a wide range of <strong>“New And Used Products”</strong>.
+                </>
+              )}
             </p>
             <p className="announcement-sub">
-              Stay tuned for more updates and be among the first to explore our unique offerings and exclusive deals. Thank you for your patience and support as we prepare to launch. Get ready to redefine your shopping experience with <strong>nayapuranabazaar.com</strong>!
+              Target Launch: <strong>{ecommerceData?.targetLaunch || 'Q2 2026'}</strong>. Stay tuned for more updates and be among the first to explore our unique offerings and exclusive deals. Thank you for your patience and support as we prepare to launch. Get ready to redefine your shopping experience with <strong>{displayDomain}</strong>!
             </p>
           </div>
 
@@ -106,7 +134,7 @@ export default function EcommercePage({ onOpenContact }) {
             </button>
 
             <a
-              href="https://www.nayapuranabazaar.com"
+              href={targetDomain}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"

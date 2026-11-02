@@ -145,7 +145,8 @@
       "subtitle": "Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.",
       "primaryBtnText": "Get Started Now!",
       "secondaryBtnText": "Get Free Consultation"
-    }
+    },
+    "updated_at": "2026-11-02T09:10:05.786Z"
   },
   "page_sections": {
     "about_hero": {
@@ -174,7 +175,27 @@
           "Full Cycle Development",
           "24/7 Dedicated Support"
         ]
-      }
+      },
+      "draft_content": {
+        "badge": "ABOUT BLACK GRAPES SOFTECH",
+        "title": "We Don’t Just Write Code —",
+        "titleHighlight": "We Engineer The Digital Future.",
+        "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
+        "primaryBtnText": "Partner With Us",
+        "secondaryBtnText": "Meet Our Leadership",
+        "secondaryBtnLink": "#founders",
+        "image": "/images/blackgrapes-1.png",
+        "floatingStat1Num": "250+ Projects",
+        "floatingStat1Sub": "Shipped Globally",
+        "floatingStat2Num": "15+ Nations",
+        "floatingStat2Sub": "Active Client Base",
+        "microBadges": [
+          "Certified Developers",
+          "Full Cycle Development",
+          "24/7 Dedicated Support"
+        ]
+      },
+      "updated_at": "2026-11-02T09:23:31.157Z"
     },
     "stats_strip": {
       "id": "sec-stats-strip",
@@ -719,6 +740,105 @@
   ],
   "activity_logs": [
     {
+      "id": "log-1793612513344",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-02T09:41:53.344Z"
+    },
+    {
+      "id": "log-1793612513174",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-02T09:41:53.174Z"
+    },
+    {
+      "id": "log-1793612512997",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-02T09:41:52.997Z"
+    },
+    {
+      "id": "log-1793611411167",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-02T09:23:31.168Z"
+    },
+    {
+      "id": "log-1793611036359",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-02T09:17:16.359Z"
+    },
+    {
+      "id": "log-1793610605817",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T09:10:05.818Z"
+    },
+    {
+      "id": "log-1793610589867",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T09:09:49.867Z"
+    },
+    {
+      "id": "log-1793610563703",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T09:09:23.703Z"
+    },
+    {
+      "id": "log-1793610528736",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T09:08:48.736Z"
+    },
+    {
+      "id": "log-1793604408898",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T07:26:48.898Z"
+    },
+    {
+      "id": "log-1793604387294",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-02T07:26:27.294Z"
+    },
+    {
       "id": "log-1793603139562",
       "action": "Updated Module",
       "module": "home_page",
@@ -802,5 +922,84 @@
       "order_index": 9,
       "is_active": true
     }
-  ]
+  ],
+  "it_staffing": {
+    "badge": "LIVE TEST BADGE",
+    "headline": "Stay on course with growth plans by hiring contractual staff",
+    "subtitle": "Live WebSocket Test Subtitle",
+    "description": "Updated via Admin panel test"
+  },
+  "ecommerce_page": {
+    "badge": "TEST ECOMMERCE BADGE",
+    "title": "Exciting News! Naya Purana Bazaar is Coming Soon!",
+    "domain": "https://www.nayapuranabazaar.com",
+    "domainDisplay": "nayapuranabazaar.com",
+    "targetLaunch": "Q3 2026"
+  },
+  "partnership_page": {
+    "heroBadge": "TEST ALLIANCES",
+    "heroTitle": "Partnership",
+    "heroSubtitle": "Cultivating strategic relationships"
+  },
+  "contact_page": {
+    "heroBadge": "BLACK GRAPES GROUP",
+    "heroTitle": "Get in Touch",
+    "heroSubtitle": "We are here to help and answer any questions you might have. We look forward to hearing from you.",
+    "address1Label": "Registered Office (Address 1)",
+    "address1Text": "252-F/H, Scheme No 54, Vijay Nagar, Indore-452010, Madhya Pradesh, India.",
+    "address1MapUrl": "https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8",
+    "address2Label": "Development Centre (Address 2)",
+    "address2Text": "Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore-452010, Madhya Pradesh, India.",
+    "address2MapUrl": "https://maps.app.goo.gl/yahxDsm7BLK652mA8",
+    "directPhones": [
+      {
+        "name": "Arpit Jain",
+        "phones": [
+          "+91 9039397884",
+          "+91 7470997884"
+        ]
+      },
+      {
+        "name": "Support Desk",
+        "phones": [
+          "+91 6262414463"
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "department": "General Inquiries",
+        "email": "info@blackgrapessoftech.com"
+      },
+      {
+        "department": "Technical Support",
+        "email": "support@blackgrapessoftech.com"
+      }
+    ],
+    "workingHours": "Monday – Saturday: 10:00 AM – 7:30 PM (IST)"
+  },
+  "clients_page": {
+    "metrics": [
+      {
+        "number": "150+",
+        "label": "Enterprise Clients",
+        "highlight": "Global Scale"
+      },
+      {
+        "number": "15+",
+        "label": "Countries Served",
+        "highlight": "Worldwide Reach"
+      },
+      {
+        "number": "99%",
+        "label": "Client Retention",
+        "highlight": "Long-term Trust"
+      },
+      {
+        "number": "+",
+        "label": "Value Generated",
+        "highlight": "Measurable ROI"
+      }
+    ]
+  }
 }

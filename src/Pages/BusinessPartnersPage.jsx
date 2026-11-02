@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePartnership, useSeo } from '@backend/useContent';
 import { Sparkles, Layers, Handshake, ExternalLink, Plus } from 'lucide-react';
 import {
   PRODUCT_PARTNERS_INTRO,
@@ -9,6 +10,8 @@ import {
 import '../styles/Partnership.css';
 
 export default function BusinessPartnersPage() {
+  useSeo('/business-partners');
+  const { partnershipData } = usePartnership();
   return (
     <div className="business-partners-container">
       <div className="container">
@@ -20,7 +23,7 @@ export default function BusinessPartnersPage() {
           </div>
           <h1 className="partner-page-title">Our <span className="text-gradient">Business Partners</span></h1>
           <p className="partner-page-subtitle">
-            Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.
+            {partnershipData?.heroSubtitle || 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.'}
           </p>
         </div>
 
@@ -29,7 +32,7 @@ export default function BusinessPartnersPage() {
           <div className="bp-intro-card">
             <h2 className="bp-section-title">
               <Handshake size={24} color="#f86200" />
-              <span>{PRODUCT_PARTNERS_INTRO.sectionTitle}</span>
+              <span>{partnershipData?.productPartnersTitle || PRODUCT_PARTNERS_INTRO.sectionTitle}</span>
             </h2>
 
             <div className="bp-intro-paragraphs">

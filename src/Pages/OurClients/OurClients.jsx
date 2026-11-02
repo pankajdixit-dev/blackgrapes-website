@@ -29,7 +29,7 @@ import {
   CLIENT_TESTIMONIALS,
   ENGAGEMENT_MODELS
 } from './clientsData';
-import { useClients, useSeo } from '@backend/useContent';
+import { useClients, useTestimonials, useClientsPage, useSeo } from '@backend/useContent';
 import ClientCaseStudyModal from './ClientCaseStudyModal';
 import clientsNetworkImg from '../../assets/clients-network.jpg';
 import clientsSummitImg from '../../assets/clients-summit.jpg';
@@ -37,7 +37,9 @@ import './OurClients.css';
 
 export default function OurClients({ onOpenDemoModal }) {
   useSeo('/clients');
-  const { clients, testimonials } = useClients();
+  const { clients } = useClients();
+  const { testimonials } = useTestimonials();
+  const { clientsPageData } = useClientsPage();
 
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,6 +47,7 @@ export default function OurClients({ onOpenDemoModal }) {
 
   const activeClientsList = (clients && clients.length > 0) ? clients : CLIENTS_LIST;
   const activeTestimonials = (testimonials && testimonials.length > 0) ? testimonials : CLIENT_TESTIMONIALS;
+  const activeMetrics = clientsPageData?.metrics?.length ? clientsPageData.metrics : CLIENT_METRICS;
 
   // Filtered clients list
   const filteredClients = useMemo(() => {
@@ -91,7 +94,7 @@ export default function OurClients({ onOpenDemoModal }) {
 
             {/* Metrics Counter Strip */}
             <div className="clients-metrics-row">
-              {CLIENT_METRICS.map((metric, idx) => (
+              {activeMetrics.map((metric, idx) => (
                 <div key={idx} className="metric-item">
                   <span className="metric-num text-gradient">{metric.number}</span>
                   <span className="metric-sub">{metric.label}</span>

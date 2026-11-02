@@ -688,3 +688,124 @@ export const DEFAULT_ACTIVITY_LOGS = [
   }
 ];
 
+export const DEFAULT_IT_STAFFING = {
+  badge: 'FAST-TRACK IT & TECHNICAL STAFFING',
+  headline: 'Hire Top 1% Pre-Vetted Tech Talent & Accelerate Engineering',
+  subtitle: 'Scalable dedicated engineering squads, contract developers, and executive tech hires ready to deploy within 48 hours.',
+  stats: [
+    { label: 'Deployment Time', value: '48 Hours', sub: 'Ready-to-code talent' },
+    { label: 'Vetting Standard', value: 'Top 1%', sub: 'Rigorous technical screens' },
+    { label: 'Replacement Guarantee', value: '100%', sub: 'Zero-risk trial' },
+    { label: 'Client Retention', value: '98.5%', sub: 'Long-term contracts' }
+  ],
+  mandateOptions: ['1-10', '10-50', '51-100', '101+'],
+  staffingServices: [
+    'NAPS/Apprenticeship Hiring',
+    'Bulk Hiring',
+    'Diversity Hiring',
+    'Gig Hiring/Flexi Staffing',
+    'General Staffing/Payroll Management',
+    'IT/Technical Hiring'
+  ],
+  guaranteePoints: [
+    '48-Hour Talent Deployment to your Slack or Jira',
+    'Risk-Free 2-Week Trial Period',
+    'Strict NDAs & Complete IP Transfer',
+    'Transparent Hourly or Monthly Retainer Pricing'
+  ],
+  models: [
+    { id: 'm-1', title: 'Dedicated Developers', desc: 'Full-time senior software engineers integrated into your sprint cycles.', rate: 'From $18/hr', bestFor: 'Scaling product teams' },
+    { id: 'm-2', title: 'Managed Engineering Squads', desc: 'Autonomous squads complete with Tech Lead, QA, and Scrum Master.', rate: 'Custom Scope', bestFor: 'Turnkey feature builds' },
+    { id: 'm-3', title: 'Contract & Flexi Staffing', desc: 'On-demand niche talent for specific project deliverables without long-term overhead.', rate: 'Flexible', bestFor: 'Spike workloads & MVPs' }
+  ],
+  testimonials: [
+    {
+      id: 't-1',
+      name: 'Subodh Bhandari',
+      role: 'Businessman',
+      company: 'Enterprise Partner',
+      rating: 5,
+      quote: 'I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.'
+    }
+  ]
+};
+
+export const DEFAULT_ECOMMERCE = {
+  badge: 'BLACK GRAPES SOFTECH • OFFICIAL ECOMMERCE PLATFORM',
+  title: 'Exciting News! Naya Purana Bazaar is Coming Soon!',
+  byline: 'An Online Marketplace By Black Grapes Softech',
+  domain: 'https://www.nayapuranabazaar.com',
+  domainDisplay: 'nayapuranabazaar.com',
+  targetLaunch: 'Q2 2026',
+  summary: "India's next-generation hybrid marketplace connecting buyers and verified sellers for certified new and pre-owned goods with escrow security, fast courier logistics, and verified buyer protection.",
+  categories: [
+    { id: 'electronics', name: 'Electronics & Appliances', count: '120+ Listings Pending', icon: 'Cpu' },
+    { id: 'vehicles', name: 'Two Wheelers & Cars', count: '85+ Listings Pending', icon: 'Car' },
+    { id: 'furniture', name: 'Home & Office Furniture', count: '60+ Listings Pending', icon: 'Home' },
+    { id: 'fashion', name: 'Fashion & Lifestyle', count: '200+ Listings Pending', icon: 'ShoppingBag' }
+  ],
+  buyerPerks: [
+    '100% Escrow Payment Protection',
+    'Doorstep Quality Verification',
+    '7-Day Easy Return Policy',
+    'Direct WhatsApp Chat with Sellers'
+  ],
+  sellerPerks: [
+    '0% Listing Fee for First 100 Products',
+    'Instant Payment Settlements to Bank',
+    'Free Integrated Logistics & Pickup',
+    'Automated Inventory & Invoicing Portal'
+  ],
+  waitlist_count: 450
+};
+
+export const DEFAULT_PARTNERSHIP = {
+  heroBadge: 'PARTNERSHIP & ALLIANCES',
+  heroTitle: 'Strategic Technology Alliances & Offshore Development',
+  heroSubtitle: 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.',
+  partnerWithUsTitle: 'Partner With Us',
+  partnerWithUsText: 'If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.',
+  partnerImage: '/partners/partner_with_us.webp',
+  benefits: [
+    'Dedicated Offshore Development Center (ODC) setup in Indore tech corridor',
+    'Seamless collaboration across global time zones (US, UK, UAE, Australia)',
+    'Transparent billing, daily standups, and dedicated engineering leadership',
+    'Strict intellectual property protection and confidentiality agreements'
+  ],
+  productPartnersTitle: 'Products Companies Tie-up',
+  productPartnersIntro: 'Facilitating strategic alliances between product companies to expand reach, unlock mutual growth, and integrate complementary cloud platforms.',
+  servicePartnersTitle: 'Services Companies Tie-up',
+  servicePartnersIntro: 'Strategic collaborations between service enterprises to expand offerings, share cross-domain expertise, and co-deliver complex client mandates.'
+};
+
+export const DEFAULT_CONTACT_PAGE = {
+  heroBadge: 'BLACK GRAPES GROUP',
+  heroTitle: 'Get in Touch',
+  heroSubtitle: 'We are here to help and answer any questions you might have. We look forward to hearing from you.',
+  address1Label: 'Registered Office (Address 1)',
+  address1Text: '252-F/H, Scheme No 54, Vijay Nagar, Indore-452010, Madhya Pradesh, India.',
+  address1MapUrl: 'https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8',
+  address2Label: 'Development Centre (Address 2)',
+  address2Text: 'Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore-452010, Madhya Pradesh, India.',
+  address2MapUrl: 'https://maps.app.goo.gl/yahxDsm7BLK652mA8',
+  directPhones: [
+    { name: 'Arpit Jain', phones: ['+91 9039397884', '+91 7470997884'] },
+    { name: 'Support Desk', phones: ['+91 6262414463'] }
+  ],
+  emails: [
+    { department: 'General Inquiries', email: 'info@blackgrapessoftech.com' },
+    { department: 'Technical Support', email: 'support@blackgrapessoftech.com' }
+  ],
+  workingHours: 'Monday – Saturday: 10:00 AM – 7:30 PM (IST)'
+};
+
+export const DEFAULT_CLIENTS_PAGE = {
+  metrics: [
+    { number: '150+', label: 'Enterprise Clients', highlight: 'Global Scale' },
+    { number: '15+', label: 'Countries Served', highlight: 'Worldwide Reach' },
+    { number: '99%', label: 'Client Retention', highlight: 'Long-term Trust' },
+    { number: '$50M+', label: 'Value Generated', highlight: 'Measurable ROI' }
+  ]
+};
+
+

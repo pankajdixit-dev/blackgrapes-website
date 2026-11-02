@@ -33,6 +33,10 @@ const HomePageManager = lazy(() => import('@admin/pages/HomePageManager'));
 const AboutPageManager = lazy(() => import('@admin/pages/AboutPageManager'));
 const ServicesManager = lazy(() => import('@admin/pages/ServicesManager'));
 const ProjectsManager = lazy(() => import('@admin/pages/ProjectsManager'));
+const ClientsManager = lazy(() => import('@admin/pages/ClientsManager'));
+const ITStaffingManager = lazy(() => import('@admin/pages/ITStaffingManager'));
+const EcommerceManager = lazy(() => import('@admin/pages/EcommerceManager'));
+const PartnershipManager = lazy(() => import('@admin/pages/PartnershipManager'));
 const TeamManager = lazy(() => import('@admin/pages/TeamManager'));
 const TestimonialsManager = lazy(() => import('@admin/pages/TestimonialsManager'));
 const BlogManager = lazy(() => import('@admin/pages/BlogManager'));
@@ -128,6 +132,10 @@ function MainAppShell() {
             <Route path="about" element={<AboutPageManager />} />
             <Route path="services" element={<ServicesManager />} />
             <Route path="projects" element={<ProjectsManager />} />
+            <Route path="clients" element={<ClientsManager />} />
+            <Route path="it-staffing" element={<ITStaffingManager />} />
+            <Route path="ecommerce" element={<EcommerceManager />} />
+            <Route path="partnership" element={<PartnershipManager />} />
             <Route path="team" element={<TeamManager />} />
             <Route path="testimonials" element={<TestimonialsManager />} />
             <Route path="blog" element={<BlogManager />} />

@@ -7,6 +7,10 @@ import HomePageManager from './pages/HomePageManager';
 import AboutPageManager from './pages/AboutPageManager';
 import ServicesManager from './pages/ServicesManager';
 import ProjectsManager from './pages/ProjectsManager';
+import ClientsManager from './pages/ClientsManager';
+import ITStaffingManager from './pages/ITStaffingManager';
+import EcommerceManager from './pages/EcommerceManager';
+import PartnershipManager from './pages/PartnershipManager';
 import TeamManager from './pages/TeamManager';
 import TestimonialsManager from './pages/TestimonialsManager';
 import BlogManager from './pages/BlogManager';
@@ -40,6 +44,10 @@ export default function AdminApp() {
           <Route path="about" element={<AboutPageManager />} />
           <Route path="services" element={<ServicesManager />} />
           <Route path="projects" element={<ProjectsManager />} />
+          <Route path="clients" element={<ClientsManager />} />
+          <Route path="it-staffing" element={<ITStaffingManager />} />
+          <Route path="ecommerce" element={<EcommerceManager />} />
+          <Route path="partnership" element={<PartnershipManager />} />
           <Route path="team" element={<TeamManager />} />
           <Route path="testimonials" element={<TestimonialsManager />} />
           <Route path="blog" element={<BlogManager />} />

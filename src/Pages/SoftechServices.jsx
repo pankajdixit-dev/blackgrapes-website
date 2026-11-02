@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useServices, useSeo } from '@backend/useContent';
 import SoftechDropdownPicker from '../components/softech/SoftechDropdownPicker';
 import SoftechSpotlightCard from '../components/softech/SoftechSpotlightCard';
 import SoftechServiceCard from '../components/softech/SoftechServiceCard';
@@ -37,12 +38,16 @@ const originalIndustries = [
 ];
 
 export default function SoftechServicesPage({ selectedServiceId = null, onSelectService = null }) {
+  useSeo('/softech-services');
+  const { services } = useServices();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDropdownServiceId, setSelectedDropdownServiceId] = useState(selectedServiceId);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeDetailsModal, setActiveDetailsModal] = useState(null);
   const [inquiryService, setInquiryService] = useState(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+
+  const activeServices = (services && services.length > 0) ? services : softechServices;
 
   // Sync external selection from navbar
   useEffect(() => {
@@ -59,21 +64,21 @@ export default function SoftechServicesPage({ selectedServiceId = null, onSelect
 
   // Filter services by category and live search
   const filteredServices = useMemo(() => {
-    return softechServices.filter((service) => {
+    return activeServices.filter((service) => {
       const matchesCategory =
         selectedCategory === 'all' || service.category === selectedCategory;
 
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
-        service.title.toLowerCase().includes(q) ||
-        service.description.toLowerCase().includes(q) ||
-        service.tagline.toLowerCase().includes(q) ||
-        service.techStack.some((t) => t.toLowerCase().includes(q));
+        service.title?.toLowerCase().includes(q) ||
+        service.description?.toLowerCase().includes(q) ||
+        (service.tagline && service.tagline.toLowerCase().includes(q)) ||
+        (Array.isArray(service.techStack) && service.techStack.some((t) => t.toLowerCase().includes(q)));
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, activeServices]);
 
   // Find currently spotlighted service from dropdown
   const spotlightService = useMemo(() => {

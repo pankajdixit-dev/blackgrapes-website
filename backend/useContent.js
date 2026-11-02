@@ -9,7 +9,12 @@ import {
   getClients,
   getTestimonials,
   getTeamMembers,
-  getSeoMetadata
+  getSeoMetadata,
+  getITStaffing,
+  getEcommerce,
+  getPartnership,
+  getContactPage,
+  getClientsPage
 } from './dataService';
 import {
   DEFAULT_SITE_SETTINGS,
@@ -21,7 +26,12 @@ import {
   DEFAULT_CLIENTS,
   DEFAULT_TESTIMONIALS,
   DEFAULT_TEAM_MEMBERS,
-  DEFAULT_SEO_METADATA
+  DEFAULT_SEO_METADATA,
+  DEFAULT_IT_STAFFING,
+  DEFAULT_ECOMMERCE,
+  DEFAULT_PARTNERSHIP,
+  DEFAULT_CONTACT_PAGE,
+  DEFAULT_CLIENTS_PAGE
 } from './defaultData';
 import { subscribeToWebSocket } from './wsClient';
 
@@ -334,3 +344,151 @@ export function useSeoMetadata(pagePath = '/') {
 }
 
 export const useSeo = useSeoMetadata;
+
+// 11. IT Staffing Hook
+export function useITStaffing() {
+  const [data, setData] = useState(DEFAULT_IT_STAFFING);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.headline) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getITStaffing();
+      if (res && res.headline) setData(res);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('it_staffing', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { staffingData: data, loading, reload };
+}
+
+// 12. E-Commerce Platform Hook
+export function useEcommerce() {
+  const [data, setData] = useState(DEFAULT_ECOMMERCE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.title) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getEcommerce();
+      if (res && res.title) setData(res);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('ecommerce_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { ecommerceData: data, loading, reload };
+}
+
+// 13. Partnership & Alliances Hook
+export function usePartnership() {
+  const [data, setData] = useState(DEFAULT_PARTNERSHIP);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.heroTitle) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getPartnership();
+      if (res && res.heroTitle) setData(res);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('partnership_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { partnershipData: data, loading, reload };
+}
+
+// 14. Contact Page Hook
+export function useContactPage() {
+  const [data, setData] = useState(DEFAULT_CONTACT_PAGE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.heroTitle) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getContactPage();
+      if (res && res.heroTitle) setData(res);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('contact_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { contactData: data, loading, reload };
+}
+
+// 15. Clients Page Hook
+export function useClientsPage() {
+  const [data, setData] = useState(DEFAULT_CLIENTS_PAGE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.metrics) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getClientsPage();
+      if (res && res.metrics) setData(res);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('clients_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { clientsPageData: data, loading, reload };
+}
+
+export const useProducts = useProjects;
+

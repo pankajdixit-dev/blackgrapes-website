@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useITStaffing, useSeo } from '@backend/useContent';
+import { submitEnquiry } from '@backend/dataService';
 import {
   Users,
   Sparkles,
@@ -32,6 +34,8 @@ import {
 import '../styles/CyberServices.css';
 
 export default function ITStaffingPage({ onOpenContact }) {
+  useSeo('/it-staffing');
+  const { staffingData } = useITStaffing();
   // Hero Lead Form State
   const [heroForm, setHeroForm] = useState({
     fullName: '',
@@ -60,7 +64,7 @@ export default function ITStaffingPage({ onOpenContact }) {
   // Interactive Testimonial Carousel
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
-  const staffingServices = [
+  const staffingServices = staffingData?.staffingServices?.length ? staffingData.staffingServices : [
     'NAPS/Apprenticeship Hiring',
     'Bulk Hiring',
     'Diversity Hiring',
@@ -69,9 +73,9 @@ export default function ITStaffingPage({ onOpenContact }) {
     'IT/Technical Hiring'
   ];
 
-  const mandateOptions = ['1-10', '10-50', '51-100', '101+'];
+  const mandateOptions = staffingData?.mandateOptions?.length ? staffingData.mandateOptions : ['1-10', '10-50', '51-100', '101+'];
 
-  const testimonials = [
+  const testimonials = staffingData?.testimonials?.length ? staffingData.testimonials : [
     {
       name: 'Subodh Bhandari',
       role: 'Businessman',
@@ -88,22 +92,45 @@ export default function ITStaffingPage({ onOpenContact }) {
     }
   ];
 
-  const handleHeroFormSubmit = (e) => {
+  const handleHeroFormSubmit = async (e) => {
     e.preventDefault();
     setHeroFormSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitEnquiry({
+        name: heroForm.fullName,
+        company: heroForm.companyName,
+        email: heroForm.companyEmail,
+        phone: heroForm.mobileNumber,
+        service: heroForm.service,
+        source: 'IT Staffing Hero Form',
+        message: `Requirement mandates: ${heroForm.mandates}`
+      });
+    } catch {
+      // fallback
+    } finally {
       setHeroFormSubmitting(false);
       setHeroFormSuccess(true);
-    }, 700);
+    }
   };
 
-  const handleModalSubmit = (e) => {
+  const handleModalSubmit = async (e) => {
     e.preventDefault();
     setModalSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitEnquiry({
+        name: modalForm.name,
+        email: modalForm.email,
+        phone: modalForm.contact,
+        service: modalForm.requirement,
+        source: `IT Staffing Modal (${modalType})`,
+        message: modalForm.message
+      });
+    } catch {
+      // fallback
+    } finally {
       setModalSubmitting(false);
       setModalSuccess(true);
-    }, 700);
+    }
   };
 
   const openInquiryModal = (type = 'Enquiry') => {
@@ -171,23 +198,27 @@ export default function ITStaffingPage({ onOpenContact }) {
               <div className="hero-badge-wrap" style={{ textAlign: 'left', marginBottom: '1.25rem' }}>
                 <span className="hero-top-pill cyber-pill-flame">
                   <Flame size={14} color="#f86200" />
-                  <span>BLACK GRAPES SOFTECH • IT STAFFING & MANPOWER SOLUTIONS</span>
+                  <span>{staffingData?.badge || 'BLACK GRAPES SOFTECH • IT STAFFING & MANPOWER SOLUTIONS'}</span>
                 </span>
               </div>
 
-              {/* Exact H1 from https://blackgrapessoftech.com/it-staffing/ */}
+              {/* Dynamic H1 from Admin Panel */}
               <h1 className="staffing-h1">
-                Stay on course with growth plans by{' '}
-                <span className="neon-flame-text">hiring contractual staff</span>
+                {staffingData?.headline || (
+                  <>
+                    Stay on course with growth plans by{' '}
+                    <span className="neon-flame-text">hiring contractual staff</span>
+                  </>
+                )}
               </h1>
 
-              {/* Exact Subtitle from original site */}
+              {/* Dynamic Subtitle from Admin Panel */}
               <p className="staffing-lead-text">
-                Outsource your manpower needs with prompt.
+                {staffingData?.subtitle || 'Outsource your manpower needs with prompt.'}
               </p>
 
               <p className="staffing-sub-desc">
-                Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states with full statutory compliance, zero long-term liabilities, and guaranteed rapid onboarding.
+                {staffingData?.description || 'Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states with full statutory compliance, zero long-term liabilities, and guaranteed rapid onboarding.'}
               </p>
 
               {/* Authentic Business Image with Cyber Grape High-Tech Frame & Floating Stats */}

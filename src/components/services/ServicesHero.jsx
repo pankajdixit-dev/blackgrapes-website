@@ -2,6 +2,11 @@ import React from 'react';
 import { Search, X, Sparkles } from 'lucide-react';
 
 export default function ServicesHero({ 
+  badge = 'BLACK GRAPES GROUP',
+  title = 'Services Built Specifically',
+  titleAccent = ' For Your Business',
+  subtitle = 'Empowering businesses with tailored solutions to meet your unique needs.',
+  searchPlaceholder = 'Search services (Softech, Real Estate, Valuers, Investment, Insurance)...',
   searchQuery, 
   setSearchQuery, 
   filteredCount, 
@@ -16,19 +21,19 @@ export default function ServicesHero({
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
           <span className="hero-top-pill">
             <Sparkles size={13} color="#f86200" />
-            <span>BLACK GRAPES GROUP</span>
+            <span>{badge || 'BLACK GRAPES GROUP'}</span>
           </span>
         </div>
 
         {/* Exact Authentic Heading */}
         <h1 className="black-hero-title">
-          Services Built Specifically
-          <span className="hero-title-accent"> For Your Business</span>
+          {title || 'Services Built Specifically'}
+          {titleAccent && <span className="hero-title-accent">{titleAccent}</span>}
         </h1>
 
         {/* Exact Authentic Subtitle */}
         <p className="black-hero-subtitle">
-          Empowering businesses with tailored solutions to meet your unique needs.
+          {subtitle || 'Empowering businesses with tailored solutions to meet your unique needs.'}
         </p>
 
         {/* Clean Interactive Search Filter */}
@@ -39,7 +44,7 @@ export default function ServicesHero({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search services (Softech, Real Estate, Valuers, Investment, Insurance)..."
+              placeholder={searchPlaceholder || 'Search services (Softech, Real Estate, Valuers, Investment, Insurance)...'}
               className="black-search-input"
               aria-label="Search Black Grapes Services"
             />

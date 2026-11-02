@@ -820,6 +820,9 @@ export const DEFAULT_SERVICES_PAGE = {
   titleAccent: ' For Your Business',
   subtitle: 'Empowering businesses with tailored solutions to meet your unique needs.',
   searchPlaceholder: 'Search services (Softech, Real Estate, Valuers, Investment, Insurance)...',
+  tab1Label: 'Group Companies (6 Core)',
+  tab2Label: 'IT Staffing Solutions',
+  tab3Label: 'E-Commerce (Naya Purana Bazaar)',
   isVisible: true
 };
 

@@ -23,7 +23,9 @@ import {
   Check,
   RotateCcw,
   Sliders,
-  FileText
+  FileText,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import {
   getHomePage,
@@ -833,6 +835,11 @@ export default function CentralPageManager() {
                 ======================================================== */}
             {selectedPageId === 'services' && (
               <div>
+                <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Sparkles size={16} color="#ff6b00" />
+                  <span>Services Page Hero & Search Header</span>
+                </h3>
+
                 <div className="admin-form-group">
                   <label className="admin-label">Top Pill Badge</label>
                   <input
@@ -853,7 +860,7 @@ export default function CentralPageManager() {
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-label">Hero Title Accent</label>
+                    <label className="admin-label">Hero Title Accent (Gradient Highlight)</label>
                     <input
                       type="text"
                       className="admin-input"
@@ -879,6 +886,238 @@ export default function CentralPageManager() {
                     value={pageData.searchPlaceholder || ''}
                     onChange={(e) => setPageData({ ...pageData, searchPlaceholder: e.target.value })}
                   />
+                </div>
+
+                <h3 style={{ fontSize: '1.1rem', color: '#fff', marginTop: '2rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Layers size={16} color="#ff6b00" />
+                  <span>Top Switcher Navigation Tabs</span>
+                </h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Tab 1 Label</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={pageData.tab1Label || ''}
+                      onChange={(e) => setPageData({ ...pageData, tab1Label: e.target.value })}
+                    />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Tab 2 Label</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={pageData.tab2Label || ''}
+                      onChange={(e) => setPageData({ ...pageData, tab2Label: e.target.value })}
+                    />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Tab 3 Label</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={pageData.tab3Label || ''}
+                      onChange={(e) => setPageData({ ...pageData, tab3Label: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                {/* Group Services Cards Management */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2.5rem', marginBottom: '1rem' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                      Group Companies & Services Cards Directory
+                    </h3>
+                    <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: '0.2rem 0 0 0' }}>
+                      Manage the 6 core company cards displayed on the public /services page.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = [...(pageData.group_services || [])];
+                      current.push({
+                        id: Date.now(),
+                        title: 'New Group Entity',
+                        tagline: 'Strategic Subsidiary',
+                        description: 'Detailed description of business offerings and specialized domain services.',
+                        image: '/services-logos/associates.webp',
+                        url: 'https://blackgrapesgroup.com',
+                        category: 'associates',
+                        accentColor: '#f86200'
+                      });
+                      setPageData({ ...pageData, group_services: current });
+                    }}
+                    className="admin-btn admin-btn-secondary"
+                    style={{ fontSize: '0.8rem' }}
+                  >
+                    <Plus size={14} />
+                    <span>Add New Service Card</span>
+                  </button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {(pageData.group_services || []).map((srv, idx) => (
+                    <div
+                      key={srv.id || idx}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.02)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        borderRadius: '10px',
+                        padding: '1.25rem'
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <span style={{
+                            width: '26px',
+                            height: '26px',
+                            borderRadius: '6px',
+                            background: srv.accentColor || '#f86200',
+                            color: '#fff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: 700,
+                            fontSize: '0.75rem'
+                          }}>
+                            {idx + 1}
+                          </span>
+                          <strong style={{ color: '#fff', fontSize: '0.95rem' }}>{srv.title || 'Untitled Service'}</strong>
+                          <span style={{ fontSize: '0.72rem', padding: '0.1rem 0.5rem', background: 'rgba(255,255,255,0.06)', borderRadius: '4px', color: '#94a3b8' }}>
+                            {srv.category}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = (pageData.group_services || []).filter((_, i) => i !== idx);
+                            setPageData({ ...pageData, group_services: updated });
+                          }}
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.1)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                            color: '#ef4444',
+                            borderRadius: '6px',
+                            padding: '0.35rem 0.65rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            fontSize: '0.75rem'
+                          }}
+                        >
+                          <Trash2 size={13} />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="admin-form-group">
+                          <label className="admin-label">Service / Company Name</label>
+                          <input
+                            type="text"
+                            className="admin-input"
+                            value={srv.title || ''}
+                            onChange={(e) => {
+                              const updated = [...(pageData.group_services || [])];
+                              updated[idx] = { ...updated[idx], title: e.target.value };
+                              setPageData({ ...pageData, group_services: updated });
+                            }}
+                          />
+                        </div>
+                        <div className="admin-form-group">
+                          <label className="admin-label">Tagline / Domain Pill</label>
+                          <input
+                            type="text"
+                            className="admin-input"
+                            value={srv.tagline || ''}
+                            onChange={(e) => {
+                              const updated = [...(pageData.group_services || [])];
+                              updated[idx] = { ...updated[idx], tagline: e.target.value };
+                              setPageData({ ...pageData, group_services: updated });
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Service Description</label>
+                        <textarea
+                          rows={2}
+                          className="admin-textarea"
+                          value={srv.description || ''}
+                          onChange={(e) => {
+                            const updated = [...(pageData.group_services || [])];
+                            updated[idx] = { ...updated[idx], description: e.target.value };
+                            setPageData({ ...pageData, group_services: updated });
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '1rem' }}>
+                        <div className="admin-form-group">
+                          <label className="admin-label">External Website Link URL</label>
+                          <input
+                            type="text"
+                            className="admin-input"
+                            value={srv.url || ''}
+                            onChange={(e) => {
+                              const updated = [...(pageData.group_services || [])];
+                              updated[idx] = { ...updated[idx], url: e.target.value };
+                              setPageData({ ...pageData, group_services: updated });
+                            }}
+                          />
+                        </div>
+                        <div className="admin-form-group">
+                          <label className="admin-label">Category</label>
+                          <select
+                            className="admin-input"
+                            value={srv.category || 'associates'}
+                            onChange={(e) => {
+                              const updated = [...(pageData.group_services || [])];
+                              updated[idx] = { ...updated[idx], category: e.target.value };
+                              setPageData({ ...pageData, group_services: updated });
+                            }}
+                          >
+                            <option value="associates">Associates</option>
+                            <option value="softech">IT & Softech</option>
+                            <option value="realestate">Real Estate</option>
+                            <option value="investment">Investment & Securities</option>
+                            <option value="valuers">Valuers & Engineers</option>
+                            <option value="insurance">Insurance Surveyors</option>
+                          </select>
+                        </div>
+                        <div className="admin-form-group">
+                          <label className="admin-label">Accent Color</label>
+                          <input
+                            type="text"
+                            className="admin-input"
+                            value={srv.accentColor || '#f86200'}
+                            onChange={(e) => {
+                              const updated = [...(pageData.group_services || [])];
+                              updated[idx] = { ...updated[idx], accentColor: e.target.value };
+                              setPageData({ ...pageData, group_services: updated });
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Logo / Emblem Image Path or URL</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={srv.image || ''}
+                          onChange={(e) => {
+                            const updated = [...(pageData.group_services || [])];
+                            updated[idx] = { ...updated[idx], image: e.target.value };
+                            setPageData({ ...pageData, group_services: updated });
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -1308,3 +1547,4 @@ export default function CentralPageManager() {
     </div>
   );
 }
+

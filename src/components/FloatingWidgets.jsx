@@ -14,6 +14,7 @@ export default function FloatingWidgets() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

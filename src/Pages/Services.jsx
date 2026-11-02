@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useServices, useSeo } from '@backend/useContent';
+import { useServices, useServicesPage, useSeo } from '@backend/useContent';
 import ServicesHero from '../components/services/ServicesHero';
 import CategoryFilter from '../components/services/CategoryFilter';
 import ServiceCard from '../components/services/ServiceCard';
@@ -17,7 +17,7 @@ import {
   Code2, 
   Users, 
   ShoppingBag, 
-  Sparkles,
+  Sparkles, 
   ArrowRight
 } from 'lucide-react';
 import '../styles/Services.css';
@@ -26,6 +26,7 @@ import '../styles/CyberServices.css';
 export default function ServicesPage({ onOpenInquiry }) {
   useSeo('/services');
   const { services } = useServices();
+  const { servicesPageData } = useServicesPage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('group'); // 'group', 'softech', 'staffing', 'ecommerce'
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -33,7 +34,14 @@ export default function ServicesPage({ onOpenInquiry }) {
   const [inquiryService, setInquiryService] = useState(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
 
-  const activeServices = (services && services.length > 0) ? services : servicesData;
+  // Dynamic source of truth: Database services_page.group_services first, fallback to servicesData
+  const activeServices = servicesPageData?.group_services?.length
+    ? servicesPageData.group_services
+    : servicesData;
+
+  const activeCategories = servicesPageData?.serviceCategories?.length
+    ? servicesPageData.serviceCategories
+    : serviceCategories;
 
   // Sync tab and category from URL query parameters
   useEffect(() => {
@@ -75,13 +83,13 @@ export default function ServicesPage({ onOpenInquiry }) {
   // Category counts
   const categoryCounts = useMemo(() => {
     const counts = { all: activeServices.length };
-    serviceCategories.forEach((cat) => {
+    activeCategories.forEach((cat) => {
       if (cat.id !== 'all') {
         counts[cat.id] = activeServices.filter((s) => s.category === cat.id).length;
       }
     });
     return counts;
-  }, [activeServices]);
+  }, [activeServices, activeCategories]);
 
   // Filter services by category and search
   const filteredServices = useMemo(() => {
@@ -121,7 +129,7 @@ export default function ServicesPage({ onOpenInquiry }) {
               onClick={() => handleTabSwitch('group')}
             >
               <Building2 size={16} />
-              <span>Group Companies (6 Core)</span>
+              <span>{servicesPageData?.tab1Label || 'Group Companies (6 Core)'}</span>
             </button>
 
             <button
@@ -130,7 +138,7 @@ export default function ServicesPage({ onOpenInquiry }) {
               onClick={() => handleTabSwitch('staffing')}
             >
               <Users size={16} />
-              <span>IT Staffing Solutions</span>
+              <span>{servicesPageData?.tab2Label || 'IT Staffing Solutions'}</span>
             </button>
 
             <button
@@ -139,7 +147,7 @@ export default function ServicesPage({ onOpenInquiry }) {
               onClick={() => handleTabSwitch('ecommerce')}
             >
               <ShoppingBag size={16} />
-              <span>E-Commerce (Naya Purana Bazaar)</span>
+              <span>{servicesPageData?.tab3Label || 'E-Commerce (Naya Purana Bazaar)'}</span>
             </button>
           </div>
         </div>
@@ -150,15 +158,20 @@ export default function ServicesPage({ onOpenInquiry }) {
         <main className="services-page-main animate-fade-in">
           {/* Hero Section */}
           <ServicesHero
+            badge={servicesPageData?.badge}
+            title={servicesPageData?.title}
+            titleAccent={servicesPageData?.titleAccent}
+            subtitle={servicesPageData?.subtitle}
+            searchPlaceholder={servicesPageData?.searchPlaceholder}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             filteredCount={filteredServices.length}
-            totalCount={servicesData.length}
+            totalCount={activeServices.length}
           />
 
           {/* Category Filter */}
           <CategoryFilter
-            categories={serviceCategories}
+            categories={activeCategories}
             selectedCategory={selectedCategory}
             onSelectCategory={(catId) => {
               setSelectedCategory(catId);

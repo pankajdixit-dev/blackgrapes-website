@@ -32,35 +32,44 @@ export default function About({ onOpenDemoModal }) {
   const [aboutSections, setAboutSections] = useState(null);
 
   useEffect(() => {
-    getPageSections('about').then((data) => {
-      setAboutSections(data);
-    });
+    let isMounted = true;
+    const fetchContent = () => {
+      getPageSections('about')
+        .then((data) => {
+          if (isMounted && data) {
+            setAboutSections(data);
+          }
+        })
+        .catch(() => {});
+    };
+
+    fetchContent();
 
     const handleUpdate = (e) => {
       const detail = e.detail || {};
       if (detail.pageSlug === 'about' && detail.sections) {
         setAboutSections(detail.sections);
       } else {
-        getPageSections('about').then((data) => {
-          setAboutSections(data);
-        });
+        fetchContent();
       }
     };
 
     window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+    return () => {
+      isMounted = false;
+      window.removeEventListener('bgst_content_updated', handleUpdate);
+    };
   }, []);
 
-  const heroContent = aboutSections?.about_hero?.content || {};
-
-  const stats = [
+  // Default Fallbacks
+  const defaultStats = [
     { number: '10+', label: 'Years of Innovation', icon: Calendar, highlight: 'Since 2014' },
     { number: '250+', label: 'Projects Completed', icon: Code2, highlight: 'Global Scale' },
     { number: '150+', label: 'Satisfied Clients', icon: Users, highlight: '15+ Countries' },
     { number: '99%', label: 'Client Retention', icon: Award, highlight: 'Industry Best' }
   ];
 
-  const coreValues = [
+  const defaultCoreValues = [
     {
       icon: Lightbulb,
       title: 'Innovation-First Mindset',
@@ -83,7 +92,7 @@ export default function About({ onOpenDemoModal }) {
     }
   ];
 
-  const milestones = [
+  const defaultMilestones = [
     {
       year: '2014',
       title: 'The Foundation',
@@ -106,7 +115,7 @@ export default function About({ onOpenDemoModal }) {
     }
   ];
 
-  const techDomains = [
+  const defaultTechDomains = [
     'CRM Software Systems',
     'MLM Architecture',
     'Full-Stack Web Apps',
@@ -116,6 +125,53 @@ export default function About({ onOpenDemoModal }) {
     'Enterprise ERP Solutions',
     'Interactive Game Development'
   ];
+
+  // Dynamic Content Bindings
+  const heroContent = aboutSections?.about_hero?.content || {};
+  const statsContent = aboutSections?.stats_strip?.content || {};
+  const visionMissionContent = aboutSections?.vision_mission?.content || {};
+  const foundersContent = aboutSections?.founders?.content || {};
+  const coreValuesContent = aboutSections?.core_values?.content || {};
+  const techExpertiseContent = aboutSections?.technical_expertise?.content || {};
+  const milestonesContent = aboutSections?.milestones?.content || {};
+
+  // Dynamic Stats List
+  const dynamicStats = (Array.isArray(statsContent.stats) && statsContent.stats.length > 0)
+    ? statsContent.stats.map((s, idx) => ({
+        number: s.number || defaultStats[idx]?.number || '',
+        label: s.label || defaultStats[idx]?.label || '',
+        highlight: s.highlight || defaultStats[idx]?.highlight || '',
+        icon: defaultStats[idx]?.icon || Calendar
+      }))
+    : defaultStats;
+
+  // Dynamic Core Values List
+  const dynamicCoreValues = (Array.isArray(coreValuesContent.values) && coreValuesContent.values.length > 0)
+    ? coreValuesContent.values.map((v, idx) => ({
+        title: v.title || defaultCoreValues[idx]?.title || '',
+        desc: v.desc || defaultCoreValues[idx]?.desc || '',
+        icon: defaultCoreValues[idx]?.icon || Lightbulb
+      }))
+    : defaultCoreValues;
+
+  // Dynamic Milestones List (connected directly to Admin Panel & MongoDB)
+  const dynamicMilestones = (Array.isArray(milestonesContent.milestones) && milestonesContent.milestones.length > 0)
+    ? milestonesContent.milestones
+    : defaultMilestones;
+
+  // Dynamic Tech Domains List
+  const dynamicTechDomains = (Array.isArray(techExpertiseContent.domains) && techExpertiseContent.domains.length > 0)
+    ? techExpertiseContent.domains
+    : defaultTechDomains;
+
+  // Founders data
+  const founderPhoto = foundersContent.photo || foundersContent.image || foundersImg;
+  const founderPhotoTag = foundersContent.photoTagName || 'Mr. Arpit Jain & Mrs. Deepika Jain';
+  const founderPhotoRole = foundersContent.photoTagRole || 'Founders & Executive Directors';
+  const founder1Name = foundersContent.founder1Name || 'Mr. Arpit Jain — Founder & Chief Architect';
+  const founder1Bio = foundersContent.founder1Bio || 'The driving force behind our software development journey. With a wealth of architectural experience and an instinctive knack for staying ahead of technological curves, he has pioneered cutting-edge solutions that have redefined client operations across industries.';
+  const founder2Name = foundersContent.founder2Name || 'Mrs. Deepika Jain — Co-Founder & Strategic Director';
+  const founder2Bio = foundersContent.founder2Bio || 'Deepika Jain doesn’t just see challenges; she envisions opportunities. Her boundless creativity, strategic acumen, and people-first leadership have shaped our company’s culture of relentless innovation and customer delight.';
 
   return (
     <div className="about-page">
@@ -145,11 +201,11 @@ export default function About({ onOpenDemoModal }) {
 
             <div className="hero-cta-group">
               <button onClick={onOpenDemoModal} className="btn btn-primary">
-                <span>Partner With Us</span>
+                <span>{heroContent.primaryBtnText || 'Partner With Us'}</span>
                 <ArrowRight size={18} />
               </button>
               <a href="#founders" className="btn btn-secondary">
-                <span>Meet Our Leadership</span>
+                <span>{heroContent.secondaryBtnText || 'Meet Our Leadership'}</span>
               </a>
             </div>
 
@@ -206,7 +262,7 @@ export default function About({ onOpenDemoModal }) {
       <section className="stats-strip-section">
         <div className="container">
           <div className="stats-grid">
-            {stats.map((stat, idx) => {
+            {dynamicStats.map((stat, idx) => {
               const Icon = stat.icon;
               return (
                 <div key={idx} className="stat-card">
@@ -232,13 +288,13 @@ export default function About({ onOpenDemoModal }) {
         <div className="container">
           <div className="section-header text-center">
             <span className="badge badge-purple">
-              <Target size={14} /> PURPOSE & PRINCIPLES
+              <Target size={14} /> {visionMissionContent.badge || 'PURPOSE & PRINCIPLES'}
             </span>
             <h2 className="section-title">
-              The Guiding Pillars Behind Our Growth
+              {visionMissionContent.title || 'The Guiding Pillars Behind Our Growth'}
             </h2>
             <p className="section-subtitle">
-              Every system we engineer is backed by our relentless commitment to excellence and transformative technology.
+              {visionMissionContent.subtitle || 'Every system we engineer is backed by our relentless commitment to excellence and transformative technology.'}
             </p>
           </div>
 
@@ -386,13 +442,13 @@ export default function About({ onOpenDemoModal }) {
         <div className="container">
           <div className="section-header text-center">
             <span className="badge">
-              <Users size={14} /> LEADERSHIP & VISION
+              <Users size={14} /> {foundersContent.badge || 'LEADERSHIP & VISION'}
             </span>
             <h2 className="section-title">
-              Meet the Visionaries Behind Black Grapes
+              {foundersContent.title || 'Meet the Visionaries Behind Black Grapes'}
             </h2>
             <p className="section-subtitle">
-              Passionate innovators dedicated to redefining software engineering standards.
+              {foundersContent.subtitle || 'Passionate innovators dedicated to redefining software engineering standards.'}
             </p>
           </div>
 
@@ -403,13 +459,13 @@ export default function About({ onOpenDemoModal }) {
                 <div className="founders-photo-wrap">
                   <div className="photo-frame">
                     <img
-                      src={aboutSections?.founders?.content?.photo || aboutSections?.founders?.content?.image || foundersImg}
+                      src={founderPhoto}
                       alt="Mr. Arpit Jain and Mrs. Deepika Jain - Founders of Black Grapes Softech"
                       className="founders-img"
                     />
                     <div className="founders-photo-tag">
-                      <span className="photo-tag-name">Mr. Arpit Jain & Mrs. Deepika Jain</span>
-                      <span className="photo-tag-role">Founders & Executive Directors</span>
+                      <span className="photo-tag-name">{founderPhotoTag}</span>
+                      <span className="photo-tag-role">{founderPhotoRole}</span>
                     </div>
                   </div>
                 </div>
@@ -418,30 +474,30 @@ export default function About({ onOpenDemoModal }) {
                 <div className="founders-story-wrap">
                   <span className="badge badge-purple mb-3">EXECUTIVE LEADERSHIP</span>
                   <h3 className="founders-heading">
-                    Driven By Innovation, Grounded In Excellence
+                    {foundersContent.heading || 'Driven By Innovation, Grounded In Excellence'}
                   </h3>
 
                   <p className="founders-text">
-                    Behind <strong>Black Grapes Softech</strong> stand two visionary leaders with an unquenchable passion for digital advancement.
+                    {foundersContent.intro || 'Behind Black Grapes Softech stand two visionary leaders with an unquenchable passion for digital advancement.'}
                   </p>
 
                   <div className="leader-bio-block">
                     <div className="leader-bio-header">
                       <div className="leader-badge-dot"></div>
-                      <h4 className="leader-name">Mr. Arpit Jain — <span className="leader-title">Founder & Chief Architect</span></h4>
+                      <h4 className="leader-name">{founder1Name}</h4>
                     </div>
                     <p className="leader-bio-p">
-                      The driving force behind our software development journey. With a wealth of architectural experience and an instinctive knack for staying ahead of technological curves, he has pioneered cutting-edge solutions that have redefined client operations across industries.
+                      {founder1Bio}
                     </p>
                   </div>
 
                   <div className="leader-bio-block">
                     <div className="leader-bio-header">
                       <div className="leader-badge-dot purple"></div>
-                      <h4 className="leader-name">Mrs. Deepika Jain — <span className="leader-title">Co-Founder & Strategic Director</span></h4>
+                      <h4 className="leader-name">{founder2Name}</h4>
                     </div>
                     <p className="leader-bio-p">
-                      Deepika Jain doesn’t just see challenges; she envisions opportunities. Her boundless creativity, strategic acumen, and people-first leadership have shaped our company’s culture of relentless innovation and customer delight.
+                      {founder2Bio}
                     </p>
                   </div>
 
@@ -465,16 +521,16 @@ export default function About({ onOpenDemoModal }) {
         <div className="container">
           <div className="section-header text-center">
             <span className="badge badge-purple">
-              <Shield size={14} /> OUR CORE DNA
+              <Shield size={14} /> {coreValuesContent.badge || 'OUR CORE DNA'}
             </span>
-            <h2 className="section-title">The Values That Fuel Our Work</h2>
+            <h2 className="section-title">{coreValuesContent.title || 'The Values That Fuel Our Work'}</h2>
             <p className="section-subtitle">
-              Every decision we make, line of code we write, and system we deliver is guided by our core values.
+              {coreValuesContent.subtitle || 'Every decision we make, line of code we write, and system we deliver is guided by our core values.'}
             </p>
           </div>
 
           <div className="values-grid">
-            {coreValues.map((value, idx) => {
+            {dynamicCoreValues.map((value, idx) => {
               const Icon = value.icon;
               return (
                 <div key={idx} className="value-card glass-card">
@@ -499,16 +555,16 @@ export default function About({ onOpenDemoModal }) {
           <div className="domains-box glass-card">
             <div className="domains-content">
               <span className="badge">
-                <Cpu size={14} /> TECHNICAL EXPERTISE
+                <Cpu size={14} /> {techExpertiseContent.badge || 'TECHNICAL EXPERTISE'}
               </span>
               <h2 className="domains-title">
-                Versatile Engineering Across Critical Digital Domains
+                {techExpertiseContent.title || 'Versatile Engineering Across Critical Digital Domains'}
               </h2>
               <p className="domains-sub">
-                Our team delivers custom solutions across complex enterprise requirements with precision and high performance.
+                {techExpertiseContent.subtitle || 'Our team delivers custom solutions across complex enterprise requirements with precision and high performance.'}
               </p>
               <div className="domains-tags-grid">
-                {techDomains.map((domain, idx) => (
+                {dynamicTechDomains.map((domain, idx) => (
                   <div key={idx} className="domain-tag-item">
                     <Layers size={16} className="text-orange" />
                     <span>{domain}</span>
@@ -521,24 +577,24 @@ export default function About({ onOpenDemoModal }) {
       </section>
 
       {/* ========================================================
-          7. OUR JOURNEY & TIMELINE
+          7. OUR JOURNEY & TIMELINE (Company Milestones & History)
           ======================================================== */}
       <section className="timeline-section">
         <div className="container">
           <div className="section-header text-center">
             <span className="badge badge-purple">
-              <Clock size={14} /> OUR MILESTONES
+              <Clock size={14} /> {milestonesContent.badge || 'OUR MILESTONES'}
             </span>
-            <h2 className="section-title">A Decade of Relentless Evolution</h2>
+            <h2 className="section-title">{milestonesContent.title || 'A Decade of Relentless Evolution'}</h2>
             <p className="section-subtitle">
-              From a dedicated local engineering hub in Indore to an internationally trusted software powerhouse.
+              {milestonesContent.subtitle || 'From a dedicated local engineering hub in Indore to an internationally trusted software powerhouse.'}
             </p>
           </div>
 
           <div className="timeline-wrapper">
             <div className="timeline-track-line"></div>
             <div className="timeline-events-grid">
-              {milestones.map((milestone, idx) => (
+              {dynamicMilestones.map((milestone, idx) => (
                 <div key={idx} className="timeline-event-card glass-card">
                   <div className="timeline-year-badge">{milestone.year}</div>
                   <h3 className="timeline-card-title">{milestone.title}</h3>
@@ -549,10 +605,6 @@ export default function About({ onOpenDemoModal }) {
           </div>
         </div>
       </section>
-
-      
-
-      
     </div>
   );
 }

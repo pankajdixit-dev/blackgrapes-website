@@ -54,3 +54,4 @@ setTimeout(() => {
   process.on('SIGINT', cleanExit);
   process.on('SIGTERM', cleanExit);
 }, 1500);
+

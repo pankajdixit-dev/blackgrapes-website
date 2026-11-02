@@ -73,6 +73,7 @@ export async function updateSiteSettings(updates) {
     if (res.ok) {
       const json = await res.json();
       localStorage.setItem('bg_site_settings', JSON.stringify(json.data));
+      realtimeSync.broadcast({ type: 'content_updated', module: 'services' });
       return { success: true, data: json.data };
     }
   } catch (err) {}
@@ -80,6 +81,7 @@ export async function updateSiteSettings(updates) {
   const current = await getSiteSettings();
   const merged = { ...current, ...updates, updatedAt: new Date().toISOString() };
   localStorage.setItem('bg_site_settings', JSON.stringify(merged));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'settings' });
   return { success: true, data: merged };
 }
 
@@ -286,6 +288,7 @@ export async function saveService(service) {
     list.push({ ...service, id });
   }
   localStorage.setItem('bg_services', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'services' });
   return { success: true, data: service };
 }
 
@@ -300,6 +303,7 @@ export async function deleteService(id) {
 
   const list = (await getServices()).filter((s) => s.id !== id && s._id !== id);
   localStorage.setItem('bg_services', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'services' });
   return { success: true };
 }
 
@@ -346,6 +350,7 @@ export async function saveProject(project) {
     list.push({ ...project, id });
   }
   localStorage.setItem('bg_projects', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'projects' });
   return { success: true, data: project };
 }
 
@@ -360,6 +365,7 @@ export async function deleteProject(id) {
 
   const list = (await getProjects()).filter((p) => p.id !== id && p._id !== id);
   localStorage.setItem('bg_projects', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'projects' });
   return { success: true };
 }
 
@@ -486,6 +492,7 @@ export async function saveTestimonial(testi) {
   if (idx >= 0) list[idx] = { ...list[idx], ...testi };
   else list.push({ ...testi, id });
   localStorage.setItem('bg_testimonials', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'testimonials' });
   return { success: true, data: testi };
 }
 
@@ -500,6 +507,7 @@ export async function deleteTestimonial(id) {
 
   const list = (await getTestimonials()).filter((t) => t.id !== id && t._id !== id);
   localStorage.setItem('bg_testimonials', JSON.stringify(list));
+  realtimeSync.broadcast({ type: 'content_updated', module: 'testimonials' });
   return { success: true };
 }
 

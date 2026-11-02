@@ -29,6 +29,10 @@ export default function AboutSection({ onOpenModal }) {
   }, []);
 
   const heroContent = aboutSections?.about_hero?.content || {};
+  const dynamicCoreValues = (Array.isArray(aboutSections?.core_values?.content?.values) && aboutSections.core_values.content.values.length > 0)
+    ? aboutSections.core_values.content.values
+    : ABOUT_CONTENT.coreValues;
+  const safeActiveTab = activeValueTab < dynamicCoreValues.length ? activeValueTab : 0;
 
   return (
     <section id="about" className="section about-section">
@@ -150,11 +154,11 @@ export default function AboutSection({ onOpenModal }) {
             {/* Interactive Core Values Tabs */}
             <div className="values-tabs-wrapper">
               <div className="values-tab-buttons">
-                {ABOUT_CONTENT.coreValues.map((val, idx) => (
+                {dynamicCoreValues.map((val, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    className={`value-tab-btn ${activeValueTab === idx ? 'value-tab-active' : ''}`}
+                    className={`value-tab-btn ${safeActiveTab === idx ? 'value-tab-active' : ''}`}
                     onClick={() => setActiveValueTab(idx)}
                   >
                     <span>0{idx + 1}.</span> {val.title}
@@ -164,7 +168,7 @@ export default function AboutSection({ onOpenModal }) {
 
               <div className="value-tab-content">
                 <div className="value-tab-icon">🎯</div>
-                <p>{ABOUT_CONTENT.coreValues[activeValueTab].desc}</p>
+                <p>{dynamicCoreValues[safeActiveTab]?.desc}</p>
               </div>
             </div>
 

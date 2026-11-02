@@ -8,6 +8,8 @@ import SoftechServicesPage from './SoftechServices';
 import ITStaffingPage from './ITStaffing';
 import EcommercePage from './Ecommerce';
 import { serviceCategories, servicesData } from '../data/servicesData';
+import { getServices } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 import { 
   SearchX, 
   Phone, 
@@ -23,6 +25,22 @@ import '../styles/Services.css';
 import '../styles/CyberServices.css';
 
 export default function ServicesPage({ onOpenInquiry }) {
+  const [servicesList, setServicesList] = useState(servicesData);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchServices = () => {
+      getServices().then(data => {
+        if (isMounted && Array.isArray(data) && data.length > 0) setServicesList(data);
+      }).catch(() => {});
+    };
+    fetchServices();
+    window.addEventListener("bgst_content_updated", fetchServices);
+    return () => {
+      isMounted = false;
+      window.removeEventListener("bgst_content_updated", fetchServices);
+    };
+  }, []);
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('group'); // 'group', 'softech', 'staffing', 'ecommerce'
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -69,10 +87,10 @@ export default function ServicesPage({ onOpenInquiry }) {
 
   // Category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: servicesData.length };
+    const counts = { all: servicesList.length };
     serviceCategories.forEach((cat) => {
       if (cat.id !== 'all') {
-        counts[cat.id] = servicesData.filter((s) => s.category === cat.id).length;
+        counts[cat.id] = servicesList.filter((s) => s.category === cat.id).length;
       }
     });
     return counts;
@@ -80,7 +98,7 @@ export default function ServicesPage({ onOpenInquiry }) {
 
   // Filter services by category and search
   const filteredServices = useMemo(() => {
-    return servicesData.filter((service) => {
+    return servicesList.filter((service) => {
       const matchesCategory =
         selectedCategory === 'all' || service.category === selectedCategory;
 
@@ -148,7 +166,7 @@ export default function ServicesPage({ onOpenInquiry }) {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             filteredCount={filteredServices.length}
-            totalCount={servicesData.length}
+            totalCount={servicesList.length}
           />
 
           {/* Category Filter */}

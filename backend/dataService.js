@@ -107,8 +107,9 @@ export async function getPageSections(pageSlug = 'about') {
     if (res.ok) {
       const json = await res.json();
       if (json.data && typeof json.data === 'object' && Object.keys(json.data).length > 0) {
-        localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(json.data));
-        return json.data;
+        const merged = { ...fallbackDefaults, ...json.data };
+        localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(merged));
+        return merged;
       }
     }
   } catch (err) {}
@@ -117,7 +118,9 @@ export async function getPageSections(pageSlug = 'about') {
   if (raw) {
     try {
       const parsed = JSON.parse(raw);
-      if (parsed && typeof parsed === 'object') return parsed;
+      if (parsed && typeof parsed === 'object') {
+        return { ...fallbackDefaults, ...parsed };
+      }
     } catch (e) {}
   }
 

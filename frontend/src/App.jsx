@@ -9,6 +9,7 @@ import InquiryModal from './components/InquiryModal';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import FloatingWidgets from './components/FloatingWidgets';
 import ScrollToTop from './components/ScrollToTop';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import HomePage from './pages/HomePage';
 import About from './pages/About';
@@ -89,7 +90,8 @@ export default function App() {
 
         {/* Main Routed Content */}
         <main className="main-content">
-          <Routes>
+          <ErrorBoundary>
+            <Routes>
             {/* Home Page */}
             <Route
               path="/"
@@ -181,6 +183,7 @@ export default function App() {
             {/* Fallback to Home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+        </ErrorBoundary>
         </main>
 
         {/* Universal Footer */}

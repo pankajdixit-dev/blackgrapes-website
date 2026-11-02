@@ -76,6 +76,10 @@ class RealtimeSyncManager {
       this.socket.on('disconnect', () => {
         console.log('[WebSocket] Real-Time Sync Disconnected');
       });
+
+      this.socket.on('connect_error', () => {
+        // Silent fallback - will keep attempting reconnection in background
+      });
     } catch (err) {
       console.warn('[WebSocket] Init notice:', err.message);
     }

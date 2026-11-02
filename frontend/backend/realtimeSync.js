@@ -57,6 +57,8 @@ class RealtimeSyncManager {
       this.socket.on('content_updated', (data) => {
         this.triggerLocal(data);
       });
+
+      this.socket.on('connect_error', () => {});
     } catch (err) {}
   }
 

@@ -4,34 +4,43 @@ import { getTestimonials } from '@backend/dataService.js';
 import '../utils/realtimeSync';
 
 export default function TestimonialsSection() {
-  const [reviews, setReviews] = useState(DEFAULT_TESTIMONIALS);
+  const [reviews, setReviews] = useState(DEFAULT_TESTIMONIALS || []);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    getTestimonials().then((data) => {
-      if (Array.isArray(data) && data.length > 0) {
-        setReviews(data);
-      }
-    });
-
-    const handleUpdate = () => {
-      getTestimonials().then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setReviews(data);
-        }
-      });
+    let isMounted = true;
+    const fetchReviews = () => {
+      getTestimonials()
+        .then((data) => {
+          if (isMounted && Array.isArray(data) && data.length > 0) {
+            setReviews(data);
+          }
+        })
+        .catch(() => {});
     };
 
-    window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+    fetchReviews();
+    window.addEventListener('bgst_content_updated', fetchReviews);
+    return () => {
+      isMounted = false;
+      window.removeEventListener('bgst_content_updated', fetchReviews);
+    };
   }, []);
 
+  const safeReviews = Array.isArray(reviews) && reviews.length > 0 ? reviews : (DEFAULT_TESTIMONIALS || []);
+  const validIndex = activeIndex >= 0 && activeIndex < safeReviews.length ? activeIndex : 0;
+  const currentReview = safeReviews[validIndex] || safeReviews[0] || {};
+  const currentQuote = currentReview.quote || currentReview.review || currentReview.content || 'Exceptional software engineering and proactive project management.';
+  const currentAuthor = currentReview.name || currentReview.clientName || 'Enterprise Partner';
+  const currentRole = currentReview.role || currentReview.designation || currentReview.company || 'Satisfied Client';
+  const currentAvatar = currentReview.avatar || '👤';
+
   const prevReview = () => {
-    setActiveIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev <= 0 ? safeReviews.length - 1 : prev - 1));
   };
 
   const nextReview = () => {
-    setActiveIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) => (prev >= safeReviews.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -64,16 +73,16 @@ export default function TestimonialsSection() {
           </div>
 
           <p className="testimonial-quote-text">
-            {reviews[activeIndex]?.quote || reviews[0]?.quote}
+            {currentQuote}
           </p>
 
           <div className="testimonial-author-row">
             <div className="author-avatar-circle">
-              {reviews[activeIndex]?.avatar || '👤'}
+              {currentAvatar}
             </div>
             <div className="author-info">
-              <strong className="author-name">{reviews[activeIndex]?.name || reviews[0]?.name}</strong>
-              <span className="author-role">{reviews[activeIndex]?.role || reviews[0]?.role}</span>
+              <strong className="author-name">{currentAuthor}</strong>
+              <span className="author-role">{currentRole}</span>
             </div>
 
             {/* Slider Controls */}
@@ -87,7 +96,7 @@ export default function TestimonialsSection() {
                 &larr;
               </button>
               <span className="control-fraction">
-                0{activeIndex + 1} / 0{reviews.length}
+                0{validIndex + 1} / 0{safeReviews.length}
               </span>
               <button
                 type="button"
@@ -103,24 +112,31 @@ export default function TestimonialsSection() {
 
         {/* Testimonials Mini Cards Grid */}
         <div className="testimonials-grid">
-          {reviews.map((item, idx) => (
-            <div
-              key={idx}
-              className={`testimonial-mini-card ${activeIndex === idx ? 'mini-card-active' : ''}`}
-              onClick={() => setActiveIndex(idx)}
-            >
-              <div className="mini-card-top">
-                <div className="mini-avatar">{item.avatar}</div>
-                <div>
-                  <h4 className="mini-name">{item.name}</h4>
-                  <span className="mini-role">{item.role}</span>
+          {safeReviews.map((item, idx) => {
+            const itemQuote = item.quote || item.review || item.content || '';
+            const itemName = item.name || item.clientName || `Client ${idx + 1}`;
+            const itemRole = item.role || item.designation || item.company || 'Partner';
+            const itemAvatar = item.avatar || '👤';
+
+            return (
+              <div
+                key={item.id || item._id || idx}
+                className={`testimonial-mini-card ${validIndex === idx ? 'mini-card-active' : ''}`}
+                onClick={() => setActiveIndex(idx)}
+              >
+                <div className="mini-card-top">
+                  <div className="mini-avatar">{itemAvatar}</div>
+                  <div>
+                    <h4 className="mini-name">{itemName}</h4>
+                    <span className="mini-role">{itemRole}</span>
+                  </div>
                 </div>
+                <p className="mini-quote">
+                  &ldquo;{itemQuote.slice(0, 110)}{itemQuote.length > 110 ? '...' : ''}&rdquo;
+                </p>
               </div>
-              <p className="mini-quote">
-                &ldquo;{item.quote.slice(0, 110)}...&rdquo;
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

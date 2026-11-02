@@ -36,7 +36,7 @@ import {
   OFFICIAL_INDUSTRIES,
   PRODUCT_GUARANTEES
 } from './productsData';
-import { useProjects, useSeo } from '@backend/useContent';
+import { useProducts, useSeo } from '@backend/useContent';
 import ProductVideoModal from './ProductVideoModal';
 import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';
@@ -66,13 +66,13 @@ const GUARANTEE_ICONS = {
 
 export default function OurProducts({ onOpenDemoModal }) {
   useSeo('/products');
-  const { projects } = useProjects();
+  const { products } = useProducts();
 
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoProduct, setActiveVideoProduct] = useState(null);
 
-  const activeCatalog = (projects && projects.length > 0) ? projects : PRODUCTS_LIST;
+  const activeCatalog = (products && products.length > 0) ? products : PRODUCTS_LIST;
 
   // Filtered products calculation
   const filteredProducts = useMemo(() => {

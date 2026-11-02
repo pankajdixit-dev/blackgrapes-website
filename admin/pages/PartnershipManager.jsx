@@ -9,20 +9,40 @@ import {
   Layers,
   Inbox,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Edit,
+  X,
+  Search
 } from 'lucide-react';
-import { getPartnership, savePartnership, getEnquiries } from '@backend/dataService';
+import {
+  getPartnership,
+  savePartnership,
+  getBusinessPartners,
+  saveBusinessPartners,
+  getEnquiries
+} from '@backend/dataService';
 
 export default function PartnershipManager() {
   const [data, setData] = useState(null);
+  const [businessPartners, setBusinessPartners] = useState({ product_partners: [], service_partners: [] });
   const [applications, setApplications] = useState([]);
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'alliances', 'applications'
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'product_partners', 'service_partners', 'applications'
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Partner Modal State
+  const [partnerModalOpen, setPartnerModalOpen] = useState(false);
+  const [partnerModalType, setPartnerModalType] = useState('product'); // 'product' or 'service'
+  const [editingPartner, setEditingPartner] = useState(null);
+  const [partnerForm, setPartnerForm] = useState({
+    name: '',
+    img: '',
+    localImg: ''
+  });
 
   useEffect(() => {
-    loadData();
-    loadApplications();
+    loadAll();
     const handleUpdate = () => {
       loadApplications();
     };
@@ -30,9 +50,18 @@ export default function PartnershipManager() {
     return () => window.removeEventListener('bgst_content_updated', handleUpdate);
   }, []);
 
-  const loadData = async () => {
-    const res = await getPartnership();
-    setData(res);
+  const loadAll = async () => {
+    const [pRes, bpRes, enqRes] = await Promise.all([
+      getPartnership(),
+      getBusinessPartners(),
+      getEnquiries()
+    ]);
+    setData(pRes);
+    setBusinessPartners(bpRes || { product_partners: [], service_partners: [] });
+    const apps = (enqRes || []).filter(
+      (e) => (e.service && e.service.toLowerCase().includes('partner')) || (e.source && e.source.toLowerCase().includes('partner'))
+    );
+    setApplications(apps);
   };
 
   const loadApplications = async () => {
@@ -48,17 +77,94 @@ export default function PartnershipManager() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  const handleSave = async (e) => {
+  const handleSaveOverview = async (e) => {
     if (e) e.preventDefault();
     setSaving(true);
     await savePartnership(data);
     setSaving(false);
-    showToast('Partnership content published live via WebSocket!');
+    showToast('Partnership overview saved & published live via WebSocket!');
+  };
+
+  // PARTNER MODAL HANDLERS
+  const handleOpenCreatePartner = (type) => {
+    setPartnerModalType(type);
+    setEditingPartner(null);
+    setPartnerForm({ name: '', img: '', localImg: '' });
+    setPartnerModalOpen(true);
+  };
+
+  const handleOpenEditPartner = (type, partner) => {
+    setPartnerModalType(type);
+    setEditingPartner(partner);
+    setPartnerForm({
+      name: partner.name || '',
+      img: partner.img || '',
+      localImg: partner.localImg || ''
+    });
+    setPartnerModalOpen(true);
+  };
+
+  const handleSavePartner = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    const listKey = partnerModalType === 'product' ? 'product_partners' : 'service_partners';
+    const currentList = [...(businessPartners[listKey] || [])];
+
+    if (editingPartner) {
+      const idx = currentList.findIndex((p) => p.id === editingPartner.id || p.name === editingPartner.name);
+      if (idx >= 0) {
+        currentList[idx] = { ...editingPartner, ...partnerForm };
+      }
+    } else {
+      currentList.push({
+        id: `partner-${Date.now()}`,
+        name: partnerForm.name,
+        img: partnerForm.img,
+        localImg: partnerForm.localImg || partnerForm.img
+      });
+    }
+
+    const updated = {
+      ...businessPartners,
+      [listKey]: currentList
+    };
+
+    await saveBusinessPartners(updated);
+    setBusinessPartners(updated);
+    setSaving(false);
+    setPartnerModalOpen(false);
+    showToast(`${partnerModalType === 'product' ? 'Product' : 'Service'} partner updated live!`);
+  };
+
+  const handleDeletePartner = async (type, partner) => {
+    if (window.confirm(`Delete partner "${partner.name}"?`)) {
+      const listKey = type === 'product' ? 'product_partners' : 'service_partners';
+      const updatedList = (businessPartners[listKey] || []).filter(
+        (p) => (p.id ? p.id !== partner.id : p.name !== partner.name)
+      );
+
+      const updated = {
+        ...businessPartners,
+        [listKey]: updatedList
+      };
+
+      await saveBusinessPartners(updated);
+      setBusinessPartners(updated);
+      showToast('Partner removed.');
+    }
   };
 
   if (!data) {
     return <div style={{ color: '#9ca3af', padding: '2rem' }}>Loading Partnership Control Center...</div>;
   }
+
+  const prodList = (businessPartners.product_partners || []).filter(
+    (p) => !searchQuery || p.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const servList = (businessPartners.service_partners || []).filter(
+    (p) => !searchQuery || p.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
@@ -74,7 +180,7 @@ export default function PartnershipManager() {
         <div>
           <h1 className="admin-page-title">Partnership & Alliances Manager</h1>
           <p className="admin-page-sub">
-            Control partnership proposals, offshore development offerings, alliance categories, and view incoming partner applications.
+            Manage ODC proposals, 29+ product tie-ups (Zoho, Salesforce, Microsoft), 17+ service tie-ups (JustDial, Sulekha), and view applications.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
@@ -86,16 +192,28 @@ export default function PartnershipManager() {
             title="Preview live partnership page"
           >
             <ExternalLink size={16} />
-            <span>View Live Page</span>
+            <span>View Live</span>
           </a>
-          <button onClick={handleSave} disabled={saving} className="admin-btn admin-btn-primary">
-            <Save size={16} />
-            <span>{saving ? 'Publishing...' : 'Save & Publish Live'}</span>
-          </button>
+          {activeTab === 'overview' ? (
+            <button onClick={handleSaveOverview} disabled={saving} className="admin-btn admin-btn-primary">
+              <Save size={16} />
+              <span>{saving ? 'Publishing...' : 'Save & Publish Overview'}</span>
+            </button>
+          ) : activeTab === 'product_partners' ? (
+            <button onClick={() => handleOpenCreatePartner('product')} className="admin-btn admin-btn-primary">
+              <Plus size={16} />
+              <span>Add Product Partner</span>
+            </button>
+          ) : activeTab === 'service_partners' ? (
+            <button onClick={() => handleOpenCreatePartner('service')} className="admin-btn admin-btn-primary">
+              <Plus size={16} />
+              <span>Add Service Partner</span>
+            </button>
+          ) : null}
         </div>
       </div>
 
-      {/* Navigation Tabs */}
+      {/* Tabs */}
       <div className="admin-tabs" style={{ marginBottom: '1.5rem' }}>
         <button
           className={`admin-tab ${activeTab === 'overview' ? 'active' : ''}`}
@@ -105,11 +223,18 @@ export default function PartnershipManager() {
           <span>Overview & ODC Content</span>
         </button>
         <button
-          className={`admin-tab ${activeTab === 'alliances' ? 'active' : ''}`}
-          onClick={() => setActiveTab('alliances')}
+          className={`admin-tab ${activeTab === 'product_partners' ? 'active' : ''}`}
+          onClick={() => setActiveTab('product_partners')}
+        >
+          <Handshake size={16} />
+          <span>Product Partners ({businessPartners.product_partners?.length || 0})</span>
+        </button>
+        <button
+          className={`admin-tab ${activeTab === 'service_partners' ? 'active' : ''}`}
+          onClick={() => setActiveTab('service_partners')}
         >
           <Layers size={16} />
-          <span>Product & Services Tie-ups</span>
+          <span>Service Partners ({businessPartners.service_partners?.length || 0})</span>
         </button>
         <button
           className={`admin-tab ${activeTab === 'applications' ? 'active' : ''}`}
@@ -205,60 +330,153 @@ export default function PartnershipManager() {
         </div>
       )}
 
-      {/* TAB 2: ALLIANCES */}
-      {activeTab === 'alliances' && (
+      {/* TAB 2: PRODUCT PARTNERS (Zoho, Salesforce, Microsoft, etc.) */}
+      {activeTab === 'product_partners' && (
         <div className="admin-card">
-          <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
-            Products & Services Tie-Up Frameworks
-          </h3>
-
-          <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <h4 style={{ color: '#ff6b00', marginBottom: '1rem' }}>Products Companies Tie-Up (Zoho, Salesforce, Microsoft, etc.)</h4>
-            <div className="admin-form-group">
-              <label className="admin-label">Section Title</label>
+          <div style={{ marginBottom: '1.25rem' }}>
+            <div className="admin-search-box">
+              <Search size={16} color="#9ca3af" />
               <input
                 type="text"
-                className="admin-input"
-                value={data.productPartnersTitle || ''}
-                onChange={(e) => setData({ ...data, productPartnersTitle: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-group">
-              <label className="admin-label">Intro Description</label>
-              <textarea
-                rows={3}
-                className="admin-textarea"
-                value={data.productPartnersIntro || ''}
-                onChange={(e) => setData({ ...data, productPartnersIntro: e.target.value })}
+                placeholder="Search product partner brands (e.g. Zoho, Salesforce, SAP)..."
+                className="admin-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
 
-          <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <h4 style={{ color: '#a78bfa', marginBottom: '1rem' }}>Services Companies Tie-Up (JustDial, Sulekha, IndiaMART, etc.)</h4>
-            <div className="admin-form-group">
-              <label className="admin-label">Section Title</label>
-              <input
-                type="text"
-                className="admin-input"
-                value={data.servicePartnersTitle || ''}
-                onChange={(e) => setData({ ...data, servicePartnersTitle: e.target.value })}
-              />
-            </div>
-            <div className="admin-form-group">
-              <label className="admin-label">Intro Description</label>
-              <textarea
-                rows={3}
-                className="admin-textarea"
-                value={data.servicePartnersIntro || ''}
-                onChange={(e) => setData({ ...data, servicePartnersIntro: e.target.value })}
-              />
-            </div>
+          <div className="admin-table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Brand Name</th>
+                  <th>Logo Image URL</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {prodList.map((partner, idx) => (
+                  <tr key={partner.id || idx}>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {partner.img || partner.localImg ? (
+                          <img
+                            src={partner.localImg || partner.img}
+                            alt=""
+                            style={{ width: '32px', height: '32px', objectFit: 'contain', background: '#fff', borderRadius: '4px', padding: '2px' }}
+                          />
+                        ) : (
+                          <div style={{ width: '32px', height: '32px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                        )}
+                        <strong style={{ color: '#fff' }}>{partner.name}</strong>
+                      </div>
+                    </td>
+                    <td style={{ fontSize: '0.8rem', color: '#9ca3af', maxWidth: '300px' }}>
+                      {partner.img || partner.localImg || '—'}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditPartner('product', partner)}
+                          className="admin-action-btn"
+                          title="Edit partner"
+                        >
+                          <Edit size={16} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeletePartner('product', partner)}
+                          className="admin-action-btn danger"
+                          title="Delete partner"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
 
-      {/* TAB 3: APPLICATIONS */}
+      {/* TAB 3: SERVICE PARTNERS (JustDial, Sulekha, IndiaMART, etc.) */}
+      {activeTab === 'service_partners' && (
+        <div className="admin-card">
+          <div style={{ marginBottom: '1.25rem' }}>
+            <div className="admin-search-box">
+              <Search size={16} color="#9ca3af" />
+              <input
+                type="text"
+                placeholder="Search service partner networks (e.g. JustDial, Sulekha, IndiaMART)..."
+                className="admin-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="admin-table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Brand / Network Name</th>
+                  <th>Logo Image URL</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {servList.map((partner, idx) => (
+                  <tr key={partner.id || idx}>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {partner.img || partner.localImg ? (
+                          <img
+                            src={partner.localImg || partner.img}
+                            alt=""
+                            style={{ width: '32px', height: '32px', objectFit: 'contain', background: '#fff', borderRadius: '4px', padding: '2px' }}
+                          />
+                        ) : (
+                          <div style={{ width: '32px', height: '32px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                        )}
+                        <strong style={{ color: '#fff' }}>{partner.name}</strong>
+                      </div>
+                    </td>
+                    <td style={{ fontSize: '0.8rem', color: '#9ca3af', maxWidth: '300px' }}>
+                      {partner.img || partner.localImg || '—'}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditPartner('service', partner)}
+                          className="admin-action-btn"
+                          title="Edit partner"
+                        >
+                          <Edit size={16} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeletePartner('service', partner)}
+                          className="admin-action-btn danger"
+                          title="Delete partner"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: APPLICATIONS */}
       {activeTab === 'applications' && (
         <div className="admin-card">
           <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
@@ -297,6 +515,66 @@ export default function PartnershipManager() {
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* CREATE / EDIT PARTNER MODAL */}
+      {partnerModalOpen && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
+            <div className="admin-modal-header">
+              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.15rem' }}>
+                {editingPartner ? `Edit ${partnerModalType === 'product' ? 'Product' : 'Service'} Partner` : `Add New ${partnerModalType === 'product' ? 'Product' : 'Service'} Partner`}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setPartnerModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSavePartner}>
+              <div className="admin-modal-body">
+                <div className="admin-form-group">
+                  <label className="admin-label">Partner Brand Name *</label>
+                  <input
+                    type="text"
+                    required
+                    className="admin-input"
+                    value={partnerForm.name}
+                    onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Logo Image URL</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    placeholder="https://... or /partners/brand.png"
+                    value={partnerForm.img}
+                    onChange={(e) => setPartnerForm({ ...partnerForm, img: e.target.value, localImg: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-modal-footer">
+                <button
+                  type="button"
+                  onClick={() => setPartnerModalOpen(false)}
+                  className="admin-btn admin-btn-secondary"
+                >
+                  Cancel
+                </button>
+                <button type="submit" disabled={saving} className="admin-btn admin-btn-primary">
+                  <Save size={16} />
+                  <span>{saving ? 'Saving...' : 'Save & Publish Partner'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

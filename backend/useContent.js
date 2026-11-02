@@ -6,6 +6,7 @@ import {
   getPageSections,
   getServices,
   getProjects,
+  getProducts,
   getClients,
   getTestimonials,
   getTeamMembers,
@@ -14,7 +15,8 @@ import {
   getEcommerce,
   getPartnership,
   getContactPage,
-  getClientsPage
+  getClientsPage,
+  getBusinessPartners
 } from './dataService';
 import {
   DEFAULT_SITE_SETTINGS,
@@ -490,5 +492,61 @@ export function useClientsPage() {
   return { clientsPageData: data, loading, reload };
 }
 
-export const useProducts = useProjects;
+// 16. Proprietary Turnkey Products Hook
+export function useProducts() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setProducts(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const data = await getProducts();
+      if (data && data.length) setProducts(data);
+    } catch {
+      // keep fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('products', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { products, loading, reload };
+}
+
+// 17. Business Partners Hook
+export function useBusinessPartners() {
+  const [partners, setPartners] = useState({ product_partners: [], service_partners: [] });
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && (freshData.product_partners || freshData.service_partners)) {
+      setPartners(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getBusinessPartners();
+      if (res) setPartners(res);
+    } catch {
+      // fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('business_partners', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { partners, loading, reload };
+}
 

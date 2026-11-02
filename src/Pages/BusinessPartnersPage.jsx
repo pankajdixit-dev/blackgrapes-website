@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePartnership, useSeo } from '@backend/useContent';
+import { usePartnership, useBusinessPartners, useSeo } from '@backend/useContent';
 import { Sparkles, Layers, Handshake, ExternalLink, Plus } from 'lucide-react';
 import {
   PRODUCT_PARTNERS_INTRO,
@@ -12,6 +12,10 @@ import '../styles/Partnership.css';
 export default function BusinessPartnersPage() {
   useSeo('/business-partners');
   const { partnershipData } = usePartnership();
+  const { partners } = useBusinessPartners();
+
+  const activeProductPartners = partners?.product_partners?.length ? partners.product_partners : PRODUCT_PARTNERS;
+  const activeServicePartners = partners?.service_partners?.length ? partners.service_partners : SERVICE_PARTNERS;
   return (
     <div className="business-partners-container">
       <div className="container">
@@ -47,8 +51,8 @@ export default function BusinessPartnersPage() {
           </h3>
 
           <div className="bp-partners-grid">
-            {PRODUCT_PARTNERS.map((partner, idx) => {
-              const isMore = partner.name.toLowerCase().includes('more');
+            {activeProductPartners.map((partner, idx) => {
+              const isMore = partner.name?.toLowerCase().includes('more');
               if (isMore) {
                 return (
                   <div key={idx} className="bp-partner-card bp-more-card">
@@ -102,8 +106,8 @@ export default function BusinessPartnersPage() {
           </h3>
 
           <div className="bp-partners-grid">
-            {SERVICE_PARTNERS.map((partner, idx) => {
-              const isMore = partner.name.toLowerCase().includes('more');
+            {activeServicePartners.map((partner, idx) => {
+              const isMore = partner.name?.toLowerCase().includes('more');
               if (isMore) {
                 return (
                   <div key={idx} className="bp-partner-card bp-more-card">

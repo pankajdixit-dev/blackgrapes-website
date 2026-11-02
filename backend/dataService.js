@@ -353,7 +353,7 @@ export async function deleteService(id) {
 }
 
 // ==========================================
-// 6. PROJECTS
+// 6. PROJECTS & PROPRIETARY PRODUCTS
 // ==========================================
 export async function getProjects() {
   return await fetchModuleApi('projects', DEFAULT_PROJECTS);
@@ -389,6 +389,43 @@ export async function deleteProject(id) {
   await saveModuleApi('projects', filtered);
   logActivity('Project Deleted', 'Projects', id, `Deleted project: ${target?.title || id}`);
   notifyContentUpdated('projects', filtered);
+  return filtered;
+}
+
+export async function getProducts() {
+  return await fetchModuleApi('products', []);
+}
+
+export async function saveProduct(product) {
+  const items = [...(await getProducts())];
+  const index = items.findIndex((p) => p.id === product.id);
+
+  if (index >= 0) {
+    items[index] = { ...product, updated_at: new Date().toISOString() };
+    logActivity('Product Updated', 'Products', product.id, `Updated product: ${product.title}`);
+  } else {
+    const newProduct = {
+      ...product,
+      id: product.id || `prod-${Date.now()}`,
+      created_at: new Date().toISOString()
+    };
+    items.push(newProduct);
+    logActivity('Product Created', 'Products', newProduct.id, `Created product: ${product.title}`);
+  }
+
+  await saveModuleApi('products', items);
+  notifyContentUpdated('products', items);
+  return items;
+}
+
+export async function deleteProduct(id) {
+  const items = [...(await getProducts())];
+  const target = items.find((p) => p.id === id);
+  const filtered = items.filter((p) => p.id !== id);
+
+  await saveModuleApi('products', filtered);
+  logActivity('Product Deleted', 'Products', id, `Deleted product: ${target?.title || id}`);
+  notifyContentUpdated('products', filtered);
   return filtered;
 }
 
@@ -876,6 +913,20 @@ export async function saveClientsPage(data) {
   await saveModuleApi('clients_page', data);
   logActivity('Clients Page Updated', 'Clients', 'clients_page', 'Saved live modifications to Clients page impact stats');
   notifyContentUpdated('clients_page', data);
+  return data;
+}
+
+// ==========================================
+// 22. BUSINESS PARTNERS (ALLIANCES)
+// ==========================================
+export async function getBusinessPartners() {
+  return await fetchModuleApi('business_partners', { product_partners: [], service_partners: [] });
+}
+
+export async function saveBusinessPartners(data) {
+  await saveModuleApi('business_partners', data);
+  logActivity('Business Partners Updated', 'Partnership', 'business_partners', 'Saved live modifications to Business Partners alliances');
+  notifyContentUpdated('business_partners', data);
   return data;
 }
 

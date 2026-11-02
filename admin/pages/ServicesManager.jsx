@@ -18,15 +18,18 @@ export default function ServicesManager() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingService, setEditingService] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const [form, setForm] = useState({
     title: '',
-    slug: '',
-    category: 'Engineering',
-    short_desc: '',
-    full_desc: '',
-    icon_name: 'Layers',
-    status: 'published'
+    category: 'web',
+    categoryLabel: 'Web & Cloud',
+    badge: 'Popular',
+    image: '/softech-services/web.jpg',
+    shortDesc: '',
+    description: '',
+    tags_raw: 'React\nNext.js\nNode.js\nAWS',
+    deliverables_raw: 'Custom React & Full-Stack MERN engineering\nResponsive UI/UX\nSub-second load times'
   });
 
   useEffect(() => {
@@ -47,12 +50,14 @@ export default function ServicesManager() {
     setEditingService(null);
     setForm({
       title: '',
-      slug: '',
-      category: 'Engineering',
-      short_desc: '',
-      full_desc: '',
-      icon_name: 'Layers',
-      status: 'published'
+      category: 'web',
+      categoryLabel: 'Web & Cloud',
+      badge: 'Popular',
+      image: '/softech-services/web.jpg',
+      shortDesc: '',
+      description: '',
+      tags_raw: 'React\nNext.js\nNode.js\nAWS',
+      deliverables_raw: 'Custom React & Full-Stack MERN engineering\nResponsive UI/UX\nSub-second load times'
     });
     setModalOpen(true);
   };
@@ -61,24 +66,45 @@ export default function ServicesManager() {
     setEditingService(srv);
     setForm({
       title: srv.title || '',
-      slug: srv.slug || '',
-      category: srv.category || 'Engineering',
-      short_desc: srv.short_desc || '',
-      full_desc: srv.full_desc || '',
-      icon_name: srv.icon_name || 'Layers',
-      status: srv.status || 'published'
+      category: srv.category || 'web',
+      categoryLabel: srv.categoryLabel || srv.category || 'Software Development',
+      badge: srv.badge || '',
+      image: srv.image || '',
+      shortDesc: srv.shortDesc || srv.short_desc || '',
+      description: srv.description || srv.full_desc || '',
+      tags_raw: (srv.tags || srv.techStack || []).join('\n'),
+      deliverables_raw: (srv.keyDeliverables || []).join('\n')
     });
     setModalOpen(true);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    await saveService({
+    setSaving(true);
+    const tagList = form.tags_raw.split('\n').map((s) => s.trim()).filter(Boolean);
+    const deliverableList = form.deliverables_raw.split('\n').map((s) => s.trim()).filter(Boolean);
+
+    const payload = {
       ...(editingService || {}),
-      ...form
-    });
+      title: form.title,
+      category: form.category,
+      categoryLabel: form.categoryLabel,
+      badge: form.badge,
+      image: form.image,
+      shortDesc: form.shortDesc,
+      short_desc: form.shortDesc,
+      description: form.description,
+      full_desc: form.description,
+      tags: tagList,
+      techStack: tagList,
+      keyDeliverables: deliverableList,
+      is_active: true
+    };
+
+    await saveService(payload);
+    setSaving(false);
     setModalOpen(false);
-    showToast(editingService ? 'Service updated successfully.' : 'New service created.');
+    showToast(editingService ? 'Service updated and published live!' : 'New service created!');
     await loadServices();
   };
 
@@ -93,7 +119,7 @@ export default function ServicesManager() {
   const filtered = services.filter(
     (s) =>
       s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.category.toLowerCase().includes(searchQuery.toLowerCase())
+      (s.category && s.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -105,119 +131,138 @@ export default function ServicesManager() {
         </div>
       )}
 
+      {/* Header */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Services & Capabilities Management</h1>
+          <h1 className="admin-page-title">Services & Solutions Manager</h1>
           <p className="admin-page-sub">
-            Add, update, or reorganize technological services displayed across the website and footer.
+            Manage 10+ core software engineering, mobile development, ERP, CRM, and cloud services across homepage and /services pages.
           </p>
         </div>
-        <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
-          <Plus size={16} />
-          <span>Add New Service</span>
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href="/services"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview live services page"
+          >
+            <ExternalLink size={16} />
+            <span>View Live Page</span>
+          </a>
+          <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
+            <Plus size={16} />
+            <span>Add New Service</span>
+          </button>
+        </div>
       </div>
 
-      <div className="admin-card" style={{ padding: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Search size={18} color="#9ca3af" />
+      {/* Search */}
+      <div className="admin-card" style={{ marginBottom: '1.25rem', padding: '1rem' }}>
+        <div className="admin-search-box">
+          <Search size={16} color="#9ca3af" />
           <input
             type="text"
-            className="admin-input"
-            style={{ border: 'none', background: 'transparent' }}
             placeholder="Search services by title or category..."
+            className="admin-search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
+      {/* Table */}
       <div className="admin-card">
-        <div className="admin-table-wrap">
+        <div className="admin-table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
                 <th>Service Name</th>
                 <th>Category</th>
-                <th>Short Description</th>
+                <th>Deliverables / Tech</th>
                 <th>Status</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', color: '#9ca3af' }}>
-                    No services found matching search.
+              {filtered.map((srv) => (
+                <tr key={srv.id}>
+                  <td>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      {srv.image && (
+                        <img
+                          src={srv.image}
+                          alt=""
+                          style={{ width: '36px', height: '36px', objectFit: 'cover', borderRadius: '4px' }}
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                      )}
+                      <div>
+                        <strong style={{ color: '#fff', display: 'block' }}>{srv.title}</strong>
+                        <span style={{ fontSize: '0.8rem', color: '#9ca3af' }}>{srv.shortDesc || srv.description?.slice(0, 70)}...</span>
+                      </div>
+                    </div>
                   </td>
-                </tr>
-              ) : (
-                filtered.map((srv) => (
-                  <tr key={srv.id}>
-                    <td>
-                      <strong style={{ color: '#fff' }}>{srv.title}</strong>
-                      <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>slug: {srv.slug}</div>
-                    </td>
-                    <td>
-                      <span className="badge badge-purple" style={{ fontSize: '0.7rem' }}>
-                        {srv.category}
-                      </span>
-                    </td>
-                    <td style={{ maxWidth: '350px' }}>
-                      <p style={{ margin: 0, fontSize: '0.8rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {srv.short_desc}
-                      </p>
-                    </td>
-                    <td>
-                      <span className={`badge-status ${srv.status || 'published'}`}>
-                        {srv.status || 'published'}
-                      </span>
-                    </td>
-                    <td style={{ textAlign: 'right' }}>
+                  <td>
+                    <span className="admin-badge admin-badge-orange">{srv.categoryLabel || srv.category}</span>
+                  </td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', maxWidth: '240px' }}>
+                      {(srv.tags || srv.techStack || []).slice(0, 3).map((t, i) => (
+                        <span key={i} style={{ fontSize: '0.75rem', background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: '4px', color: '#38bdf8' }}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td>
+                    <span style={{ color: '#10b981', fontSize: '0.85rem' }}>● Active</span>
+                  </td>
+                  <td style={{ textAlign: 'right' }}>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
                       <button
+                        type="button"
                         onClick={() => handleOpenEdit(srv)}
-                        className="btn-header-action"
-                        style={{ display: 'inline-flex', marginRight: '0.5rem' }}
+                        className="admin-action-btn"
                         title="Edit service"
                       >
-                        <Edit size={14} />
+                        <Edit size={16} />
                       </button>
                       <button
+                        type="button"
                         onClick={() => handleDelete(srv.id, srv.title)}
-                        className="btn-header-action"
-                        style={{ display: 'inline-flex', color: '#f87171' }}
+                        className="admin-action-btn danger"
                         title="Delete service"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={16} />
                       </button>
-                    </td>
-                  </tr>
-                ))
-              )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* Create / Edit Modal */}
+      {/* Modal */}
       {modalOpen && (
-        <div className="admin-modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
-            <form onSubmit={handleSave}>
-              <div className="admin-modal-header">
-                <h3 style={{ margin: 0, color: '#fff' }}>
-                  {editingService ? 'Edit Service' : 'Create New Service'}
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="admin-btn admin-btn-secondary"
-                  style={{ padding: '0.3rem 0.6rem' }}
-                >
-                  <X size={16} />
-                </button>
-              </div>
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
+            <div className="admin-modal-header">
+              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.15rem' }}>
+                {editingService ? 'Edit Service Details' : 'Add New Service'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
 
+            <form onSubmit={handleSave}>
               <div className="admin-modal-body">
                 <div className="admin-form-group">
                   <label className="admin-label">Service Title *</label>
@@ -230,75 +275,83 @@ export default function ServicesManager() {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="admin-grid-2">
                   <div className="admin-form-group">
-                    <label className="admin-label">URL Slug</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      placeholder="e.g. enterprise-crm"
-                      value={form.slug}
-                      onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Category</label>
+                    <label className="admin-label">Category Key</label>
                     <select
                       className="admin-select"
                       value={form.category}
                       onChange={(e) => setForm({ ...form, category: e.target.value })}
                     >
-                      <option value="Engineering">Engineering</option>
-                      <option value="Enterprise">Enterprise</option>
-                      <option value="Design">Design</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Gaming">Gaming</option>
-                      <option value="DevOps">DevOps</option>
+                      <option value="web">Web & Cloud</option>
+                      <option value="mobile">Mobile Apps</option>
+                      <option value="software">Custom Software</option>
+                      <option value="enterprise">CRM & MLM ERP</option>
+                      <option value="marketing">Digital Marketing</option>
+                      <option value="design">UI/UX & Branding</option>
+                      <option value="gaming">Game Development</option>
+                      <option value="tenders">Tenders & Staffing</option>
                     </select>
                   </div>
-                </div>
-
-                <div className="admin-form-group">
-                  <label className="admin-label">Short Summary (Displayed on Cards)</label>
-                  <textarea
-                    rows={2}
-                    className="admin-textarea"
-                    value={form.short_desc}
-                    onChange={(e) => setForm({ ...form, short_desc: e.target.value })}
-                  />
-                </div>
-
-                <div className="admin-form-group">
-                  <label className="admin-label">Full Description</label>
-                  <textarea
-                    rows={3}
-                    className="admin-textarea"
-                    value={form.full_desc}
-                    onChange={(e) => setForm({ ...form, full_desc: e.target.value })}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="admin-form-group">
-                    <label className="admin-label">Icon Identifier</label>
+                    <label className="admin-label">Badge</label>
                     <input
                       type="text"
                       className="admin-input"
-                      value={form.icon_name}
-                      onChange={(e) => setForm({ ...form, icon_name: e.target.value })}
+                      value={form.badge}
+                      onChange={(e) => setForm({ ...form, badge: e.target.value })}
                     />
                   </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Publish Status</label>
-                    <select
-                      className="admin-select"
-                      value={form.status}
-                      onChange={(e) => setForm({ ...form, status: e.target.value })}
-                    >
-                      <option value="published">Published</option>
-                      <option value="draft">Draft</option>
-                    </select>
-                  </div>
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Service Showcase Image Path</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={form.image}
+                    onChange={(e) => setForm({ ...form, image: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Short Description (for card preview)</label>
+                  <textarea
+                    rows={2}
+                    className="admin-textarea"
+                    value={form.shortDesc}
+                    onChange={(e) => setForm({ ...form, shortDesc: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Full Narrative Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-textarea"
+                    value={form.description}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Tech Stack Tags (One per line)</label>
+                  <textarea
+                    rows={3}
+                    className="admin-textarea"
+                    value={form.tags_raw}
+                    onChange={(e) => setForm({ ...form, tags_raw: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Key Deliverables (One per line)</label>
+                  <textarea
+                    rows={3}
+                    className="admin-textarea"
+                    value={form.deliverables_raw}
+                    onChange={(e) => setForm({ ...form, deliverables_raw: e.target.value })}
+                  />
                 </div>
               </div>
 
@@ -310,9 +363,9 @@ export default function ServicesManager() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="admin-btn admin-btn-primary">
-                  <Save size={15} />
-                  <span>Save Service</span>
+                <button type="submit" disabled={saving} className="admin-btn admin-btn-primary">
+                  <Save size={16} />
+                  <span>{saving ? 'Saving...' : 'Save & Publish Service'}</span>
                 </button>
               </div>
             </form>
@@ -322,4 +375,3 @@ export default function ServicesManager() {
     </div>
   );
 }
-

@@ -7,7 +7,8 @@ import {
   CheckCircle,
   Star,
   Save,
-  X
+  X,
+  ExternalLink
 } from 'lucide-react';
 import { getTestimonials, saveTestimonial, deleteTestimonial } from '@backend/dataService';
 
@@ -16,14 +17,16 @@ export default function TestimonialsManager() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const [form, setForm] = useState({
-    author: '',
+    name: '',
     role: '',
     company: '',
     country: '',
     quote: '',
     rating: 5,
+    avatar: 'BG',
     status: 'published'
   });
 
@@ -44,12 +47,13 @@ export default function TestimonialsManager() {
   const handleOpenCreate = () => {
     setEditingItem(null);
     setForm({
-      author: '',
+      name: '',
       role: '',
       company: '',
       country: '',
       quote: '',
       rating: 5,
+      avatar: 'BG',
       status: 'published'
     });
     setModalOpen(true);
@@ -57,13 +61,15 @@ export default function TestimonialsManager() {
 
   const handleOpenEdit = (t) => {
     setEditingItem(t);
+    const displayName = t.name || t.author || '';
     setForm({
-      author: t.author || '',
-      role: t.role || '',
+      name: displayName,
+      role: t.role || t.designation || '',
       company: t.company || '',
       country: t.country || '',
       quote: t.quote || '',
       rating: t.rating || 5,
+      avatar: t.avatar || displayName.slice(0, 2).toUpperCase() || 'BG',
       status: t.status || 'published'
     });
     setModalOpen(true);
@@ -71,17 +77,32 @@ export default function TestimonialsManager() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    await saveTestimonial({
+    setSaving(true);
+    const displayName = form.name.trim();
+    const payload = {
       ...(editingItem || {}),
-      ...form
-    });
+      name: displayName,
+      author: displayName,
+      role: form.role,
+      designation: form.role,
+      company: form.company,
+      country: form.country,
+      quote: form.quote,
+      rating: Number(form.rating) || 5,
+      avatar: form.avatar || displayName.slice(0, 2).toUpperCase() || 'BG',
+      status: form.status,
+      is_featured: true
+    };
+
+    await saveTestimonial(payload);
+    setSaving(false);
     setModalOpen(false);
-    showToast(editingItem ? 'Testimonial updated.' : 'New testimonial added.');
+    showToast(editingItem ? 'Testimonial updated & published live!' : 'New testimonial added & published live!');
     await loadTestimonials();
   };
 
-  const handleDelete = async (id, author) => {
-    if (window.confirm(`Delete review from ${author}?`)) {
+  const handleDelete = async (id, name) => {
+    if (window.confirm(`Delete review from "${name}"?`)) {
       await deleteTestimonial(id);
       showToast('Testimonial removed.');
       await loadTestimonials();
@@ -101,25 +122,36 @@ export default function TestimonialsManager() {
         <div>
           <h1 className="admin-page-title">Client Reviews & Testimonials</h1>
           <p className="admin-page-sub">
-            Manage verified client testimonials, ratings, and quotes showcased across /our-clients.
+            Manage authentic client reviews and ratings showcased across the homepage and /our-clients page.
           </p>
         </div>
-        <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
-          <Plus size={16} />
-          <span>Add Testimonial</span>
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href="/#testimonials"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview live in new tab"
+          >
+            <ExternalLink size={16} />
+            <span>View Live</span>
+          </a>
+          <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
+            <Plus size={16} />
+            <span>Add Testimonial</span>
+          </button>
+        </div>
       </div>
 
       <div className="admin-card">
-        <div className="admin-table-wrap">
+        <div className="admin-table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Client / Reviewer</th>
-                <th>Company & Region</th>
+                <th>Reviewer / Author</th>
+                <th>Designation / Role</th>
                 <th>Quote Preview</th>
                 <th>Rating</th>
-                <th>Status</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -127,45 +159,60 @@ export default function TestimonialsManager() {
               {testimonials.map((t) => (
                 <tr key={t.id}>
                   <td>
-                    <strong style={{ color: '#fff' }}>{t.author}</strong>
-                    <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{t.role}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '50%',
+                          background: 'rgba(255, 107, 0, 0.2)',
+                          color: '#ff6b00',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 'bold',
+                          fontSize: '0.8rem'
+                        }}
+                      >
+                        {t.avatar || (t.name || t.author || 'BG').slice(0, 2).toUpperCase()}
+                      </div>
+                      <strong style={{ color: '#fff' }}>{t.name || t.author}</strong>
+                    </div>
                   </td>
                   <td>
-                    <span style={{ fontSize: '0.85rem' }}>{t.company}</span>
-                    <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>{t.country}</div>
+                    <span style={{ fontSize: '0.85rem', color: '#d1d5db' }}>{t.role || t.designation || 'Client'}</span>
                   </td>
                   <td style={{ maxWidth: '350px' }}>
-                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#d1d5db', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       "{t.quote}"
                     </p>
                   </td>
                   <td>
-                    <div style={{ display: 'flex', color: '#fbbf24' }}>
+                    <div style={{ display: 'flex', color: '#fbbf24', gap: '2px' }}>
                       {Array.from({ length: t.rating || 5 }).map((_, i) => (
                         <Star key={i} size={14} fill="#fbbf24" />
                       ))}
                     </div>
                   </td>
-                  <td>
-                    <span className={`badge-status ${t.status || 'published'}`}>
-                      {t.status || 'published'}
-                    </span>
-                  </td>
                   <td style={{ textAlign: 'right' }}>
-                    <button
-                      onClick={() => handleOpenEdit(t)}
-                      className="btn-header-action"
-                      style={{ display: 'inline-flex', marginRight: '0.5rem' }}
-                    >
-                      <Edit size={14} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(t.id, t.author)}
-                      className="btn-header-action"
-                      style={{ display: 'inline-flex', color: '#f87171' }}
-                    >
-                      <Trash2 size={14} />
-                    </button>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(t)}
+                        className="admin-action-btn"
+                        title="Edit testimonial"
+                      >
+                        <Edit size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(t.id, t.name || t.author)}
+                        className="admin-action-btn danger"
+                        title="Delete testimonial"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -175,69 +222,61 @@ export default function TestimonialsManager() {
       </div>
 
       {modalOpen && (
-        <div className="admin-modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
-            <form onSubmit={handleSave}>
-              <div className="admin-modal-header">
-                <h3 style={{ margin: 0, color: '#fff' }}>
-                  {editingItem ? 'Edit Testimonial' : 'Add Testimonial'}
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="admin-btn admin-btn-secondary"
-                  style={{ padding: '0.3rem 0.6rem' }}
-                >
-                  <X size={16} />
-                </button>
-              </div>
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
+            <div className="admin-modal-header">
+              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.15rem' }}>
+                {editingItem ? 'Edit Testimonial' : 'Add New Testimonial'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
 
+            <form onSubmit={handleSave}>
               <div className="admin-modal-body">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="admin-form-group">
+                  <label className="admin-label">Author / Client Name *</label>
+                  <input
+                    type="text"
+                    required
+                    className="admin-input"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-grid-2">
                   <div className="admin-form-group">
-                    <label className="admin-label">Author Name *</label>
+                    <label className="admin-label">Role / Designation</label>
                     <input
                       type="text"
-                      required
                       className="admin-input"
-                      value={form.author}
-                      onChange={(e) => setForm({ ...form, author: e.target.value })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Designation / Role</label>
-                    <input
-                      type="text"
-                      className="admin-input"
+                      placeholder="e.g. Enterprise Client / Founder"
                       value={form.role}
                       onChange={(e) => setForm({ ...form, role: e.target.value })}
                     />
                   </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="admin-form-group">
-                    <label className="admin-label">Company / Enterprise</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Country / Region</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={form.country}
-                      onChange={(e) => setForm({ ...form, country: e.target.value })}
-                    />
+                    <label className="admin-label">Rating (1 to 5 Stars)</label>
+                    <select
+                      className="admin-select"
+                      value={form.rating}
+                      onChange={(e) => setForm({ ...form, rating: Number(e.target.value) })}
+                    >
+                      <option value={5}>5 Stars (★★★★★)</option>
+                      <option value={4}>4 Stars (★★★★)</option>
+                      <option value={3}>3 Stars (★★★)</option>
+                    </select>
                   </div>
                 </div>
 
                 <div className="admin-form-group">
-                  <label className="admin-label">Client Quote / Testimonial *</label>
+                  <label className="admin-label">Review / Testimonial Quote *</label>
                   <textarea
                     rows={4}
                     required
@@ -245,32 +284,6 @@ export default function TestimonialsManager() {
                     value={form.quote}
                     onChange={(e) => setForm({ ...form, quote: e.target.value })}
                   />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Rating (Stars: 1 to 5)</label>
-                    <select
-                      className="admin-select"
-                      value={form.rating}
-                      onChange={(e) => setForm({ ...form, rating: Number(e.target.value) })}
-                    >
-                      <option value={5}>5 Stars (Exceptional)</option>
-                      <option value={4}>4 Stars (Very Good)</option>
-                      <option value={3}>3 Stars (Average)</option>
-                    </select>
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Status</label>
-                    <select
-                      className="admin-select"
-                      value={form.status}
-                      onChange={(e) => setForm({ ...form, status: e.target.value })}
-                    >
-                      <option value="published">Published</option>
-                      <option value="draft">Draft</option>
-                    </select>
-                  </div>
                 </div>
               </div>
 
@@ -282,9 +295,9 @@ export default function TestimonialsManager() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="admin-btn admin-btn-primary">
-                  <Save size={15} />
-                  <span>Save Testimonial</span>
+                <button type="submit" disabled={saving} className="admin-btn admin-btn-primary">
+                  <Save size={16} />
+                  <span>{saving ? 'Saving...' : 'Save & Publish Testimonial'}</span>
                 </button>
               </div>
             </form>
@@ -294,4 +307,3 @@ export default function TestimonialsManager() {
     </div>
   );
 }
-

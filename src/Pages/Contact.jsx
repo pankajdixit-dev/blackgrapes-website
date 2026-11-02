@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../api/client';
 import { 
   MapPin, 
   Phone, 
@@ -52,6 +53,20 @@ export default function ContactPage() {
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [ticketId, setTicketId] = useState('');
+  const [contactContent, setContactContent] = useState(null);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const res = await api.get('/content/contactInfo');
+        if (res.data?.success && res.data?.data) {
+          setContactContent(res.data.data);
+        }
+      } catch {}
+    };
+    fetchContactInfo();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,17 +78,18 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      await fetch('http://localhost:5000/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: 'Via Contact Form',
-          service: formData.project || 'General Contact',
-          message: formData.message
-        })
+      const res = await api.post('/contact', {
+        name: formData.name,
+        email: formData.email,
+        phone: 'Via Contact Form',
+        service: formData.project || 'General Contact',
+        message: formData.message,
+        source: 'Contact Us Page',
       });
+
+      if (res.data?.ticketId) {
+        setTicketId(res.data.ticketId);
+      }
     } catch {
       // Local graceful fallback
     } finally {
@@ -276,6 +292,22 @@ export default function ContactPage() {
                     <CheckCircle2 size={40} color="#f86200" />
                   </div>
                   <h3 className="success-title">Message Sent Successfully!</h3>
+                  {ticketId && (
+                    <div style={{ margin: '0.5rem auto 1rem', display: 'table' }}>
+                      <span style={{ 
+                        background: 'rgba(248, 98, 0, 0.15)',
+                        border: '1px solid rgba(248, 98, 0, 0.4)',
+                        color: '#f86200',
+                        fontWeight: 700,
+                        padding: '0.35rem 0.85rem',
+                        borderRadius: '999px',
+                        fontSize: '0.88rem',
+                        fontFamily: 'monospace'
+                      }}>
+                        Tracking Ticket: #{ticketId}
+                      </span>
+                    </div>
+                  )}
                   <p className="success-desc">
                     Thank you for reaching out to Black Grapes Group. We have received your message and our team will get back to you shortly.
                   </p>

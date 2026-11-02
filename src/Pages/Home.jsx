@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../api/client';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -18,6 +19,40 @@ import {
 import '../Styles/Home.css';
 
 export default function HomePage({ onOpenInquiry }) {
+  const [heroContent, setHeroContent] = useState({
+    badge: '🍇 Welcome to Black Grapes Group',
+    title: 'Where Technology, Engineering & Strategic Advisory Converge',
+    subtitle: 'A premier Indian conglomerate empowering enterprises with bespoke software platforms, bank-empaneled asset valuations, statutory municipal sanctions, and prime commercial investments.',
+    ctaPrimaryText: 'Explore All Services',
+    ctaPrimaryLink: '/services',
+    ctaSecondaryText: 'Schedule Strategy Call',
+  });
+
+  const [statsData, setStatsData] = useState([
+    { value: '15+', label: 'Years Industry Leadership' },
+    { value: '1,200+', label: 'Delivered Projects & Reports' },
+    { value: '50+', label: 'Engineers & Registered Valuers' },
+    { value: '99.4%', label: 'Client Satisfaction Rating' },
+  ]);
+
+  useEffect(() => {
+    const fetchHomeContent = async () => {
+      try {
+        const [heroRes, statsRes] = await Promise.all([
+          api.get('/content/hero'),
+          api.get('/content/stats'),
+        ]);
+
+        if (heroRes.data?.success && heroRes.data.data) {
+          setHeroContent(heroRes.data.data);
+        }
+        if (statsRes.data?.success && statsRes.data.data && Array.isArray(statsRes.data.data)) {
+          setStatsData(statsRes.data.data);
+        }
+      } catch {}
+    };
+    fetchHomeContent();
+  }, []);
   const divisions = [
     {
       id: 'softech',
@@ -63,51 +98,54 @@ export default function HomePage({ onOpenInquiry }) {
       <section className="home-hero">
         <div className="container home-hero-content">
           <div className="home-badge">
-            <span className="badge-pill">🍇 Welcome to Black Grapes Group</span>
+            <span className="badge-pill">{heroContent.badge || '🍇 Welcome to Black Grapes Group'}</span>
           </div>
 
           <h1 className="home-title">
-            Where Technology, Engineering &amp; <br />
-            <span className="gradient-text">Strategic Advisory Converge</span>
+            {heroContent.title ? (
+              heroContent.title.includes('&') ? (
+                <>
+                  {heroContent.title.split('&')[0]} &amp; <br />
+                  <span className="gradient-text">{heroContent.title.split('&')[1]}</span>
+                </>
+              ) : (
+                heroContent.title
+              )
+            ) : (
+              <>
+                Where Technology, Engineering &amp; <br />
+                <span className="gradient-text">Strategic Advisory Converge</span>
+              </>
+            )}
           </h1>
 
           <p className="home-subtitle">
-            A premier Indian conglomerate empowering enterprises with bespoke software platforms, bank-empaneled asset valuations, statutory municipal sanctions, and prime commercial investments.
+            {heroContent.subtitle}
           </p>
 
           <div className="home-hero-actions">
-            <Link to="/services" className="btn-primary">
+            <Link to={heroContent.ctaPrimaryLink || '/services'} className="btn-primary">
               <Sparkles size={18} />
-              <span>Explore All Services</span>
+              <span>{heroContent.ctaPrimaryText || 'Explore All Services'}</span>
               <ArrowRight size={18} />
             </Link>
             <button 
               type="button" 
               className="btn-secondary"
-              onClick={() => onOpenInquiry && onOpenInquiry('General Strategy Consultation')}
+              onClick={() => onOpenInquiry && onOpenInquiry(heroContent.ctaSecondaryText || 'General Strategy Consultation')}
             >
-              <span>Schedule Strategy Call</span>
+              <span>{heroContent.ctaSecondaryText || 'Schedule Strategy Call'}</span>
             </button>
           </div>
 
           {/* Quick Stats Grid */}
           <div className="home-stats-grid">
-            <div className="home-stat-card glass-card">
-              <span className="stat-value">15+</span>
-              <span className="stat-name">Years Industry Leadership</span>
-            </div>
-            <div className="home-stat-card glass-card">
-              <span className="stat-value">1,200+</span>
-              <span className="stat-name">Delivered Projects &amp; Reports</span>
-            </div>
-            <div className="home-stat-card glass-card">
-              <span className="stat-value">50+</span>
-              <span className="stat-name">Engineers &amp; Registered Valuers</span>
-            </div>
-            <div className="home-stat-card glass-card">
-              <span className="stat-value">99.4%</span>
-              <span className="stat-name">Client Satisfaction Rating</span>
-            </div>
+            {statsData.map((stat, idx) => (
+              <div key={idx} className="home-stat-card glass-card">
+                <span className="stat-value">{stat.value}</span>
+                <span className="stat-name">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import api from '../api/client';
 import { 
   X, 
   Send, 
@@ -23,6 +24,7 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [generatedTicket, setGeneratedTicket] = useState('');
 
   useEffect(() => {
     if (initialService) {
@@ -32,17 +34,36 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const res = await api.post('/contact', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        service: formData.service || 'General Inquiry',
+        urgency: formData.urgency,
+        message: formData.message || 'Consultation Quote Request',
+        source: 'Global Inquiry Modal',
+      });
+
+      if (res.data?.ticketId) {
+        setGeneratedTicket(res.data.ticketId);
+      }
+    } catch (err) {
+      console.warn('Inquiry API fallback:', err.message);
+    } finally {
       setSubmitting(false);
       setIsSubmitted(true);
-    }, 800);
+    }
   };
 
   const handleReset = () => {
     setIsSubmitted(false);
+    setGeneratedTicket('');
     onClose();
   };
 
@@ -68,6 +89,23 @@ export default function InquiryModal({ isOpen, onClose, initialService = '' }) {
                 <CheckCircle2 size={48} className="text-emerald" />
               </div>
               <h4>Thank you, {formData.name || 'Valued Client'}!</h4>
+              {generatedTicket && (
+                <div style={{ margin: '0.5rem 0 1rem' }}>
+                  <span style={{ 
+                    display: 'inline-block',
+                    background: 'rgba(255, 107, 0, 0.15)',
+                    border: '1px solid rgba(255, 107, 0, 0.4)',
+                    color: '#ff6b00',
+                    fontWeight: 700,
+                    padding: '0.35rem 0.85rem',
+                    borderRadius: '999px',
+                    fontSize: '0.88rem',
+                    fontFamily: 'monospace'
+                  }}>
+                    Tracking Ticket: #{generatedTicket}
+                  </span>
+                </div>
+              )}
               <p>
                 Your consultation request for <strong>"{formData.service || 'Black Grapes Services'}"</strong> has been logged with our senior technical and advisory desk.
               </p>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../api/client';
 import { 
   Users, 
   Sparkles, 
@@ -18,16 +19,16 @@ import {
   Building2, 
   Quote, 
   Check, 
-  X,
-  MessageCircle,
-  Layers,
-  MapPin,
-  ChevronRight,
-  ChevronLeft,
-  Star,
-  Zap,
-  Globe,
-  Flame
+  X, 
+  MessageCircle, 
+  Layers, 
+  MapPin, 
+  ChevronRight, 
+  ChevronLeft, 
+  Star, 
+  Zap, 
+  Globe, 
+  Flame 
 } from 'lucide-react';
 
 export default function ITStaffingPage({ onOpenContact }) {
@@ -70,7 +71,7 @@ export default function ITStaffingPage({ onOpenContact }) {
 
   const mandateOptions = ['1-10', '10-50', '51-100', '101+'];
 
-  const testimonials = [
+  const initialTestimonials = [
     {
       name: 'Subodh Bhandari',
       role: 'Businessman',
@@ -87,22 +88,53 @@ export default function ITStaffingPage({ onOpenContact }) {
     }
   ];
 
-  const handleHeroFormSubmit = (e) => {
+  const [testimonials, setTestimonials] = useState(initialTestimonials);
+
+  useEffect(() => {
+    const fetchDynamicTestimonials = async () => {
+      try {
+        const res = await api.get('/testimonials');
+        if (res.data?.success && res.data?.data && res.data.data.length > 0) {
+          setTestimonials(res.data.data);
+        }
+      } catch {}
+    };
+    fetchDynamicTestimonials();
+  }, []);
+
+  const handleHeroFormSubmit = async (e) => {
     e.preventDefault();
     setHeroFormSubmitting(true);
-    setTimeout(() => {
-      setHeroFormSubmitting(false);
-      setHeroFormSuccess(true);
-    }, 700);
+    try {
+      await api.post('/contact', {
+        name: heroForm.fullName,
+        email: heroForm.companyEmail,
+        phone: heroForm.mobileNumber,
+        company: heroForm.companyName,
+        service: heroForm.service || 'IT Staffing Mandate',
+        message: `Mandate Volume: ${heroForm.mandates} hires`,
+        source: 'IT Staffing Hero Form',
+      });
+    } catch {}
+    setHeroFormSubmitting(false);
+    setHeroFormSuccess(true);
   };
 
-  const handleModalSubmit = (e) => {
+  const handleModalSubmit = async (e) => {
     e.preventDefault();
     setModalSubmitting(true);
-    setTimeout(() => {
-      setModalSubmitting(false);
-      setModalSuccess(true);
-    }, 700);
+    try {
+      await api.post('/contact', {
+        name: modalForm.name,
+        email: modalForm.email,
+        phone: modalForm.contact,
+        service: modalForm.requirement || 'Staffing Requirement',
+        message: modalForm.message || `${modalType} request from IT Staffing page`,
+        source: `IT Staffing Modal (${modalType})`,
+      });
+    } catch {}
+    setModalSubmitting(false);
+    setModalSuccess(true);
   };
 
   const openInquiryModal = (type = 'Enquiry') => {

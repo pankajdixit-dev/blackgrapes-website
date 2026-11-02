@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+
+// Public Components & Pages
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './Pages/Home';
@@ -8,6 +10,20 @@ import ITStaffingPage from './Pages/ITStaffing';
 import EcommercePage from './Pages/Ecommerce';
 import ContactPage from './Pages/Contact';
 import InquiryModal from './components/InquiryModal';
+
+// Admin Panel Context, Guards & Pages
+import { AuthProvider } from './admin/context/AuthContext';
+import ProtectedRoute from './admin/components/ProtectedRoute';
+import AdminLayout from './admin/components/AdminLayout';
+import AdminLogin from './admin/pages/AdminLogin';
+import AdminDashboard from './admin/pages/AdminDashboard';
+import AdminEnquiries from './admin/pages/AdminEnquiries';
+import AdminServices from './admin/pages/AdminServices';
+import AdminProjects from './admin/pages/AdminProjects';
+import AdminTestimonials from './admin/pages/AdminTestimonials';
+import AdminContent from './admin/pages/AdminContent';
+import AdminSettings from './admin/pages/AdminSettings';
+
 import './App.css';
 
 // Automatically scroll to top on route change
@@ -19,7 +35,8 @@ function ScrollToTop() {
   return null;
 }
 
-function AppContent() {
+// Public Website Layout Component
+function PublicWebsiteLayout() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState('');
 
@@ -35,10 +52,10 @@ function AppContent() {
   return (
     <div className="app-wrapper">
       <ScrollToTop />
-      {/* Sticky Navigation */}
+      {/* Sticky Public Navigation */}
       <Navbar onOpenInquiry={handleOpenInquiry} />
 
-      {/* Main Page Content */}
+      {/* Main Public Page Content */}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomePage onOpenInquiry={handleOpenInquiry} />} />
@@ -53,7 +70,7 @@ function AppContent() {
         </Routes>
       </main>
 
-      {/* Global Footer */}
+      {/* Global Public Footer */}
       <Footer onOpenInquiry={handleOpenInquiry} />
 
       {/* Global Inquiry & Proposal Modal */}
@@ -69,7 +86,35 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <AuthProvider>
+        <Routes>
+          {/* Admin Login Route */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+
+          {/* Protected Admin Management Portal */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="enquiries" element={<AdminEnquiries />} />
+            <Route path="services" element={<AdminServices />} />
+            <Route path="projects" element={<AdminProjects />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="content" element={<AdminContent />} />
+            <Route path="settings" element={<AdminSettings />} />
+            <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+          </Route>
+
+          {/* Public Website Shell */}
+          <Route path="/*" element={<PublicWebsiteLayout />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

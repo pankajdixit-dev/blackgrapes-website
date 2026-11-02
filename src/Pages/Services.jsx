@@ -8,6 +8,7 @@ import SoftechServicesPage from './SoftechServices';
 import ITStaffingPage from './ITStaffing';
 import EcommercePage from './Ecommerce';
 import { serviceCategories, servicesData } from '../data/servicesData';
+import api from '../api/client';
 import { 
   SearchX, 
   Phone, 
@@ -28,6 +29,20 @@ export default function ServicesPage({ onOpenInquiry }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [inquiryService, setInquiryService] = useState(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [allServices, setAllServices] = useState(servicesData);
+
+  // Fetch dynamic services from API
+  useEffect(() => {
+    const fetchDynamicServices = async () => {
+      try {
+        const res = await api.get('/services');
+        if (res.data?.success && res.data?.data && res.data.data.length > 0) {
+          setAllServices(res.data.data);
+        }
+      } catch {}
+    };
+    fetchDynamicServices();
+  }, []);
 
   // Sync tab and category from URL query parameters
   useEffect(() => {
@@ -68,18 +83,18 @@ export default function ServicesPage({ onOpenInquiry }) {
 
   // Category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: servicesData.length };
+    const counts = { all: allServices.length };
     serviceCategories.forEach((cat) => {
       if (cat.id !== 'all') {
-        counts[cat.id] = servicesData.filter((s) => s.category === cat.id).length;
+        counts[cat.id] = allServices.filter((s) => s.category === cat.id).length;
       }
     });
     return counts;
-  }, []);
+  }, [allServices]);
 
   // Filter services by category and search
   const filteredServices = useMemo(() => {
-    return servicesData.filter((service) => {
+    return allServices.filter((service) => {
       const matchesCategory =
         selectedCategory === 'all' || service.category === selectedCategory;
 
@@ -88,11 +103,11 @@ export default function ServicesPage({ onOpenInquiry }) {
         !q ||
         service.title.toLowerCase().includes(q) ||
         service.description.toLowerCase().includes(q) ||
-        service.tagline.toLowerCase().includes(q);
+        (service.tagline && service.tagline.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, allServices]);
 
   const handleOpenInquiryInternal = (service = null) => {
     if (onOpenInquiry) {

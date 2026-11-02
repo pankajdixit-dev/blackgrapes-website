@@ -27,3 +27,8 @@ dist-ssr
 
 # Local workspace folders
 servie page/
+
+# Environment Variables & Uploads
+.env
+*.env
+backend/uploads/

@@ -995,6 +995,7 @@ button, input, select, textarea {
 /* Hero Visual: Glass Mockup Card */
 .hero-visual {
   position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .hero-glass-card {
@@ -1066,7 +1067,7 @@ button, input, select, textarea {
 }
 
 .glass-card-body {
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 2.25rem 1.5rem;
 }
 
 .code-header {
@@ -1105,6 +1106,7 @@ button, input, select, textarea {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.85rem;
   margin-top: 1.25rem;
+  margin-bottom: 0.85rem;
 }
 
 .kpi-box {
@@ -1138,29 +1140,33 @@ button, input, select, textarea {
   gap: 0.75rem;
   background: rgba(18, 14, 30, 0.95);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.15rem;
   border-radius: 14px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-  animation: floatBadge 6s ease-in-out infinite alternate;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(248, 98, 0, 0.15);
+  animation: heroFloatBadge 6s ease-in-out infinite alternate;
   z-index: 10;
+  pointer-events: auto;
 }
 
-.badge-top-right {
+.badge-top-right,
+.hero-visual .badge-top-right {
   top: -20px;
   right: -20px;
   animation-delay: -1s;
 }
 
-.badge-bottom-left {
-  bottom: -20px;
-  left: -20px;
+.badge-bottom-left,
+.hero-visual .badge-bottom-left {
+  bottom: -28px;
+  left: -15px;
   animation-delay: -3.5s;
 }
 
-@keyframes floatBadge {
+@keyframes heroFloatBadge {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-8px); }
+  100% { transform: translateY(-6px); }
 }
 
 .floating-icon {
@@ -4992,6 +4998,25 @@ html, body {
 
   .kpi-label {
     font-size: 0.62rem !important;
+  }
+
+  .hero-visual .floating-badge,
+  .floating-badge {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    margin: 1.25rem auto 0 !important;
+    width: fit-content !important;
+    max-width: 90% !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    animation: heroFloatBadgeMobile 4s ease-in-out infinite alternate !important;
+  }
+
+  @keyframes heroFloatBadgeMobile {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
   }
 
   .cta-banner-card {

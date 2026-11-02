@@ -6,6 +6,10 @@ const siteSettingsSchema = new mongoose.Schema(
       type: String,
       default: 'Black Grapes Softech'
     },
+    logoUrl: {
+      type: String,
+      default: ''
+    },
     brandTagline: {
       type: String,
       default: 'Innovate. Integrate. Elevate.'
@@ -57,6 +61,18 @@ const siteSettingsSchema = new mongoose.Schema(
     headerNoticeText: {
       type: String,
       default: '10+ Years of Proven IT Excellence • Indore, India'
+    },
+    topStripEnabled: {
+      type: Boolean,
+      default: true
+    },
+    topStripBadge: {
+      type: String,
+      default: 'Accepting New Projects'
+    },
+    topStripOffer: {
+      type: String,
+      default: 'Apprenticeship & Partner Program Open'
     },
     footerCopyright: {
       type: String,

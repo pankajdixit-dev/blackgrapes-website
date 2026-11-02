@@ -778,7 +778,44 @@ export const DEFAULT_SEO_METADATA = [
     meta_title: 'Contact Us | Black Grapes Softech - Indore Office',
     meta_description: 'Direct line: +91 7470997884. Office: 252-F/H Scheme No 54, Vijaynagar, Indore-452010.',
     meta_keywords: 'contact black grapes, indore office, it company phone',
-    canonical_url: 'https://blackgrapessoftech.com/contact'
+    canonical_url: 'https://blackgrapessoftech.com/contact',
+    og_image: ''
+  },
+  {
+    id: 'seo-7',
+    page_route: '/it-staffing',
+    meta_title: 'IT Staffing & Contractual Hiring | Black Grapes Softech',
+    meta_description: 'Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states.',
+    meta_keywords: 'it staffing, contractual hiring, technical manpower, dev staffing indore',
+    canonical_url: 'https://blackgrapessoftech.com/it-staffing',
+    og_image: '/it-staffing/staffing-hero.jpg'
+  },
+  {
+    id: 'seo-8',
+    page_route: '/ecommerce',
+    meta_title: 'Naya Purana Bazaar | Black Grapes Softech Online Marketplace',
+    meta_description: 'An online marketplace platform by Black Grapes Softech for buying and selling new and used products.',
+    meta_keywords: 'nayapuranabazaar, ecommerce marketplace, buy sell products, indore ecommerce',
+    canonical_url: 'https://blackgrapessoftech.com/ecommerce',
+    og_image: ''
+  },
+  {
+    id: 'seo-9',
+    page_route: '/partnership',
+    meta_title: 'Partnership Program | Black Grapes Softech Development Centre',
+    meta_description: 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development in India.',
+    meta_keywords: 'offshore development centre, software partnership, it outsourcing partner india',
+    canonical_url: 'https://blackgrapessoftech.com/partnership',
+    og_image: '/partners/partner_with_us.webp'
+  },
+  {
+    id: 'seo-10',
+    page_route: '/business-partners',
+    meta_title: 'Our Business Partners | Black Grapes Softech Alliances',
+    meta_description: 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.',
+    meta_keywords: 'business partners, strategic alliances, distribution networks, tech integrations',
+    canonical_url: 'https://blackgrapessoftech.com/business-partners',
+    og_image: ''
   }
 ];
 

@@ -64,10 +64,22 @@ export const getPageContent = async (req, res, next) => {
       });
     }
 
+    // If request does not have admin credentials, sanitize draft content
+    const isAdmin = Boolean(req.user || req.headers.authorization);
+    let returnedSections = { ...(doc.sections || fallbackDefaults) };
+    if (!isAdmin) {
+      Object.keys(returnedSections).forEach((key) => {
+        if (returnedSections[key] && typeof returnedSections[key] === 'object') {
+          const { draft_content, ...publicSection } = returnedSections[key];
+          returnedSections[key] = publicSection;
+        }
+      });
+    }
+
     res.json({
       success: true,
       pageSlug,
-      data: doc.sections
+      data: returnedSections
     });
   } catch (error) {
     const pageSlug = req.params.pageSlug || 'home';

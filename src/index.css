@@ -1159,9 +1159,10 @@ button, input, select, textarea {
 
 .badge-bottom-left,
 .hero-visual .badge-bottom-left {
-  bottom: -28px;
-  left: -15px;
+  bottom: -16px;
+  left: 10px;
   animation-delay: -3.5s;
+  z-index: 10;
 }
 
 @keyframes heroFloatBadge {
@@ -1204,13 +1205,13 @@ button, input, select, textarea {
 .marquee-label-container {
   display: flex;
   align-items: center;
-  padding: 0 1.5rem;
+  padding: 0 1.75rem;
   flex-shrink: 0;
   position: relative;
-  z-index: 10;
-  background: #0d0a17;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 12px 0 24px -4px rgba(13, 10, 23, 0.98);
+  z-index: 20;
+  background: #0c0916 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 18px 0 28px -2px #0c0916;
 }
 
 .marquee-label-pill {
@@ -1301,25 +1302,28 @@ button, input, select, textarea {
 
 @media (max-width: 768px) {
   .tech-marquee-wrapper {
-    margin-top: 2.5rem;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 1.15rem 0;
+    margin-top: 2rem !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+    padding: 1rem 0 !important;
+    background: rgba(13, 10, 23, 0.95) !important;
   }
 
   .marquee-label-container {
-    padding: 0 1rem;
-    border-right: none;
-    box-shadow: none;
-    background: transparent;
+    padding: 0 !important;
+    border-right: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .marquee-label-pill {
-    padding: 0.35rem 0.9rem;
-    background: rgba(255, 107, 0, 0.1);
-    border: 1px solid rgba(255, 107, 0, 0.25);
-    border-radius: 999px;
+    padding: 0.4rem 1rem !important;
+    background: rgba(255, 107, 0, 0.12) !important;
+    border: 1px solid rgba(255, 107, 0, 0.35) !important;
+    border-radius: 999px !important;
   }
 
   .marquee-label-text {
@@ -1328,10 +1332,11 @@ button, input, select, textarea {
   }
 
   .marquee-content-viewport {
-    width: 100%;
-    max-width: 100%;
-    mask-image: linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%);
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
   }
 
   .marquee-track {

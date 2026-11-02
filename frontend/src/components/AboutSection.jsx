@@ -30,8 +30,8 @@ export default function AboutSection({ onOpenModal }) {
 
   const heroContent = aboutSections?.about_hero?.content || {};
   const dynamicCoreValues = (Array.isArray(aboutSections?.core_values?.content?.values) && aboutSections.core_values.content.values.length > 0)
-    ? aboutSections.core_values.content.values
-    : ABOUT_CONTENT.coreValues;
+    ? aboutSections.core_values.content.values.slice(0, 3)
+    : ABOUT_CONTENT.coreValues.slice(0, 3);
   const safeActiveTab = activeValueTab < dynamicCoreValues.length ? activeValueTab : 0;
 
   return (

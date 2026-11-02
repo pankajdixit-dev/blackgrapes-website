@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Users,
+  MessageSquareQuote,
   Plus,
   Edit,
   Trash2,
   CheckCircle,
+  Star,
   Save,
-  X,
-  ExternalLink
+  X
 } from 'lucide-react';
-import { getTeamMembers, saveTeamMember, deleteTeamMember } from '../../services/dataService';
+import { getTestimonials, saveTestimonial, deleteTestimonial } from '@backend/dataService';
 
-export default function TeamManager() {
-  const [members, setMembers] = useState([]);
+export default function TestimonialsManager() {
+  const [testimonials, setTestimonials] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingMember, setEditingMember] = useState(null);
+  const [editingItem, setEditingItem] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
 
   const [form, setForm] = useState({
-    name: '',
+    author: '',
     role: '',
-    bio: '',
-    photo_url: '',
-    badge_tag: 'Executive',
-    is_leadership: true,
+    company: '',
+    country: '',
+    quote: '',
+    rating: 5,
     status: 'published'
   });
 
   useEffect(() => {
-    loadMembers();
+    loadTestimonials();
   }, []);
 
-  const loadMembers = async () => {
-    const list = await getTeamMembers();
-    setMembers(list);
+  const loadTestimonials = async () => {
+    const list = await getTestimonials();
+    setTestimonials(list);
   };
 
   const showToast = (msg) => {
@@ -42,49 +42,49 @@ export default function TeamManager() {
   };
 
   const handleOpenCreate = () => {
-    setEditingMember(null);
+    setEditingItem(null);
     setForm({
-      name: '',
+      author: '',
       role: '',
-      bio: '',
-      photo_url: '',
-      badge_tag: 'Executive',
-      is_leadership: true,
+      company: '',
+      country: '',
+      quote: '',
+      rating: 5,
       status: 'published'
     });
     setModalOpen(true);
   };
 
-  const handleOpenEdit = (m) => {
-    setEditingMember(m);
+  const handleOpenEdit = (t) => {
+    setEditingItem(t);
     setForm({
-      name: m.name || '',
-      role: m.role || '',
-      bio: m.bio || '',
-      photo_url: m.photo_url || '',
-      badge_tag: m.badge_tag || 'Executive',
-      is_leadership: m.is_leadership !== undefined ? m.is_leadership : true,
-      status: m.status || 'published'
+      author: t.author || '',
+      role: t.role || '',
+      company: t.company || '',
+      country: t.country || '',
+      quote: t.quote || '',
+      rating: t.rating || 5,
+      status: t.status || 'published'
     });
     setModalOpen(true);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    await saveTeamMember({
-      ...(editingMember || {}),
+    await saveTestimonial({
+      ...(editingItem || {}),
       ...form
     });
     setModalOpen(false);
-    showToast(editingMember ? 'Team member updated.' : 'New team member added.');
-    await loadMembers();
+    showToast(editingItem ? 'Testimonial updated.' : 'New testimonial added.');
+    await loadTestimonials();
   };
 
-  const handleDelete = async (id, name) => {
-    if (window.confirm(`Delete profile for ${name}?`)) {
-      await deleteTeamMember(id);
-      showToast('Profile removed.');
-      await loadMembers();
+  const handleDelete = async (id, author) => {
+    if (window.confirm(`Delete review from ${author}?`)) {
+      await deleteTestimonial(id);
+      showToast('Testimonial removed.');
+      await loadTestimonials();
     }
   };
 
@@ -99,14 +99,14 @@ export default function TeamManager() {
 
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Leadership & Team Management</h1>
+          <h1 className="admin-page-title">Client Reviews & Testimonials</h1>
           <p className="admin-page-sub">
-            Manage the executive leadership team profiles, biographies, and photos shown on the website.
+            Manage verified client testimonials, ratings, and quotes showcased across /our-clients.
           </p>
         </div>
         <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
           <Plus size={16} />
-          <span>Add Team Member</span>
+          <span>Add Testimonial</span>
         </button>
       </div>
 
@@ -115,75 +115,52 @@ export default function TeamManager() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Profile</th>
-                <th>Role / Designation</th>
-                <th>Bio Summary</th>
-                <th>Category</th>
+                <th>Client / Reviewer</th>
+                <th>Company & Region</th>
+                <th>Quote Preview</th>
+                <th>Rating</th>
                 <th>Status</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {members.map((m) => (
-                <tr key={m.id}>
+              {testimonials.map((t) => (
+                <tr key={t.id}>
                   <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      {m.photo_url ? (
-                        <img
-                          src={m.photo_url}
-                          alt={m.name}
-                          style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }}
-                        />
-                      ) : (
-                        <div
-                          style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            background: '#374151',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 700
-                          }}
-                        >
-                          {m.name.charAt(0)}
-                        </div>
-                      )}
-                      <div>
-                        <strong style={{ color: '#fff' }}>{m.name}</strong>
-                        <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{m.badge_tag}</div>
-                      </div>
-                    </div>
+                    <strong style={{ color: '#fff' }}>{t.author}</strong>
+                    <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{t.role}</div>
                   </td>
                   <td>
-                    <span style={{ fontSize: '0.85rem', color: '#e5e7eb' }}>{m.role}</span>
+                    <span style={{ fontSize: '0.85rem' }}>{t.company}</span>
+                    <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>{t.country}</div>
                   </td>
-                  <td style={{ maxWidth: '300px' }}>
-                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {m.bio}
+                  <td style={{ maxWidth: '350px' }}>
+                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#d1d5db', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      "{t.quote}"
                     </p>
                   </td>
                   <td>
-                    <span className="badge badge-purple" style={{ fontSize: '0.7rem' }}>
-                      {m.is_leadership ? 'Executive Leadership' : 'Engineering Team'}
-                    </span>
+                    <div style={{ display: 'flex', color: '#fbbf24' }}>
+                      {Array.from({ length: t.rating || 5 }).map((_, i) => (
+                        <Star key={i} size={14} fill="#fbbf24" />
+                      ))}
+                    </div>
                   </td>
                   <td>
-                    <span className={`badge-status ${m.status || 'published'}`}>
-                      {m.status || 'published'}
+                    <span className={`badge-status ${t.status || 'published'}`}>
+                      {t.status || 'published'}
                     </span>
                   </td>
                   <td style={{ textAlign: 'right' }}>
                     <button
-                      onClick={() => handleOpenEdit(m)}
+                      onClick={() => handleOpenEdit(t)}
                       className="btn-header-action"
                       style={{ display: 'inline-flex', marginRight: '0.5rem' }}
                     >
                       <Edit size={14} />
                     </button>
                     <button
-                      onClick={() => handleDelete(m.id, m.name)}
+                      onClick={() => handleDelete(t.id, t.author)}
                       className="btn-header-action"
                       style={{ display: 'inline-flex', color: '#f87171' }}
                     >
@@ -203,7 +180,7 @@ export default function TeamManager() {
             <form onSubmit={handleSave}>
               <div className="admin-modal-header">
                 <h3 style={{ margin: 0, color: '#fff' }}>
-                  {editingMember ? 'Edit Profile' : 'Add Team Member'}
+                  {editingItem ? 'Edit Testimonial' : 'Add Testimonial'}
                 </h3>
                 <button
                   type="button"
@@ -218,20 +195,19 @@ export default function TeamManager() {
               <div className="admin-modal-body">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="admin-form-group">
-                    <label className="admin-label">Full Name *</label>
+                    <label className="admin-label">Author Name *</label>
                     <input
                       type="text"
                       required
                       className="admin-input"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      value={form.author}
+                      onChange={(e) => setForm({ ...form, author: e.target.value })}
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-label">Role / Title *</label>
+                    <label className="admin-label">Designation / Role</label>
                     <input
                       type="text"
-                      required
                       className="admin-input"
                       value={form.role}
                       onChange={(e) => setForm({ ...form, role: e.target.value })}
@@ -239,38 +215,53 @@ export default function TeamManager() {
                   </div>
                 </div>
 
-                <div className="admin-form-group">
-                  <label className="admin-label">Photo URL / Asset Path</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={form.photo_url}
-                    onChange={(e) => setForm({ ...form, photo_url: e.target.value })}
-                  />
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Company / Enterprise</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Country / Region</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={form.country}
+                      onChange={(e) => setForm({ ...form, country: e.target.value })}
+                    />
+                  </div>
                 </div>
 
                 <div className="admin-form-group">
-                  <label className="admin-label">Biographical Summary</label>
+                  <label className="admin-label">Client Quote / Testimonial *</label>
                   <textarea
                     rows={4}
+                    required
                     className="admin-textarea"
-                    value={form.bio}
-                    onChange={(e) => setForm({ ...form, bio: e.target.value })}
+                    value={form.quote}
+                    onChange={(e) => setForm({ ...form, quote: e.target.value })}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div className="admin-form-group">
-                    <label className="admin-label">Badge Tag (e.g. Founder)</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={form.badge_tag}
-                      onChange={(e) => setForm({ ...form, badge_tag: e.target.value })}
-                    />
+                    <label className="admin-label">Rating (Stars: 1 to 5)</label>
+                    <select
+                      className="admin-select"
+                      value={form.rating}
+                      onChange={(e) => setForm({ ...form, rating: Number(e.target.value) })}
+                    >
+                      <option value={5}>5 Stars (Exceptional)</option>
+                      <option value={4}>4 Stars (Very Good)</option>
+                      <option value={3}>3 Stars (Average)</option>
+                    </select>
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-label">Publish Status</label>
+                    <label className="admin-label">Status</label>
                     <select
                       className="admin-select"
                       value={form.status}
@@ -293,7 +284,7 @@ export default function TeamManager() {
                 </button>
                 <button type="submit" className="admin-btn admin-btn-primary">
                   <Save size={15} />
-                  <span>Save Member</span>
+                  <span>Save Testimonial</span>
                 </button>
               </div>
             </form>
@@ -303,3 +294,4 @@ export default function TeamManager() {
     </div>
   );
 }
+

@@ -25,10 +25,10 @@ import {
   Database,
   Radio
 } from 'lucide-react';
-import { getCurrentSession, logoutAdmin } from '../../services/authService';
-import { checkSupabaseHealth } from '../../services/supabaseClient';
-import { getEnquiries } from '../../services/dataService';
-import logoImg from '../../assets/bgst-logo.png';
+import { getCurrentSession, logoutAdmin } from '@backend/authService';
+import { checkSupabaseHealth } from '@backend/supabaseClient';
+import { getEnquiries } from '@backend/dataService';
+import logoImg from '@assets/bgst-logo.png';
 import '../admin.css';
 
 export default function AdminLayout() {
@@ -240,3 +240,4 @@ export default function AdminLayout() {
     </div>
   );
 }
+

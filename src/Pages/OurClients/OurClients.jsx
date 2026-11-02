@@ -29,7 +29,7 @@ import {
   CLIENT_TESTIMONIALS,
   ENGAGEMENT_MODELS
 } from './clientsData';
-import { useClients, useSeo } from '../../services/useContent';
+import { useClients, useSeo } from '@backend/useContent';
 import ClientCaseStudyModal from './ClientCaseStudyModal';
 import clientsNetworkImg from '../../assets/clients-network.jpg';
 import clientsSummitImg from '../../assets/clients-summit.jpg';

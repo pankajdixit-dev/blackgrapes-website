@@ -253,3 +253,4 @@ INSERT INTO seo_metadata (page_route, meta_title, meta_description, meta_keyword
 -- 10. ADMIN USERS (Initial Super Admin)
 INSERT INTO admin_users (email, full_name, role, is_active) VALUES
 ('admin@blackgrapessoftech.com', 'Black Grapes Super Admin', 'super_admin', true);
+

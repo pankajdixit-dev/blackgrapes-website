@@ -1,9 +1,9 @@
-import foundersImg from '../assets/founders.jpg';
-import aboutHeroImg from '../assets/about-hero.jpg';
-import workspaceImg from '../assets/workspace.jpg';
-import logoImg from '../assets/bgst-logo.png';
-import { PRODUCTS_LIST } from '../Pages/OurProducts/productsData';
-import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../Pages/OurClients/clientsData';
+import foundersImg from '../src/assets/founders.jpg';
+import aboutHeroImg from '../src/assets/about-hero.jpg';
+import workspaceImg from '../src/assets/workspace.jpg';
+import logoImg from '../src/assets/bgst-logo.png';
+import { PRODUCTS_LIST } from '../src/Pages/OurProducts/productsData';
+import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../src/Pages/OurClients/clientsData';
 
 export const DEFAULT_SITE_SETTINGS = {
   id: 'settings-1',
@@ -611,3 +611,4 @@ export const DEFAULT_ACTIVITY_LOGS = [
     created_at: new Date().toISOString()
   }
 ];
+

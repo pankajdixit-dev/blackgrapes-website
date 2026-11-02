@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
-import { loginAdmin } from '../../services/authService';
-import logoImg from '../../assets/bgst-logo.png';
+import { loginAdmin } from '@backend/authService';
+import logoImg from '@assets/bgst-logo.png';
 import '../admin.css';
 
 export default function AdminLogin() {
@@ -174,3 +174,4 @@ export default function AdminLogin() {
     </div>
   );
 }
+

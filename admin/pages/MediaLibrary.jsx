@@ -9,7 +9,7 @@ import {
   CheckCircle,
   ExternalLink
 } from 'lucide-react';
-import { getMediaLibrary, uploadMediaItem, deleteMediaItem } from '../../services/dataService';
+import { getMediaLibrary, uploadMediaItem, deleteMediaItem } from '@backend/dataService';
 
 export default function MediaLibrary() {
   const [mediaList, setMediaList] = useState([]);
@@ -202,3 +202,4 @@ export default function MediaLibrary() {
     </div>
   );
 }
+

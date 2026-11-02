@@ -11,8 +11,8 @@ import {
   Copy,
   Check
 } from 'lucide-react';
-import { getSiteSettings, updateSiteSettings } from '../../services/dataService';
-import { checkSupabaseHealth, isConfigured } from '../../services/supabaseClient';
+import { getSiteSettings, updateSiteSettings } from '@backend/dataService';
+import { checkSupabaseHealth, isConfigured } from '@backend/supabaseClient';
 
 export default function WebsiteSettings() {
   const [settings, setSettings] = useState(null);
@@ -202,3 +202,4 @@ export default function WebsiteSettings() {
     </div>
   );
 }
+

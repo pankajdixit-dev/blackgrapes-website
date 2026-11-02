@@ -8,7 +8,7 @@ import {
   Edit,
   X
 } from 'lucide-react';
-import { getSeoMetadata, saveSeoMetadata } from '../../services/dataService';
+import { getSeoMetadata, saveSeoMetadata } from '@backend/dataService';
 
 export default function SeoManager() {
   const [seoList, setSeoList] = useState([]);
@@ -232,3 +232,4 @@ export default function SeoManager() {
     </div>
   );
 }
+

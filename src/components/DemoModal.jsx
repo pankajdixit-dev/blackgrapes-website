@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Sparkles, Building, Mail, Phone, User, MessageSquare } from 'lucide-react';
-import { submitEnquiry } from '../services/dataService';
+import { submitEnquiry } from '@backend/dataService';
 import '../Styles/DemoModal.css';
 
 export default function DemoModal({ isOpen, onClose }) {

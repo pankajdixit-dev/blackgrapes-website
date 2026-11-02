@@ -11,7 +11,7 @@ import {
   Save,
   X
 } from 'lucide-react';
-import { getProjects, saveProject, deleteProject } from '../../services/dataService';
+import { getProjects, saveProject, deleteProject } from '@backend/dataService';
 
 export default function ProjectsManager() {
   const [projects, setProjects] = useState([]);
@@ -435,3 +435,4 @@ export default function ProjectsManager() {
     </div>
   );
 }
+

@@ -10,7 +10,7 @@ import {
   Save,
   X
 } from 'lucide-react';
-import { getServices, saveService, deleteService } from '../../services/dataService';
+import { getServices, saveService, deleteService } from '@backend/dataService';
 
 export default function ServicesManager() {
   const [services, setServices] = useState([]);
@@ -322,3 +322,4 @@ export default function ServicesManager() {
     </div>
   );
 }
+

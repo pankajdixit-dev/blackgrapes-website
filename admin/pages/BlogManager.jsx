@@ -10,7 +10,7 @@ import {
   Search,
   Calendar
 } from 'lucide-react';
-import { getBlogPosts, saveBlogPost, deleteBlogPost, getBlogCategories } from '../../services/dataService';
+import { getBlogPosts, saveBlogPost, deleteBlogPost, getBlogCategories } from '@backend/dataService';
 
 export default function BlogManager() {
   const [posts, setPosts] = useState([]);
@@ -320,3 +320,4 @@ export default function BlogManager() {
     </div>
   );
 }
+

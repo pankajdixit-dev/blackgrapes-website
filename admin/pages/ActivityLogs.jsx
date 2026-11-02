@@ -7,7 +7,7 @@ import {
   ShieldAlert,
   ArrowRight
 } from 'lucide-react';
-import { getActivityLogs } from '../../services/dataService';
+import { getActivityLogs } from '@backend/dataService';
 
 export default function ActivityLogs() {
   const [logs, setLogs] = useState([]);
@@ -149,3 +149,4 @@ export default function ActivityLogs() {
     </div>
   );
 }
+

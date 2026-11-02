@@ -98,3 +98,4 @@ export async function logoutAdmin() {
   localStorage.removeItem('bgst_current_admin_email');
   return true;
 }
+

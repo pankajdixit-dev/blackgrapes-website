@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, ArrowUpRight, Heart, ShieldCheck, Sparkles } from 'lucide-react';
 import logoImg from '../assets/bgst-logo.png';
-import { useSiteSettings, useServices } from '../services/useContent';
+import { useSiteSettings, useServices } from '@backend/useContent';
 import '../Styles/Footer.css';
 
 export default function Footer({ onOpenDemoModal }) {

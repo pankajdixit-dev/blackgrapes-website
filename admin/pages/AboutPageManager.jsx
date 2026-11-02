@@ -20,7 +20,7 @@ import {
   publishSection,
   revertSectionDraft,
   getContentRevisions
-} from '../../services/dataService';
+} from '@backend/dataService';
 
 export default function AboutPageManager() {
   const [sections, setSections] = useState(null);
@@ -950,3 +950,4 @@ export default function AboutPageManager() {
     </div>
   );
 }
+

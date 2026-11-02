@@ -7,27 +7,27 @@ import About from './Pages/About';
 import OurProducts from './Pages/OurProducts';
 import OurClients from './Pages/OurClients';
 
-// Code-Split Admin Panel for High Performance
-const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
-const AdminLogin = lazy(() => import('./admin/pages/AdminLogin'));
-const Dashboard = lazy(() => import('./admin/pages/Dashboard'));
-const HomePageManager = lazy(() => import('./admin/pages/HomePageManager'));
-const AboutPageManager = lazy(() => import('./admin/pages/AboutPageManager'));
-const ServicesManager = lazy(() => import('./admin/pages/ServicesManager'));
-const ProjectsManager = lazy(() => import('./admin/pages/ProjectsManager'));
-const TeamManager = lazy(() => import('./admin/pages/TeamManager'));
-const TestimonialsManager = lazy(() => import('./admin/pages/TestimonialsManager'));
-const BlogManager = lazy(() => import('./admin/pages/BlogManager'));
-const ContactManager = lazy(() => import('./admin/pages/ContactManager'));
-const HeaderManager = lazy(() => import('./admin/pages/HeaderManager'));
-const FooterManager = lazy(() => import('./admin/pages/FooterManager'));
-const MenuManager = lazy(() => import('./admin/pages/MenuManager'));
-const MediaLibrary = lazy(() => import('./admin/pages/MediaLibrary'));
-const SeoManager = lazy(() => import('./admin/pages/SeoManager'));
-const EnquiryManager = lazy(() => import('./admin/pages/EnquiryManager'));
-const WebsiteSettings = lazy(() => import('./admin/pages/WebsiteSettings'));
-const AdminUsersManager = lazy(() => import('./admin/pages/AdminUsersManager'));
-const ActivityLogs = lazy(() => import('./admin/pages/ActivityLogs'));
+// Code-Split Admin Panel for High Performance (Isolated in root /admin directory)
+const AdminLayout = lazy(() => import('@admin/components/AdminLayout'));
+const AdminLogin = lazy(() => import('@admin/pages/AdminLogin'));
+const Dashboard = lazy(() => import('@admin/pages/Dashboard'));
+const HomePageManager = lazy(() => import('@admin/pages/HomePageManager'));
+const AboutPageManager = lazy(() => import('@admin/pages/AboutPageManager'));
+const ServicesManager = lazy(() => import('@admin/pages/ServicesManager'));
+const ProjectsManager = lazy(() => import('@admin/pages/ProjectsManager'));
+const TeamManager = lazy(() => import('@admin/pages/TeamManager'));
+const TestimonialsManager = lazy(() => import('@admin/pages/TestimonialsManager'));
+const BlogManager = lazy(() => import('@admin/pages/BlogManager'));
+const ContactManager = lazy(() => import('@admin/pages/ContactManager'));
+const HeaderManager = lazy(() => import('@admin/pages/HeaderManager'));
+const FooterManager = lazy(() => import('@admin/pages/FooterManager'));
+const MenuManager = lazy(() => import('@admin/pages/MenuManager'));
+const MediaLibrary = lazy(() => import('@admin/pages/MediaLibrary'));
+const SeoManager = lazy(() => import('@admin/pages/SeoManager'));
+const EnquiryManager = lazy(() => import('@admin/pages/EnquiryManager'));
+const WebsiteSettings = lazy(() => import('@admin/pages/WebsiteSettings'));
+const AdminUsersManager = lazy(() => import('@admin/pages/AdminUsersManager'));
+const ActivityLogs = lazy(() => import('@admin/pages/ActivityLogs'));
 
 import './App.css';
 

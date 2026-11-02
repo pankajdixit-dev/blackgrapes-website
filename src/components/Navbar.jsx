@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, Sparkles, PhoneCall, Mail } from 'lucide-react';
 import logoImg from '../assets/bgst-logo.png';
-import { useSiteSettings, useMenus } from '../services/useContent';
+import { useSiteSettings, useMenus } from '@backend/useContent';
 import '../Styles/Navbar.css';
 
 export default function Navbar({ onOpenDemoModal }) {

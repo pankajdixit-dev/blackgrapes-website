@@ -22,7 +22,7 @@ import {
 import foundersImg from '../../assets/founders.jpg';
 import aboutHeroImg from '../../assets/about-hero.jpg';
 import workspaceImg from '../../assets/workspace.jpg';
-import { usePageSections, useSeo } from '../../services/useContent';
+import { usePageSections, useSeo } from '@backend/useContent';
 import './About.css';
 
 export default function About({ onOpenDemoModal }) {

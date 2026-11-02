@@ -9,7 +9,7 @@ import {
   Save,
   X
 } from 'lucide-react';
-import { getMenus, saveMenus } from '../../services/dataService';
+import { getMenus, saveMenus } from '@backend/dataService';
 
 export default function MenuManager() {
   const [menus, setMenus] = useState([]);
@@ -235,3 +235,4 @@ export default function MenuManager() {
     </div>
   );
 }
+

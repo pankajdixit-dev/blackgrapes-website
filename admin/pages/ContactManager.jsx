@@ -9,7 +9,7 @@ import {
   Globe,
   ExternalLink
 } from 'lucide-react';
-import { getSiteSettings, updateSiteSettings } from '../../services/dataService';
+import { getSiteSettings, updateSiteSettings } from '@backend/dataService';
 
 export default function ContactManager() {
   const [settings, setSettings] = useState(null);
@@ -172,3 +172,4 @@ export default function ContactManager() {
     </div>
   );
 }
+

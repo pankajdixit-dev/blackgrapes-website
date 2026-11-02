@@ -36,7 +36,7 @@ import {
   OFFICIAL_INDUSTRIES,
   PRODUCT_GUARANTEES
 } from './productsData';
-import { useProjects, useSeo } from '../../services/useContent';
+import { useProjects, useSeo } from '@backend/useContent';
 import ProductVideoModal from './ProductVideoModal';
 import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';

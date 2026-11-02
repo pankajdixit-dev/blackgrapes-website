@@ -483,3 +483,4 @@ FOR INSERT TO authenticated WITH CHECK (bucket_id = 'media');
 
 CREATE POLICY "Admin Delete from media bucket" ON storage.objects
 FOR DELETE TO authenticated USING (bucket_id = 'media');
+

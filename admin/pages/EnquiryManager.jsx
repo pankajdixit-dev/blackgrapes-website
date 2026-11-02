@@ -14,7 +14,7 @@ import {
   X,
   Save
 } from 'lucide-react';
-import { getEnquiries, updateEnquiryStatus, deleteEnquiry } from '../../services/dataService';
+import { getEnquiries, updateEnquiryStatus, deleteEnquiry } from '@backend/dataService';
 
 export default function EnquiryManager() {
   const [enquiries, setEnquiries] = useState([]);
@@ -374,3 +374,4 @@ export default function EnquiryManager() {
     </div>
   );
 }
+

@@ -23,8 +23,8 @@ import {
   getServices,
   getActivityLogs,
   updateEnquiryStatus
-} from '../../services/dataService';
-import { checkSupabaseHealth } from '../../services/supabaseClient';
+} from '@backend/dataService';
+import { checkSupabaseHealth } from '@backend/supabaseClient';
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -364,3 +364,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

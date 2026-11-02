@@ -11,7 +11,7 @@ import {
   Mail,
   Lock
 } from 'lucide-react';
-import { getAdminUsers, saveAdminUser } from '../../services/dataService';
+import { getAdminUsers, saveAdminUser } from '@backend/dataService';
 
 export default function AdminUsersManager() {
   const [users, setUsers] = useState([]);
@@ -258,3 +258,4 @@ export default function AdminUsersManager() {
     </div>
   );
 }
+

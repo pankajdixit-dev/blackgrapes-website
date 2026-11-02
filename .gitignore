@@ -29,3 +29,8 @@ dist-ssr
 servie page/
 
 scratch/
+
+# Environment variables
+.env
+.env.*
+!.env.example

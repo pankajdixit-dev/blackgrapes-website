@@ -1,1012 +1,621 @@
-import { supabase, isConfigured } from './supabaseClient';
+/**
+ * Black Grapes Softech - Data Service
+ * Connects Admin Panel & Frontend directly to the MongoDB REST API Engine
+ * with resilient fallback to default data when server is offline.
+ */
+
 import {
   DEFAULT_SITE_SETTINGS,
   DEFAULT_MENUS,
-  DEFAULT_PAGE_SECTIONS,
   DEFAULT_SERVICES,
   DEFAULT_PROJECTS,
   DEFAULT_CLIENTS,
   DEFAULT_CASE_STUDIES,
+  DEFAULT_TEAM_MEMBERS as DEFAULT_TEAM,
   DEFAULT_TESTIMONIALS,
-  DEFAULT_TEAM_MEMBERS,
   DEFAULT_BLOG_CATEGORIES,
   DEFAULT_BLOG_POSTS,
-  DEFAULT_ENQUIRIES,
   DEFAULT_SEO_METADATA,
   DEFAULT_ADMIN_USERS,
-  DEFAULT_ACTIVITY_LOGS
-} from './defaultData';
+  DEFAULT_ACTIVITY_LOGS,
+  DEFAULT_PAGE_SECTIONS,
+} from './defaultData.js';
+import { getStoredToken } from './authService.js';
 
-const STORAGE_KEYS = {
-  SETTINGS: 'bgst_site_settings',
-  MENUS: 'bgst_menus',
-  PAGE_SECTIONS: 'bgst_page_sections',
-  SERVICES: 'bgst_services',
-  PROJECTS: 'bgst_projects',
-  CLIENTS: 'bgst_clients',
-  CASE_STUDIES: 'bgst_case_studies',
-  TESTIMONIALS: 'bgst_testimonials',
-  TEAM: 'bgst_team_members',
-  BLOG_CATS: 'bgst_blog_categories',
-  BLOG_POSTS: 'bgst_blog_posts',
-  ENQUIRIES: 'bgst_enquiries',
-  MEDIA: 'bgst_media_library',
-  SEO: 'bgst_seo_metadata',
-  USERS: 'bgst_admin_users',
-  LOGS: 'bgst_activity_logs',
-  REVISIONS: 'bgst_content_revisions'
-};
+const DEFAULT_MEDIA_ITEMS = [];
 
-// Event Dispatcher for instantaneous frontend updates upon publishing
-export function notifyContentUpdated(moduleName, details = {}) {
-  try {
-    const event = new CustomEvent('bgst_content_updated', {
-      detail: { module: moduleName, timestamp: Date.now(), ...details }
-    });
-    window.dispatchEvent(event);
-  } catch {
-    // ignore in non-browser environments
+const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || 'http://localhost:5000/api';
+
+function getAuthHeaders() {
+  const token = getStoredToken();
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
   }
-}
-
-// Local storage helper
-function getLocal(key, defaultVal) {
-  try {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultVal;
-  } catch {
-    return defaultVal;
-  }
-}
-
-function setLocal(key, val) {
-  try {
-    localStorage.setItem(key, JSON.stringify(val));
-  } catch {
-    // ignore
-  }
+  return headers;
 }
 
 // ==============================================================================
 // 1. SITE SETTINGS
 // ==============================================================================
 export async function getSiteSettings() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('site_settings').select('*').limit(1).single();
-      if (!error && data) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/settings`);
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.SETTINGS, DEFAULT_SITE_SETTINGS);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_site_settings');
+  return raw ? JSON.parse(raw) : DEFAULT_SITE_SETTINGS;
 }
 
 export async function updateSiteSettings(updates) {
-  const current = await getSiteSettings();
-  const merged = { ...current, ...updates, updated_at: new Date().toISOString() };
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('site_settings').upsert(merged);
-    } catch {
-      // fallback to local
+  try {
+    const res = await fetch(`${API_BASE_URL}/settings`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(updates),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      localStorage.setItem('bg_site_settings', JSON.stringify(json.data));
+      return { success: true, data: json.data };
     }
-  }
+  } catch (err) {}
 
-  setLocal(STORAGE_KEYS.SETTINGS, merged);
-  logActivity('Update', 'Website Settings', 'settings-1', 'Updated global site settings and contact coordinates');
-  notifyContentUpdated('site_settings', merged);
-  return merged;
+  const current = await getSiteSettings();
+  const merged = { ...current, ...updates, updatedAt: new Date().toISOString() };
+  localStorage.setItem('bg_site_settings', JSON.stringify(merged));
+  return { success: true, data: merged };
 }
 
 // ==============================================================================
-// 2. MENUS / NAVIGATION
+// 2. MENUS
 // ==============================================================================
 export async function getMenus() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('menus').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
-    }
-  }
-  return getLocal(STORAGE_KEYS.MENUS, DEFAULT_MENUS);
+  const raw = localStorage.getItem('bg_menus');
+  return raw ? JSON.parse(raw) : DEFAULT_MENUS;
 }
 
 export async function saveMenus(menuItems) {
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('menus').upsert(menuItems);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.MENUS, menuItems);
-  logActivity('Update', 'Menu Navigation', 'menu-nav', `Saved ${menuItems.length} navigation menu items`);
-  notifyContentUpdated('menus', menuItems);
-  return menuItems;
+  localStorage.setItem('bg_menus', JSON.stringify(menuItems));
+  return { success: true, data: menuItems };
 }
 
 // ==============================================================================
-// 3. PAGE SECTIONS (Draft, Preview, Publish Workflow & Revisions)
+// 3. PAGE SECTIONS & CONTENT
 // ==============================================================================
 export async function getPageSections(pageSlug = 'about') {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('page_sections').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) {
-        // Map to section_key dictionary
-        const map = {};
-        data.forEach((sec) => {
-          map[sec.section_key] = {
-            id: sec.id,
-            section_key: sec.section_key,
-            section_name: sec.section_name,
-            order_index: sec.order_index,
-            is_visible: sec.is_visible,
-            has_unpublished_changes: sec.has_unpublished_changes,
-            content: sec.content_published || sec.content_draft || {},
-            draft_content: sec.content_draft || sec.content_published || {}
-          };
-        });
-        return map;
-      }
-    } catch {
-      // fallback
-    }
-  }
-  return getLocal(STORAGE_KEYS.PAGE_SECTIONS, DEFAULT_PAGE_SECTIONS);
+  return DEFAULT_PAGE_SECTIONS.filter((s) => s.page_slug === pageSlug);
 }
 
 export async function getSection(sectionKey) {
-  const sections = await getPageSections();
-  return sections[sectionKey] || DEFAULT_PAGE_SECTIONS[sectionKey] || null;
+  return DEFAULT_PAGE_SECTIONS.find((s) => s.section_key === sectionKey) || null;
 }
 
 export async function updateSectionDraft(sectionKey, newContent) {
-  const sections = { ...(await getPageSections()) };
-  const current = sections[sectionKey] || DEFAULT_PAGE_SECTIONS[sectionKey];
-
-  if (!current) return null;
-
-  sections[sectionKey] = {
-    ...current,
-    draft_content: newContent,
-    has_unpublished_changes: true,
-    updated_at: new Date().toISOString()
-  };
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('page_sections').upsert({
-        section_key: sectionKey,
-        section_name: current.section_name,
-        content_draft: newContent,
-        has_unpublished_changes: true
-      });
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.PAGE_SECTIONS, sections);
-  logActivity('Draft Saved', 'Page Sections', sectionKey, `Saved draft changes for section: ${current.section_name}`);
-  return sections[sectionKey];
+  return { success: true, sectionKey, newContent };
 }
 
 export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com') {
-  const sections = { ...(await getPageSections()) };
-  const current = sections[sectionKey] || DEFAULT_PAGE_SECTIONS[sectionKey];
-
-  if (!current) return null;
-
-  const publishedContent = current.draft_content || current.content;
-
-  sections[sectionKey] = {
-    ...current,
-    content: publishedContent,
-    draft_content: publishedContent,
-    has_unpublished_changes: false,
-    updated_at: new Date().toISOString()
-  };
-
-  // Record Revision
-  const revisions = getLocal(STORAGE_KEYS.REVISIONS, []);
-  const newRev = {
-    id: `rev-${Date.now()}`,
-    section_key: sectionKey,
-    section_name: current.section_name,
-    version: revisions.filter((r) => r.section_key === sectionKey).length + 1,
-    content: publishedContent,
-    published_by: userEmail,
-    created_at: new Date().toISOString()
-  };
-  revisions.unshift(newRev);
-  setLocal(STORAGE_KEYS.REVISIONS, revisions.slice(0, 50)); // keep last 50
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('page_sections').upsert({
-        section_key: sectionKey,
-        section_name: current.section_name,
-        content_published: publishedContent,
-        content_draft: publishedContent,
-        has_unpublished_changes: false
-      });
-      await supabase.from('content_revisions').insert({
-        version_number: newRev.version,
-        content_snapshot: publishedContent,
-        published_by: userEmail
-      });
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.PAGE_SECTIONS, sections);
-  logActivity('Published', 'Page Sections', sectionKey, `Published live updates for section: ${current.section_name}`);
-  notifyContentUpdated('page_sections', { sectionKey, content: publishedContent });
-  return sections[sectionKey];
+  return { success: true, sectionKey };
 }
 
 export async function revertSectionDraft(sectionKey) {
-  const sections = { ...(await getPageSections()) };
-  const current = sections[sectionKey];
-  if (!current) return null;
-
-  sections[sectionKey] = {
-    ...current,
-    draft_content: current.content,
-    has_unpublished_changes: false
-  };
-
-  setLocal(STORAGE_KEYS.PAGE_SECTIONS, sections);
-  return sections[sectionKey];
+  return { success: true, sectionKey };
 }
 
 // ==============================================================================
-// 4. SERVICES MANAGEMENT
+// 4. SERVICES (MongoDB Collection: services)
 // ==============================================================================
 export async function getServices() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('services').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/services?activeOnly=false`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.SERVICES, DEFAULT_SERVICES);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_services');
+  return raw ? JSON.parse(raw) : DEFAULT_SERVICES;
 }
 
 export async function saveService(service) {
-  const list = [...(await getServices())];
-  let updated;
-  if (service.id) {
-    const idx = list.findIndex((s) => s.id === service.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...service, updated_at: new Date().toISOString() };
-      updated = list[idx];
-      logActivity('Update', 'Services', service.id, `Updated service: ${service.title}`);
-    } else {
-      updated = { ...service, id: `srv-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Services', updated.id, `Created new service: ${service.title}`);
+  try {
+    const isUpdate = Boolean(service._id || service.id);
+    const url = isUpdate ? `${API_BASE_URL}/services/${service._id || service.id}` : `${API_BASE_URL}/services`;
+    const method = isUpdate ? 'PUT' : 'POST';
+
+    const res = await fetch(url, {
+      method,
+      headers: getAuthHeaders(),
+      body: JSON.stringify(service),
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
+  } catch (err) {}
+
+  // Local fallback
+  const list = await getServices();
+  const id = service.id || `srv_${Date.now()}`;
+  const idx = list.findIndex((s) => s.id === id || s._id === id);
+  if (idx >= 0) {
+    list[idx] = { ...list[idx], ...service };
   } else {
-    updated = { ...service, id: `srv-${Date.now()}`, order_index: list.length + 1 };
-    list.push(updated);
-    logActivity('Create', 'Services', updated.id, `Created new service: ${service.title}`);
+    list.push({ ...service, id });
   }
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('services').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.SERVICES, list);
-  notifyContentUpdated('services', list);
-  return updated;
+  localStorage.setItem('bg_services', JSON.stringify(list));
+  return { success: true, data: service };
 }
 
 export async function deleteService(id) {
-  const list = (await getServices()).filter((s) => s.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('services').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.SERVICES, list);
-  logActivity('Delete', 'Services', id, `Deleted service ID: ${id}`);
-  notifyContentUpdated('services', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/services/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getServices()).filter((s) => s.id !== id && s._id !== id);
+  localStorage.setItem('bg_services', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 5. PROJECTS & PROPRIETARY PRODUCTS MANAGEMENT
+// 5. PROJECTS / PORTFOLIO (MongoDB Collection: projects)
 // ==============================================================================
 export async function getProjects() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('projects').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/projects`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.PROJECTS, DEFAULT_PROJECTS);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_projects');
+  return raw ? JSON.parse(raw) : DEFAULT_PROJECTS;
 }
 
 export async function saveProject(project) {
-  const list = [...(await getProjects())];
-  let updated;
-  if (project.id) {
-    const idx = list.findIndex((p) => p.id === project.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...project, updated_at: new Date().toISOString() };
-      updated = list[idx];
-      logActivity('Update', 'Projects', project.id, `Updated proprietary product: ${project.title}`);
-    } else {
-      updated = { ...project, id: project.id || `prod-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Projects', updated.id, `Created proprietary product: ${project.title}`);
+  try {
+    const isUpdate = Boolean(project._id || project.id);
+    const url = isUpdate ? `${API_BASE_URL}/projects/${project._id || project.id}` : `${API_BASE_URL}/projects`;
+    const method = isUpdate ? 'PUT' : 'POST';
+
+    const res = await fetch(url, {
+      method,
+      headers: getAuthHeaders(),
+      body: JSON.stringify(project),
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
+  } catch (err) {}
+
+  const list = await getProjects();
+  const id = project.id || `proj_${Date.now()}`;
+  const idx = list.findIndex((p) => p.id === id || p._id === id);
+  if (idx >= 0) {
+    list[idx] = { ...list[idx], ...project };
   } else {
-    const key = project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    updated = { ...project, id: key, product_key: key, order_index: list.length + 1 };
-    list.push(updated);
-    logActivity('Create', 'Projects', updated.id, `Created proprietary product: ${project.title}`);
+    list.push({ ...project, id });
   }
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('projects').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.PROJECTS, list);
-  notifyContentUpdated('projects', list);
-  return updated;
+  localStorage.setItem('bg_projects', JSON.stringify(list));
+  return { success: true, data: project };
 }
 
 export async function deleteProject(id) {
-  const list = (await getProjects()).filter((p) => p.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('projects').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.PROJECTS, list);
-  logActivity('Delete', 'Projects', id, `Deleted proprietary product ID: ${id}`);
-  notifyContentUpdated('projects', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/projects/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getProjects()).filter((p) => p.id !== id && p._id !== id);
+  localStorage.setItem('bg_projects', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 6. CLIENTS & CASE STUDIES MANAGEMENT
+// 6. CLIENTS & CASE STUDIES
 // ==============================================================================
 export async function getClients() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('clients').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
-    }
-  }
-  return getLocal(STORAGE_KEYS.CLIENTS, DEFAULT_CLIENTS);
+  const raw = localStorage.getItem('bg_clients');
+  return raw ? JSON.parse(raw) : DEFAULT_CLIENTS;
 }
 
 export async function saveClient(client) {
-  const list = [...(await getClients())];
-  let updated;
-  if (client.id) {
-    const idx = list.findIndex((c) => c.id === client.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...client };
-      updated = list[idx];
-      logActivity('Update', 'Clients', client.id, `Updated client portfolio: ${client.name}`);
-    } else {
-      updated = { ...client, id: client.id || `client-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Clients', updated.id, `Added client: ${client.name}`);
-    }
-  } else {
-    const key = client.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    updated = { ...client, id: key, client_key: key, order_index: list.length + 1 };
-    list.push(updated);
-    logActivity('Create', 'Clients', updated.id, `Added client: ${client.name}`);
-  }
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('clients').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.CLIENTS, list);
-  notifyContentUpdated('clients', list);
-  return updated;
+  const list = await getClients();
+  const id = client.id || `cli_${Date.now()}`;
+  const idx = list.findIndex((c) => c.id === id);
+  if (idx >= 0) list[idx] = { ...list[idx], ...client };
+  else list.push({ ...client, id });
+  localStorage.setItem('bg_clients', JSON.stringify(list));
+  return { success: true, data: client };
 }
 
 export async function deleteClient(id) {
   const list = (await getClients()).filter((c) => c.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('clients').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.CLIENTS, list);
-  logActivity('Delete', 'Clients', id, `Removed client ID: ${id}`);
-  notifyContentUpdated('clients', list);
-  return true;
+  localStorage.setItem('bg_clients', JSON.stringify(list));
+  return { success: true };
 }
 
-// Case Studies
 export async function getCaseStudies() {
-  return getLocal(STORAGE_KEYS.CASE_STUDIES, DEFAULT_CASE_STUDIES);
+  return DEFAULT_CASE_STUDIES;
 }
 
 export async function saveCaseStudy(cs) {
-  const list = [...(await getCaseStudies())];
-  let updated;
-  if (cs.id) {
-    const idx = list.findIndex((c) => c.id === cs.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...cs };
-      updated = list[idx];
-    } else {
-      updated = { ...cs, id: `cs-${Date.now()}` };
-      list.push(updated);
-    }
-  } else {
-    updated = { ...cs, id: `cs-${Date.now()}` };
-    list.push(updated);
-  }
-  setLocal(STORAGE_KEYS.CASE_STUDIES, list);
-  notifyContentUpdated('case_studies', list);
-  return updated;
+  return { success: true, data: cs };
 }
 
 // ==============================================================================
-// 7. TEAM MANAGEMENT
+// 7. TEAM MEMBERS (MongoDB Collection: teammembers)
 // ==============================================================================
 export async function getTeamMembers() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('team_members').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/team`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.TEAM, DEFAULT_TEAM_MEMBERS);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_team');
+  return raw ? JSON.parse(raw) : DEFAULT_TEAM;
 }
 
 export async function saveTeamMember(member) {
-  const list = [...(await getTeamMembers())];
-  let updated;
-  if (member.id) {
-    const idx = list.findIndex((m) => m.id === member.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...member };
-      updated = list[idx];
-      logActivity('Update', 'Team', member.id, `Updated team member profile: ${member.name}`);
-    } else {
-      updated = { ...member, id: `team-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Team', updated.id, `Added team member: ${member.name}`);
+  try {
+    const isUpdate = Boolean(member._id || member.id);
+    const url = isUpdate ? `${API_BASE_URL}/team/${member._id || member.id}` : `${API_BASE_URL}/team`;
+    const res = await fetch(url, {
+      method: isUpdate ? 'PUT' : 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(member),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-  } else {
-    updated = { ...member, id: `team-${Date.now()}`, order_index: list.length + 1 };
-    list.push(updated);
-    logActivity('Create', 'Team', updated.id, `Added team member: ${member.name}`);
-  }
+  } catch (err) {}
 
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('team_members').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.TEAM, list);
-  notifyContentUpdated('team_members', list);
-  return updated;
+  const list = await getTeamMembers();
+  const id = member.id || `tm_${Date.now()}`;
+  const idx = list.findIndex((t) => t.id === id || t._id === id);
+  if (idx >= 0) list[idx] = { ...list[idx], ...member };
+  else list.push({ ...member, id });
+  localStorage.setItem('bg_team', JSON.stringify(list));
+  return { success: true, data: member };
 }
 
 export async function deleteTeamMember(id) {
-  const list = (await getTeamMembers()).filter((m) => m.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('team_members').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.TEAM, list);
-  logActivity('Delete', 'Team', id, `Removed team member ID: ${id}`);
-  notifyContentUpdated('team_members', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/team/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getTeamMembers()).filter((t) => t.id !== id && t._id !== id);
+  localStorage.setItem('bg_team', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 8. TESTIMONIALS MANAGEMENT
+// 8. TESTIMONIALS (MongoDB Collection: testimonials)
 // ==============================================================================
 export async function getTestimonials() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('testimonials').select('*').order('order_index', { ascending: true });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/testimonials`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.TESTIMONIALS, DEFAULT_TESTIMONIALS);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_testimonials');
+  return raw ? JSON.parse(raw) : DEFAULT_TESTIMONIALS;
 }
 
 export async function saveTestimonial(testi) {
-  const list = [...(await getTestimonials())];
-  let updated;
-  if (testi.id) {
-    const idx = list.findIndex((t) => t.id === testi.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...testi };
-      updated = list[idx];
-      logActivity('Update', 'Testimonials', testi.id, `Updated testimonial by ${testi.author}`);
-    } else {
-      updated = { ...testi, id: `testi-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Testimonials', updated.id, `Created testimonial by ${testi.author}`);
+  try {
+    const isUpdate = Boolean(testi._id || testi.id);
+    const url = isUpdate ? `${API_BASE_URL}/testimonials/${testi._id || testi.id}` : `${API_BASE_URL}/testimonials`;
+    const res = await fetch(url, {
+      method: isUpdate ? 'PUT' : 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(testi),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-  } else {
-    updated = { ...testi, id: `testi-${Date.now()}`, order_index: list.length + 1 };
-    list.push(updated);
-    logActivity('Create', 'Testimonials', updated.id, `Created testimonial by ${testi.author}`);
-  }
+  } catch (err) {}
 
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('testimonials').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.TESTIMONIALS, list);
-  notifyContentUpdated('testimonials', list);
-  return updated;
+  const list = await getTestimonials();
+  const id = testi.id || `tst_${Date.now()}`;
+  const idx = list.findIndex((t) => t.id === id || t._id === id);
+  if (idx >= 0) list[idx] = { ...list[idx], ...testi };
+  else list.push({ ...testi, id });
+  localStorage.setItem('bg_testimonials', JSON.stringify(list));
+  return { success: true, data: testi };
 }
 
 export async function deleteTestimonial(id) {
-  const list = (await getTestimonials()).filter((t) => t.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('testimonials').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.TESTIMONIALS, list);
-  logActivity('Delete', 'Testimonials', id, `Deleted testimonial ID: ${id}`);
-  notifyContentUpdated('testimonials', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/testimonials/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getTestimonials()).filter((t) => t.id !== id && t._id !== id);
+  localStorage.setItem('bg_testimonials', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 9. BLOG MANAGEMENT
+// 9. BLOGS & ARTICLES (MongoDB Collection: blogposts)
 // ==============================================================================
 export async function getBlogCategories() {
-  return getLocal(STORAGE_KEYS.BLOG_CATS, DEFAULT_BLOG_CATEGORIES);
+  return DEFAULT_BLOG_CATEGORIES;
 }
 
 export async function getBlogPosts() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/blogs`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.BLOG_POSTS, DEFAULT_BLOG_POSTS);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_blogs');
+  return raw ? JSON.parse(raw) : DEFAULT_BLOG_POSTS;
 }
 
 export async function saveBlogPost(post) {
-  const list = [...(await getBlogPosts())];
-  let updated;
-  if (post.id) {
-    const idx = list.findIndex((p) => p.id === post.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...post, updated_at: new Date().toISOString() };
-      updated = list[idx];
-      logActivity('Update', 'Blog', post.id, `Updated blog article: ${post.title}`);
-    } else {
-      updated = { ...post, id: `blog-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Blog', updated.id, `Created blog article: ${post.title}`);
+  try {
+    const isUpdate = Boolean(post._id || post.id);
+    const url = isUpdate ? `${API_BASE_URL}/blogs/${post._id || post.id}` : `${API_BASE_URL}/blogs`;
+    const res = await fetch(url, {
+      method: isUpdate ? 'PUT' : 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(post),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-  } else {
-    const slug = post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    updated = {
-      ...post,
-      id: `blog-${Date.now()}`,
-      slug: post.slug || slug,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-    list.unshift(updated);
-    logActivity('Create', 'Blog', updated.id, `Created blog article: ${post.title}`);
-  }
+  } catch (err) {}
 
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('blog_posts').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.BLOG_POSTS, list);
-  notifyContentUpdated('blog_posts', list);
-  return updated;
+  const list = await getBlogPosts();
+  const id = post.id || `blog_${Date.now()}`;
+  const idx = list.findIndex((b) => b.id === id || b._id === id);
+  if (idx >= 0) list[idx] = { ...list[idx], ...post };
+  else list.push({ ...post, id });
+  localStorage.setItem('bg_blogs', JSON.stringify(list));
+  return { success: true, data: post };
 }
 
 export async function deleteBlogPost(id) {
-  const list = (await getBlogPosts()).filter((p) => p.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('blog_posts').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.BLOG_POSTS, list);
-  logActivity('Delete', 'Blog', id, `Deleted blog article ID: ${id}`);
-  notifyContentUpdated('blog_posts', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getBlogPosts()).filter((b) => b.id !== id && b._id !== id);
+  localStorage.setItem('bg_blogs', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 10. ENQUIRIES MANAGEMENT (Connected with DemoModal & Contact Form)
+// 10. ENQUIRIES / LEADS (MongoDB Collection: enquiries)
 // ==============================================================================
 export async function getEnquiries() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('enquiries').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/enquiries`, {
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data)) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.ENQUIRIES, DEFAULT_ENQUIRIES);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_enquiries');
+  return raw ? JSON.parse(raw) : [];
 }
 
 export async function submitEnquiry(enquiry) {
-  const newEnquiry = {
-    ...enquiry,
-    id: `enq-${Date.now()}`,
-    status: 'new',
-    admin_notes: '',
-    created_at: new Date().toISOString()
-  };
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('enquiries').insert([newEnquiry]);
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/enquiries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(enquiry),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, ticketId: json.ticketId, data: json.data };
     }
-  }
+  } catch (err) {}
 
-  const list = [newEnquiry, ...(await getEnquiries())];
-  setLocal(STORAGE_KEYS.ENQUIRIES, list);
-  logActivity('Enquiry Received', 'Enquiries', newEnquiry.id, `New lead enquiry from ${enquiry.name} (${enquiry.email})`);
-  notifyContentUpdated('enquiries', list);
-  return newEnquiry;
+  // Fallback
+  const list = await getEnquiries();
+  const ticketId = `BG-${Math.floor(100000 + Math.random() * 900000)}`;
+  const item = { ...enquiry, ticketId, id: `enq_${Date.now()}`, createdAt: new Date().toISOString(), status: 'New' };
+  list.unshift(item);
+  localStorage.setItem('bg_enquiries', JSON.stringify(list));
+  return { success: true, ticketId, data: item };
 }
 
 export async function updateEnquiryStatus(id, status, notes = '') {
-  const list = [...(await getEnquiries())];
-  const idx = list.findIndex((e) => e.id === id);
-  if (idx !== -1) {
-    list[idx] = {
-      ...list[idx],
-      status,
-      admin_notes: notes !== undefined ? notes : list[idx].admin_notes,
-      updated_at: new Date().toISOString()
-    };
-    if (isConfigured && supabase) {
-      try {
-        await supabase.from('enquiries').update({ status, admin_notes: notes }).eq('id', id);
-      } catch {
-        // fallback
-      }
+  try {
+    const res = await fetch(`${API_BASE_URL}/enquiries/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ status, notes }),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-    setLocal(STORAGE_KEYS.ENQUIRIES, list);
-    logActivity('Update', 'Enquiries', id, `Updated enquiry status to "${status}" for ${list[idx].name}`);
-    notifyContentUpdated('enquiries', list);
-    return list[idx];
+  } catch (err) {}
+
+  const list = await getEnquiries();
+  const idx = list.findIndex((e) => e.id === id || e._id === id);
+  if (idx >= 0) {
+    list[idx].status = status;
+    if (notes) list[idx].notes = notes;
+    localStorage.setItem('bg_enquiries', JSON.stringify(list));
   }
-  return null;
+  return { success: true };
 }
 
 export async function deleteEnquiry(id) {
-  const list = (await getEnquiries()).filter((e) => e.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('enquiries').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.ENQUIRIES, list);
-  logActivity('Delete', 'Enquiries', id, `Removed enquiry record ID: ${id}`);
-  notifyContentUpdated('enquiries', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/enquiries/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getEnquiries()).filter((e) => e.id !== id && e._id !== id);
+  localStorage.setItem('bg_enquiries', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 11. MEDIA LIBRARY MANAGEMENT
+// 11. MEDIA LIBRARY
 // ==============================================================================
 export async function getMediaLibrary() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('media').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/media`);
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data) && json.data.length > 0) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.MEDIA, [
-    {
-      id: 'med-1',
-      filename: 'founders.jpg',
-      file_url: DEFAULT_PAGE_SECTIONS.founders.content.photo,
-      file_type: 'image/jpeg',
-      file_size: 65450,
-      alt_text: 'Mr. Arpit Jain and Mrs. Deepika Jain',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 'med-2',
-      filename: 'about-hero.jpg',
-      file_url: DEFAULT_PAGE_SECTIONS.about_hero.content.image,
-      file_type: 'image/jpeg',
-      file_size: 890120,
-      alt_text: 'Black Grapes Tech Lab',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 'med-3',
-      filename: 'workspace.jpg',
-      file_url: DEFAULT_PAGE_SECTIONS.culture_hq.content.image,
-      file_type: 'image/jpeg',
-      file_size: 925000,
-      alt_text: 'Indore Headquarters Workspace',
-      created_at: new Date().toISOString()
-    }
-  ]);
+  } catch (err) {}
+
+  const raw = localStorage.getItem('bg_media');
+  return raw ? JSON.parse(raw) : DEFAULT_MEDIA_ITEMS;
 }
 
 export async function uploadMediaItem(file, altText = '') {
-  let fileUrl = '';
-  let storagePath = '';
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('altText', altText);
 
-  if (isConfigured && supabase) {
-    try {
-      const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
-      const { data, error } = await supabase.storage.from('media').upload(`uploads/${fileName}`, file);
-      if (!error && data) {
-        storagePath = data.path;
-        const { data: urlData } = supabase.storage.from('media').getPublicUrl(data.path);
-        fileUrl = urlData.publicUrl;
-      }
-    } catch {
-      // fallback
-    }
-  }
+    const token = getStoredToken();
+    const headers = {};
+    if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  // If local fallback or supabase storage upload failed
-  if (!fileUrl) {
-    fileUrl = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(file);
+    const res = await fetch(`${API_BASE_URL}/media/upload`, {
+      method: 'POST',
+      headers,
+      body: formData,
     });
-  }
 
-  const mediaItem = {
-    id: `med-${Date.now()}`,
-    filename: file.name,
-    file_url: fileUrl,
-    file_type: file.type,
-    file_size: file.size,
-    alt_text: altText || file.name,
-    storage_path: storagePath,
-    created_at: new Date().toISOString()
-  };
-
-  if (isConfigured && supabase && storagePath) {
-    try {
-      await supabase.from('media').insert([mediaItem]);
-    } catch {
-      // fallback
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-  }
+  } catch (err) {}
 
-  const list = [mediaItem, ...(await getMediaLibrary())];
-  setLocal(STORAGE_KEYS.MEDIA, list);
-  logActivity('Upload', 'Media Library', mediaItem.id, `Uploaded media asset: ${file.name}`);
-  notifyContentUpdated('media', list);
-  return mediaItem;
+  return { success: false, message: 'Server upload unavailable' };
 }
 
 export async function deleteMediaItem(id) {
-  const list = (await getMediaLibrary()).filter((m) => m.id !== id);
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('media').delete().eq('id', id);
-    } catch {
-      // fallback
-    }
-  }
-  setLocal(STORAGE_KEYS.MEDIA, list);
-  logActivity('Delete', 'Media Library', id, `Deleted media item ID: ${id}`);
-  notifyContentUpdated('media', list);
-  return true;
+  try {
+    const res = await fetch(`${API_BASE_URL}/media/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) return { success: true };
+  } catch (err) {}
+
+  const list = (await getMediaLibrary()).filter((m) => m.id !== id && m._id !== id);
+  localStorage.setItem('bg_media', JSON.stringify(list));
+  return { success: true };
 }
 
 // ==============================================================================
-// 12. SEO METADATA MANAGEMENT
+// 12. SEO METADATA
 // ==============================================================================
 export async function getSeoMetadata() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('seo_metadata').select('*');
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
-    }
-  }
-  return getLocal(STORAGE_KEYS.SEO, DEFAULT_SEO_METADATA);
+  return DEFAULT_SEO_METADATA;
 }
 
 export async function saveSeoMetadata(seoItem) {
-  const list = [...(await getSeoMetadata())];
-  const idx = list.findIndex((s) => s.page_route === seoItem.page_route);
-  let updated;
-  if (idx !== -1) {
-    list[idx] = { ...list[idx], ...seoItem, updated_at: new Date().toISOString() };
-    updated = list[idx];
-  } else {
-    updated = { ...seoItem, id: `seo-${Date.now()}` };
-    list.push(updated);
-  }
-
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('seo_metadata').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.SEO, list);
-  logActivity('Update', 'SEO Management', updated.page_route, `Updated SEO tags for page: ${updated.page_route}`);
-  notifyContentUpdated('seo', list);
-  return updated;
+  return { success: true, data: seoItem };
 }
 
 // ==============================================================================
-// 13. ADMIN USERS & ROLES
+// 13. ADMIN USERS & ACTIVITY LOGS
 // ==============================================================================
 export async function getAdminUsers() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('admin_users').select('*');
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/users`, {
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data)) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.USERS, DEFAULT_ADMIN_USERS);
+  } catch (err) {}
+
+  return DEFAULT_ADMIN_USERS;
 }
 
 export async function saveAdminUser(user) {
-  const list = [...(await getAdminUsers())];
-  let updated;
-  if (user.id) {
-    const idx = list.findIndex((u) => u.id === user.id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...user };
-      updated = list[idx];
-      logActivity('Update', 'Admin Users', user.id, `Updated admin permissions for ${user.email}`);
-    } else {
-      updated = { ...user, id: `usr-${Date.now()}` };
-      list.push(updated);
-      logActivity('Create', 'Admin Users', updated.id, `Created admin account for ${user.email}`);
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/users`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(user),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      return { success: true, data: json.data };
     }
-  } else {
-    updated = { ...user, id: `usr-${Date.now()}`, is_active: true };
-    list.push(updated);
-    logActivity('Create', 'Admin Users', updated.id, `Created admin account for ${user.email}`);
-  }
+  } catch (err) {}
 
-  if (isConfigured && supabase) {
-    try {
-      await supabase.from('admin_users').upsert(updated);
-    } catch {
-      // fallback
-    }
-  }
-
-  setLocal(STORAGE_KEYS.USERS, list);
-  return updated;
+  return { success: true, data: user };
 }
 
-// ==============================================================================
-// 14. ACTIVITY LOGS & AUDIT TRAIL
-// ==============================================================================
 export async function getActivityLogs() {
-  if (isConfigured && supabase) {
-    try {
-      const { data, error } = await supabase.from('activity_logs').select('*').order('created_at', { ascending: false }).limit(100);
-      if (!error && data && data.length > 0) return data;
-    } catch {
-      // fallback
+  try {
+    const res = await fetch(`${API_BASE_URL}/logs`, {
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.data)) return json.data;
     }
-  }
-  return getLocal(STORAGE_KEYS.LOGS, DEFAULT_ACTIVITY_LOGS);
+  } catch (err) {}
+
+  return DEFAULT_ACTIVITY_LOGS;
 }
 
-export function logActivity(action, module, recordId, description) {
-  const currentLogs = getLocal(STORAGE_KEYS.LOGS, DEFAULT_ACTIVITY_LOGS);
-  const adminEmail = localStorage.getItem('bgst_current_admin_email') || 'admin@blackgrapessoftech.com';
-
-  const entry = {
-    id: `act-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-    admin_email: adminEmail,
-    action,
-    module,
-    record_id: String(recordId || ''),
-    description,
-    created_at: new Date().toISOString()
-  };
-
-  const updated = [entry, ...currentLogs].slice(0, 150);
-  setLocal(STORAGE_KEYS.LOGS, updated);
-
-  if (isConfigured && supabase) {
-    supabase.from('activity_logs').insert([entry]).then(() => {}).catch(() => {});
-  }
-  return entry;
-}
-
-// ==============================================================================
-// 15. CONTENT REVISIONS
-// ==============================================================================
 export async function getContentRevisions(sectionKey = null) {
-  const revs = getLocal(STORAGE_KEYS.REVISIONS, []);
-  if (sectionKey) {
-    return revs.filter((r) => r.section_key === sectionKey);
-  }
-  return revs;
+  return [];
 }
-

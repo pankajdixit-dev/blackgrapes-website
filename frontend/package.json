@@ -5,21 +5,27 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "node server/server.js",
+    "server": "node backend/server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "dev:admin": "npm --prefix admin run dev",
-    "build:admin": "npm --prefix admin run build"
+    "build:admin": "npm --prefix admin run build",
+    "seed": "node backend/utils/seeder.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
     "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.62.0",
+    "mongoose": "^9.11.4",
+    "multer": "^2.5.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.4",
-    "@supabase/supabase-js": "^2.118.0"
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

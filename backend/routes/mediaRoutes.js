@@ -48,3 +48,4 @@ router.post('/upload', protect, upload.single('file'), uploadMedia);
 router.delete('/:id', protect, deleteMedia);
 
 export default router;
+

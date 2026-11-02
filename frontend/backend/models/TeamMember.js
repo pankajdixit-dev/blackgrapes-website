@@ -48,3 +48,4 @@ const teamMemberSchema = new mongoose.Schema(
 
 const TeamMember = mongoose.model('TeamMember', teamMemberSchema);
 export default TeamMember;
+

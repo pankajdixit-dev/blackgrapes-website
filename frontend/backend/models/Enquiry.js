@@ -75,13 +75,13 @@ const enquirySchema = new mongoose.Schema(
 );
 
 // Auto-generate ticketId if not provided
-enquirySchema.pre('save', function (next) {
+enquirySchema.pre('save', function () {
   if (!this.ticketId) {
     const randomDigits = Math.floor(100000 + Math.random() * 900000);
     this.ticketId = `BG-${randomDigits}`;
   }
-  next();
 });
 
 const Enquiry = mongoose.model('Enquiry', enquirySchema);
 export default Enquiry;
+

@@ -74,3 +74,4 @@ export const updateSettings = async (req, res, next) => {
     next(error);
   }
 };
+

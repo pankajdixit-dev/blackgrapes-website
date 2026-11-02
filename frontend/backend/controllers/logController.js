@@ -29,3 +29,4 @@ export const createLog = async (req, res, next) => {
     next(error);
   }
 };
+

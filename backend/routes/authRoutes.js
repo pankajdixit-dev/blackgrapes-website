@@ -28,3 +28,4 @@ router.put('/users/:id', protect, authorize('superadmin'), updateAdminUser);
 router.delete('/users/:id', protect, authorize('superadmin'), deleteAdminUser);
 
 export default router;
+

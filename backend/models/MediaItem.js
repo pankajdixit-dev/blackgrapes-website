@@ -34,3 +34,4 @@ const mediaItemSchema = new mongoose.Schema(
 
 const MediaItem = mongoose.model('MediaItem', mediaItemSchema);
 export default MediaItem;
+

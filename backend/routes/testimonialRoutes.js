@@ -15,3 +15,4 @@ router.put('/:id', protect, updateTestimonial);
 router.delete('/:id', protect, deleteTestimonial);
 
 export default router;
+

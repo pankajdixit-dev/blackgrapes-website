@@ -8,3 +8,4 @@ router.get('/', protect, authorize('superadmin', 'admin'), getLogs);
 router.post('/', protect, createLog);
 
 export default router;
+

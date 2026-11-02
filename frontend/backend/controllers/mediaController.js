@@ -47,3 +47,4 @@ export const deleteMedia = async (req, res, next) => {
     next(error);
   }
 };
+

@@ -102,3 +102,4 @@ export const defaultSiteSettings = {
   headerNoticeText: "10+ Years of Proven IT Excellence • Indore, India",
   footerCopyright: "© 2026 Black Grapes Softech. All rights reserved."
 };
+

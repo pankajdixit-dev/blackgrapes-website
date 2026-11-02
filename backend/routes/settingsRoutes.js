@@ -8,3 +8,4 @@ router.get('/', getSettings);
 router.put('/', protect, authorize('superadmin', 'admin'), updateSettings);
 
 export default router;
+

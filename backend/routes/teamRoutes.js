@@ -15,3 +15,4 @@ router.put('/:id', protect, updateTeamMember);
 router.delete('/:id', protect, deleteTeamMember);
 
 export default router;
+

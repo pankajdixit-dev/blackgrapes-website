@@ -119,3 +119,4 @@ npm run seed
 - `GET /api/media` — List uploaded assets.
 - `POST /api/media/upload` — Upload image file via `multipart/form-data` (`file` key) (Protected).
 - `DELETE /api/media/:id` — Delete media asset (Protected).
+

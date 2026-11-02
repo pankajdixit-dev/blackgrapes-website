@@ -47,3 +47,4 @@ export const getMongoStatus = () => {
 };
 
 export default connectDB;
+

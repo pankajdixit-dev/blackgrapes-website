@@ -1,7 +1,7 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
-import { createApiMiddleware } from './backend/apiMiddleware.js'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import { fileURLToPath, URL } from 'node:url';
+import { createApiMiddleware } from './backend/apiMiddleware.js';
 
 function contentApiPlugin() {
   return {
@@ -9,12 +9,25 @@ function contentApiPlugin() {
     configureServer(server) {
       server.middlewares.use(createApiMiddleware());
     }
-  }
+  };
 }
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), contentApiPlugin()],
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
+      '/uploads': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      }
+    }
+  },
   resolve: {
     alias: {
       '@admin': fileURLToPath(new URL('./admin', import.meta.url)),
@@ -22,4 +35,4 @@ export default defineConfig({
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url))
     }
   }
-})
+});

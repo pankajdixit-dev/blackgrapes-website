@@ -92,6 +92,12 @@ router.put('/content/:module', (req, res) => {
   const written = writeDb(db);
   if (written) {
     console.log(`[API] Saved updates to module: ${module}`);
+
+    // Trigger instant WebSocket broadcast across all connected browser tabs (Website & Admin)
+    if (req.app?.locals?.broadcastContentUpdate) {
+      req.app.locals.broadcastContentUpdate(module, content);
+    }
+
     return res.json({
       success: true,
       message: `Module ${module} updated successfully`,
@@ -131,6 +137,10 @@ router.post('/inquiries', (req, res) => {
 
   db.enquiries.unshift(newEnquiry);
   writeDb(db);
+
+  if (req.app?.locals?.broadcastContentUpdate) {
+    req.app.locals.broadcastContentUpdate('enquiries', newEnquiry);
+  }
 
   console.log(`[Black Grapes Lead] Ticket #${ticketId} created for ${name} (${phone})`);
 
@@ -271,3 +281,4 @@ router.delete('/media/:id', (req, res) => {
 });
 
 export default router;
+

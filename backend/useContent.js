@@ -23,32 +23,26 @@ import {
   DEFAULT_TEAM_MEMBERS,
   DEFAULT_SEO_METADATA
 } from './defaultData';
+import { subscribeToWebSocket } from './wsClient';
 
 function subscribeToUpdates(moduleName, onUpdate) {
+  // 1. Local window custom event listener
   const handleWindow = (e) => {
     if (!e.detail?.module || e.detail?.module === moduleName) {
-      onUpdate();
+      onUpdate(e.detail?.data);
     }
   };
   window.addEventListener('bgst_content_updated', handleWindow);
 
-  let bc = null;
-  if (typeof BroadcastChannel !== 'undefined') {
-    try {
-      bc = new BroadcastChannel('bgst_sync');
-      bc.onmessage = (event) => {
-        if (!event.data?.detail?.module || event.data?.detail?.module === moduleName) {
-          onUpdate();
-        }
-      };
-    } catch {
-      // ignore
-    }
-  }
+  // 2. Real-Time WebSocket Listener (millisecond synchronization across all ports)
+  const unsubscribeWs = subscribeToWebSocket(moduleName, (freshData) => {
+    console.log(`[useContent] Real-Time WebSocket event for "${moduleName}" received! Updating UI...`);
+    onUpdate(freshData);
+  });
 
   return () => {
     window.removeEventListener('bgst_content_updated', handleWindow);
-    if (bc) bc.close();
+    unsubscribeWs();
   };
 }
 
@@ -57,7 +51,12 @@ export function useSiteSettings() {
   const [settings, setSettings] = useState(DEFAULT_SITE_SETTINGS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.site_name) {
+      setSettings(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getSiteSettings();
       if (data) setSettings(data);
@@ -70,18 +69,23 @@ export function useSiteSettings() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('site_settings', reload);
+    return subscribeToUpdates('site_settings', (fresh) => reload(fresh));
   }, [reload]);
 
   return { settings, loading, reload };
 }
 
-// 2. Home Page Hook
+// 2. Home Page Hook (Hero, Clock, Why Choose Us, CTA)
 export function useHomePage() {
   const [home, setHome] = useState(DEFAULT_HOME_PAGE);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.hero) {
+      setHome(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getHomePage();
       if (data) setHome(data);
@@ -94,7 +98,7 @@ export function useHomePage() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('home_page', reload);
+    return subscribeToUpdates('home_page', (fresh) => reload(fresh));
   }, [reload]);
 
   return { home, loading, reload };
@@ -105,7 +109,12 @@ export function useMenus() {
   const [menus, setMenus] = useState(DEFAULT_MENUS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setMenus(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getMenus();
       if (data && data.length) setMenus(data);
@@ -118,18 +127,23 @@ export function useMenus() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('menus', reload);
+    return subscribeToUpdates('menus', (fresh) => reload(fresh));
   }, [reload]);
 
   return { menus, loading, reload };
 }
 
-// 4. Page Sections Hook
+// 4. Page Sections Hook (About & Custom Sections)
 export function usePageSections(pageSlug = 'about') {
   const [sections, setSections] = useState(DEFAULT_PAGE_SECTIONS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && Object.keys(freshData).length) {
+      setSections(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getPageSections(pageSlug);
       if (data && Object.keys(data).length) setSections(data);
@@ -142,7 +156,7 @@ export function usePageSections(pageSlug = 'about') {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('page_sections', reload);
+    return subscribeToUpdates('page_sections', (fresh) => reload(fresh));
   }, [reload]);
 
   return { sections, loading, reload };
@@ -153,7 +167,12 @@ export function useServices() {
   const [services, setServices] = useState(DEFAULT_SERVICES);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setServices(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getServices();
       if (data && data.length) setServices(data);
@@ -166,7 +185,7 @@ export function useServices() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('services', reload);
+    return subscribeToUpdates('services', (fresh) => reload(fresh));
   }, [reload]);
 
   return { services, loading, reload };
@@ -177,7 +196,12 @@ export function useProjects() {
   const [projects, setProjects] = useState(DEFAULT_PROJECTS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setProjects(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getProjects();
       if (data && data.length) setProjects(data);
@@ -190,7 +214,7 @@ export function useProjects() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('projects', reload);
+    return subscribeToUpdates('projects', (fresh) => reload(fresh));
   }, [reload]);
 
   return { projects, loading, reload };
@@ -201,7 +225,12 @@ export function useTestimonials() {
   const [testimonials, setTestimonials] = useState(DEFAULT_TESTIMONIALS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setTestimonials(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getTestimonials();
       if (data && data.length) setTestimonials(data);
@@ -214,7 +243,7 @@ export function useTestimonials() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('testimonials', reload);
+    return subscribeToUpdates('testimonials', (fresh) => reload(fresh));
   }, [reload]);
 
   return { testimonials, loading, reload };
@@ -225,7 +254,12 @@ export function useClients() {
   const [clients, setClients] = useState(DEFAULT_CLIENTS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setClients(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getClients();
       if (data && data.length) setClients(data);
@@ -238,7 +272,7 @@ export function useClients() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('clients', reload);
+    return subscribeToUpdates('clients', (fresh) => reload(fresh));
   }, [reload]);
 
   return { clients, loading, reload };
@@ -249,7 +283,12 @@ export function useTeamMembers() {
   const [team, setTeam] = useState(DEFAULT_TEAM_MEMBERS);
   const [loading, setLoading] = useState(true);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (Array.isArray(freshData)) {
+      setTeam(freshData);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await getTeamMembers();
       if (data && data.length) setTeam(data);
@@ -262,7 +301,7 @@ export function useTeamMembers() {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('team_members', reload);
+    return subscribeToUpdates('team_members', (fresh) => reload(fresh));
   }, [reload]);
 
   return { team, loading, reload };
@@ -272,7 +311,11 @@ export function useTeamMembers() {
 export function useSeoMetadata(pagePath = '/') {
   const [seo, setSeo] = useState(null);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object') {
+      setSeo(freshData);
+      return;
+    }
     try {
       const list = await getSeoMetadata();
       const matched = list.find((s) => s.page_path === pagePath);
@@ -284,7 +327,7 @@ export function useSeoMetadata(pagePath = '/') {
 
   useEffect(() => {
     reload();
-    return subscribeToUpdates('seo_metadata', reload);
+    return subscribeToUpdates('seo_metadata', (fresh) => reload(fresh));
   }, [reload]);
 
   return seo;

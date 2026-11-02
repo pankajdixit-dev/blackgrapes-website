@@ -17,7 +17,17 @@ export default defineConfig({
   plugins: [react(), contentApiPlugin()],
   server: {
     port: 5174,
-    open: false
+    open: false,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
+      '/uploads': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      }
+    }
   },
   resolve: {
     alias: {

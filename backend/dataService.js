@@ -16,6 +16,7 @@ import {
   DEFAULT_ADMIN_USERS,
   DEFAULT_ACTIVITY_LOGS
 } from './defaultData';
+import { sendWsBroadcast } from './wsClient';
 
 const STORAGE_KEYS = {
   SETTINGS: 'bgst_site_settings',
@@ -38,25 +39,22 @@ const STORAGE_KEYS = {
   REVISIONS: 'bgst_content_revisions'
 };
 
-// Cross-tab and cross-port broadcast channel for real-time synchronization
-const broadcastChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('bgst_sync') : null;
-
 // Event Dispatcher for instantaneous frontend updates upon publishing
 export function notifyContentUpdated(moduleName, details = {}) {
   try {
-    const payload = { module: moduleName, timestamp: Date.now(), ...details };
+    const payload = { module: moduleName, timestamp: Date.now(), data: details, ...details };
+    // 1. Local window custom event
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: payload }));
     }
-    if (broadcastChannel) {
-      broadcastChannel.postMessage({ event: 'bgst_content_updated', detail: payload });
-    }
+    // 2. Real-time WebSocket broadcast across ports 5173, 5174 and 5000
+    sendWsBroadcast(moduleName, details);
   } catch {
     // ignore
   }
 }
 
-// Local storage helpers (used as synchronous secondary cache and offline fallback)
+// Local storage helpers
 function getLocal(key, defaultVal) {
   try {
     const item = localStorage.getItem(key);
@@ -70,14 +68,23 @@ function setLocal(key, val) {
   try {
     localStorage.setItem(key, JSON.stringify(val));
   } catch {
-    // ignore storage quota errors
+    // ignore
   }
 }
 
-// API Helpers
+function getApiUrl(endpoint) {
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (typeof window !== 'undefined' && window.location.hostname) {
+    return `http://${window.location.hostname}:5000${cleanEndpoint}`;
+  }
+  return `http://localhost:5000${cleanEndpoint}`;
+}
+
+// API Helpers with dual-connection (Server port 5000 first, fallback to local origin)
 async function fetchModuleApi(moduleName, defaultVal) {
+  // 1. Try central backend server on port 5000
   try {
-    const res = await fetch(`/api/content/${moduleName}`);
+    const res = await fetch(getApiUrl(`/api/content/${moduleName}`));
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data !== undefined) {
@@ -86,46 +93,84 @@ async function fetchModuleApi(moduleName, defaultVal) {
       }
     }
   } catch {
-    // Fallback to local cache
+    // try relative url
   }
+
+  // 2. Try relative Vite dev server
+  try {
+    const res2 = await fetch(`/api/content/${moduleName}`);
+    if (res2.ok) {
+      const json = await res2.json();
+      if (json.success && json.data !== undefined) {
+        setLocal(`bgst_${moduleName}`, json.data);
+        return json.data;
+      }
+    }
+  } catch {
+    // fallback
+  }
+
   return getLocal(`bgst_${moduleName}`, defaultVal);
 }
 
 async function saveModuleApi(moduleName, data) {
   setLocal(`bgst_${moduleName}`, data);
-  try {
-    const userEmail = typeof localStorage !== 'undefined' 
-      ? localStorage.getItem('bgst_current_admin_email') || 'admin@blackgrapessoftech.com'
-      : 'admin@blackgrapessoftech.com';
+  const userEmail = typeof localStorage !== 'undefined' 
+    ? localStorage.getItem('bgst_current_admin_email') || 'admin@blackgrapessoftech.com'
+    : 'admin@blackgrapessoftech.com';
 
-    await fetch(`/api/content/${moduleName}`, {
+  const bodyStr = JSON.stringify(data);
+
+  // 1. Save to central backend server port 5000
+  try {
+    await fetch(getApiUrl(`/api/content/${moduleName}`), {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-admin-email': userEmail
-      },
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/json', 'x-admin-email': userEmail },
+      body: bodyStr
     });
   } catch {
-    // Stored in localStorage
+    // ignore
   }
+
+  // 2. Also save to local dev origin if different
+  try {
+    await fetch(`/api/content/${moduleName}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-email': userEmail },
+      body: bodyStr
+    });
+  } catch {
+    // ignore
+  }
+
+  // 3. Broadcast over WebSocket
+  sendWsBroadcast(moduleName, data);
 }
 
-// ==========================================
 // Check Backend API Health
 export async function checkBackendHealth() {
   try {
-    const res = await fetch('/api/health');
+    const res = await fetch(getApiUrl('/api/health'));
     if (res.ok) {
       const data = await res.json();
       return { connected: true, service: data.service || 'Persistent JSON Database' };
     }
   } catch {
-    // fallback
+    // try relative
+    try {
+      const res2 = await fetch('/api/health');
+      if (res2.ok) {
+        const data2 = await res2.json();
+        return { connected: true, service: data2.service || 'Persistent JSON Database' };
+      }
+    } catch {
+      // offline
+    }
   }
   return { connected: true, service: 'Local Offline Cache' };
 }
 
+// ==========================================
 // 1. SITE SETTINGS
 // ==========================================
 export async function getSiteSettings() {
@@ -524,7 +569,7 @@ export async function deleteBlogPost(id) {
 // ==========================================
 export async function getEnquiries() {
   try {
-    const res = await fetch('/api/inquiries');
+    const res = await fetch(getApiUrl('/api/inquiries'));
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data) {
@@ -540,14 +585,14 @@ export async function getEnquiries() {
 
 export async function submitEnquiry(enquiry) {
   try {
-    const res = await fetch('/api/inquiries', {
+    const res = await fetch(getApiUrl('/api/inquiries'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(enquiry)
     });
     if (res.ok) {
       const json = await res.json();
-      notifyContentUpdated('enquiries');
+      notifyContentUpdated('enquiries', json.data);
       return json;
     }
   } catch {
@@ -565,13 +610,13 @@ export async function submitEnquiry(enquiry) {
   };
   items.unshift(newEnquiry);
   setLocal(STORAGE_KEYS.ENQUIRIES, items);
-  notifyContentUpdated('enquiries');
+  notifyContentUpdated('enquiries', newEnquiry);
   return { success: true, ticket_id: ticketId, data: newEnquiry };
 }
 
 export async function updateEnquiryStatus(id, status, notes = '') {
   try {
-    await fetch(`/api/inquiries/${id}`, {
+    await fetch(getApiUrl(`/api/inquiries/${id}`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, notes })
@@ -594,7 +639,7 @@ export async function updateEnquiryStatus(id, status, notes = '') {
 
 export async function deleteEnquiry(id) {
   try {
-    await fetch(`/api/inquiries/${id}`, { method: 'DELETE' });
+    await fetch(getApiUrl(`/api/inquiries/${id}`), { method: 'DELETE' });
   } catch {
     // fallback
   }
@@ -610,7 +655,7 @@ export async function deleteEnquiry(id) {
 // ==========================================
 export async function getMediaLibrary() {
   try {
-    const res = await fetch('/api/media');
+    const res = await fetch(getApiUrl('/api/media'));
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data) {
@@ -629,7 +674,7 @@ export async function uploadMediaItem(file, altText = '') {
     const reader = new FileReader();
     reader.onload = async () => {
       try {
-        const res = await fetch('/api/upload', {
+        const res = await fetch(getApiUrl('/api/upload'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -668,7 +713,7 @@ export async function uploadMediaItem(file, altText = '') {
 
 export async function deleteMediaItem(id) {
   try {
-    await fetch(`/api/media/${id}`, { method: 'DELETE' });
+    await fetch(getApiUrl(`/api/media/${id}`), { method: 'DELETE' });
   } catch {
     // fallback
   }

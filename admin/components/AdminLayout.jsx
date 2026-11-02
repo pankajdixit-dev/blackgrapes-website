@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
+  LayoutGrid,
   Home,
   Info,
   Layers,
@@ -87,6 +88,7 @@ export default function AdminLayout() {
     {
       group: 'Page Content',
       items: [
+        { label: 'Central Page Hub', path: '/admin/pages', icon: LayoutGrid, highlight: true },
         { label: 'Home Page', path: '/admin/home', icon: Home },
         { label: 'About Us Page', path: '/admin/about', icon: Info },
         { label: 'Services & Softech', path: '/admin/services', icon: Layers },

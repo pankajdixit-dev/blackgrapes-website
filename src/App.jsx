@@ -29,6 +29,7 @@ import BusinessPartnersPage from './pages/BusinessPartnersPage';
 const AdminLayout = lazy(() => import('@admin/components/AdminLayout'));
 const AdminLogin = lazy(() => import('@admin/pages/AdminLogin'));
 const Dashboard = lazy(() => import('@admin/pages/Dashboard'));
+const CentralPageManager = lazy(() => import('@admin/pages/CentralPageManager'));
 const HomePageManager = lazy(() => import('@admin/pages/HomePageManager'));
 const AboutPageManager = lazy(() => import('@admin/pages/AboutPageManager'));
 const ServicesManager = lazy(() => import('@admin/pages/ServicesManager'));
@@ -128,6 +129,7 @@ function MainAppShell() {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="pages" element={<CentralPageManager />} />
             <Route path="home" element={<HomePageManager />} />
             <Route path="about" element={<AboutPageManager />} />
             <Route path="services" element={<ServicesManager />} />

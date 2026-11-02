@@ -19,7 +19,10 @@ import {
   DEFAULT_ECOMMERCE,
   DEFAULT_PARTNERSHIP,
   DEFAULT_CONTACT_PAGE,
-  DEFAULT_CLIENTS_PAGE
+  DEFAULT_CLIENTS_PAGE,
+  DEFAULT_SERVICES_PAGE,
+  DEFAULT_SOFTECH_PAGE,
+  DEFAULT_PRODUCTS_PAGE
 } from './defaultData';
 import { sendWsBroadcast } from './wsClient';
 
@@ -927,6 +930,58 @@ export async function saveBusinessPartners(data) {
   await saveModuleApi('business_partners', data);
   logActivity('Business Partners Updated', 'Partnership', 'business_partners', 'Saved live modifications to Business Partners alliances');
   notifyContentUpdated('business_partners', data);
+  return data;
+}
+
+// ==========================================
+// 23. SERVICES OVERVIEW PAGE
+// ==========================================
+export async function getServicesPage() {
+  return await fetchModuleApi('services_page', DEFAULT_SERVICES_PAGE);
+}
+
+export async function saveServicesPage(data) {
+  await saveModuleApi('services_page', data);
+  logActivity('Services Page Updated', 'Services', 'services_page', 'Saved live modifications to Services overview page');
+  notifyContentUpdated('services_page', data);
+  return data;
+}
+
+// ==========================================
+// 24. SOFTECH SERVICES PAGE
+// ==========================================
+export async function getSoftechPage() {
+  return await fetchModuleApi('softech_page', DEFAULT_SOFTECH_PAGE);
+}
+
+export async function saveSoftechPage(data) {
+  await saveModuleApi('softech_page', data);
+  logActivity('Softech Page Updated', 'Services', 'softech_page', 'Saved live modifications to Softech Services page');
+  notifyContentUpdated('softech_page', data);
+  return data;
+}
+
+// ==========================================
+// 25. PRODUCTS PAGE
+// ==========================================
+export async function getProductsPage() {
+  return await fetchModuleApi('products_page', DEFAULT_PRODUCTS_PAGE);
+}
+
+export async function saveProductsPage(data) {
+  await saveModuleApi('products_page', data);
+  logActivity('Products Page Updated', 'Products', 'products_page', 'Saved live modifications to Products showcase page');
+  notifyContentUpdated('products_page', data);
+  return data;
+}
+
+// ==========================================
+// 26. UNIFIED CENTRAL PAGE CONTENT SAVER
+// ==========================================
+export async function saveAnyPageContent(moduleName, data, displayName = '') {
+  await saveModuleApi(moduleName, data);
+  logActivity(`${displayName || moduleName} Updated`, 'Page Management', moduleName, `Saved live updates for ${displayName || moduleName}`);
+  notifyContentUpdated(moduleName, data);
   return data;
 }
 

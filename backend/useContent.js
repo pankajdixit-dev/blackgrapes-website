@@ -16,7 +16,10 @@ import {
   getPartnership,
   getContactPage,
   getClientsPage,
-  getBusinessPartners
+  getBusinessPartners,
+  getServicesPage,
+  getSoftechPage,
+  getProductsPage
 } from './dataService';
 import {
   DEFAULT_SITE_SETTINGS,
@@ -33,7 +36,10 @@ import {
   DEFAULT_ECOMMERCE,
   DEFAULT_PARTNERSHIP,
   DEFAULT_CONTACT_PAGE,
-  DEFAULT_CLIENTS_PAGE
+  DEFAULT_CLIENTS_PAGE,
+  DEFAULT_SERVICES_PAGE,
+  DEFAULT_SOFTECH_PAGE,
+  DEFAULT_PRODUCTS_PAGE
 } from './defaultData';
 import { subscribeToWebSocket } from './wsClient';
 
@@ -548,5 +554,92 @@ export function useBusinessPartners() {
   }, [reload]);
 
   return { partners, loading, reload };
+}
+
+// 18. Services Page Hook
+export function useServicesPage() {
+  const [data, setData] = useState(DEFAULT_SERVICES_PAGE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.title) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getServicesPage();
+      if (res && res.title) setData(res);
+    } catch {
+      // fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('services_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { servicesPageData: data, loading, reload };
+}
+
+// 19. Softech Services Page Hook
+export function useSoftechPage() {
+  const [data, setData] = useState(DEFAULT_SOFTECH_PAGE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.title) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getSoftechPage();
+      if (res && res.title) setData(res);
+    } catch {
+      // fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('softech_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { softechPageData: data, loading, reload };
+}
+
+// 20. Products Showcase Page Hook
+export function useProductsPage() {
+  const [data, setData] = useState(DEFAULT_PRODUCTS_PAGE);
+  const [loading, setLoading] = useState(true);
+
+  const reload = useCallback(async (freshData) => {
+    if (freshData && typeof freshData === 'object' && freshData.title) {
+      setData(freshData);
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await getProductsPage();
+      if (res && res.title) setData(res);
+    } catch {
+      // fallback
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    reload();
+    return subscribeToUpdates('products_page', (fresh) => reload(fresh));
+  }, [reload]);
+
+  return { productsPageData: data, loading, reload };
 }
 

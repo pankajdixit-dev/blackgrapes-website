@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
+import CentralPageManager from './pages/CentralPageManager';
 import HomePageManager from './pages/HomePageManager';
 import AboutPageManager from './pages/AboutPageManager';
 import ServicesManager from './pages/ServicesManager';
@@ -40,6 +41,7 @@ export default function AdminApp() {
         {/* Admin Modules */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="pages" element={<CentralPageManager />} />
           <Route path="home" element={<HomePageManager />} />
           <Route path="about" element={<AboutPageManager />} />
           <Route path="services" element={<ServicesManager />} />

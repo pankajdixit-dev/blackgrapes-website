@@ -5,6 +5,7 @@ import {
   Package,
   Users,
   Layers,
+  LayoutGrid,
   TrendingUp,
   Activity,
   ArrowRight,
@@ -158,6 +159,59 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {/* Central Page Management Callout */}
+      <div
+        style={{
+          background: 'linear-gradient(135deg, rgba(255, 107, 0, 0.12), rgba(147, 51, 234, 0.12))',
+          border: '1px solid rgba(255, 107, 0, 0.35)',
+          borderRadius: '12px',
+          padding: '1.25rem 1.5rem',
+          marginBottom: '1.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{
+            width: '44px',
+            height: '44px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #ff6b00, #ff8800)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            flexShrink: 0
+          }}>
+            <LayoutGrid size={22} />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <strong style={{ color: '#fff', fontSize: '1rem' }}>
+                Central Page Management Hub Active
+              </strong>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(16, 185, 129, 0.2)', color: '#10b981', padding: '0.15rem 0.5rem', borderRadius: '4px', fontWeight: 700 }}>
+                11/11 Pages Connected
+              </span>
+            </div>
+            <div style={{ fontSize: '0.82rem', color: '#cbd5e1', marginTop: '0.2rem' }}>
+              Directly edit and publish live content across all 11 public pages (Home, About, Services, Products, Clients, IT Staffing, Ecommerce, Contact, Partnership) from a single unified hub.
+            </div>
+          </div>
+        </div>
+
+        <Link
+          to="/admin/pages"
+          className="admin-btn admin-btn-primary"
+          style={{ whiteSpace: 'nowrap' }}
+        >
+          <span>Open All Pages Hub →</span>
+        </Link>
+      </div>
 
       {/* KPI Stats Cards */}
       <div className="admin-stats-grid">

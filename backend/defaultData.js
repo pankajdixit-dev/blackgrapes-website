@@ -800,12 +800,57 @@ export const DEFAULT_CONTACT_PAGE = {
 };
 
 export const DEFAULT_CLIENTS_PAGE = {
+  heroBadge: 'TRUSTED BY 150+ GLOBAL ENTERPRISES',
+  heroTitle: 'Our Clients:',
+  heroTitleAccent: 'Powering Leaders Across 15+ Nations',
+  heroSubtitle: 'At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.',
+  primaryBtnText: 'Partner With Us',
+  secondaryBtnText: 'Explore Client Brands',
   metrics: [
     { number: '150+', label: 'Enterprise Clients', highlight: 'Global Scale' },
     { number: '15+', label: 'Countries Served', highlight: 'Worldwide Reach' },
     { number: '99%', label: 'Client Retention', highlight: 'Long-term Trust' },
     { number: '$50M+', label: 'Value Generated', highlight: 'Measurable ROI' }
   ]
+};
+
+export const DEFAULT_SERVICES_PAGE = {
+  badge: 'BLACK GRAPES GROUP',
+  title: 'Services Built Specifically',
+  titleAccent: ' For Your Business',
+  subtitle: 'Empowering businesses with tailored solutions to meet your unique needs.',
+  searchPlaceholder: 'Search services (Softech, Real Estate, Valuers, Investment, Insurance)...',
+  isVisible: true
+};
+
+export const DEFAULT_SOFTECH_PAGE = {
+  badge: 'BLACK GRAPES SOFTECH • WHAT WE DO',
+  title: 'Engineering High-Impact Custom Software & Digital Products',
+  subtitle: 'From bespoke web platforms and native mobile apps to AI-powered enterprise automation, we build scalable software designed to lead your market.',
+  primaryCtaText: 'Request Technical Quote',
+  secondaryCtaText: 'Schedule Consultation',
+  industriesBadge: 'CROSS-INDUSTRY EXPERTISE',
+  industriesTitle: 'Software Tailored for Real-World Business Vertical Demands',
+  isVisible: true
+};
+
+export const DEFAULT_PRODUCTS_PAGE = {
+  badge: 'BLACK GRAPES SOFTECH PROPRIETARY SUITE',
+  title: 'Our Products:',
+  titleAccent: 'Engineered to Transform Modern Business',
+  subtitle: 'Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.',
+  stats: [
+    { metric: '12+', label: 'Turnkey Products' },
+    { metric: '100%', label: 'Source Code Ownership' },
+    { metric: '7+', label: 'Core Industries' },
+    { metric: '5-7', label: 'Days Deployment' }
+  ],
+  primaryBtnText: 'Request Live Demo',
+  secondaryBtnText: 'Browse All Products',
+  pillTitle: 'Live Production Ready',
+  pillSub: 'Cloud Native • Web • iOS • Android',
+  pillBadge: 'WHITE-LABEL',
+  isVisible: true
 };
 
 

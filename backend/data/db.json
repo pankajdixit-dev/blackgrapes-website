@@ -1655,6 +1655,15 @@
   ],
   "activity_logs": [
     {
+      "id": "log-1793616062353",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-02T10:41:02.353Z"
+    },
+    {
       "id": "log-1793615210988",
       "action": "Updated Module",
       "module": "page_sections",
@@ -2051,6 +2060,12 @@
     "workingHours": "Monday – Saturday: 10:00 AM – 7:30 PM (IST)"
   },
   "clients_page": {
+    "heroBadge": "TRUSTED BY 150+ GLOBAL ENTERPRISES",
+    "heroTitle": "Our Clients:",
+    "heroTitleAccent": "Powering Leaders Across 15+ Nations",
+    "heroSubtitle": "At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.",
+    "primaryBtnText": "Partner With Us",
+    "secondaryBtnText": "Explore Client Brands",
     "metrics": [
       {
         "number": "150+",
@@ -2072,7 +2087,9 @@
         "label": "Value Generated",
         "highlight": "Measurable ROI"
       }
-    ]
+    ],
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
   },
   "products": [
     {
@@ -2988,6 +3005,74 @@
         "img": "",
         "localImg": ""
       }
-    ]
+    ],
+    "product_intro": {
+      "title": "Products Companies Tie-up",
+      "paragraphs": [
+        "Facilitating strategic alliances between product companies to expand reach, unlock mutual growth, and integrate complementary cloud platforms.",
+        "Our collaborative framework empowers product businesses to cross-promote solutions, share technical toolsets, and deliver bundled digital value.",
+        "Through seamless API integrations and joint go-to-market strategies, we help emerging product innovators scale faster across international markets."
+      ],
+      "subheading": "Products Companies Tie-up"
+    },
+    "service_intro": {
+      "title": "Services Companies Tie-up",
+      "paragraphs": [
+        "Strategic collaborations between service enterprises to expand offerings, share cross-domain expertise, and co-deliver complex client mandates.",
+        "By uniting specialized consulting, digital marketing, and software engineering capabilities, we create full-spectrum execution squads."
+      ],
+      "subheading": "Services Companies Tie-up"
+    }
+  },
+  "services_page": {
+    "badge": "BLACK GRAPES GROUP",
+    "title": "Services Built Specifically",
+    "titleAccent": " For Your Business",
+    "subtitle": "Empowering businesses with tailored solutions to meet your unique needs.",
+    "searchPlaceholder": "Search services (Softech, Real Estate, Valuers, Investment, Insurance)...",
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.964Z"
+  },
+  "softech_page": {
+    "badge": "BLACK GRAPES SOFTECH • WHAT WE DO",
+    "title": "Engineering High-Impact Custom Software & Digital Products",
+    "subtitle": "From bespoke web platforms and native mobile apps to AI-powered enterprise automation, we build scalable software designed to lead your market.",
+    "primaryCtaText": "Request Technical Quote",
+    "secondaryCtaText": "Schedule Consultation",
+    "industriesBadge": "CROSS-INDUSTRY EXPERTISE",
+    "industriesTitle": "Software Tailored for Real-World Business Vertical Demands",
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
+  },
+  "products_page": {
+    "badge": "BLACK GRAPES SOFTECH PROPRIETARY SUITE",
+    "title": "Our Products:",
+    "titleAccent": "Engineered to Transform Modern Business",
+    "subtitle": "Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.",
+    "stats": [
+      {
+        "metric": "12+",
+        "label": "Turnkey Products"
+      },
+      {
+        "metric": "100%",
+        "label": "Source Code Ownership"
+      },
+      {
+        "metric": "7+",
+        "label": "Core Industries"
+      },
+      {
+        "metric": "5-7",
+        "label": "Days Deployment"
+      }
+    ],
+    "primaryBtnText": "Request Live Demo",
+    "secondaryBtnText": "Browse All Products",
+    "pillTitle": "Live Production Ready",
+    "pillSub": "Cloud Native • Web • iOS • Android",
+    "pillBadge": "WHITE-LABEL",
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
   }
 }

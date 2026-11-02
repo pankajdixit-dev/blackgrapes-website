@@ -29,19 +29,26 @@ import {
   CLIENT_TESTIMONIALS,
   ENGAGEMENT_MODELS
 } from './clientsData';
+import { useClients, useSeo } from '../../services/useContent';
 import ClientCaseStudyModal from './ClientCaseStudyModal';
 import clientsNetworkImg from '../../assets/clients-network.jpg';
 import clientsSummitImg from '../../assets/clients-summit.jpg';
 import './OurClients.css';
 
 export default function OurClients({ onOpenDemoModal }) {
+  useSeo('/clients');
+  const { clients, testimonials } = useClients();
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedClient, setSelectedClient] = useState(null);
 
+  const activeClientsList = (clients && clients.length > 0) ? clients : CLIENTS_LIST;
+  const activeTestimonials = (testimonials && testimonials.length > 0) ? testimonials : CLIENT_TESTIMONIALS;
+
   // Filtered clients list
   const filteredClients = useMemo(() => {
-    return CLIENTS_LIST.filter((client) => {
+    return activeClientsList.filter((client) => {
       const matchesCat =
         activeCategory === 'all' || client.category === activeCategory;
 
@@ -49,13 +56,13 @@ export default function OurClients({ onOpenDemoModal }) {
       const matchesSearch =
         !q ||
         client.name.toLowerCase().includes(q) ||
-        client.industry.toLowerCase().includes(q) ||
-        client.region.toLowerCase().includes(q) ||
-        client.services.toLowerCase().includes(q);
+        (client.industry && client.industry.toLowerCase().includes(q)) ||
+        (client.region && client.region.toLowerCase().includes(q)) ||
+        (client.services && client.services.toLowerCase().includes(q));
 
       return matchesCat && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, activeClientsList]);
 
   return (
     <div className="clients-page">
@@ -328,7 +335,7 @@ export default function OurClients({ onOpenDemoModal }) {
           </div>
 
           <div className="testimonials-grid">
-            {CLIENT_TESTIMONIALS.map((item, idx) => (
+            {activeTestimonials.map((item, idx) => (
               <div key={idx} className="testimonial-quote-card glass-card">
                 <div className="rating-stars-row">
                   {[...Array(item.rating)].map((_, i) => (

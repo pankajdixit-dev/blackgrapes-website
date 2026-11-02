@@ -22,20 +22,121 @@ import {
 import foundersImg from '../../assets/founders.jpg';
 import aboutHeroImg from '../../assets/about-hero.jpg';
 import workspaceImg from '../../assets/workspace.jpg';
+import { usePageSections, useSeo } from '../../services/useContent';
 import './About.css';
 
 export default function About({ onOpenDemoModal }) {
+  // SEO Meta injection
+  useSeo('/about');
+
+  // Dynamic Content Subscription
+  const { sections } = usePageSections('about');
+
   // Active tab state for Mission/Vision/Philosophy interactive viewer
   const [activeTab, setActiveTab] = useState('vision');
 
-  const stats = [
+  // Hero Section Data
+  const hero = sections.about_hero?.content || {};
+  const heroBadge = hero.badge || 'ABOUT BLACK GRAPES SOFTECH';
+  const heroTitle = hero.title || 'We Don’t Just Write Code — ';
+  const heroTitleHighlight = hero.titleHighlight || 'We Engineer The Digital Future.';
+  const heroLead = hero.lead ||
+    'Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.';
+  const heroPrimaryBtn = hero.primaryBtnText || 'Partner With Us';
+  const heroSecondaryBtn = hero.secondaryBtnText || 'Meet Our Leadership';
+  const heroImage = hero.image || aboutHeroImg;
+  const floatingStat1Num = hero.floatingStat1Num || '250+ Projects';
+  const floatingStat1Sub = hero.floatingStat1Sub || 'Shipped Globally';
+  const floatingStat2Num = hero.floatingStat2Num || '15+ Nations';
+  const floatingStat2Sub = hero.floatingStat2Sub || 'Active Client Base';
+  const microBadges = hero.microBadges || ['Certified Developers', 'Full Cycle Development', '24/7 Dedicated Support'];
+
+  // Stats Data
+  const defaultStats = [
     { number: '10+', label: 'Years of Innovation', icon: Calendar, highlight: 'Since 2014' },
     { number: '250+', label: 'Projects Completed', icon: Code2, highlight: 'Global Scale' },
     { number: '150+', label: 'Satisfied Clients', icon: Users, highlight: '15+ Countries' },
     { number: '99%', label: 'Client Retention', icon: Award, highlight: 'Industry Best' }
   ];
+  const dynamicStats = sections.stats_strip?.content?.stats;
+  const stats = (dynamicStats && dynamicStats.length > 0)
+    ? dynamicStats.map((s, idx) => ({
+        ...s,
+        icon: defaultStats[idx]?.icon || Calendar
+      }))
+    : defaultStats;
 
-  const coreValues = [
+  // Vision / Mission / Philosophy Data
+  const vmSection = sections.vision_mission?.content || {};
+  const vmBadge = vmSection.badge || 'PURPOSE & PRINCIPLES';
+  const vmTitle = vmSection.title || 'The Guiding Pillars Behind Our Growth';
+  const vmSubtitle = vmSection.subtitle ||
+    'Every system we engineer is backed by our relentless commitment to excellence and transformative technology.';
+
+  const visionData = vmSection.vision || {
+    tag: 'Strategic Vision',
+    heading: 'Empowering Tomorrow Through',
+    headingHighlight: 'Innovative Code',
+    p1: 'At Black Grapes Softech, our vision is to lead the way in software development, using innovation and creativity to shape the future of technology.',
+    p2: 'We envision a world where every software solution we architect empowers individuals, businesses, and communities to thrive, automate, and excel in the digital-first economy.',
+    points: [
+      'Pioneering intelligent, scalable cloud and web infrastructures.',
+      'Cultivating technological self-reliance and commercial success for clients.',
+      'Constantly innovating ahead of emerging market trends.'
+    ],
+    quote: '"Technology should not just automate tasks; it should multiply human potential and drive real-world transformation."',
+    quoteAuthor: '— Black Grapes Softech Leadership'
+  };
+
+  const missionData = vmSection.mission || {
+    tag: 'Execution & Commitment',
+    heading: 'Crafting Excellence,',
+    headingHighlight: 'One Line of Code at a Time',
+    p1: 'Our mission is to provide exceptional software development services tailored to our clients’ unique business requirements. We are dedicated to delivering top-notch, cutting-edge solutions while fostering a culture of collaboration, growth, and continuous innovation.',
+    p2: 'At Black Grapes Softech, we don’t just write code; we build the solid architectural foundation for a better, smarter, and more connected digital world.',
+    points: [
+      'High-velocity development with bulletproof security & QA.',
+      'Transparent communication and milestone visibility at all times.',
+      'Tailored solutions engineered precisely for client ROI.'
+    ],
+    quote: '"We don’t settle for \'good enough\'. We build digital products designed to dominate their industry."',
+    quoteAuthor: '— Engineering Philosophy'
+  };
+
+  const philosophyData = vmSection.philosophy || {
+    tag: 'Architectural Integrity',
+    heading: 'Engineering For',
+    headingHighlight: 'Infinite Scale & Speed',
+    p1: 'Software isn\'t merely lines of script — it is the digital nervous system of your business. Our philosophy emphasizes clean code, microservices scalability, robust security protocols, and human-centered design.',
+    p2: 'Whether developing custom MLM platforms, enterprise CRM systems, or high-throughput SaaS engines, our engineering principles guarantee longevity and seamless scalability.',
+    points: [
+      'Modularity and maintainability baked in from Day 1.',
+      'Lightning-fast user interfaces with modern reactive frameworks.',
+      'Zero technical debt tolerance through strict code reviews.'
+    ],
+    quote: '"Great code is invisible; what users experience is flawless speed, intuition, and undeniable value."',
+    quoteAuthor: '— Core Tech Standard'
+  };
+
+  // Founders Data
+  const founders = sections.founders?.content || {};
+  const foundersBadge = founders.badge || 'LEADERSHIP & VISION';
+  const foundersTitle = founders.title || 'Meet the Visionaries Behind Black Grapes';
+  const foundersSubtitle = founders.subtitle || 'Passionate innovators dedicated to redefining software engineering standards.';
+  const foundersPhoto = founders.photo || foundersImg;
+  const photoTagName = founders.photoTagName || 'Mr. Arpit Jain & Mrs. Deepika Jain';
+  const photoTagRole = founders.photoTagRole || 'Founders & Executive Directors';
+  const foundersHeading = founders.heading || 'Driven By Innovation, Grounded In Excellence';
+  const foundersIntro = founders.intro || 'Behind Black Grapes Softech stand two visionary leaders with an unquenchable passion for digital advancement.';
+  const founder1Name = founders.founder1Name || 'Mr. Arpit Jain — Founder & Chief Architect';
+  const founder1Bio = founders.founder1Bio ||
+    'The driving force behind our software development journey. With a wealth of architectural experience and an instinctive knack for staying ahead of technological curves, he has pioneered cutting-edge solutions that have redefined client operations across industries.';
+  const founder2Name = founders.founder2Name || 'Mrs. Deepika Jain — Co-Founder & Strategic Director';
+  const founder2Bio = founders.founder2Bio ||
+    'Deepika Jain doesn’t just see challenges; she envisions opportunities. Her boundless creativity, strategic acumen, and people-first leadership have shaped our company’s culture of relentless innovation and customer delight.';
+
+  // Core Values Data
+  const defaultValues = [
     {
       icon: Lightbulb,
       title: 'Innovation-First Mindset',
@@ -57,8 +158,28 @@ export default function About({ onOpenDemoModal }) {
       desc: 'We do not view ourselves merely as vendors; we act as dedicated tech co-founders and growth partners in your journey.'
     }
   ];
+  const dynamicValues = sections.core_values?.content?.values;
+  const coreValues = (dynamicValues && dynamicValues.length > 0)
+    ? dynamicValues.map((v, idx) => ({
+        ...v,
+        icon: defaultValues[idx]?.icon || Shield
+      }))
+    : defaultValues;
 
-  const milestones = [
+  // Technical Domains Data
+  const techDomains = sections.technical_expertise?.content?.domains || [
+    'CRM Software Systems',
+    'MLM Architecture',
+    'Full-Stack Web Apps',
+    'iOS & Android Native/Flutter',
+    'Cloud & DevOps (AWS/Azure)',
+    'UI/UX Design Systems',
+    'Enterprise ERP Solutions',
+    'Interactive Game Development'
+  ];
+
+  // Milestones Data
+  const milestones = sections.milestones?.content?.milestones || [
     {
       year: '2014',
       title: 'The Foundation',
@@ -81,16 +202,26 @@ export default function About({ onOpenDemoModal }) {
     }
   ];
 
-  const techDomains = [
-    'CRM Software Systems',
-    'MLM Architecture',
-    'Full-Stack Web Apps',
-    'iOS & Android Native/Flutter',
-    'Cloud & DevOps (AWS/Azure)',
-    'UI/UX Design Systems',
-    'Enterprise ERP Solutions',
-    'Interactive Game Development'
-  ];
+  // Culture & HQ Data
+  const culture = sections.culture_hq?.content || {};
+  const cultureImage = culture.image || workspaceImg;
+  const cultureLocation = culture.locationTag || 'Indore Tech Hub — Madhya Pradesh, India';
+  const cultureTitle = culture.title || 'Where Passionate Technologists Thrive';
+  const cultureP1 = culture.p1 ||
+    'Situated at 252-F/H Scheme No 54, Vijaynagar, Indore, our software development center is where bold ideas turn into robust reality.';
+  const cultureP2 = culture.p2 ||
+    'We cultivate an open culture of perpetual learning, deep code reviews, creative freedom, and rigorous problem-solving. This energetic environment inspires our engineers to push boundaries and build applications that inspire.';
+  const stat1Num = culture.stat1Num || '50+';
+  const stat1Label = culture.stat1Label || 'In-House Engineers & Designers';
+  const stat2Num = culture.stat2Num || '100%';
+  const stat2Label = culture.stat2Label || 'Code Quality & Transparency';
+
+  // Final CTA Data
+  const finalCta = sections.final_cta?.content || {};
+  const finalCtaTitle = finalCta.title || 'Ready to Accelerate Your Business With Custom Tech?';
+  const finalCtaText = finalCta.text ||
+    'Speak directly with our technical leadership. Let\'s design, engineer, and deploy your software solution with unmatched precision.';
+  const finalCtaBtn = finalCta.buttonText || 'Book a Technical Discovery Session';
 
   return (
     <div className="about-page">
@@ -105,47 +236,43 @@ export default function About({ onOpenDemoModal }) {
           <div className="hero-content">
             <div className="hero-eyebrow">
               <span className="badge">
-                <Sparkles size={14} /> ABOUT BLACK GRAPES SOFTECH
+                <Sparkles size={14} /> {heroBadge}
               </span>
             </div>
 
             <h1 className="hero-title">
-              We Don’t Just Write Code —{' '}
-              <span className="text-gradient">We Engineer The Digital Future.</span>
+              {heroTitle}{' '}
+              <span className="text-gradient">{heroTitleHighlight}</span>
             </h1>
 
             <p className="hero-lead">
-              Headquartered in Indore, India, <strong>Black Grapes Softech</strong> is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.
+              {heroLead}
             </p>
 
             <div className="hero-cta-group">
               <button onClick={onOpenDemoModal} className="btn btn-primary">
-                <span>Partner With Us</span>
+                <span>{heroPrimaryBtn}</span>
                 <ArrowRight size={18} />
               </button>
               <a href="#founders" className="btn btn-secondary">
-                <span>Meet Our Leadership</span>
+                <span>{heroSecondaryBtn}</span>
               </a>
             </div>
 
             {/* Quick Micro Badges */}
             <div className="hero-badges-list">
-              <span className="micro-badge">
-                <CheckCircle size={15} className="micro-badge-icon" /> Certified Developers
-              </span>
-              <span className="micro-badge">
-                <CheckCircle size={15} className="micro-badge-icon" /> Full Cycle Development
-              </span>
-              <span className="micro-badge">
-                <CheckCircle size={15} className="micro-badge-icon" /> 24/7 Dedicated Support
-              </span>
+              {microBadges.map((badgeText, idx) => (
+                <span key={idx} className="micro-badge">
+                  <CheckCircle size={15} className="micro-badge-icon" /> {badgeText}
+                </span>
+              ))}
             </div>
           </div>
 
           <div className="hero-visual-card">
             <div className="visual-image-wrapper">
               <img
-                src={aboutHeroImg}
+                src={heroImage}
                 alt="Black Grapes Softech Modern Tech Lab"
                 className="hero-main-img"
               />
@@ -155,8 +282,8 @@ export default function About({ onOpenDemoModal }) {
                     <Rocket size={20} />
                   </div>
                   <div>
-                    <span className="stat-pill-title">250+ Projects</span>
-                    <span className="stat-pill-sub">Shipped Globally</span>
+                    <span className="stat-pill-title">{floatingStat1Num}</span>
+                    <span className="stat-pill-sub">{floatingStat1Sub}</span>
                   </div>
                 </div>
 
@@ -165,8 +292,8 @@ export default function About({ onOpenDemoModal }) {
                     <Globe size={20} />
                   </div>
                   <div>
-                    <span className="stat-pill-title">15+ Nations</span>
-                    <span className="stat-pill-sub">Active Client Base</span>
+                    <span className="stat-pill-title">{floatingStat2Num}</span>
+                    <span className="stat-pill-sub">{floatingStat2Sub}</span>
                   </div>
                 </div>
               </div>
@@ -207,13 +334,13 @@ export default function About({ onOpenDemoModal }) {
         <div className="container">
           <div className="section-header text-center">
             <span className="badge badge-purple">
-              <Target size={14} /> PURPOSE & PRINCIPLES
+              <Target size={14} /> {vmBadge}
             </span>
             <h2 className="section-title">
-              The Guiding Pillars Behind Our Growth
+              {vmTitle}
             </h2>
             <p className="section-subtitle">
-              Every system we engineer is backed by our relentless commitment to excellence and transformative technology.
+              {vmSubtitle}
             </p>
           </div>
 
@@ -250,21 +377,22 @@ export default function About({ onOpenDemoModal }) {
               <div className="tab-pane glass-card animate-fade">
                 <div className="tab-pane-grid">
                   <div className="tab-text-side">
-                    <span className="tab-badge-accent">Strategic Vision</span>
+                    <span className="tab-badge-accent">{visionData.tag}</span>
                     <h3 className="tab-heading">
-                      Empowering Tomorrow Through <span className="text-gradient">Innovative Code</span>
+                      {visionData.heading}{' '}
+                      <span className="text-gradient">{visionData.headingHighlight}</span>
                     </h3>
                     <p className="tab-paragraph">
-                      At <strong>Black Grapes Softech</strong>, our vision is to lead the way in software development, using innovation and creativity to shape the future of technology.
+                      {visionData.p1}
                     </p>
                     <p className="tab-paragraph">
-                      We envision a world where every software solution we architect empowers individuals, businesses, and communities to thrive, automate, and excel in the digital-first economy.
+                      {visionData.p2}
                     </p>
 
                     <ul className="tab-points-list">
-                      <li><CheckCircle size={18} className="text-orange" /> Pioneering intelligent, scalable cloud and web infrastructures.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Cultivating technological self-reliance and commercial success for clients.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Constantly innovating ahead of emerging market trends.</li>
+                      {visionData.points?.map((pt, pIdx) => (
+                        <li key={pIdx}><CheckCircle size={18} className="text-orange" /> {pt}</li>
+                      ))}
                     </ul>
                   </div>
 
@@ -272,9 +400,9 @@ export default function About({ onOpenDemoModal }) {
                     <div className="quote-display-card">
                       <Quote size={40} className="quote-icon" />
                       <p className="quote-text">
-                        "Technology should not just automate tasks; it should multiply human potential and drive real-world transformation."
+                        {visionData.quote}
                       </p>
-                      <span className="quote-author">— Black Grapes Softech Leadership</span>
+                      <span className="quote-author">{visionData.quoteAuthor}</span>
                     </div>
                   </div>
                 </div>
@@ -285,21 +413,22 @@ export default function About({ onOpenDemoModal }) {
               <div className="tab-pane glass-card animate-fade">
                 <div className="tab-pane-grid">
                   <div className="tab-text-side">
-                    <span className="tab-badge-accent">Execution & Commitment</span>
+                    <span className="tab-badge-accent">{missionData.tag}</span>
                     <h3 className="tab-heading">
-                      Crafting Excellence, <span className="text-gradient">One Line of Code at a Time</span>
+                      {missionData.heading}{' '}
+                      <span className="text-gradient">{missionData.headingHighlight}</span>
                     </h3>
                     <p className="tab-paragraph">
-                      Our mission is to provide exceptional software development services tailored to our clients’ unique business requirements. We are dedicated to delivering top-notch, cutting-edge solutions while fostering a culture of collaboration, growth, and continuous innovation.
+                      {missionData.p1}
                     </p>
                     <p className="tab-paragraph">
-                      At Black Grapes Softech, we don’t just write code; we build the solid architectural foundation for a better, smarter, and more connected digital world.
+                      {missionData.p2}
                     </p>
 
                     <ul className="tab-points-list">
-                      <li><CheckCircle size={18} className="text-orange" /> High-velocity development with bulletproof security & QA.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Transparent communication and milestone visibility at all times.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Tailored solutions engineered precisely for client ROI.</li>
+                      {missionData.points?.map((pt, pIdx) => (
+                        <li key={pIdx}><CheckCircle size={18} className="text-orange" /> {pt}</li>
+                      ))}
                     </ul>
                   </div>
 
@@ -307,9 +436,9 @@ export default function About({ onOpenDemoModal }) {
                     <div className="quote-display-card quote-purple">
                       <Quote size={40} className="quote-icon" />
                       <p className="quote-text">
-                        "We don’t settle for 'good enough'. We build digital products designed to dominate their industry."
+                        {missionData.quote}
                       </p>
-                      <span className="quote-author">— Engineering Philosophy</span>
+                      <span className="quote-author">{missionData.quoteAuthor}</span>
                     </div>
                   </div>
                 </div>
@@ -320,21 +449,22 @@ export default function About({ onOpenDemoModal }) {
               <div className="tab-pane glass-card animate-fade">
                 <div className="tab-pane-grid">
                   <div className="tab-text-side">
-                    <span className="tab-badge-accent">Architectural Integrity</span>
+                    <span className="tab-badge-accent">{philosophyData.tag}</span>
                     <h3 className="tab-heading">
-                      Engineering For <span className="text-gradient">Infinite Scale & Speed</span>
+                      {philosophyData.heading}{' '}
+                      <span className="text-gradient">{philosophyData.headingHighlight}</span>
                     </h3>
                     <p className="tab-paragraph">
-                      Software isn't merely lines of script — it is the digital nervous system of your business. Our philosophy emphasizes clean code, microservices scalability, robust security protocols, and human-centered design.
+                      {philosophyData.p1}
                     </p>
                     <p className="tab-paragraph">
-                      Whether developing custom MLM platforms, enterprise CRM systems, or high-throughput SaaS engines, our engineering principles guarantee longevity and seamless scalability.
+                      {philosophyData.p2}
                     </p>
 
                     <ul className="tab-points-list">
-                      <li><CheckCircle size={18} className="text-orange" /> Modularity and maintainability baked in from Day 1.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Lightning-fast user interfaces with modern reactive frameworks.</li>
-                      <li><CheckCircle size={18} className="text-orange" /> Zero technical debt tolerance through strict code reviews.</li>
+                      {philosophyData.points?.map((pt, pIdx) => (
+                        <li key={pIdx}><CheckCircle size={18} className="text-orange" /> {pt}</li>
+                      ))}
                     </ul>
                   </div>
 
@@ -342,9 +472,9 @@ export default function About({ onOpenDemoModal }) {
                     <div className="quote-display-card quote-cyan">
                       <Quote size={40} className="quote-icon" />
                       <p className="quote-text">
-                        "Great code is invisible; what users experience is flawless speed, intuition, and undeniable value."
+                        {philosophyData.quote}
                       </p>
-                      <span className="quote-author">— Core Tech Standard</span>
+                      <span className="quote-author">{philosophyData.quoteAuthor}</span>
                     </div>
                   </div>
                 </div>
@@ -361,13 +491,13 @@ export default function About({ onOpenDemoModal }) {
         <div className="container">
           <div className="section-header text-center">
             <span className="badge">
-              <Users size={14} /> LEADERSHIP & VISION
+              <Users size={14} /> {foundersBadge}
             </span>
             <h2 className="section-title">
-              Meet the Visionaries Behind Black Grapes
+              {foundersTitle}
             </h2>
             <p className="section-subtitle">
-              Passionate innovators dedicated to redefining software engineering standards.
+              {foundersSubtitle}
             </p>
           </div>
 
@@ -378,13 +508,13 @@ export default function About({ onOpenDemoModal }) {
                 <div className="founders-photo-wrap">
                   <div className="photo-frame">
                     <img
-                      src={foundersImg}
+                      src={foundersPhoto}
                       alt="Mr. Arpit Jain and Mrs. Deepika Jain - Founders of Black Grapes Softech"
                       className="founders-img"
                     />
                     <div className="founders-photo-tag">
-                      <span className="photo-tag-name">Mr. Arpit Jain & Mrs. Deepika Jain</span>
-                      <span className="photo-tag-role">Founders & Executive Directors</span>
+                      <span className="photo-tag-name">{photoTagName}</span>
+                      <span className="photo-tag-role">{photoTagRole}</span>
                     </div>
                   </div>
                 </div>
@@ -393,30 +523,30 @@ export default function About({ onOpenDemoModal }) {
                 <div className="founders-story-wrap">
                   <span className="badge badge-purple mb-3">EXECUTIVE LEADERSHIP</span>
                   <h3 className="founders-heading">
-                    Driven By Innovation, Grounded In Excellence
+                    {foundersHeading}
                   </h3>
 
                   <p className="founders-text">
-                    Behind <strong>Black Grapes Softech</strong> stand two visionary leaders with an unquenchable passion for digital advancement.
+                    {foundersIntro}
                   </p>
 
                   <div className="leader-bio-block">
                     <div className="leader-bio-header">
                       <div className="leader-badge-dot"></div>
-                      <h4 className="leader-name">Mr. Arpit Jain — <span className="leader-title">Founder & Chief Architect</span></h4>
+                      <h4 className="leader-name">{founder1Name}</h4>
                     </div>
                     <p className="leader-bio-p">
-                      The driving force behind our software development journey. With a wealth of architectural experience and an instinctive knack for staying ahead of technological curves, he has pioneered cutting-edge solutions that have redefined client operations across industries.
+                      {founder1Bio}
                     </p>
                   </div>
 
                   <div className="leader-bio-block">
                     <div className="leader-bio-header">
                       <div className="leader-badge-dot purple"></div>
-                      <h4 className="leader-name">Mrs. Deepika Jain — <span className="leader-title">Co-Founder & Strategic Director</span></h4>
+                      <h4 className="leader-name">{founder2Name}</h4>
                     </div>
                     <p className="leader-bio-p">
-                      Deepika Jain doesn’t just see challenges; she envisions opportunities. Her boundless creativity, strategic acumen, and people-first leadership have shaped our company’s culture of relentless innovation and customer delight.
+                      {founder2Bio}
                     </p>
                   </div>
 
@@ -533,13 +663,13 @@ export default function About({ onOpenDemoModal }) {
           <div className="hq-grid">
             <div className="hq-image-box">
               <img
-                src={workspaceImg}
+                src={cultureImage}
                 alt="Black Grapes Softech Office & Engineering Culture"
                 className="hq-img"
               />
               <div className="hq-location-tag">
                 <Building2 size={16} className="text-orange" />
-                <span>Indore Tech Hub — Madhya Pradesh, India</span>
+                <span>{cultureLocation}</span>
               </div>
             </div>
 
@@ -548,23 +678,23 @@ export default function About({ onOpenDemoModal }) {
                 <Building2 size={14} /> HEADQUARTERS & CULTURE
               </span>
               <h2 className="hq-title">
-                Where Passionate Technologists Thrive
+                {cultureTitle}
               </h2>
               <p className="hq-paragraph">
-                Situated at <strong>252-F/H Scheme No 54, Vijaynagar, Indore</strong>, our software development center is where bold ideas turn into robust reality.
+                {cultureP1}
               </p>
               <p className="hq-paragraph">
-                We cultivate an open culture of perpetual learning, deep code reviews, creative freedom, and rigorous problem-solving. This energetic environment inspires our engineers to push boundaries and build applications that inspire.
+                {cultureP2}
               </p>
 
               <div className="hq-highlights-grid">
                 <div className="hq-item">
-                  <span className="hq-item-num">50+</span>
-                  <span className="hq-item-label">In-House Engineers & Designers</span>
+                  <span className="hq-item-num">{stat1Num}</span>
+                  <span className="hq-item-label">{stat1Label}</span>
                 </div>
                 <div className="hq-item">
-                  <span className="hq-item-num">100%</span>
-                  <span className="hq-item-label">Code Quality & Transparency</span>
+                  <span className="hq-item-num">{stat2Num}</span>
+                  <span className="hq-item-label">{stat2Label}</span>
                 </div>
               </div>
             </div>
@@ -580,14 +710,14 @@ export default function About({ onOpenDemoModal }) {
           <div className="final-cta-banner">
             <div className="cta-ambient"></div>
             <h2 className="final-cta-heading">
-              Ready to Accelerate Your Business With Custom Tech?
+              {finalCtaTitle}
             </h2>
             <p className="final-cta-text">
-              Speak directly with our technical leadership. Let's design, engineer, and deploy your software solution with unmatched precision.
+              {finalCtaText}
             </p>
             <div className="final-cta-buttons">
               <button onClick={onOpenDemoModal} className="btn btn-primary btn-glow">
-                <span>Book a Technical Discovery Session</span>
+                <span>{finalCtaBtn}</span>
                 <ArrowRight size={18} />
               </button>
             </div>

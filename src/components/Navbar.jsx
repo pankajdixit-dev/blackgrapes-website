@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, Sparkles, PhoneCall, Mail } from 'lucide-react';
 import logoImg from '../assets/bgst-logo.png';
+import { useSiteSettings, useMenus } from '../services/useContent';
 import '../Styles/Navbar.css';
 
 export default function Navbar({ onOpenDemoModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  const { settings } = useSiteSettings();
+  const { menus } = useMenus();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,44 +21,53 @@ export default function Navbar({ onOpenDemoModal }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About Us', path: '/about' },
-    { label: 'Services', path: '/services' },
-    { label: 'Our Products', path: '/products' },
-    { label: 'Our Clients', path: '/clients' },
-    { label: 'Contact', path: '/contact' }
-  ];
+  const navLinks = (menus && menus.length > 0)
+    ? menus.filter((m) => m.is_active !== false)
+    : [
+        { label: 'Home', path: '/' },
+        { label: 'About Us', path: '/about' },
+        { label: 'Services', path: '/services' },
+        { label: 'Our Products', path: '/products' },
+        { label: 'Our Clients', path: '/clients' },
+        { label: 'Contact', path: '/contact' }
+      ];
+
+  const topStripText = settings?.top_strip_text || 'Empowering Enterprises Worldwide with Next-Gen Tech';
+  const showTopStrip = settings?.top_strip_enabled !== false;
+  const primaryEmail = settings?.primary_email || 'info@blackgrapessoftech.com';
+  const primaryPhone = settings?.primary_phone || '+91 7470997884';
 
   return (
     <>
       {/* Top Notification / Contact Strip */}
-      <div className="top-banner-strip">
-        <div className="container top-strip-inner">
-          <div className="strip-left">
-            <span className="live-dot"></span>
-            <span>Empowering Enterprises Worldwide with Next-Gen Tech</span>
-          </div>
-          <div className="strip-right">
-            <a href="mailto:info@blackgrapessoftech.com" className="strip-link">
-              <Mail size={13} />
-              <span>info@blackgrapessoftech.com</span>
-            </a>
-            <span className="strip-divider">|</span>
-            <a href="tel:+917470997884" className="strip-link">
-              <PhoneCall size={13} />
-              <span>+91 7470997884</span>
-            </a>
+      {showTopStrip && (
+        <div className="top-banner-strip">
+          <div className="container top-strip-inner">
+            <div className="strip-left">
+              <span className="live-dot"></span>
+              <span>{topStripText}</span>
+            </div>
+            <div className="strip-right">
+              <a href={`mailto:${primaryEmail}`} className="strip-link">
+                <Mail size={13} />
+                <span>{primaryEmail}</span>
+              </a>
+              <span className="strip-divider">|</span>
+              <a href={`tel:${primaryPhone.replace(/\s+/g, '')}`} className="strip-link">
+                <PhoneCall size={13} />
+                <span>{primaryPhone}</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Header */}
       <header className={`site-navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
           {/* Brand Logo */}
           <Link to="/" className="brand-logo">
-            <img src={logoImg} alt="Black Grapes Softech" className="logo-img" />
+            <img src={settings?.logo_url || logoImg} alt="Black Grapes Softech" className="logo-img" />
             <div className="brand-text">
               <span className="brand-name">BLACK <span className="brand-highlight">GRAPES</span></span>
               <span className="brand-sub">SOFTECH PVT. LTD.</span>

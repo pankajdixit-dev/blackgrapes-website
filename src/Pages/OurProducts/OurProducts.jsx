@@ -36,6 +36,7 @@ import {
   OFFICIAL_INDUSTRIES,
   PRODUCT_GUARANTEES
 } from './productsData';
+import { useProjects, useSeo } from '../../services/useContent';
 import ProductVideoModal from './ProductVideoModal';
 import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';
@@ -64,28 +65,34 @@ const GUARANTEE_ICONS = {
 };
 
 export default function OurProducts({ onOpenDemoModal }) {
+  useSeo('/products');
+  const { projects } = useProjects();
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoProduct, setActiveVideoProduct] = useState(null);
 
+  const activeCatalog = (projects && projects.length > 0) ? projects : PRODUCTS_LIST;
+
   // Filtered products calculation
   const filteredProducts = useMemo(() => {
-    return PRODUCTS_LIST.filter((product) => {
+    return activeCatalog.filter((product) => {
       const matchesCategory =
         activeCategory === 'all' || product.category === activeCategory;
 
       const q = searchQuery.toLowerCase().trim();
+      const features = product.keyFeatures || product.key_features || [];
       const matchesSearch =
         !q ||
         product.title.toLowerCase().includes(q) ||
-        product.subtitle.toLowerCase().includes(q) ||
-        product.industry.toLowerCase().includes(q) ||
-        product.summary.toLowerCase().includes(q) ||
-        product.keyFeatures.some((feat) => feat.toLowerCase().includes(q));
+        (product.subtitle && product.subtitle.toLowerCase().includes(q)) ||
+        (product.industry && product.industry.toLowerCase().includes(q)) ||
+        (product.summary && product.summary.toLowerCase().includes(q)) ||
+        features.some((feat) => feat.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, activeCatalog]);
 
   return (
     <div className="products-page">

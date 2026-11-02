@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Sparkles, Building, Mail, Phone, User, MessageSquare } from 'lucide-react';
+import { submitEnquiry } from '../services/dataService';
 import '../Styles/DemoModal.css';
 
 export default function DemoModal({ isOpen, onClose }) {
@@ -19,13 +20,24 @@ export default function DemoModal({ isOpen, onClose }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        requirement: formData.requirement,
+        message: formData.message,
+        source_page: 'Demo Modal'
+      });
+    } catch {
+      // ignore
+    } finally {
       setLoading(false);
       setSubmitted(true);
-    }, 700);
+    }
   };
 
   const handleReset = () => {

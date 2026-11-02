@@ -2,9 +2,43 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, ArrowUpRight, Heart, ShieldCheck, Sparkles } from 'lucide-react';
 import logoImg from '../assets/bgst-logo.png';
+import { useSiteSettings, useServices } from '../services/useContent';
 import '../Styles/Footer.css';
 
 export default function Footer({ onOpenDemoModal }) {
+  const { settings } = useSiteSettings();
+  const { services } = useServices();
+
+  const footerAboutText = settings?.footer_about_text ||
+    'We are an innovative IT solutions & custom software development company based in Indore, India. Empowering businesses across the globe with robust, scalable, and tailored digital products.';
+
+  const officeAddress = settings?.office_address ||
+    '252-F/H Scheme No 54, Vijaynagar, Indore - 452010, Madhya Pradesh, India';
+
+  const primaryEmail = settings?.primary_email || 'info@blackgrapessoftech.com';
+  const primaryPhone = settings?.primary_phone || '+91 7470997884';
+  const secondaryPhone = settings?.secondary_phone || '+91 6262414463';
+
+  const trustBadge = settings?.footer_trust_badge || 'ISO & Quality Assured Development Standards';
+  const copyrightText = settings?.copyright_text || `© ${new Date().getFullYear()} Black Grapes Softech Pvt. Ltd. All rights reserved.`;
+
+  const linkedinUrl = settings?.social_linkedin || 'https://www.linkedin.com/in/black-grapes-softech/';
+  const twitterUrl = settings?.social_twitter || 'https://twitter.com/grapessoftech';
+  const instagramUrl = settings?.social_instagram || 'https://www.instagram.com/blackgrapessoftech/';
+  const youtubeUrl = settings?.social_youtube || 'https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ';
+
+  const displayedServices = (services && services.length > 0)
+    ? services.slice(0, 7)
+    : [
+        { title: 'Web App Architecture' },
+        { title: 'Mobile App Development (iOS/Android)' },
+        { title: 'Enterprise CRM Solutions' },
+        { title: 'MLM Software Systems' },
+        { title: 'Digital Growth & SEO' },
+        { title: 'UI/UX & Brand Identity' },
+        { title: 'Interactive Game Development' }
+      ];
+
   return (
     <footer className="site-footer">
       {/* Top CTA Banner Strip inside Footer */}
@@ -36,18 +70,18 @@ export default function Footer({ onOpenDemoModal }) {
           {/* Column 1: Company Profile */}
           <div className="footer-col brand-col">
             <Link to="/" className="footer-brand">
-              <img src={logoImg} alt="Black Grapes Softech" className="footer-logo-img" />
+              <img src={settings?.logo_url || logoImg} alt="Black Grapes Softech" className="footer-logo-img" />
               <div>
                 <span className="footer-brand-title">BLACK <span className="text-orange">GRAPES</span></span>
                 <span className="footer-brand-sub">SOFTECH PVT. LTD.</span>
               </div>
             </Link>
             <p className="footer-about-text">
-              We are an innovative IT solutions & custom software development company based in Indore, India. Empowering businesses across the globe with robust, scalable, and tailored digital products.
+              {footerAboutText}
             </p>
             <div className="footer-trust-badge">
               <ShieldCheck size={20} className="trust-icon" />
-              <span>ISO & Quality Assured Development Standards</span>
+              <span>{trustBadge}</span>
             </div>
           </div>
 
@@ -69,13 +103,11 @@ export default function Footer({ onOpenDemoModal }) {
           <div className="footer-col">
             <h4 className="footer-col-title">Services</h4>
             <ul className="footer-link-list">
-              <li><Link to="/services">Web App Architecture</Link></li>
-              <li><Link to="/services">Mobile App Development (iOS/Android)</Link></li>
-              <li><Link to="/services">Enterprise CRM Solutions</Link></li>
-              <li><Link to="/services">MLM Software Systems</Link></li>
-              <li><Link to="/services">Digital Growth & SEO</Link></li>
-              <li><Link to="/services">UI/UX & Brand Identity</Link></li>
-              <li><Link to="/services">Interactive Game Development</Link></li>
+              {displayedServices.map((srv, idx) => (
+                <li key={idx}>
+                  <Link to="/services">{srv.title}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -84,26 +116,26 @@ export default function Footer({ onOpenDemoModal }) {
             <h4 className="footer-col-title">Get In Touch</h4>
             <div className="footer-contact-item">
               <MapPin size={18} className="contact-icon" />
-              <span>252-F/H Scheme No 54, Vijaynagar, Indore - 452010, Madhya Pradesh, India</span>
+              <span>{officeAddress}</span>
             </div>
             <div className="footer-contact-item">
               <Mail size={18} className="contact-icon" />
-              <a href="mailto:info@blackgrapessoftech.com">info@blackgrapessoftech.com</a>
+              <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>
             </div>
             <div className="footer-contact-item">
               <Phone size={18} className="contact-icon" />
               <div>
-                <a href="tel:+917470997884">+91 7470997884</a>, <a href="tel:+916262414463">+91 6262414463</a>
+                <a href={`tel:${primaryPhone.replace(/\s+/g, '')}`}>{primaryPhone}</a>, <a href={`tel:${secondaryPhone.replace(/\s+/g, '')}`}>{secondaryPhone}</a>
               </div>
             </div>
 
             <div className="footer-social-box">
               <span className="social-label">Follow Us:</span>
               <div className="social-links-row">
-                <a href="https://www.linkedin.com/in/black-grapes-softech/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-circle">in</a>
-                <a href="https://twitter.com/grapessoftech" target="_blank" rel="noreferrer" aria-label="Twitter" className="social-circle">𝕏</a>
-                <a href="https://www.instagram.com/blackgrapessoftech/" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-circle">ig</a>
-                <a href="https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ" target="_blank" rel="noreferrer" aria-label="YouTube" className="social-circle">yt</a>
+                <a href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-circle">in</a>
+                <a href={twitterUrl} target="_blank" rel="noreferrer" aria-label="Twitter" className="social-circle">𝕏</a>
+                <a href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram" className="social-circle">ig</a>
+                <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="YouTube" className="social-circle">yt</a>
               </div>
             </div>
           </div>
@@ -112,7 +144,7 @@ export default function Footer({ onOpenDemoModal }) {
         {/* Footer Bottom Strip */}
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            &copy; {new Date().getFullYear()} Black Grapes Softech Pvt. Ltd. All rights reserved.
+            {copyrightText}
           </p>
           <div className="footer-bottom-links">
             <Link to="/privacy-policy">Privacy Policy</Link>

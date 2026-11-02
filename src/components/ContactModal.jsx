@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { COMPANY_INFO, REQUIREMENT_OPTIONS } from '../data/siteData';
+import { submitEnquiry } from '@backend/dataService';
 
 export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a Demo' }) {
   const [formData, setFormData] = useState({
@@ -11,17 +12,31 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [ticketId, setTicketId] = useState('');
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      const res = await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.requirement,
+        message: formData.message,
+        scope: modalTitle
+      });
+      if (res && res.ticket_id) {
+        setTicketId(res.ticket_id);
+      }
+    } catch {
+      // offline fallback
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 900);
+    }
   };
 
   const handleReset = () => {
@@ -58,38 +73,35 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
         {/* Modal Body */}
         <div className="modal-body">
           {isSubmitted ? (
-            <div className="modal-success-state">
-              <div className="success-icon-wrap">✓</div>
-              <h4 className="success-title">Thank You, {formData.name || 'Valued Client'}!</h4>
-              <p className="success-message">
-                Your request for <strong>{formData.requirement}</strong> has been received by our technical team.
-                Our consultant will contact you at <strong>{formData.phone || formData.email}</strong> within 2 business hours.
+            <div className="modal-success-pane text-center">
+              <div className="success-icon-badge">✓</div>
+              <h4 className="success-title">Thank You, {formData.name}!</h4>
+              <p className="success-desc">
+                Your request has been registered in our system{ticketId ? ` (Ref: ${ticketId})` : ''}. Our solution architect will connect with you within 2 hours.
               </p>
-              <div className="success-direct-contact">
-                <span>Immediate Assistance:</span>
-                <a href={`tel:${COMPANY_INFO.phones[0]}`}>{COMPANY_INFO.phones[0]}</a>
+              <div className="quick-contact-pill">
+                <span>Immediate Assistance: </span>
+                <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`}>
+                  {COMPANY_INFO.phones[0]}
+                </a>
               </div>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary btn-block mt-4"
                 onClick={handleReset}
               >
-                Close &amp; Back to Site
+                Close &amp; Continue Browsing
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="modal-form">
-              <p className="form-lead-text">
-                {COMPANY_INFO.consultationText}. Please fill out the details below.
-              </p>
-
               <div className="form-group">
-                <label className="form-label" htmlFor="form-name">Your Name *</label>
+                <label htmlFor="modal-name">Full Name *</label>
                 <input
-                  id="form-name"
+                  id="modal-name"
                   type="text"
                   required
-                  className="form-input"
+                  placeholder="e.g. Rahul Sharma"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -97,24 +109,24 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
 
               <div className="form-row-2">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="form-email">Email Address *</label>
+                  <label htmlFor="modal-email">Business Email *</label>
                   <input
-                    id="form-email"
+                    id="modal-email"
                     type="email"
                     required
-                    className="form-input"
+                    placeholder="name@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="form-phone">Phone / WhatsApp *</label>
+                  <label htmlFor="modal-phone">Phone / WhatsApp *</label>
                   <input
-                    id="form-phone"
+                    id="modal-phone"
                     type="tel"
                     required
-                    className="form-input"
+                    placeholder="+91 98765 43210"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
@@ -122,48 +134,48 @@ export default function ContactModal({ isOpen, onClose, modalTitle = 'Request a 
               </div>
 
               <div className="form-group">
-                <label className="form-label" htmlFor="form-req">Your Requirement *</label>
+                <label htmlFor="modal-req">Core Requirement *</label>
                 <select
-                  id="form-req"
-                  className="form-select"
+                  id="modal-req"
                   value={formData.requirement}
                   onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
                 >
-                  {REQUIREMENT_OPTIONS.map((opt, i) => (
-                    <option key={i} value={opt}>{opt}</option>
+                  {REQUIREMENT_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div className="form-group">
-                <label className="form-label" htmlFor="form-msg">Project Details / Message</label>
+                <label htmlFor="modal-msg">Project Details / Scope (Optional)</label>
                 <textarea
-                  id="form-msg"
+                  id="modal-msg"
                   rows="3"
-                  className="form-textarea"
+                  placeholder="Tell us briefly about your goals, timeline, and preferred technology..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 ></textarea>
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn btn-primary btn-full form-submit-btn"
-              >
-                {isSubmitting ? (
-                  <span className="btn-loading-spinner">Submitting...</span>
-                ) : (
-                  <>
-                    <span>Submit Request</span>
-                    <span className="btn-arrow">&rarr;</span>
-                  </>
-                )}
-              </button>
-
-              <div className="form-trust-guarantee">
-                🔒 100% Confidentiality &bull; Non-Disclosure Agreement Guaranteed
+              <div className="modal-action-footer">
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span className="btn-loading">Submitting Request...</span>
+                  ) : (
+                    <span>Submit &amp; Schedule Call</span>
+                  )}
+                </button>
               </div>
+
+              <p className="modal-disclaimer">
+                🔒 We respect your privacy. No spam guaranteed. Strict bilateral NDAs honored.
+              </p>
             </form>
           )}
         </div>

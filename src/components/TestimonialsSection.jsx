@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
 import { TESTIMONIALS } from '../data/siteData';
+import { useTestimonials } from '@backend/useContent';
 
 export default function TestimonialsSection() {
+  const { testimonials } = useTestimonials();
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const defaultTestimonials = TESTIMONIALS;
+  const list = (testimonials && testimonials.length > 0)
+    ? testimonials.map((t) => ({
+        name: t.name,
+        role: t.designation || t.role || 'Verified Client',
+        quote: t.quote,
+        avatar: t.avatar || (t.name ? t.name.slice(0, 2).toUpperCase() : 'BG')
+      }))
+    : defaultTestimonials;
+
+  const currentIndex = activeIndex >= list.length ? 0 : activeIndex;
+
   const prevReview = () => {
-    setActiveIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? list.length - 1 : prev - 1));
   };
 
   const nextReview = () => {
-    setActiveIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) => (prev === list.length - 1 ? 0 : prev + 1));
   };
+
+  const current = list[currentIndex] || list[0];
 
   return (
     <section className="section testimonials-section">
@@ -42,16 +58,16 @@ export default function TestimonialsSection() {
           </div>
 
           <p className="testimonial-quote-text">
-            {TESTIMONIALS[activeIndex].quote}
+            {current?.quote}
           </p>
 
           <div className="testimonial-author-row">
             <div className="author-avatar-circle">
-              {TESTIMONIALS[activeIndex].avatar}
+              {current?.avatar}
             </div>
             <div className="author-info">
-              <strong className="author-name">{TESTIMONIALS[activeIndex].name}</strong>
-              <span className="author-role">{TESTIMONIALS[activeIndex].role}</span>
+              <strong className="author-name">{current?.name}</strong>
+              <span className="author-role">{current?.role}</span>
             </div>
 
             {/* Slider Controls */}
@@ -65,7 +81,7 @@ export default function TestimonialsSection() {
                 &larr;
               </button>
               <span className="control-fraction">
-                0{activeIndex + 1} / 0{TESTIMONIALS.length}
+                0{currentIndex + 1} / 0{list.length}
               </span>
               <button
                 type="button"
@@ -81,10 +97,10 @@ export default function TestimonialsSection() {
 
         {/* Testimonials Mini Cards Grid */}
         <div className="testimonials-grid">
-          {TESTIMONIALS.map((item, idx) => (
+          {list.map((item, idx) => (
             <div
               key={idx}
-              className={`testimonial-mini-card ${activeIndex === idx ? 'mini-card-active' : ''}`}
+              className={`testimonial-mini-card ${currentIndex === idx ? 'mini-card-active' : ''}`}
               onClick={() => setActiveIndex(idx)}
             >
               <div className="mini-card-top">
@@ -95,7 +111,7 @@ export default function TestimonialsSection() {
                 </div>
               </div>
               <p className="mini-quote">
-                &ldquo;{item.quote.slice(0, 110)}...&rdquo;
+                &ldquo;{(item.quote || '').slice(0, 110)}...&rdquo;
               </p>
             </div>
           ))}

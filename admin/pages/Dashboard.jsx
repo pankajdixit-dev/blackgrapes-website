@@ -22,9 +22,10 @@ import {
   getTeamMembers,
   getServices,
   getActivityLogs,
-  updateEnquiryStatus
+  updateEnquiryStatus,
+  checkBackendHealth
 } from '@backend/dataService';
-import { checkSupabaseHealth } from '@backend/supabaseClient';
+
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -49,7 +50,7 @@ export default function Dashboard() {
         getTeamMembers(),
         getServices(),
         getActivityLogs(),
-        checkSupabaseHealth()
+        checkBackendHealth()
       ]);
 
       setStats({
@@ -71,7 +72,8 @@ export default function Dashboard() {
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {
-    await updateEnquiryStatus(id, newStatus);
+    await updateEnquiryStatus,
+  checkBackendHealth(id, newStatus);
     const updated = await getEnquiries();
     setRecentEnquiries(updated.slice(0, 5));
     setStats((prev) => ({
@@ -137,7 +139,7 @@ export default function Dashboard() {
             <div>
               <strong style={{ color: '#fff', fontSize: '0.9rem' }}>
                 {dbStatus.connected
-                  ? 'Supabase PostgreSQL Database: Connected & Active'
+                  ? 'Persistent Database: Connected & Active'
                   : 'Storage Engine: Local Persistence Store Active'}
               </strong>
               <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: '0.2rem' }}>
@@ -151,7 +153,7 @@ export default function Dashboard() {
               className="admin-btn admin-btn-secondary"
               style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem' }}
             >
-              Configure Supabase Keys
+              Database Settings
             </Link>
           )}
         </div>

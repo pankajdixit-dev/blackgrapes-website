@@ -1,13 +1,23 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
+import { createApiMiddleware } from '../backend/apiMiddleware.js';
+
+function contentApiPlugin() {
+  return {
+    name: 'bgst-admin-content-api-plugin',
+    configureServer(server) {
+      server.middlewares.use(createApiMiddleware());
+    }
+  };
+}
 
 // Standalone Vite Configuration for Black Grapes Admin Panel
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), contentApiPlugin()],
   server: {
     port: 5174,
-    open: true
+    open: false
   },
   resolve: {
     alias: {
@@ -17,4 +27,3 @@ export default defineConfig({
     }
   }
 });
-

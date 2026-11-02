@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_INFO, NAV_LINKS } from '../data/siteData';
+import { useSiteSettings } from '@backend/useContent';
 import '../styles/Navbar.css';
 
 export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) {
+  const { settings } = useSiteSettings();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+
+  const email = settings?.primary_email || COMPANY_INFO.emails[0];
+  const phone = settings?.primary_phone || COMPANY_INFO.phones[0];
+  const topText = settings?.top_strip_text || 'Apprenticeship & Partner Program Open';
+  const showTopBar = settings?.top_strip_enabled !== false;
+  const logoUrl = settings?.logo_url || '/bgst-logo.png';
 
   const handleOpenAction = (title = 'Request a Demo') => {
     if (onOpenModal) {
@@ -87,37 +95,39 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
   return (
     <>
       {/* Top Info Bar */}
-      <div className="top-bar">
-        <div className="container top-bar-container">
-          <div className="top-bar-left">
-            <span className="top-pill">
-              <span className="pulse-dot"></span>
-              Accepting New Projects
-            </span>
-            <span className="top-divider">|</span>
-            <span className="top-badge">Apprenticeship &amp; Partner Program Open</span>
-          </div>
+      {showTopBar && (
+        <div className="top-bar">
+          <div className="container top-bar-container">
+            <div className="top-bar-left">
+              <span className="top-pill">
+                <span className="pulse-dot"></span>
+                Accepting New Projects
+              </span>
+              <span className="top-divider">|</span>
+              <span className="top-badge">{topText}</span>
+            </div>
 
-          <div className="top-bar-right">
-            <a href={`mailto:${COMPANY_INFO.emails[0]}`} className="top-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              {COMPANY_INFO.emails[0]}
-            </a>
-            <span className="top-divider">|</span>
-            <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="top-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              {COMPANY_INFO.phones[0]}
-            </a>
-            <span className="top-divider">|</span>
-            <span className="top-location">Indore, MP, India</span>
+            <div className="top-bar-right">
+              <a href={`mailto:${email}`} className="top-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                {email}
+              </a>
+              <span className="top-divider">|</span>
+              <a href={`tel:${phone.replace(/\s+/g, '')}`} className="top-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                {phone}
+              </a>
+              <span className="top-divider">|</span>
+              <span className="top-location">Indore, MP, India</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Sticky Navbar */}
       <header className={`main-navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
@@ -126,7 +136,7 @@ export default function Navbar({ onOpenModal, onOpenInquiry, onOpenDemoModal }) 
           <Link to="/" className="brand-logo" aria-label="Black Grapes Softech Home">
             <div className="logo-glow-wrapper">
               <img
-                src="/bgst-logo.png"
+                src={logoUrl}
                 alt="Black Grapes Softech Logo"
                 className="logo-img"
                 onError={(e) => {

@@ -1,10 +1,20 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
+import { createApiMiddleware } from './backend/apiMiddleware.js'
+
+function contentApiPlugin() {
+  return {
+    name: 'bgst-content-api-plugin',
+    configureServer(server) {
+      server.middlewares.use(createApiMiddleware());
+    }
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), contentApiPlugin()],
   resolve: {
     alias: {
       '@admin': fileURLToPath(new URL('./admin', import.meta.url)),

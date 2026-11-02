@@ -1,6 +1,16 @@
 import React from 'react';
+import { useHomePage } from '@backend/useContent';
 
 export default function CtaBanner({ onOpenModal }) {
+  const { home } = useHomePage();
+  const cta = home?.ctaBanner || {};
+
+  const badge = cta.badge || 'GET STARTED WITH BLACK GRAPES SOFTECH';
+  const title = cta.title || 'Assess Your Business Potentials Now & Find Take Care of What Matters Most!';
+  const subtitle = cta.subtitle || 'Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.';
+  const primaryBtnText = cta.primaryBtnText || 'Get Started Now!';
+  const secondaryBtnText = cta.secondaryBtnText || 'Get Free Consultation';
+
   return (
     <section className="cta-banner-section">
       <div className="container">
@@ -8,13 +18,12 @@ export default function CtaBanner({ onOpenModal }) {
           <div className="cta-banner-glow"></div>
 
           <div className="cta-banner-content">
-            <span className="cta-badge">GET STARTED WITH BLACK GRAPES SOFTECH</span>
+            <span className="cta-badge">{badge}</span>
             <h2 className="cta-banner-title">
-              Assess Your Business Potentials Now &amp; Find <br />
-              <span className="text-highlight">Take Care of What Matters Most!</span>
+              {title}
             </h2>
             <p className="cta-banner-subtitle">
-              Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.
+              {subtitle}
             </p>
 
             <div className="cta-btn-wrapper">
@@ -23,7 +32,7 @@ export default function CtaBanner({ onOpenModal }) {
                 className="btn btn-primary btn-xl"
                 onClick={() => onOpenModal('Assess Business Potentials')}
               >
-                <span>Get Started Now!</span>
+                <span>{primaryBtnText}</span>
                 <span className="btn-sparkle">🚀</span>
               </button>
 
@@ -32,7 +41,7 @@ export default function CtaBanner({ onOpenModal }) {
                 className="btn btn-outline btn-xl"
                 onClick={() => onOpenModal('Get Free Consultation')}
               >
-                <span>Get Free Consultation</span>
+                <span>{secondaryBtnText}</span>
               </button>
             </div>
           </div>

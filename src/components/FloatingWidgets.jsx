@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { COMPANY_INFO } from '../data/siteData';
+import { useSiteSettings } from '@backend/useContent';
 
 export default function FloatingWidgets() {
+  const { settings } = useSiteSettings();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -19,7 +21,8 @@ export default function FloatingWidgets() {
     });
   };
 
-  const whatsappHref = `https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello Black Grapes Softech, I am interested in your IT & Software Development services.')}`;
+  const rawWa = settings?.whatsapp_number || COMPANY_INFO.whatsappNumber;
+  const whatsappHref = `https://wa.me/${rawWa.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello Black Grapes Softech, I am interested in your IT & Software Development services.')}`;
 
   return (
     <div className="floating-widgets-container" aria-label="Quick Actions">
@@ -49,7 +52,8 @@ export default function FloatingWidgets() {
           title="Back to Top"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="18 15 12 9 6 15"></polyline>
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
           </svg>
         </button>
       )}

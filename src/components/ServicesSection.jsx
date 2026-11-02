@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { SERVICES } from '../data/siteData';
+import { useServices } from '@backend/useContent';
 
 export default function ServicesSection({ onOpenModal, onSelectService }) {
+  const { services } = useServices();
   const [hoveredService, setHoveredService] = useState(null);
+
+  const displayServices = (services && services.length > 0) ? services : SERVICES;
 
   return (
     <section id="services" className="section services-section">
@@ -23,9 +27,9 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
 
         {/* Services Cards Grid */}
         <div className="services-grid">
-          {SERVICES.map((service, index) => (
+          {displayServices.map((service, index) => (
             <div
-              key={service.id}
+              key={service.id || index}
               className={`service-card ${hoveredService === service.id ? 'service-card-active' : ''}`}
               onMouseEnter={() => setHoveredService(service.id)}
               onMouseLeave={() => setHoveredService(null)}
@@ -33,12 +37,11 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
               {/* Image & Overlay Header */}
               <div className="service-card-img-wrapper">
                 <img
-                  src={service.image}
+                  src={service.image || '/images/Software.jpg'}
                   alt={service.title}
                   className="service-card-img"
                   loading="lazy"
                   onError={(e) => {
-                    // Fallback to digital marketing or general software
                     e.currentTarget.src = '/images/software-development-qgntl744xv0yqgpkq1174ayad7qp2f62p90f8mobkw.jpeg';
                   }}
                 />
@@ -49,11 +52,11 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
               {/* Service Details */}
               <div className="service-card-content">
                 <h3 className="service-card-title">{service.title}</h3>
-                <p className="service-card-desc">{service.shortDesc}</p>
+                <p className="service-card-desc">{service.shortDesc || service.description}</p>
 
                 {/* Tech Pills */}
                 <div className="service-tags-list">
-                  {service.tags.map((tag, tIdx) => (
+                  {(service.tags || []).map((tag, tIdx) => (
                     <span key={tIdx} className="service-tag-pill">
                       {tag}
                     </span>
@@ -65,7 +68,7 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
                   <button
                     type="button"
                     className="service-details-btn"
-                    onClick={() => onSelectService(service)}
+                    onClick={() => onSelectService && onSelectService(service)}
                   >
                     <span>Learn More</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -77,7 +80,7 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
                   <button
                     type="button"
                     className="service-quote-btn"
-                    onClick={() => onOpenModal(`Quote: ${service.title}`)}
+                    onClick={() => onOpenModal && onOpenModal(`Quote: ${service.title}`)}
                   >
                     Get Estimate
                   </button>
@@ -87,7 +90,7 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
           ))}
         </div>
 
-        {/* Tendering Callout Section (From original site menu: Tendering Services) */}
+        {/* Tendering Callout Section */}
         <div id="tendering" className="tendering-callout-card">
           <div className="tendering-content">
             <div className="tendering-badge">GOVERNMENT & PRIVATE TENDERS</div>
@@ -105,7 +108,7 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => onOpenModal('Tendering Services')}
+              onClick={() => onOpenModal && onOpenModal('Tendering Services')}
             >
               Consult Tender Experts
             </button>

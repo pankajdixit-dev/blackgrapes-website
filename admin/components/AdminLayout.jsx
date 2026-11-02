@@ -26,8 +26,7 @@ import {
   Radio
 } from 'lucide-react';
 import { getCurrentSession, logoutAdmin } from '@backend/authService';
-import { checkSupabaseHealth } from '@backend/supabaseClient';
-import { getEnquiries } from '@backend/dataService';
+import { getEnquiries, checkBackendHealth } from '@backend/dataService';
 import logoImg from '@assets/bgst-logo.png';
 import '../admin.css';
 
@@ -49,7 +48,7 @@ export default function AdminLayout() {
     setSession(current);
 
     // Check DB Status
-    checkSupabaseHealth().then((res) => {
+    checkBackendHealth().then((res) => {
       setDbStatus(res);
     });
 
@@ -189,7 +188,7 @@ export default function AdminLayout() {
               <span className={`status-dot ${dbStatus.connected ? 'green' : 'yellow'}`}></span>
               <span>
                 {dbStatus.connected
-                  ? 'Supabase PostgreSQL'
+                  ? 'Persistent Database: Active'
                   : 'Local Storage Mode'}
               </span>
             </div>

@@ -39,6 +39,82 @@ export const DEFAULT_MENUS = [
   { id: 'm-6', label: 'Contact', path: '/contact', order_index: 6, is_active: true }
 ];
 
+export const DEFAULT_HOME_PAGE = {
+  hero: {
+    badge: '10+ Years of Proven IT Excellence • Indore, India',
+    prefix: 'Innovate. Integrate. Elevate.',
+    break_text: 'And Digitalize Your Ideas into Success via',
+    brand_highlight: 'BLACK GRAPES SOFTECH',
+    suffix: ', Where Innovation And ideas Meets Excellence.',
+    description: 'Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.',
+    cta_primary_text: 'Request a Demo',
+    cta_secondary_text: 'Explore Services',
+    techBadges: [
+      { name: 'React', category: 'Frontend' },
+      { name: 'Flutter', category: 'Mobile' },
+      { name: 'Node.js', category: 'Backend' },
+      { name: 'Python', category: 'AI & Data' },
+      { name: 'Next.js', category: 'Full Stack' },
+      { name: 'iOS / Swift', category: 'Native' },
+      { name: 'Android / Kotlin', category: 'Native' },
+      { name: 'AWS Cloud', category: 'DevOps' },
+      { name: 'Custom CRM', category: 'Enterprise' },
+      { name: 'MLM Engines', category: 'FinTech' }
+    ]
+  },
+  clockPhilosophy: {
+    eyebrow: 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS',
+    titlePrefix: 'MORE THAN A SERVICE. ',
+    titleHighlight: 'A COMMITMENT TO TIME & SCALE.',
+    description: 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.',
+    mantraPills: ['BEGIN WITH PURPOSE', 'ENGINEER WITH RIGOR', 'DELIVER ON TIME'],
+    pillarBadge: '01 / THE TIMELESS PRINCIPLE',
+    pillarTitle: 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.',
+    pillarParagraphs: [
+      'In Indian tradition, Shubh Muhurat & Brahma Muhurta symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.',
+      'Inspired by this timeless philosophy, our Black Grapes delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.',
+      'Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count.'
+    ],
+    quoteText: 'Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.'
+  },
+  whyChooseUs: {
+    badge: 'WHY CHOOSE US ?',
+    titlePrefix: 'Built On Security, Uncompromising Quality & ',
+    titleHighlight: 'Lifelong Relationships',
+    visionQuote: 'To be the most reliable, visionary IT catalyst for modern businesses by delivering robust code, high ROI, and lifelong partnerships.',
+    clientsCount: '100+',
+    projectsCount: '150+',
+    experienceYears: '10+',
+    pillars: [
+      {
+        subtitle: 'Unmatched Reliability',
+        title: 'Enterprise Security & Compliance',
+        description: 'Military-grade encryption, OWASP Top 10 mitigation, and ISO-standard coding conventions ensure your product scales without vulnerability.',
+        points: ['Zero Data Leak Architecture', 'Strict NDAs & IP Ownership', 'Regular Security Audits']
+      },
+      {
+        subtitle: 'Uncompromising Quality',
+        title: 'Precision-Driven Engineering',
+        description: 'Clean, modular, thoroughly tested code architectures that minimize technical debt and maximize page speed, uptime, and user adoption.',
+        points: ['Automated CI/CD Pipelines', '99.9% Uptime Guarantee', 'Pixel-Perfect UI/UX Execution']
+      },
+      {
+        subtitle: 'Dedicated Partnership',
+        title: 'End-to-End Strategic Lifecycle',
+        description: 'We don’t stop at deployment. We stand shoulder to shoulder with founders and CIOs as true technology partners from MVP to multi-million user scale.',
+        points: ['24/7 Priority Support Desk', 'Dedicated Tech Project Manager', 'Continuous Feature Evolution']
+      }
+    ]
+  },
+  ctaBanner: {
+    badge: 'GET STARTED WITH BLACK GRAPES SOFTECH',
+    title: 'Assess Your Business Potentials Now & Find Take Care of What Matters Most!',
+    subtitle: 'Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.',
+    primaryBtnText: 'Get Started Now!',
+    secondaryBtnText: 'Get Free Consultation'
+  }
+};
+
 export const DEFAULT_PAGE_SECTIONS = {
   about_hero: {
     id: 'sec-about-hero',

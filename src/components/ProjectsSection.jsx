@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import { PROJECTS } from '../data/siteData';
+import { useProjects } from '@backend/useContent';
 
 export default function ProjectsSection({ onOpenModal }) {
+  const { projects } = useProjects();
   const [activeFilter, setActiveFilter] = useState('All');
+
+  const defaultProjects = PROJECTS;
+  const projectList = (projects && projects.length > 0)
+    ? projects.map(p => ({
+        name: p.title || p.name,
+        category: p.category || 'Web Apps',
+        type: p.type || p.category || 'Full-Stack Solution',
+        desc: p.summary || p.desc || p.description,
+        url: p.link || p.url || '#'
+      }))
+    : defaultProjects;
 
   const categories = [
     'All',
@@ -13,8 +26,8 @@ export default function ProjectsSection({ onOpenModal }) {
   ];
 
   const filteredProjects = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === activeFilter);
+    ? projectList
+    : projectList.filter((p) => p.category === activeFilter);
 
   return (
     <section id="projects" className="section projects-section">
@@ -37,8 +50,8 @@ export default function ProjectsSection({ onOpenModal }) {
         <div className="portfolio-filter-tabs">
           {categories.map((cat) => {
             const count = cat === 'All'
-              ? PROJECTS.length
-              : PROJECTS.filter((p) => p.category === cat).length;
+              ? projectList.length
+              : projectList.filter((p) => p.category === cat).length;
 
             return (
               <button
@@ -70,7 +83,7 @@ export default function ProjectsSection({ onOpenModal }) {
               </div>
 
               <div className="project-card-footer">
-                {proj.url !== '#' ? (
+                {proj.url && proj.url !== '#' ? (
                   <a
                     href={proj.url}
                     target="_blank"
@@ -87,7 +100,7 @@ export default function ProjectsSection({ onOpenModal }) {
                   <button
                     type="button"
                     className="project-case-btn"
-                    onClick={() => onOpenModal(`Project Case: ${proj.name}`)}
+                    onClick={() => onOpenModal && onOpenModal(`Project Case: ${proj.name}`)}
                   >
                     <span>View Case Info</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -102,7 +115,7 @@ export default function ProjectsSection({ onOpenModal }) {
                   type="button"
                   className="project-inquire-icon"
                   title="Inquire about similar solution"
-                  onClick={() => onOpenModal(`Similar solution to ${proj.name}`)}
+                  onClick={() => onOpenModal && onOpenModal(`Similar solution to ${proj.name}`)}
                 >
                   ⚡
                 </button>
@@ -119,7 +132,7 @@ export default function ProjectsSection({ onOpenModal }) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => onOpenModal('New Project Inquiry')}
+            onClick={() => onOpenModal && onOpenModal('New Project Inquiry')}
           >
             Start Your Project With Us
           </button>

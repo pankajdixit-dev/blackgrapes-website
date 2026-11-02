@@ -1,28 +1,47 @@
 import React from 'react';
 import { Sparkles, Compass, ShieldCheck } from 'lucide-react';
+import { useHomePage } from '@backend/useContent';
 import '../styles/ClockPhilosophy.css';
 
 export default function ClockPhilosophy() {
+  const { home } = useHomePage();
+  const cp = home?.clockPhilosophy || {};
+
+  const eyebrow = cp.eyebrow || 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS';
+  const titlePrefix = cp.titlePrefix !== undefined ? cp.titlePrefix : 'MORE THAN A SERVICE. ';
+  const titleHighlight = cp.titleHighlight || 'A COMMITMENT TO TIME & SCALE.';
+  const description = cp.description || 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.';
+  const mantraPills = cp.mantraPills || ['BEGIN WITH PURPOSE', 'ENGINEER WITH RIGOR', 'DELIVER ON TIME'];
+  const pillarBadge = cp.pillarBadge || '01 / THE TIMELESS PRINCIPLE';
+  const pillarTitle = cp.pillarTitle || 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.';
+  const paragraphs = cp.pillarParagraphs || [
+    'In Indian tradition, Shubh Muhurat & Brahma Muhurta symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.',
+    'Inspired by this timeless philosophy, our Black Grapes delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.',
+    'Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count.'
+  ];
+  const quoteText = cp.quoteText || 'Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.';
+
   return (
     <section className="brand-philosophy-section" id="brand-philosophy">
       <div className="container">
         <div className="philosophy-hero text-center">
           <div className="philosophy-eyebrow">
             <span className="philosophy-eyebrow-dot" aria-hidden="true"></span>
-            <span>BLACK GRAPES PHILOSOPHY &bull; PURPOSEFUL BEGINNINGS</span>
+            <span>{eyebrow}</span>
           </div>
           <h2 className="philosophy-main-title">
-            MORE THAN A SERVICE. <span className="gradient-gold-text">A COMMITMENT TO TIME &amp; SCALE.</span>
+            {titlePrefix}<span className="gradient-gold-text">{titleHighlight}</span>
           </h2>
           <p className="philosophy-hero-desc">
-            Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.
+            {description}
           </p>
           <div className="philosophy-hero-mantra">
-            <span className="mantra-pill">BEGIN WITH PURPOSE</span>
-            <span className="mantra-sep">&bull;</span>
-            <span className="mantra-pill">ENGINEER WITH RIGOR</span>
-            <span className="mantra-sep">&bull;</span>
-            <span className="mantra-pill">DELIVER ON TIME</span>
+            {mantraPills.map((pill, idx) => (
+              <React.Fragment key={idx}>
+                <span className="mantra-pill">{pill}</span>
+                {idx < mantraPills.length - 1 && <span className="mantra-sep">&bull;</span>}
+              </React.Fragment>
+            ))}
           </div>
         </div>
 
@@ -31,27 +50,22 @@ export default function ClockPhilosophy() {
           <div className="pillar-grid">
             {/* Left Content */}
             <div className="pillar-content">
-              <span className="pillar-label-badge">01 / THE TIMELESS PRINCIPLE</span>
+              <span className="pillar-label-badge">{pillarBadge}</span>
               <h3 className="pillar-title">
-                A MOMENT OF PURPOSE.<br />
-                A BEGINNING OF POSSIBILITIES.
+                {pillarTitle}
               </h3>
               <div className="pillar-paragraphs">
-                <p className="pillar-p">
-                  In Indian tradition, <em>Shubh Muhurat &amp; Brahma Muhurta</em> symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.
-                </p>
-                <p className="pillar-p">
-                  Inspired by this timeless philosophy, our <strong>Black Grapes</strong> delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.
-                </p>
-                <p className="pillar-p">
-                  Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count.
-                </p>
+                {paragraphs.map((pText, pIdx) => (
+                  <p key={pIdx} className="pillar-p">
+                    {pText}
+                  </p>
+                ))}
               </div>
 
               <div className="pillar-highlight-quote">
                 <div className="quote-mark">“</div>
                 <div className="quote-text">
-                  Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.
+                  {quoteText}
                 </div>
               </div>
             </div>

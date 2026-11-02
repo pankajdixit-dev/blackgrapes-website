@@ -12,6 +12,7 @@ import {
   Sparkles 
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/siteData';
+import { useSiteSettings } from '@backend/useContent';
 
 // Social Channel SVG Icons
 const LinkedinIcon = () => (
@@ -47,12 +48,23 @@ const YoutubeIcon = () => (
 );
 
 export default function Footer({ onOpenModal, onOpenInquiry }) {
+  const { settings } = useSiteSettings();
   const location = useLocation();
-  const hideTopCta = ['/services', '/products', '/our-products', '/softech-services'].some(p => 
-    location.pathname.toLowerCase().startsWith(p)
-  );
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+
+  const email = settings?.primary_email || COMPANY_INFO.emails[0];
+  const phone1 = settings?.primary_phone || COMPANY_INFO.phones[0];
+  const phone2 = settings?.secondary_phone || COMPANY_INFO.phones[1];
+  const address = settings?.office_address || COMPANY_INFO.address;
+  const copyright = settings?.copyright_text || COMPANY_INFO.copyright;
+  const aboutText = settings?.footer_about_text || '10+ Years of Proven IT Excellence. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion portals.';
+  const trustBadge = settings?.footer_trust_badge || 'ISO 9001:2015 & Quality Assured Engineering';
+
+  const linkedinUrl = settings?.social_linkedin || 'https://www.linkedin.com/in/black-grapes-softech/';
+  const twitterUrl = settings?.social_twitter || 'https://twitter.com/grapessoftech';
+  const instagramUrl = settings?.social_instagram || 'https://www.instagram.com/blackgrapessoftech/';
+  const youtubeUrl = settings?.social_youtube || 'https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ';
 
   const handleOpenAction = (title = 'Request a Demo') => {
     if (onOpenModal) {
@@ -75,9 +87,6 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
 
   return (
     <footer className="site-footer">
-      {/* Top CTA Banner (Hidden on Services and Products pages as requested) */}
-      
-
       {/* Main Footer Directory */}
       <div className="container footer-main-content">
         <div className="footer-grid">
@@ -86,7 +95,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
             <Link to="/" className="footer-brand" aria-label="Black Grapes Softech">
               <div className="brand-logo-wrap">
                 <img
-                  src="/bgst-logo.png"
+                  src={settings?.logo_url || '/bgst-logo.png'}
                   alt="Black Grapes Logo"
                   className="footer-logo-img"
                   onError={(e) => {
@@ -102,17 +111,17 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
             </Link>
 
             <p className="footer-about-text">
-              10+ Years of Proven IT Excellence. We engineer scalable custom software, iOS &amp; Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion portals.
+              {aboutText}
             </p>
 
             <div className="footer-trust-badge">
               <ShieldCheck size={18} className="trust-icon" />
-              <span>ISO 9001:2015 &amp; Quality Assured Engineering</span>
+              <span>{trustBadge}</span>
             </div>
 
             <div className="social-links-row mt-3">
               <a
-                href="https://www.linkedin.com/in/black-grapes-softech/"
+                href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -122,7 +131,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
                 <LinkedinIcon />
               </a>
               <a
-                href="https://twitter.com/grapessoftech"
+                href={twitterUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter / X"
@@ -132,7 +141,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
                 <TwitterIcon />
               </a>
               <a
-                href="https://www.instagram.com/blackgrapessoftech/"
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -152,7 +161,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
                 <FacebookIcon />
               </a>
               <a
-                href="https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ"
+                href={youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
@@ -181,51 +190,31 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
             </ul>
           </div>
 
-          {/* Column 3: Proprietary Products & Solutions */}
+          {/* Column 3: Quick Navigation */}
           <div className="footer-col">
-            <h4 className="footer-heading">Solutions &amp; Ecosystem</h4>
+            <h4 className="footer-heading">Navigation</h4>
             <ul className="footer-link-list">
-              <li><Link to="/products">Proprietary Software Catalog</Link></li>
-              <li><Link to="/clients">Client Case Studies</Link></li>
-              <li><Link to="/it-staffing">IT &amp; Technical Staffing</Link></li>
-              <li><Link to="/ecommerce">E-Commerce &amp; Hardware</Link></li>
-              <li><Link to="/partnership">Partner Program (ODC)</Link></li>
               <li><Link to="/about">About Black Grapes</Link></li>
-              <li>
-                <button
-                  type="button"
-                  className="footer-link-btn"
-                  onClick={() => handleOpenAction('Schedule Demo')}
-                >
-                  Request a Live Demo
-                </button>
-              </li>
+              <li><Link to="/products">Proprietary Products</Link></li>
+              <li><Link to="/clients">Clients &amp; Portfolio</Link></li>
+              <li><Link to="/it-staffing">IT Staffing Solutions</Link></li>
+              <li><Link to="/ecommerce">E-Commerce Architecture</Link></li>
+              <li><Link to="/partnership">Partnership Programs</Link></li>
+              <li><Link to="/contact">Get In Touch</Link></li>
+              <li><a href="/admin" target="_blank" rel="noreferrer" style={{ color: '#ff6b00', opacity: 0.85 }}>Admin Control Center</a></li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Office */}
+          {/* Column 4: Contact & Location */}
           <div className="footer-col contact-col">
-            <h4 className="footer-heading">
-              <Link to="/contact" className="footer-heading-link">Contact &amp; Offices</Link>
-            </h4>
+            <h4 className="footer-heading">Connect Directly</h4>
 
-            {/* Address 1 */}
+            {/* Address */}
             <div className="footer-contact-item">
-              <MapPin size={18} className="contact-icon text-orange" />
+              <MapPin size={18} className="contact-icon" />
               <div className="contact-details">
-                <strong>Registered Office:</strong>
-                <address className="contact-address">{COMPANY_INFO.address}</address>
-              </div>
-            </div>
-
-            {/* Address 2 */}
-            <div className="footer-contact-item">
-              <Building2 size={18} className="contact-icon text-purple" />
-              <div className="contact-details">
-                <strong>Corporate Office:</strong>
-                <address className="contact-address">
-                  252-F/H Scheme No 54, Vijaynagar, Indore - 452010, MP
-                </address>
+                <strong>Headquarters:</strong>
+                <p>{address}</p>
               </div>
             </div>
 
@@ -234,8 +223,8 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
               <Mail size={18} className="contact-icon" />
               <div className="contact-details">
                 <strong>Direct Inquiries:</strong>
-                <a href={`mailto:${COMPANY_INFO.emails[0]}`} className="contact-link">
-                  {COMPANY_INFO.emails[0]}
+                <a href={`mailto:${email}`} className="contact-link">
+                  {email}
                 </a>
               </div>
             </div>
@@ -245,12 +234,14 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
               <Phone size={18} className="contact-icon" />
               <div className="contact-details">
                 <strong>Call / WhatsApp:</strong>
-                <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="contact-link">
-                  {COMPANY_INFO.phones[0]}
+                <a href={`tel:${phone1.replace(/\s+/g, '')}`} className="contact-link">
+                  {phone1}
                 </a>
-                <a href={`tel:${COMPANY_INFO.phones[1].replace(/\s+/g, '')}`} className="contact-link">
-                  {COMPANY_INFO.phones[1]}
-                </a>
+                {phone2 && (
+                  <a href={`tel:${phone2.replace(/\s+/g, '')}`} className="contact-link">
+                    {phone2}
+                  </a>
+                )}
               </div>
             </div>
 
@@ -284,7 +275,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
       <div className="footer-bottom">
         <div className="container footer-bottom-container">
           <p className="footer-copy-text">
-            {COMPANY_INFO.copyright}
+            {copyright}
           </p>
           <div className="footer-bottom-links">
             <Link to="/about">About Us</Link>

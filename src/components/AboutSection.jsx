@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { ABOUT_CONTENT } from '../data/siteData';
+import { usePageSections } from '@backend/useContent';
 
 export default function AboutSection({ onOpenModal }) {
+  const { sections } = usePageSections('about');
   const [openFaq, setOpenFaq] = useState(0);
   const [activeValueTab, setActiveValueTab] = useState(0);
+
+  const heroSec = sections?.about_hero?.content || {};
+  const badge = heroSec.badge || ABOUT_CONTENT.badge;
+  const subtitle = heroSec.lead || ABOUT_CONTENT.subtitle;
+  const mainImg = heroSec.image || '/images/blackgrapes-1.png';
+  const statNum = heroSec.floatingStat1Num || '10+ Years';
+  const statLabel = heroSec.floatingStat1Sub || 'of IT & Software Innovation';
 
   return (
     <section id="about" className="section about-section">
@@ -12,13 +21,13 @@ export default function AboutSection({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>{ABOUT_CONTENT.badge}</span>
+            <span>{badge}</span>
           </div>
           <h2 className="section-title">
             Best Website Development Company <span className="title-gradient-separator">|</span> Best IT Software Company <span className="title-gradient-separator">|</span> Best Mobile App Development Company
           </h2>
           <p className="section-subtitle">
-            {ABOUT_CONTENT.subtitle}
+            {subtitle}
           </p>
         </div>
 
@@ -30,7 +39,7 @@ export default function AboutSection({ onOpenModal }) {
             <div className="about-image-card">
               <div className="about-img-wrapper">
                 <img
-                  src="/images/blackgrapes-1.png"
+                  src={mainImg}
                   alt="Black Grapes Softech Team & Architecture"
                   className="about-main-img"
                   onError={(e) => {
@@ -44,8 +53,8 @@ export default function AboutSection({ onOpenModal }) {
               <div className="about-stat-floating-card">
                 <div className="stat-floating-icon">🏆</div>
                 <div className="stat-floating-content">
-                  <span className="stat-floating-number">10+ Years</span>
-                  <span className="stat-floating-label">of IT &amp; Software Innovation</span>
+                  <span className="stat-floating-number">{statNum}</span>
+                  <span className="stat-floating-label">{statLabel}</span>
                 </div>
               </div>
 
@@ -56,7 +65,7 @@ export default function AboutSection({ onOpenModal }) {
               </div>
             </div>
 
-            {/* Modern Technology Innovation Visual Card (Fills Left Side Beautifully) */}
+            {/* Modern Technology Innovation Visual Card */}
             <div className="about-tech-visual-card">
               <div className="tech-visual-img-wrapper">
                 <img
@@ -150,7 +159,7 @@ export default function AboutSection({ onOpenModal }) {
                 <button
                   type="button"
                   className="btn btn-outline btn-sm"
-                  onClick={() => onOpenModal('Ask a Question')}
+                  onClick={() => onOpenModal && onOpenModal('Ask a Question')}
                 >
                   Ask a Question
                 </button>

@@ -1,19 +1,25 @@
+import mongoose from 'mongoose';
 import Project from '../models/Project.js';
 import ActivityLog from '../models/ActivityLog.js';
+import { DEFAULT_PROJECTS } from '../defaultData.js';
 
 export const getProjects = async (req, res, next) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({ success: true, count: DEFAULT_PROJECTS.length, data: DEFAULT_PROJECTS, fallback: true });
+    }
+
     const { featured, limit } = req.query;
     const query = {};
     if (featured === 'true') query.isFeatured = true;
 
-    let q = Project.find(query).sort({ order: 1, createdAt: -1 });
+    let q = Project.find(query).maxTimeMS(2000).sort({ order: 1, createdAt: -1 });
     if (limit) q = q.limit(Number(limit));
 
     const projects = await q;
     res.json({ success: true, count: projects.length, data: projects });
   } catch (error) {
-    next(error);
+    res.json({ success: true, count: DEFAULT_PROJECTS.length, data: DEFAULT_PROJECTS, fallback: true });
   }
 };
 

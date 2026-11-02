@@ -22,9 +22,29 @@ import {
   getContentRevisions,
   uploadMediaItem
 } from '@backend/dataService';
+import {
+  getPageDefaultSections,
+  DEFAULT_PAGE_SECTIONS
+} from '@backend/defaultData';
+
+const getInitialAboutSections = () => {
+  const fallback = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections('about') : null) || DEFAULT_PAGE_SECTIONS || {};
+  try {
+    if (typeof window !== 'undefined') {
+      const raw = localStorage.getItem('bg_page_sections_about');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+          return { ...fallback, ...parsed };
+        }
+      }
+    }
+  } catch (e) {}
+  return fallback;
+};
 
 export default function AboutPageManager() {
-  const [sections, setSections] = useState(null);
+  const [sections, setSections] = useState(getInitialAboutSections);
   const [activeTab, setActiveTab] = useState('about_hero');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
@@ -38,8 +58,14 @@ export default function AboutPageManager() {
   }, []);
 
   const loadSections = async () => {
-    const data = await getPageSections('about');
-    setSections(data);
+    try {
+      const data = await getPageSections('about');
+      if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+        setSections((prev) => ({ ...prev, ...data }));
+      }
+    } catch (e) {
+      console.warn('Could not refresh about sections from server:', e);
+    }
   };
 
   const showToast = (msg) => {
@@ -70,11 +96,7 @@ export default function AboutPageManager() {
     }
   };
 
-  if (!sections) {
-    return <div style={{ color: '#9ca3af', padding: '2rem' }}>Loading content editor...</div>;
-  }
-
-  const currentSection = sections[activeTab];
+  const currentSection = (sections && sections[activeTab]) || getInitialAboutSections()[activeTab] || {};
   const draftContent = currentSection?.draft_content || currentSection?.content || {};
 
   const handleFieldChange = (key, val) => {

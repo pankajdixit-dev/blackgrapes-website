@@ -1,11 +1,22 @@
+import mongoose from 'mongoose';
 import Service from '../models/Service.js';
 import ActivityLog from '../models/ActivityLog.js';
+import { DEFAULT_SERVICES } from '../defaultData.js';
 
 // @desc    Get All Services
 // @route   GET /api/services
 // @access  Public
 export const getServices = async (req, res, next) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({
+        success: true,
+        count: DEFAULT_SERVICES.length,
+        data: DEFAULT_SERVICES,
+        fallback: true
+      });
+    }
+
     const { category, search, activeOnly } = req.query;
     const query = {};
 
@@ -25,7 +36,7 @@ export const getServices = async (req, res, next) => {
       ];
     }
 
-    const services = await Service.find(query).sort({ order: 1, createdAt: 1 });
+    const services = await Service.find(query).maxTimeMS(2000).sort({ order: 1, createdAt: 1 });
 
     res.json({
       success: true,
@@ -33,7 +44,12 @@ export const getServices = async (req, res, next) => {
       data: services
     });
   } catch (error) {
-    next(error);
+    res.json({
+      success: true,
+      count: DEFAULT_SERVICES.length,
+      data: DEFAULT_SERVICES,
+      fallback: true
+    });
   }
 };
 

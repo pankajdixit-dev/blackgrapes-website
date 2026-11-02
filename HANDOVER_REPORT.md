@@ -212,3 +212,4 @@ Accessible at: `http://localhost:5174` (or `/admin` route on integrated server)
 2. Build command: `npm run build`
 3. Output directory: `dist`
 4. Deploy by pushing to `main` branch.
+

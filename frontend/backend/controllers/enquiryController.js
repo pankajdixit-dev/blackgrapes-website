@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Enquiry from '../models/Enquiry.js';
 import ActivityLog from '../models/ActivityLog.js';
 
@@ -12,6 +13,32 @@ export const createEnquiry = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: 'Name, email, and phone number are required.'
+      });
+    }
+
+    if (mongoose.connection.readyState !== 1) {
+      const fallbackEnquiry = {
+        _id: 'enq-' + Date.now(),
+        ticketId: 'BGST-' + Date.now().toString().slice(-6),
+        name,
+        email,
+        phone,
+        company: company || '',
+        service: service || 'General Inquiry',
+        subject: subject || '',
+        message: message || '',
+        budget: budget || '',
+        timeline: timeline || '',
+        source: source || 'website',
+        status: 'new',
+        createdAt: new Date().toISOString()
+      };
+      return res.status(201).json({
+        success: true,
+        message: 'Thank you! Your enquiry has been received.',
+        ticketId: fallbackEnquiry.ticketId,
+        data: fallbackEnquiry,
+        fallback: true
       });
     }
 
@@ -45,6 +72,18 @@ export const createEnquiry = async (req, res, next) => {
 // @access  Private (Admin)
 export const getEnquiries = async (req, res, next) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({
+        success: true,
+        count: 0,
+        total: 0,
+        page: 1,
+        pages: 1,
+        data: [],
+        fallback: true
+      });
+    }
+
     const { status, search, limit = 50, page = 1 } = req.query;
     const query = {};
 

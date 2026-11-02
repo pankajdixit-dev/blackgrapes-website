@@ -13,7 +13,13 @@ import {
   Code,
   Flame,
   Clock,
-  Compass
+  Compass,
+  ShieldCheck,
+  Target,
+  Package,
+  Users,
+  MessageSquareQuote,
+  Globe
 } from 'lucide-react';
 import {
   getPageSections,
@@ -22,9 +28,29 @@ import {
   revertSectionDraft,
   uploadMediaItem
 } from '@backend/dataService';
+import {
+  getPageDefaultSections,
+  DEFAULT_HOME_SECTIONS
+} from '@backend/defaultData';
+
+const getInitialHomeSections = () => {
+  const fallback = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections('home') : null) || DEFAULT_HOME_SECTIONS || {};
+  try {
+    if (typeof window !== 'undefined') {
+      const raw = localStorage.getItem('bg_page_sections_home');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+          return { ...fallback, ...parsed };
+        }
+      }
+    }
+  } catch (e) {}
+  return fallback;
+};
 
 export default function HomePageManager() {
-  const [sections, setSections] = useState(null);
+  const [sections, setSections] = useState(getInitialHomeSections);
   const [activeTab, setActiveTab] = useState('home_hero');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
@@ -59,8 +85,14 @@ export default function HomePageManager() {
   };
 
   const loadSections = async () => {
-    const data = await getPageSections('home');
-    setSections(data);
+    try {
+      const data = await getPageSections('home');
+      if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+        setSections((prev) => ({ ...prev, ...data }));
+      }
+    } catch (err) {
+      console.warn('Could not refresh home sections from server:', err);
+    }
   };
 
   const showToast = (msg) => {
@@ -68,23 +100,19 @@ export default function HomePageManager() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  if (!sections) {
-    return <div style={{ color: '#9ca3af', padding: '2rem' }}>Loading home page editor...</div>;
-  }
-
-  const currentSection = sections[activeTab] || {};
+  const currentSection = (sections && sections[activeTab]) || getInitialHomeSections()[activeTab] || {};
   const draftContent = currentSection?.draft_content || currentSection?.content || {};
 
   const handleFieldChange = (key, val) => {
     const updatedDraft = { ...draftContent, [key]: val };
-    setSections({
-      ...sections,
+    setSections((prev) => ({
+      ...(prev || {}),
       [activeTab]: {
-        ...currentSection,
+        ...((prev && prev[activeTab]) || currentSection),
         draft_content: updatedDraft,
         has_unpublished_changes: true
       }
-    });
+    }));
   };
 
   const handleSaveDraft = async () => {
@@ -113,9 +141,11 @@ export default function HomePageManager() {
   };
 
   const tabList = [
-    { id: 'home_hero', label: '1. Home Hero Banner', icon: Sparkles },
+    { id: 'home_hero', label: '1. Hero & Headline Banner', icon: Sparkles },
     { id: 'home_philosophy', label: '2. Brand Philosophy', icon: Compass },
-    { id: 'home_cta', label: '3. Bottom CTA Banner', icon: Flame }
+    { id: 'home_why_us', label: '3. Why Choose Us', icon: ShieldCheck },
+    { id: 'home_industries', label: '4. Industries Served', icon: Layers },
+    { id: 'home_cta', label: '5. Bottom CTA Banner', icon: Flame }
   ];
 
   return (
@@ -571,6 +601,114 @@ export default function HomePageManager() {
         </div>
       )}
 
+      {/* Tab 3: Why Choose Us */}
+      {activeTab === 'home_why_us' && (
+        <div className="admin-card">
+          <h3 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '1.25rem' }}>
+            Why Choose Us Section Settings
+          </h3>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Section Eyebrow Badge</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={draftContent.badge || ''}
+              placeholder="WHY CHOOSE US ?"
+              onChange={(e) => handleFieldChange('badge', e.target.value)}
+            />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className="admin-form-group">
+              <label className="admin-label">Main Heading</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={draftContent.title || ''}
+                placeholder="Built On Security, Uncompromising Quality &"
+                onChange={(e) => handleFieldChange('title', e.target.value)}
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-label">Heading Highlight (Orange glow)</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={draftContent.titleHighlight || ''}
+                placeholder="Lifelong Relationships"
+                onChange={(e) => handleFieldChange('titleHighlight', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Vision & Overview Statement</label>
+            <textarea
+              rows={3}
+              className="admin-textarea"
+              value={draftContent.vision || ''}
+              placeholder="Our commitment is to eliminate technological roadblocks..."
+              onChange={(e) => handleFieldChange('vision', e.target.value)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Tab 4: Industries Served */}
+      {activeTab === 'home_industries' && (
+        <div className="admin-card">
+          <h3 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '1.25rem' }}>
+            Industries We Serve Section Settings
+          </h3>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Eyebrow Badge</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={draftContent.badge || ''}
+              placeholder="INDUSTRIES"
+              onChange={(e) => handleFieldChange('badge', e.target.value)}
+            />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className="admin-form-group">
+              <label className="admin-label">Section Title</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={draftContent.title || ''}
+                placeholder="Tailored IT Solutions Across"
+                onChange={(e) => handleFieldChange('title', e.target.value)}
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-label">Title Highlight</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={draftContent.titleHighlight || ''}
+                placeholder="High-Growth Industries"
+                onChange={(e) => handleFieldChange('titleHighlight', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Subtitle Description</label>
+            <textarea
+              rows={3}
+              className="admin-textarea"
+              value={draftContent.subtitle || ''}
+              placeholder="From regulated healthcare ecosystems to high-velocity on-demand logistics..."
+              onChange={(e) => handleFieldChange('subtitle', e.target.value)}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Tab 3: Bottom CTA Banner */}
       {activeTab === 'home_cta' && (
         <div className="admin-card">
@@ -641,6 +779,43 @@ export default function HomePageManager() {
           </div>
         </div>
       )}
+
+      {/* Linked Home Modules Nav Bar */}
+      <div
+        className="admin-card"
+        style={{
+          marginTop: '1.5rem',
+          background: 'rgba(255, 255, 255, 0.02)',
+          border: '1px dashed var(--admin-border)'
+        }}
+      >
+        <h4 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Layers size={16} color="var(--admin-orange)" />
+          <span>Other Dynamic Sections On Home Page</span>
+        </h4>
+        <p style={{ fontSize: '0.8rem', color: '#9ca3af', marginBottom: '1rem' }}>
+          Services, portfolio projects, client testimonials, and section reordering can also be managed directly from their specialized editors:
+        </p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <Link to="/admin/services" className="admin-btn admin-btn-secondary" style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}>
+            <Layers size={14} />
+            <span>Manage Services ({'>'})</span>
+          </Link>
+          <Link to="/admin/projects" className="admin-btn admin-btn-secondary" style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}>
+            <Package size={14} />
+            <span>Manage Projects & Portfolio ({'>'})</span>
+          </Link>
+          <Link to="/admin/testimonials" className="admin-btn admin-btn-secondary" style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}>
+            <MessageSquareQuote size={14} />
+            <span>Manage Testimonials ({'>'})</span>
+          </Link>
+          <Link to="/admin/pages/home" className="admin-btn admin-btn-secondary" style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem', color: 'var(--admin-orange)', borderColor: 'rgba(255,107,0,0.3)' }}>
+            <Globe size={14} />
+            <span>Universal Home CMS & Section Reorder ({'>'})</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

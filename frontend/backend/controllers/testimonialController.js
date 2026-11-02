@@ -1,12 +1,17 @@
+import mongoose from 'mongoose';
 import Testimonial from '../models/Testimonial.js';
 import ActivityLog from '../models/ActivityLog.js';
+import { DEFAULT_TESTIMONIALS } from '../defaultData.js';
 
 export const getTestimonials = async (req, res, next) => {
   try {
-    const testimonials = await Testimonial.find().sort({ order: 1, createdAt: -1 });
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({ success: true, count: DEFAULT_TESTIMONIALS.length, data: DEFAULT_TESTIMONIALS, fallback: true });
+    }
+    const testimonials = await Testimonial.find().maxTimeMS(2000).sort({ order: 1, createdAt: -1 });
     res.json({ success: true, count: testimonials.length, data: testimonials });
   } catch (error) {
-    next(error);
+    res.json({ success: true, count: DEFAULT_TESTIMONIALS.length, data: DEFAULT_TESTIMONIALS, fallback: true });
   }
 };
 

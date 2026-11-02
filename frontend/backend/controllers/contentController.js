@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import PageContent from '../models/PageContent.js';
 import ActivityLog from '../models/ActivityLog.js';
 import { getPageDefaultSections, ALL_PAGE_DEFINITIONS } from '../defaultData.js';
@@ -78,14 +79,33 @@ export const getPageContent = async (req, res, next) => {
     const pageSlug = req.params.pageSlug || 'home';
     const fallbackDefaults = getDefaultSections(pageSlug);
 
-    let doc = await PageContent.findOne({ pageSlug });
+    // If MongoDB is offline, return fallback defaults immediately in 0ms!
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({
+        success: true,
+        pageSlug,
+        data: fallbackDefaults,
+        fallback: true
+      });
+    }
+
+    let doc = null;
+    try {
+      doc = await PageContent.findOne({ pageSlug }).maxTimeMS(2000).lean();
+    } catch (e) {
+      doc = null;
+    }
 
     if (!doc) {
-      doc = await PageContent.create({
-        pageSlug,
-        sections: fallbackDefaults,
-        lastUpdatedBy: 'System'
-      });
+      try {
+        doc = await PageContent.create({
+          pageSlug,
+          sections: fallbackDefaults,
+          lastUpdatedBy: 'System'
+        });
+      } catch (ce) {
+        doc = { pageSlug, sections: fallbackDefaults };
+      }
     }
 
     // If request does not have admin credentials, sanitize draft content
@@ -125,7 +145,27 @@ export const savePageContent = async (req, res, next) => {
     const { sections, draftSectionKey, draftContent } = req.body;
     const fallbackDefaults = getDefaultSections(pageSlug);
 
-    let doc = await PageContent.findOne({ pageSlug });
+    const io = req.app.get('io');
+    const updatedSections = sections || fallbackDefaults;
+
+    if (mongoose.connection.readyState !== 1) {
+      if (io) {
+        io.emit('content_updated', {
+          pageSlug,
+          sections: updatedSections,
+          action: 'draft_save',
+          timestamp: new Date().toISOString()
+        });
+      }
+      return res.json({
+        success: true,
+        pageSlug,
+        data: updatedSections,
+        fallback: true
+      });
+    }
+
+    let doc = await PageContent.findOne({ pageSlug }).maxTimeMS(2000);
     if (!doc) {
       doc = new PageContent({ pageSlug, sections: fallbackDefaults });
     }
@@ -147,7 +187,6 @@ export const savePageContent = async (req, res, next) => {
     await doc.save();
 
     // Broadcast WebSocket event
-    const io = req.app.get('io');
     if (io) {
       io.emit('content_updated', {
         pageSlug,

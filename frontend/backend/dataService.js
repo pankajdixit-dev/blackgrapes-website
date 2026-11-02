@@ -49,6 +49,22 @@ function getAuthHeaders() {
   return headers;
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = 1500) {
+  if (typeof AbortController === 'undefined') {
+    return fetch(url, options);
+  }
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(id);
+    return res;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
+  }
+}
+
 // ==============================================================================
 // 1. SITE SETTINGS
 // ==============================================================================
@@ -107,25 +123,29 @@ export async function getPageSections(pageSlug = 'about') {
   const fallbackDefaults = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections(pageSlug) : null) || (pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS);
 
   try {
-    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}`);
-    if (res.ok) {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {}, 1500);
+    if (res && res.ok) {
       const json = await res.json();
       if (json.data && typeof json.data === 'object' && Object.keys(json.data).length > 0) {
         const merged = { ...fallbackDefaults, ...json.data };
-        localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(merged));
+        try {
+          localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(merged));
+        } catch (e) {}
         return merged;
       }
     }
   } catch (err) {}
 
-  const raw = localStorage.getItem(`bg_page_sections_${pageSlug}`);
-  if (raw) {
-    try {
-      const parsed = JSON.parse(raw);
-      if (parsed && typeof parsed === 'object') {
-        return { ...fallbackDefaults, ...parsed };
-      }
-    } catch (e) {}
+  if (typeof window !== 'undefined') {
+    const raw = localStorage.getItem(`bg_page_sections_${pageSlug}`);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          return { ...fallbackDefaults, ...parsed };
+        }
+      } catch (e) {}
+    }
   }
 
   return fallbackDefaults;
@@ -157,11 +177,11 @@ export async function updateSectionDraft(sectionKey, newContent, pageSlug = 'abo
   localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
 
   try {
-    await fetch(`${API_BASE_URL}/content/${pageSlug}`, {
+    await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify({ sections: updated }),
-    });
+    }, 2000);
   } catch (err) {}
 
   realtimeSync.broadcast({
@@ -198,7 +218,7 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
   localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
 
   try {
-    await fetch(`${API_BASE_URL}/content/${pageSlug}/publish`, {
+    await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({
@@ -206,7 +226,7 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
         content: updated[sectionKey]?.content,
         sections: updated
       }),
-    });
+    }, 2000);
   } catch (err) {}
 
   realtimeSync.broadcast({

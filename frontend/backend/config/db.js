@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+// Disable buffering so queries fail immediately or fallback to defaults instead of blocking for 10000ms!
+mongoose.set('bufferCommands', false);
+mongoose.set('bufferTimeoutMS', 1500);
+
 let isConnected = false;
 let connectionError = null;
 

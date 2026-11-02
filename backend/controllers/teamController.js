@@ -1,11 +1,16 @@
+import mongoose from 'mongoose';
 import TeamMember from '../models/TeamMember.js';
+import { DEFAULT_TEAM_MEMBERS } from '../defaultData.js';
 
 export const getTeamMembers = async (req, res, next) => {
   try {
-    const team = await TeamMember.find({ isActive: true }).sort({ order: 1 });
+    if (mongoose.connection.readyState !== 1) {
+      return res.json({ success: true, count: DEFAULT_TEAM_MEMBERS.length, data: DEFAULT_TEAM_MEMBERS, fallback: true });
+    }
+    const team = await TeamMember.find({ isActive: true }).maxTimeMS(2000).sort({ order: 1 });
     res.json({ success: true, count: team.length, data: team });
   } catch (error) {
-    next(error);
+    res.json({ success: true, count: DEFAULT_TEAM_MEMBERS.length, data: DEFAULT_TEAM_MEMBERS, fallback: true });
   }
 };
 

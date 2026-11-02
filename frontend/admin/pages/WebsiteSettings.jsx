@@ -64,7 +64,7 @@ export default function WebsiteSettings() {
         <div>
           <h1 className="admin-page-title">Website Settings & Database Architecture</h1>
           <p className="admin-page-sub">
-            Configure global website meta, maintenance modes, and Supabase PostgreSQL integration.
+            Configure global website meta, maintenance modes, and MongoDB Atlas database connection.
           </p>
         </div>
         <button onClick={handleSave} disabled={saving} className="admin-btn admin-btn-primary">
@@ -80,7 +80,7 @@ export default function WebsiteSettings() {
             <Database size={22} color="var(--admin-orange)" />
             <div>
               <h3 style={{ margin: 0, color: '#fff', fontSize: '1.1rem' }}>
-                Supabase PostgreSQL Database Connection
+                MongoDB Atlas Database Connection
               </h3>
               <span style={{ fontSize: '0.8rem', color: '#9ca3af' }}>
                 Live backend health and schema status
@@ -119,7 +119,7 @@ export default function WebsiteSettings() {
                 }}
               />
               <strong style={{ color: '#fff', fontSize: '0.9rem' }}>
-                {dbHealth.connected ? 'Connected to Supabase PostgreSQL' : 'Local Storage Fallback Mode'}
+                {dbHealth.connected ? 'Connected to MongoDB Atlas Cluster' : 'Local Storage Fallback Mode'}
               </strong>
             </div>
             <p style={{ margin: 0, fontSize: '0.85rem', color: '#d1d5db' }}>
@@ -129,18 +129,18 @@ export default function WebsiteSettings() {
         )}
 
         <div style={{ fontSize: '0.85rem', color: '#9ca3af', lineHeight: 1.6 }}>
-          <strong style={{ color: '#fff' }}>How to connect your Supabase project:</strong>
+          <strong style={{ color: '#fff' }}>MongoDB Atlas Cluster Configuration:</strong>
           <ol style={{ margin: '0.5rem 0 0 1.25rem', padding: 0 }}>
             <li>
-              Go to your Supabase project dashboard (or create a new free project at <a href="https://supabase.com" target="_blank" rel="noreferrer" style={{ color: 'var(--admin-orange)' }}>supabase.com</a>).
+              Your MongoDB Atlas cluster URI is loaded securely from <code style={{ color: '#38bdf8' }}>.env</code>.
             </li>
             <li>
-              Open the <strong>SQL Editor</strong> in Supabase and paste the contents of <code style={{ color: '#38bdf8' }}>supabase/schema.sql</code> and <code style={{ color: '#38bdf8' }}>supabase/seed.sql</code>, then click <strong>Run</strong>.
+              Run the backend server using <code style={{ color: '#38bdf8' }}>npm run server</code> to activate live API synchronization.
             </li>
             <li>
-              Add your credentials to your project's <code style={{ color: '#38bdf8' }}>.env</code> or deployment environment variables:
+              Cluster connection details:
               <pre style={{ background: 'rgba(0, 0, 0, 0.5)', padding: '0.75rem', borderRadius: '6px', color: '#e5e7eb', marginTop: '0.5rem', overflowX: 'auto' }}>
-                {`VITE_SUPABASE_URL=https://your-project-id.supabase.co\nVITE_SUPABASE_ANON_KEY=your-supabase-anon-key`}
+                {`MONGODB_URI=mongodb+srv://pankajdixit9070_db_user:****@cluster0.ja99tvf.mongodb.net/blackgrapes`}
               </pre>
             </li>
           </ol>

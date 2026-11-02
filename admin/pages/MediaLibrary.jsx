@@ -77,7 +77,7 @@ export default function MediaLibrary() {
         <div>
           <h1 className="admin-page-title">Media Storage & Asset Library</h1>
           <p className="admin-page-sub">
-            Upload and manage photos, logos, and banners stored in Supabase Storage.
+            Upload and manage photos, logos, and banners stored in media storage.
           </p>
         </div>
 

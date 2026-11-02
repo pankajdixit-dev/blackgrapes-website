@@ -19,6 +19,7 @@ import settingsRoutes from './routes/settingsRoutes.js';
 import logRoutes from './routes/logRoutes.js';
 import mediaRoutes from './routes/mediaRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
+import contentRoutes from './routes/contentRoutes.js';
 
 // Models for auto-seed check
 import AdminUser from './models/AdminUser.js';
@@ -83,6 +84,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/logs', logRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/content', contentRoutes);
 
 // Error Handling Middleware
 app.use(errorHandler);

@@ -189,7 +189,7 @@ export default function AdminLayout() {
               <span className={`status-dot ${dbStatus.connected ? 'green' : 'yellow'}`}></span>
               <span>
                 {dbStatus.connected
-                  ? 'Supabase PostgreSQL'
+                  ? 'MongoDB Atlas (Online)'
                   : 'Local Storage Mode'}
               </span>
             </div>

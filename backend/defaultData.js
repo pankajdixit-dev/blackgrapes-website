@@ -1,9 +1,9 @@
-import foundersImg from '../src/assets/founders.jpg';
-import aboutHeroImg from '../src/assets/about-hero.jpg';
-import workspaceImg from '../src/assets/workspace.jpg';
-import logoImg from '../src/assets/bgst-logo.png';
-import { PRODUCTS_LIST } from '../src/Pages/OurProducts/productsData';
-import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../src/Pages/OurClients/clientsData';
+const foundersImg = '/images/founders.jpg';
+const aboutHeroImg = '/images/about-hero.jpg';
+const workspaceImg = '/images/workspace.jpg';
+const logoImg = '/bgst-logo.png';
+import { PRODUCTS_LIST } from '../src/pages/OurProducts/productsData.js';
+import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../src/pages/OurClients/clientsData.js';
 
 export const DEFAULT_SITE_SETTINGS = {
   id: 'settings-1',

@@ -88,22 +88,112 @@ export async function saveMenus(menuItems) {
 // 3. PAGE SECTIONS & CONTENT
 // ==============================================================================
 export async function getPageSections(pageSlug = 'about') {
-  return DEFAULT_PAGE_SECTIONS.filter((s) => s.page_slug === pageSlug);
+  try {
+    const res = await fetch(`${API_BASE_URL}/content/${pageSlug}`);
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data && typeof json.data === 'object' && Object.keys(json.data).length > 0) {
+        localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(json.data));
+        return json.data;
+      }
+    }
+  } catch (err) {}
+
+  const raw = localStorage.getItem(`bg_page_sections_${pageSlug}`);
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') return parsed;
+    } catch (e) {}
+  }
+
+  return DEFAULT_PAGE_SECTIONS;
 }
 
 export async function getSection(sectionKey) {
-  return DEFAULT_PAGE_SECTIONS.find((s) => s.section_key === sectionKey) || null;
+  const all = await getPageSections('about');
+  return all ? all[sectionKey] || null : null;
 }
 
 export async function updateSectionDraft(sectionKey, newContent) {
+  const current = await getPageSections('about');
+  const updated = { ...current };
+
+  if (updated[sectionKey]) {
+    updated[sectionKey] = {
+      ...updated[sectionKey],
+      draft_content: newContent,
+      has_unpublished_changes: true,
+    };
+  } else {
+    updated[sectionKey] = {
+      section_key: sectionKey,
+      draft_content: newContent,
+      has_unpublished_changes: true,
+    };
+  }
+
+  localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+
+  try {
+    await fetch(`${API_BASE_URL}/content/about`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ sections: updated }),
+    });
+  } catch (err) {}
+
+  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
   return { success: true, sectionKey, newContent };
 }
 
 export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com') {
+  const current = await getPageSections('about');
+  const updated = { ...current };
+
+  if (updated[sectionKey]) {
+    const draft = updated[sectionKey].draft_content;
+    updated[sectionKey] = {
+      ...updated[sectionKey],
+      content: {
+        ...(updated[sectionKey].content || {}),
+        ...(draft || {}),
+      },
+      has_unpublished_changes: false,
+      draft_content: null,
+      last_published_at: new Date().toISOString(),
+      published_by: userEmail,
+    };
+  }
+
+  localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+
+  try {
+    await fetch(`${API_BASE_URL}/content/about/publish`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ sectionKey }),
+    });
+  } catch (err) {}
+
+  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
   return { success: true, sectionKey };
 }
 
 export async function revertSectionDraft(sectionKey) {
+  const current = await getPageSections('about');
+  const updated = { ...current };
+
+  if (updated[sectionKey]) {
+    updated[sectionKey] = {
+      ...updated[sectionKey],
+      draft_content: null,
+      has_unpublished_changes: false,
+    };
+    localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+  }
+
+  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
   return { success: true, sectionKey };
 }
 

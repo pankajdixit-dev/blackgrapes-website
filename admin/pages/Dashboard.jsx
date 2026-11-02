@@ -137,7 +137,7 @@ export default function Dashboard() {
             <div>
               <strong style={{ color: '#fff', fontSize: '0.9rem' }}>
                 {dbStatus.connected
-                  ? 'Supabase PostgreSQL Database: Connected & Active'
+                  ? 'MongoDB Atlas Cluster: Connected & Active'
                   : 'Storage Engine: Local Persistence Store Active'}
               </strong>
               <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: '0.2rem' }}>
@@ -151,7 +151,7 @@ export default function Dashboard() {
               className="admin-btn admin-btn-secondary"
               style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem' }}
             >
-              Configure Supabase Keys
+              Check Database Status
             </Link>
           )}
         </div>

@@ -254,10 +254,6 @@ export const DEFAULT_PAGE_SECTIONS = {
         {
           title: 'Agile & Rapid Delivery',
           desc: 'Short iterative sprints, continuous feedback loops, and transparent milestones ensure on-time and on-budget delivery.'
-        },
-        {
-          title: 'Client-Centric Synergy',
-          desc: 'We do not view ourselves merely as vendors; we act as dedicated tech co-founders and growth partners in your journey.'
         }
       ]
     }

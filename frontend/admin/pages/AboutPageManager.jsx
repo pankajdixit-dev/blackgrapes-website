@@ -696,8 +696,32 @@ export default function AboutPageManager() {
                   marginBottom: '1rem'
                 }}
               >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-orange)' }}>
+                    Core Value #{idx + 1}
+                  </span>
+                  <button
+                    type="button"
+                    style={{
+                      background: 'rgba(239, 68, 68, 0.15)',
+                      border: '1px solid rgba(239, 68, 68, 0.35)',
+                      color: '#ef4444',
+                      padding: '0.25rem 0.65rem',
+                      borderRadius: '5px',
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      fontWeight: 600
+                    }}
+                    onClick={() => {
+                      const newVals = draftContent.values.filter((_, i) => i !== idx);
+                      handleFieldChange('values', newVals);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
                 <div className="admin-form-group">
-                  <label className="admin-label">Value #{idx + 1} Title</label>
+                  <label className="admin-label">Value Title</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -724,6 +748,18 @@ export default function AboutPageManager() {
                 </div>
               </div>
             ))}
+
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+              onClick={() => {
+                const newVals = [...(draftContent.values || []), { title: '', desc: '' }];
+                handleFieldChange('values', newVals);
+              }}
+            >
+              + Add New Value
+            </button>
           </div>
         )}
 

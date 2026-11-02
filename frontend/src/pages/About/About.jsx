@@ -84,11 +84,6 @@ export default function About({ onOpenDemoModal }) {
       icon: Zap,
       title: 'Agile & Rapid Delivery',
       desc: 'Short iterative sprints, continuous feedback loops, and transparent milestones ensure on-time and on-budget delivery.'
-    },
-    {
-      icon: Users,
-      title: 'Client-Centric Synergy',
-      desc: 'We do not view ourselves merely as vendors; we act as dedicated tech co-founders and growth partners in your journey.'
     }
   ];
 

@@ -544,3 +544,4 @@ const initialDb = {
 
 fs.writeFileSync(dbPath, JSON.stringify(initialDb, null, 2), 'utf-8');
 console.log('Successfully created initial database file at:', dbPath);
+

@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "dev:admin": "npm --prefix admin run dev",
-    "server": "node server/server.js",
+    "start": "node backend/server.js",
+    "server": "node backend/server.js",
+    "backend": "node backend/server.js",
+    "dev:backend": "node --watch backend/server.js",
     "build": "vite build",
     "build:admin": "npm --prefix admin run build",
     "lint": "eslint .",

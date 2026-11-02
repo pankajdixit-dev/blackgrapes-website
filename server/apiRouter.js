@@ -266,3 +266,4 @@ router.delete('/media/:id', (req, res) => {
 });
 
 export default router;
+

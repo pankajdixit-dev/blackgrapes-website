@@ -1,8 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const DB_PATH = path.resolve(process.cwd(), 'backend/data/db.json');
-const UPLOADS_DIR = path.resolve(process.cwd(), 'public/uploads');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Guaranteed absolute path regardless of working directory
+const DB_PATH = path.resolve(__dirname, 'data/db.json');
+const UPLOADS_DIR = path.resolve(__dirname, '../public/uploads');
 
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
@@ -73,7 +78,8 @@ export function createApiMiddleware() {
       return sendJson(200, {
         status: 'online',
         timestamp: new Date().toISOString(),
-        service: 'Black Grapes Softech Dev API Middleware'
+        service: 'Black Grapes Softech Dev API Middleware',
+        database_path: DB_PATH
       });
     }
 

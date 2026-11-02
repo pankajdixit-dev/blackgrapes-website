@@ -66,7 +66,7 @@ export default function AboutPageManager() {
 
   const handleSaveDraft = async () => {
     setSaving(true);
-    await updateSectionDraft(activeTab, draftContent);
+    await updateSectionDraft(activeTab, draftContent, 'about');
     setSaving(false);
     showToast('Draft changes saved successfully.');
     await loadSections();
@@ -74,7 +74,7 @@ export default function AboutPageManager() {
 
   const handlePublish = async () => {
     setPublishing(true);
-    await publishSection(activeTab);
+    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about');
     setPublishing(false);
     showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
     await loadSections();
@@ -82,7 +82,7 @@ export default function AboutPageManager() {
 
   const handleRevert = async () => {
     if (window.confirm('Discard all unsaved draft changes and revert to published version?')) {
-      await revertSectionDraft(activeTab);
+      await revertSectionDraft(activeTab, 'about');
       showToast('Reverted to published version.');
       await loadSections();
     }

@@ -19,8 +19,10 @@ import {
   DEFAULT_ADMIN_USERS,
   DEFAULT_ACTIVITY_LOGS,
   DEFAULT_PAGE_SECTIONS,
+  DEFAULT_HOME_SECTIONS,
 } from './defaultData.js';
 import { getStoredToken } from './authService.js';
+import { realtimeSync } from './realtimeSync.js';
 
 const DEFAULT_MEDIA_ITEMS = [];
 
@@ -88,6 +90,8 @@ export async function saveMenus(menuItems) {
 // 3. PAGE SECTIONS & CONTENT
 // ==============================================================================
 export async function getPageSections(pageSlug = 'about') {
+  const fallbackDefaults = pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS;
+
   try {
     const res = await fetch(`${API_BASE_URL}/content/${pageSlug}`);
     if (res.ok) {
@@ -107,16 +111,16 @@ export async function getPageSections(pageSlug = 'about') {
     } catch (e) {}
   }
 
-  return DEFAULT_PAGE_SECTIONS;
+  return fallbackDefaults;
 }
 
-export async function getSection(sectionKey) {
-  const all = await getPageSections('about');
+export async function getSection(sectionKey, pageSlug = 'about') {
+  const all = await getPageSections(pageSlug);
   return all ? all[sectionKey] || null : null;
 }
 
-export async function updateSectionDraft(sectionKey, newContent) {
-  const current = await getPageSections('about');
+export async function updateSectionDraft(sectionKey, newContent, pageSlug = 'about') {
+  const current = await getPageSections(pageSlug);
   const updated = { ...current };
 
   if (updated[sectionKey]) {
@@ -133,22 +137,30 @@ export async function updateSectionDraft(sectionKey, newContent) {
     };
   }
 
-  localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+  localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
 
   try {
-    await fetch(`${API_BASE_URL}/content/about`, {
+    await fetch(`${API_BASE_URL}/content/${pageSlug}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify({ sections: updated }),
     });
   } catch (err) {}
 
-  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
+  realtimeSync.broadcast({
+    type: 'content_updated',
+    module: 'page_sections',
+    pageSlug,
+    key: sectionKey,
+    sections: updated,
+    action: 'draft_save'
+  });
+
   return { success: true, sectionKey, newContent };
 }
 
-export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com') {
-  const current = await getPageSections('about');
+export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com', pageSlug = 'about') {
+  const current = await getPageSections(pageSlug);
   const updated = { ...current };
 
   if (updated[sectionKey]) {
@@ -166,22 +178,30 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
     };
   }
 
-  localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+  localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
 
   try {
-    await fetch(`${API_BASE_URL}/content/about/publish`, {
+    await fetch(`${API_BASE_URL}/content/${pageSlug}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ sectionKey }),
     });
   } catch (err) {}
 
-  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
+  realtimeSync.broadcast({
+    type: 'content_updated',
+    module: 'page_sections',
+    pageSlug,
+    key: sectionKey,
+    sections: updated,
+    action: 'publish'
+  });
+
   return { success: true, sectionKey };
 }
 
-export async function revertSectionDraft(sectionKey) {
-  const current = await getPageSections('about');
+export async function revertSectionDraft(sectionKey, pageSlug = 'about') {
+  const current = await getPageSections(pageSlug);
   const updated = { ...current };
 
   if (updated[sectionKey]) {
@@ -190,10 +210,18 @@ export async function revertSectionDraft(sectionKey) {
       draft_content: null,
       has_unpublished_changes: false,
     };
-    localStorage.setItem('bg_page_sections_about', JSON.stringify(updated));
+    localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
   }
 
-  window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: { module: 'page_sections', key: sectionKey } }));
+  realtimeSync.broadcast({
+    type: 'content_updated',
+    module: 'page_sections',
+    pageSlug,
+    key: sectionKey,
+    sections: updated,
+    action: 'revert'
+  });
+
   return { success: true, sectionKey };
 }
 

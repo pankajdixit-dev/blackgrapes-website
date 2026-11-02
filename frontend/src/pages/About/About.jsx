@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getPageSections } from '@backend/dataService.js';
+import '../../utils/realtimeSync';
 import {
   Sparkles,
   Rocket,
@@ -27,6 +29,29 @@ import './About.css';
 export default function About({ onOpenDemoModal }) {
   // Active tab state for Mission/Vision/Philosophy interactive viewer
   const [activeTab, setActiveTab] = useState('vision');
+  const [aboutSections, setAboutSections] = useState(null);
+
+  useEffect(() => {
+    getPageSections('about').then((data) => {
+      setAboutSections(data);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'about' && detail.sections) {
+        setAboutSections(detail.sections);
+      } else {
+        getPageSections('about').then((data) => {
+          setAboutSections(data);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = aboutSections?.about_hero?.content || {};
 
   const stats = [
     { number: '10+', label: 'Years of Innovation', icon: Calendar, highlight: 'Since 2014' },
@@ -105,17 +130,17 @@ export default function About({ onOpenDemoModal }) {
           <div className="hero-content">
             <div className="hero-eyebrow">
               <span className="badge">
-                <Sparkles size={14} /> ABOUT BLACK GRAPES SOFTECH
+                <Sparkles size={14} /> {heroContent.badge || 'ABOUT BLACK GRAPES SOFTECH'}
               </span>
             </div>
 
             <h1 className="hero-title">
-              We Don’t Just Write Code —{' '}
-              <span className="text-gradient">We Engineer The Digital Future.</span>
+              {heroContent.title ? `${heroContent.title} ` : 'We Don’t Just Write Code — '}
+              <span className="text-gradient">{heroContent.titleHighlight || 'We Engineer The Digital Future.'}</span>
             </h1>
 
             <p className="hero-lead">
-              Headquartered in Indore, India, <strong>Black Grapes Softech</strong> is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.
+              {heroContent.lead || 'Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.'}
             </p>
 
             <div className="hero-cta-group">

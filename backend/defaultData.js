@@ -39,6 +39,76 @@ export const DEFAULT_MENUS = [
   { id: 'm-6', label: 'Contact', path: '/contact', order_index: 6, is_active: true }
 ];
 
+export const DEFAULT_HOME_SECTIONS = {
+  home_hero: {
+    id: 'sec-home-hero',
+    page: 'home',
+    section_key: 'home_hero',
+    section_name: 'Home Hero & Headline',
+    order_index: 1,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrowBadge: '10+ Years of Proven IT Excellence • Indore, India',
+      prefix: 'Innovate. Integrate. Elevate.',
+      title: 'And Digitalize Your Ideas into Success via',
+      brandHighlight: 'BLACK GRAPES SOFTECH',
+      suffix: ', Where Innovation And ideas Meets Excellence.',
+      lead: 'Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.',
+      primaryBtnText: 'Request a Demo',
+      secondaryBtnText: 'Get the offer',
+      linkBtnText: 'View Services',
+      stat1Num: '10+',
+      stat1Label: 'Years Experience',
+      stat2Num: '100+',
+      stat2Label: 'Satisfied Clients',
+      stat3Num: '150+',
+      stat3Label: 'Projects Shipped',
+      stat4Num: '25+',
+      stat4Label: 'Expert Engineers',
+      codeSnippetTitle: 'FullStackApp.tsx',
+      codeSnippetTag: 'Live Production'
+    }
+  },
+  home_philosophy: {
+    id: 'sec-home-philosophy',
+    page: 'home',
+    section_key: 'home_philosophy',
+    section_name: 'Brand Philosophy & Purposeful Beginnings',
+    order_index: 2,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      eyebrow: 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS',
+      title: 'MORE THAN A SERVICE.',
+      titleHighlight: 'A COMMITMENT TO TIME & SCALE.',
+      lead: 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.',
+      mantra1: 'BEGIN WITH PURPOSE',
+      mantra2: 'ENGINEER WITH RIGOR',
+      mantra3: 'DELIVER ON TIME',
+      pillarBadge: '01 / THE TIMELESS PRINCIPLE',
+      pillarTitle: 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.'
+    }
+  },
+  home_cta: {
+    id: 'sec-home-cta',
+    page: 'home',
+    section_key: 'home_cta',
+    section_name: 'Bottom CTA Banner',
+    order_index: 3,
+    is_visible: true,
+    has_unpublished_changes: false,
+    content: {
+      badge: 'GET STARTED WITH BLACK GRAPES SOFTECH',
+      title: 'Assess Your Business Potentials Now & Find',
+      titleHighlight: 'Take Care of What Matters Most!',
+      subtitle: 'Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.',
+      primaryBtnText: 'Get Started Now!',
+      secondaryBtnText: 'Get Free Consultation'
+    }
+  }
+};
+
 export const DEFAULT_PAGE_SECTIONS = {
   about_hero: {
     id: 'sec-about-hero',

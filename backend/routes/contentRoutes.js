@@ -18,3 +18,4 @@ router.put('/:pageSlug', protect, savePageContent);
 router.post('/:pageSlug/publish', protect, publishSectionContent);
 
 export default router;
+

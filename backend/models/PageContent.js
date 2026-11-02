@@ -29,3 +29,4 @@ const pageContentSchema = new mongoose.Schema(
 
 const PageContent = mongoose.model('PageContent', pageContentSchema);
 export default PageContent;
+

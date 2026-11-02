@@ -1,28 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 import { Sparkles, Compass, ShieldCheck } from 'lucide-react';
 import '../styles/ClockPhilosophy.css';
 
 export default function ClockPhilosophy() {
+  const [philosophyData, setPhilosophyData] = useState(null);
+
+  useEffect(() => {
+    getPageSections('home').then((sections) => {
+      if (sections && sections.home_philosophy) {
+        setPhilosophyData(sections.home_philosophy.content);
+      }
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'home' && detail.sections?.home_philosophy) {
+        setPhilosophyData(detail.sections.home_philosophy.content);
+      } else {
+        getPageSections('home').then((sections) => {
+          if (sections && sections.home_philosophy) {
+            setPhilosophyData(sections.home_philosophy.content);
+          }
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const eyebrow = philosophyData?.eyebrow || 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS';
+  const title = philosophyData?.title || 'MORE THAN A SERVICE.';
+  const titleHighlight = philosophyData?.titleHighlight || 'A COMMITMENT TO TIME & SCALE.';
+  const lead = philosophyData?.lead || 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.';
+  const mantra1 = philosophyData?.mantra1 || 'BEGIN WITH PURPOSE';
+  const mantra2 = philosophyData?.mantra2 || 'ENGINEER WITH RIGOR';
+  const mantra3 = philosophyData?.mantra3 || 'DELIVER ON TIME';
   return (
     <section className="brand-philosophy-section" id="brand-philosophy">
       <div className="container">
         <div className="philosophy-hero text-center">
           <div className="philosophy-eyebrow">
             <span className="philosophy-eyebrow-dot" aria-hidden="true"></span>
-            <span>BLACK GRAPES PHILOSOPHY &bull; PURPOSEFUL BEGINNINGS</span>
+            <span>{eyebrow}</span>
           </div>
           <h2 className="philosophy-main-title">
-            MORE THAN A SERVICE. <span className="gradient-gold-text">A COMMITMENT TO TIME &amp; SCALE.</span>
+            {title} <span className="gradient-gold-text">{titleHighlight}</span>
           </h2>
           <p className="philosophy-hero-desc">
-            Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.
+            {lead}
           </p>
           <div className="philosophy-hero-mantra">
-            <span className="mantra-pill">BEGIN WITH PURPOSE</span>
+            <span className="mantra-pill">{mantra1}</span>
             <span className="mantra-sep">&bull;</span>
-            <span className="mantra-pill">ENGINEER WITH RIGOR</span>
+            <span className="mantra-pill">{mantra2}</span>
             <span className="mantra-sep">&bull;</span>
-            <span className="mantra-pill">DELIVER ON TIME</span>
+            <span className="mantra-pill">{mantra3}</span>
           </div>
         </div>
 

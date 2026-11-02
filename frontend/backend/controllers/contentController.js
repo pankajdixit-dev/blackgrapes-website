@@ -1,6 +1,13 @@
 import PageContent from '../models/PageContent.js';
 import ActivityLog from '../models/ActivityLog.js';
-import { DEFAULT_PAGE_SECTIONS } from '../defaultData.js';
+import { DEFAULT_PAGE_SECTIONS, DEFAULT_HOME_SECTIONS } from '../defaultData.js';
+
+function getDefaultSections(pageSlug) {
+  if (pageSlug === 'home') {
+    return DEFAULT_HOME_SECTIONS;
+  }
+  return DEFAULT_PAGE_SECTIONS;
+}
 
 // @desc    Get Page Sections
 // @route   GET /api/content/:pageSlug
@@ -8,12 +15,14 @@ import { DEFAULT_PAGE_SECTIONS } from '../defaultData.js';
 export const getPageContent = async (req, res, next) => {
   try {
     const pageSlug = req.params.pageSlug || 'about';
+    const fallbackDefaults = getDefaultSections(pageSlug);
+
     let doc = await PageContent.findOne({ pageSlug });
 
     if (!doc) {
       doc = await PageContent.create({
         pageSlug,
-        sections: DEFAULT_PAGE_SECTIONS,
+        sections: fallbackDefaults,
         lastUpdatedBy: 'System'
       });
     }
@@ -23,10 +32,10 @@ export const getPageContent = async (req, res, next) => {
       data: doc.sections
     });
   } catch (error) {
-    // Return default sections if DB error or offline
+    const pageSlug = req.params.pageSlug || 'about';
     res.json({
       success: true,
-      data: DEFAULT_PAGE_SECTIONS,
+      data: getDefaultSections(pageSlug),
       fallback: true
     });
   }
@@ -39,15 +48,28 @@ export const savePageContent = async (req, res, next) => {
   try {
     const pageSlug = req.params.pageSlug || 'about';
     const { sections } = req.body;
+    const fallbackDefaults = getDefaultSections(pageSlug);
 
     let doc = await PageContent.findOne({ pageSlug });
     if (!doc) {
-      doc = new PageContent({ pageSlug, sections: DEFAULT_PAGE_SECTIONS });
+      doc = new PageContent({ pageSlug, sections: fallbackDefaults });
     }
 
     doc.sections = sections;
+    doc.markModified('sections');
     doc.lastUpdatedBy = req.user?.name || 'Admin';
     await doc.save();
+
+    // Broadcast WebSocket event to all connected clients
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('content_updated', {
+        pageSlug,
+        sections: doc.sections,
+        action: 'draft_save',
+        timestamp: new Date().toISOString()
+      });
+    }
 
     res.json({
       success: true,
@@ -66,13 +88,14 @@ export const publishSectionContent = async (req, res, next) => {
   try {
     const pageSlug = req.params.pageSlug || 'about';
     const { sectionKey } = req.body;
+    const fallbackDefaults = getDefaultSections(pageSlug);
 
     let doc = await PageContent.findOne({ pageSlug });
     if (!doc) {
-      doc = new PageContent({ pageSlug, sections: DEFAULT_PAGE_SECTIONS });
+      doc = new PageContent({ pageSlug, sections: fallbackDefaults });
     }
 
-    const currentSections = { ...(doc.sections || DEFAULT_PAGE_SECTIONS) };
+    const currentSections = { ...(doc.sections || fallbackDefaults) };
     if (currentSections[sectionKey]) {
       const draft = currentSections[sectionKey].draft_content;
       if (draft) {
@@ -91,6 +114,18 @@ export const publishSectionContent = async (req, res, next) => {
     doc.markModified('sections');
     doc.lastUpdatedBy = req.user?.name || 'Admin';
     await doc.save();
+
+    // Broadcast WebSocket live update
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('content_updated', {
+        pageSlug,
+        sectionKey,
+        sections: doc.sections,
+        action: 'publish',
+        timestamp: new Date().toISOString()
+      });
+    }
 
     await ActivityLog.create({
       adminName: req.user?.name || 'Admin',

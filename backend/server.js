@@ -1,4 +1,6 @@
 import express from 'express';
+import { createServer } from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -35,6 +37,19 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
+const httpServer = createServer(app);
+const io = new SocketIOServer(httpServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT']
+  }
+});
+app.set('io', io);
+
+io.on('connection', (socket) => {
+  socket.on('disconnect', () => {});
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -125,14 +140,16 @@ connectDB().then(async (connected) => {
   }
 });
 
-// Start Server
-app.listen(PORT, () => {
+// Start Server with WebSockets
+httpServer.listen(PORT, () => {
   console.log('\x1b[35m%s\x1b[0m', `======================================================`);
   console.log('\x1b[32m%s\x1b[0m', `  🚀 Black Grapes Softech Backend Server is Running!`);
   console.log('\x1b[36m%s\x1b[0m', `  📡 Local API URL : http://localhost:${PORT}/api`);
+  console.log('\x1b[36m%s\x1b[0m', `  ⚡ Real-Time WS  : ws://localhost:${PORT} (Active)`);
   console.log('\x1b[36m%s\x1b[0m', `  🩺 Health Check  : http://localhost:${PORT}/api/health`);
   console.log('\x1b[35m%s\x1b[0m', `======================================================`);
 });
 
+export { io, httpServer };
 export default app;
 

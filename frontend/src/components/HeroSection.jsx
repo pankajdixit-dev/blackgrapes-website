@@ -150,13 +150,22 @@ export default function HeroSection({ onOpenModal }) {
 
             {/* Showcase Card Content */}
             <div className="glass-card-body">
-              <div className="tab-pane">
-                <div className="code-header">
-                  <span className="code-lang">FullStackApp.tsx</span>
-                  <span className="code-status">● Live Production</span>
+              {heroData?.customImage ? (
+                <div style={{ padding: '0.75rem' }}>
+                  <img
+                    src={heroData.customImage}
+                    alt="Black Grapes Softech Showcase"
+                    style={{ width: '100%', borderRadius: '8px', maxHeight: '320px', objectFit: 'cover' }}
+                  />
                 </div>
-                <pre className="code-block">
-                  <code>{`// Modern React + Cloud Integration
+              ) : (
+                <div className="tab-pane">
+                  <div className="code-header">
+                    <span className="code-lang">FullStackApp.tsx</span>
+                    <span className="code-status">● Live Production</span>
+                  </div>
+                  <pre className="code-block">
+                    <code>{`// Modern React + Cloud Integration
 import { BlackGrapesSoftech } from '@bgst/core';
 
 export const EnterprisePortal = () => {
@@ -168,23 +177,24 @@ export const EnterprisePortal = () => {
 
   return <DigitalTransformation success={true} />;
 };`}</code>
-                </pre>
+                  </pre>
 
-                <div className="card-kpis">
-                  <div className="kpi-box">
-                    <span className="kpi-val">99 / 100</span>
-                    <span className="kpi-label">Lighthouse Score</span>
-                  </div>
-                  <div className="kpi-box">
-                    <span className="kpi-val">&lt; 0.6s</span>
-                    <span className="kpi-label">Load Time</span>
-                  </div>
-                  <div className="kpi-box">
-                    <span className="kpi-val">100%</span>
-                    <span className="kpi-label">Responsive</span>
+                  <div className="card-kpis">
+                    <div className="kpi-box">
+                      <span className="kpi-val">99 / 100</span>
+                      <span className="kpi-label">Lighthouse Score</span>
+                    </div>
+                    <div className="kpi-box">
+                      <span className="kpi-val">&lt; 0.6s</span>
+                      <span className="kpi-label">Load Time</span>
+                    </div>
+                    <div className="kpi-box">
+                      <span className="kpi-val">100%</span>
+                      <span className="kpi-label">Responsive</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 

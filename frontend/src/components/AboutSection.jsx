@@ -1,9 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getPageSections } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 import { ABOUT_CONTENT } from '../data/siteData';
 
 export default function AboutSection({ onOpenModal }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [activeValueTab, setActiveValueTab] = useState(0);
+  const [aboutSections, setAboutSections] = useState(null);
+
+  useEffect(() => {
+    getPageSections('about').then((data) => {
+      setAboutSections(data);
+    });
+
+    const handleUpdate = (e) => {
+      const detail = e.detail || {};
+      if (detail.pageSlug === 'about' && detail.sections) {
+        setAboutSections(detail.sections);
+      } else {
+        getPageSections('about').then((data) => {
+          setAboutSections(data);
+        });
+      }
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
+  const heroContent = aboutSections?.about_hero?.content || {};
 
   return (
     <section id="about" className="section about-section">
@@ -12,13 +37,13 @@ export default function AboutSection({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>{ABOUT_CONTENT.badge}</span>
+            <span>{heroContent.badge || ABOUT_CONTENT.badge}</span>
           </div>
           <h2 className="section-title">
             Best Website Development Company <span className="title-gradient-separator">|</span> Best IT Software Company <span className="title-gradient-separator">|</span> Best Mobile App Development Company
           </h2>
           <p className="section-subtitle">
-            {ABOUT_CONTENT.subtitle}
+            {heroContent.lead || ABOUT_CONTENT.subtitle}
           </p>
         </div>
 
@@ -30,7 +55,7 @@ export default function AboutSection({ onOpenModal }) {
             <div className="about-image-card">
               <div className="about-img-wrapper">
                 <img
-                  src="/images/blackgrapes-1.png"
+                  src={heroContent.image || "/images/blackgrapes-1.png"}
                   alt="Black Grapes Softech Team & Architecture"
                   className="about-main-img"
                   onError={(e) => {

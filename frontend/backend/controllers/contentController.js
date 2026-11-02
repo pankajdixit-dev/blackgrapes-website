@@ -87,7 +87,7 @@ export const savePageContent = async (req, res, next) => {
 export const publishSectionContent = async (req, res, next) => {
   try {
     const pageSlug = req.params.pageSlug || 'about';
-    const { sectionKey } = req.body;
+    const { sectionKey, content, sections } = req.body;
     const fallbackDefaults = getDefaultSections(pageSlug);
 
     let doc = await PageContent.findOne({ pageSlug });
@@ -95,27 +95,32 @@ export const publishSectionContent = async (req, res, next) => {
       doc = new PageContent({ pageSlug, sections: fallbackDefaults });
     }
 
-    const currentSections = { ...(doc.sections || fallbackDefaults) };
-    if (currentSections[sectionKey]) {
-      const draft = currentSections[sectionKey].draft_content;
-      if (draft) {
-        currentSections[sectionKey].content = {
-          ...(currentSections[sectionKey].content || {}),
-          ...draft
-        };
+    if (sections && typeof sections === 'object' && Object.keys(sections).length > 0) {
+      doc.sections = sections;
+    } else {
+      const currentSections = { ...(doc.sections || fallbackDefaults) };
+      if (currentSections[sectionKey]) {
+        if (content) {
+          currentSections[sectionKey].content = content;
+        } else if (currentSections[sectionKey].draft_content) {
+          currentSections[sectionKey].content = {
+            ...(currentSections[sectionKey].content || {}),
+            ...currentSections[sectionKey].draft_content
+          };
+        }
+        currentSections[sectionKey].has_unpublished_changes = false;
+        currentSections[sectionKey].draft_content = null;
+        currentSections[sectionKey].last_published_at = new Date().toISOString();
+        currentSections[sectionKey].published_by = req.user?.email || 'admin@blackgrapessoftech.com';
       }
-      currentSections[sectionKey].has_unpublished_changes = false;
-      currentSections[sectionKey].draft_content = null;
-      currentSections[sectionKey].last_published_at = new Date().toISOString();
-      currentSections[sectionKey].published_by = req.user?.email || 'admin@blackgrapessoftech.com';
+      doc.sections = currentSections;
     }
 
-    doc.sections = currentSections;
     doc.markModified('sections');
     doc.lastUpdatedBy = req.user?.name || 'Admin';
     await doc.save();
 
-    // Broadcast WebSocket live update
+    // Broadcast WebSocket live update immediately to all connected browsers
     const io = req.app.get('io');
     if (io) {
       io.emit('content_updated', {

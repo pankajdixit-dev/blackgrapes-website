@@ -1,8 +1,30 @@
-import React, { useState } from 'react';
-import { PROJECTS } from '../data/siteData';
+import React, { useState, useEffect } from 'react';
+import { PROJECTS as DEFAULT_PROJECTS } from '../data/siteData';
+import { getProjects } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function ProjectsSection({ onOpenModal }) {
+  const [projectsList, setProjectsList] = useState(DEFAULT_PROJECTS);
   const [activeFilter, setActiveFilter] = useState('All');
+
+  useEffect(() => {
+    getProjects().then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setProjectsList(data);
+      }
+    });
+
+    const handleUpdate = () => {
+      getProjects().then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjectsList(data);
+        }
+      });
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
 
   const categories = [
     'All',
@@ -13,8 +35,8 @@ export default function ProjectsSection({ onOpenModal }) {
   ];
 
   const filteredProjects = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === activeFilter);
+    ? projectsList
+    : projectsList.filter((p) => p.category === activeFilter);
 
   return (
     <section id="projects" className="section projects-section">

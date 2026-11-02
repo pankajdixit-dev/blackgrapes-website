@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getSiteSettings } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
@@ -53,6 +55,16 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
   );
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [siteSettings, setSiteSettings] = useState(null);
+
+  useEffect(() => {
+    getSiteSettings().then(setSiteSettings);
+    const handleUpdate = () => {
+      getSiteSettings().then(setSiteSettings);
+    };
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
 
   const handleOpenAction = (title = 'Request a Demo') => {
     if (onOpenModal) {
@@ -224,7 +236,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
               <div className="contact-details">
                 <strong>Corporate Office:</strong>
                 <address className="contact-address">
-                  252-F/H Scheme No 54, Vijaynagar, Indore - 452010, MP
+                  {siteSettings?.office_address || '252-F/H Scheme No 54, Vijaynagar, Indore - 452010, MP'}
                 </address>
               </div>
             </div>
@@ -235,7 +247,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
               <div className="contact-details">
                 <strong>Direct Inquiries:</strong>
                 <a href={`mailto:${COMPANY_INFO.emails[0]}`} className="contact-link">
-                  {COMPANY_INFO.emails[0]}
+                  {siteSettings?.primary_email || COMPANY_INFO.emails[0]}
                 </a>
               </div>
             </div>
@@ -246,7 +258,7 @@ export default function Footer({ onOpenModal, onOpenInquiry }) {
               <div className="contact-details">
                 <strong>Call / WhatsApp:</strong>
                 <a href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, '')}`} className="contact-link">
-                  {COMPANY_INFO.phones[0]}
+                  {siteSettings?.primary_phone || COMPANY_INFO.phones[0]}
                 </a>
                 <a href={`tel:${COMPANY_INFO.phones[1].replace(/\s+/g, '')}`} className="contact-link">
                   {COMPANY_INFO.phones[1]}

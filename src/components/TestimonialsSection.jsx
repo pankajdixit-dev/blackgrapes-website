@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
-import { TESTIMONIALS } from '../data/siteData';
+import React, { useState, useEffect } from 'react';
+import { TESTIMONIALS as DEFAULT_TESTIMONIALS } from '../data/siteData';
+import { getTestimonials } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function TestimonialsSection() {
+  const [reviews, setReviews] = useState(DEFAULT_TESTIMONIALS);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    getTestimonials().then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setReviews(data);
+      }
+    });
+
+    const handleUpdate = () => {
+      getTestimonials().then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setReviews(data);
+        }
+      });
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
+
   const prevReview = () => {
-    setActiveIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
   };
 
   const nextReview = () => {
-    setActiveIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -42,16 +64,16 @@ export default function TestimonialsSection() {
           </div>
 
           <p className="testimonial-quote-text">
-            {TESTIMONIALS[activeIndex].quote}
+            {reviews[activeIndex]?.quote || reviews[0]?.quote}
           </p>
 
           <div className="testimonial-author-row">
             <div className="author-avatar-circle">
-              {TESTIMONIALS[activeIndex].avatar}
+              {reviews[activeIndex]?.avatar || '👤'}
             </div>
             <div className="author-info">
-              <strong className="author-name">{TESTIMONIALS[activeIndex].name}</strong>
-              <span className="author-role">{TESTIMONIALS[activeIndex].role}</span>
+              <strong className="author-name">{reviews[activeIndex]?.name || reviews[0]?.name}</strong>
+              <span className="author-role">{reviews[activeIndex]?.role || reviews[0]?.role}</span>
             </div>
 
             {/* Slider Controls */}
@@ -65,7 +87,7 @@ export default function TestimonialsSection() {
                 &larr;
               </button>
               <span className="control-fraction">
-                0{activeIndex + 1} / 0{TESTIMONIALS.length}
+                0{activeIndex + 1} / 0{reviews.length}
               </span>
               <button
                 type="button"
@@ -81,7 +103,7 @@ export default function TestimonialsSection() {
 
         {/* Testimonials Mini Cards Grid */}
         <div className="testimonials-grid">
-          {TESTIMONIALS.map((item, idx) => (
+          {reviews.map((item, idx) => (
             <div
               key={idx}
               className={`testimonial-mini-card ${activeIndex === idx ? 'mini-card-active' : ''}`}

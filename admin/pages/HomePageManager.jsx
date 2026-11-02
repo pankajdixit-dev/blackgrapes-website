@@ -19,7 +19,8 @@ import {
   getPageSections,
   updateSectionDraft,
   publishSection,
-  revertSectionDraft
+  revertSectionDraft,
+  uploadMediaItem
 } from '@backend/dataService';
 
 export default function HomePageManager() {
@@ -27,11 +28,35 @@ export default function HomePageManager() {
   const [activeTab, setActiveTab] = useState('home_hero');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     loadSections();
   }, []);
+
+  const handleImageUpload = async (key, file) => {
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const res = await uploadMediaItem(file);
+      if (res.success && res.data?.url) {
+        handleFieldChange(key, res.data.url);
+        showToast('Photo uploaded successfully.');
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          handleFieldChange(key, reader.result);
+          showToast('Photo loaded.');
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (err) {
+      showToast('Error uploading photo.');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
   const loadSections = async () => {
     const data = await getPageSections('home');
@@ -72,6 +97,7 @@ export default function HomePageManager() {
 
   const handlePublish = async () => {
     setPublishing(true);
+    await updateSectionDraft(activeTab, draftContent, 'home');
     await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'home');
     setPublishing(false);
     showToast(`Published live updates for ${currentSection.section_name || activeTab}! Website updated.`);
@@ -354,6 +380,35 @@ export default function HomePageManager() {
                 onChange={(e) => handleFieldChange('linkBtnText', e.target.value)}
               />
             </div>
+          </div>
+
+          <div className="admin-form-group" style={{ marginTop: '1.25rem' }}>
+            <label className="admin-label">Hero Section Image / Showcase Banner (Optional Custom Picture)</label>
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.6rem' }}>
+              {draftContent.customImage && (
+                <img
+                  src={draftContent.customImage}
+                  alt="Custom Hero Preview"
+                  style={{ width: '80px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--admin-border)' }}
+                />
+              )}
+              <label className="admin-btn admin-btn-secondary" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '0.45rem 0.9rem' }}>
+                <span>{uploadingImage ? 'Uploading Picture...' : '📁 Choose & Upload New Photo'}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={(e) => handleImageUpload('customImage', e.target.files[0])}
+                />
+              </label>
+            </div>
+            <input
+              type="text"
+              className="admin-input"
+              placeholder="Or paste an image URL directly"
+              value={draftContent.customImage || ''}
+              onChange={(e) => handleFieldChange('customImage', e.target.value)}
+            />
           </div>
 
           <h4 style={{ color: '#fff', fontSize: '1rem', marginTop: '1.5rem', marginBottom: '0.75rem' }}>

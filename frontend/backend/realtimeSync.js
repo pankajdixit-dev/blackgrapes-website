@@ -4,7 +4,15 @@
 
 import { io } from 'socket.io-client';
 
-const SOCKET_SERVER_URL = import.meta.env?.VITE_API_URL || 'http://localhost:5000';
+const getSocketUrl = () => {
+  if (typeof window === 'undefined') return 'http://localhost:5000';
+  if (import.meta.env?.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  const proto = window.location.protocol === 'https:' ? 'https:' : 'http:';
+  const hostname = window.location.hostname || 'localhost';
+  return `${proto}//${hostname}:5000`;
+};
+
+const SOCKET_SERVER_URL = getSocketUrl();
 
 class RealtimeSyncManager {
   constructor() {
@@ -73,3 +81,4 @@ class RealtimeSyncManager {
 
 export const realtimeSync = new RealtimeSyncManager();
 export default realtimeSync;
+

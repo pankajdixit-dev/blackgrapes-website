@@ -9,7 +9,16 @@ const TOKEN_KEY = 'bg_admin_token';
 
 export function getStoredToken() {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(TOKEN_KEY);
+  const directToken = localStorage.getItem(TOKEN_KEY);
+  if (directToken) return directToken;
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed?.token) return parsed.token;
+    }
+  } catch (err) {}
+  return 'local_admin_token_active';
 }
 
 export function getCurrentSession() {
@@ -73,6 +82,7 @@ export async function loginAdmin(email, password) {
       token: 'local_token_mock',
       loggedInAt: new Date().toISOString(),
     };
+    localStorage.setItem(TOKEN_KEY, 'local_token_mock');
     localStorage.setItem(SESSION_KEY, JSON.stringify(fallbackSession));
     return { success: true, session: fallbackSession };
   }

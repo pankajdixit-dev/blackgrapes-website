@@ -1,8 +1,30 @@
-import React, { useState } from 'react';
-import { SERVICES } from '../data/siteData';
+import React, { useState, useEffect } from 'react';
+import { SERVICES as DEFAULT_SERVICES } from '../data/siteData';
+import { getServices } from '@backend/dataService.js';
+import '../utils/realtimeSync';
 
 export default function ServicesSection({ onOpenModal, onSelectService }) {
+  const [servicesList, setServicesList] = useState(DEFAULT_SERVICES);
   const [hoveredService, setHoveredService] = useState(null);
+
+  useEffect(() => {
+    getServices().then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setServicesList(data);
+      }
+    });
+
+    const handleUpdate = () => {
+      getServices().then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setServicesList(data);
+        }
+      });
+    };
+
+    window.addEventListener('bgst_content_updated', handleUpdate);
+    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
+  }, []);
 
   return (
     <section id="services" className="section services-section">
@@ -23,7 +45,7 @@ export default function ServicesSection({ onOpenModal, onSelectService }) {
 
         {/* Services Cards Grid */}
         <div className="services-grid">
-          {SERVICES.map((service, index) => (
+          {servicesList.map((service, index) => (
             <div
               key={service.id}
               className={`service-card ${hoveredService === service.id ? 'service-card-active' : ''}`}

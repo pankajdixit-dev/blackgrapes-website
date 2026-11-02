@@ -170,7 +170,7 @@ export default function About({ onOpenDemoModal }) {
           <div className="hero-visual-card">
             <div className="visual-image-wrapper">
               <img
-                src={aboutHeroImg}
+                src={heroContent.image || aboutHeroImg}
                 alt="Black Grapes Softech Modern Tech Lab"
                 className="hero-main-img"
               />
@@ -403,7 +403,7 @@ export default function About({ onOpenDemoModal }) {
                 <div className="founders-photo-wrap">
                   <div className="photo-frame">
                     <img
-                      src={foundersImg}
+                      src={aboutSections?.founders?.content?.photo || aboutSections?.founders?.content?.image || foundersImg}
                       alt="Mr. Arpit Jain and Mrs. Deepika Jain - Founders of Black Grapes Softech"
                       className="founders-img"
                     />

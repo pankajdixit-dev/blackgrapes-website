@@ -19,7 +19,8 @@ import {
   updateSectionDraft,
   publishSection,
   revertSectionDraft,
-  getContentRevisions
+  getContentRevisions,
+  uploadMediaItem
 } from '@backend/dataService';
 
 export default function AboutPageManager() {
@@ -27,6 +28,7 @@ export default function AboutPageManager() {
   const [activeTab, setActiveTab] = useState('about_hero');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [revisions, setRevisions] = useState([]);
   const [showRevisionsModal, setShowRevisionsModal] = useState(false);
@@ -43,6 +45,29 @@ export default function AboutPageManager() {
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const handleImageUpload = async (key, file) => {
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const res = await uploadMediaItem(file);
+      if (res.success && res.data?.url) {
+        handleFieldChange(key, res.data.url);
+        showToast('Photo uploaded successfully.');
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          handleFieldChange(key, reader.result);
+          showToast('Photo loaded.');
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (err) {
+      showToast('Error uploading photo.');
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   if (!sections) {
@@ -74,6 +99,7 @@ export default function AboutPageManager() {
 
   const handlePublish = async () => {
     setPublishing(true);
+    await updateSectionDraft(activeTab, draftContent, 'about');
     await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about');
     setPublishing(false);
     showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
@@ -325,7 +351,25 @@ export default function AboutPageManager() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">Hero Image URL or Asset Path</label>
+              <label className="admin-label">Hero Section Picture / Banner</label>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.6rem' }}>
+                {draftContent.image && (
+                  <img
+                    src={draftContent.image}
+                    alt="Hero Preview"
+                    style={{ width: '80px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--admin-border)' }}
+                  />
+                )}
+                <label className="admin-btn admin-btn-secondary" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '0.45rem 0.9rem' }}>
+                  <span>{uploadingImage ? 'Uploading Picture...' : '📁 Choose & Upload New Photo'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageUpload('image', e.target.files[0])}
+                  />
+                </label>
+              </div>
               <input
                 type="text"
                 className="admin-input"
@@ -469,7 +513,28 @@ export default function AboutPageManager() {
                 />
               </div>
               <div className="admin-form-group">
-                <label className="admin-label">Founders Photo URL</label>
+                <label className="admin-label">Founders Photo / Portrait</label>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.6rem' }}>
+                  {(draftContent.photo || draftContent.image) && (
+                    <img
+                      src={draftContent.photo || draftContent.image}
+                      alt="Founders Preview"
+                      style={{ width: '80px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--admin-border)' }}
+                    />
+                  )}
+                  <label className="admin-btn admin-btn-secondary" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '0.45rem 0.9rem' }}>
+                    <span>{uploadingImage ? 'Uploading Picture...' : '📁 Choose & Upload New Photo'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        handleImageUpload('photo', e.target.files[0]);
+                        handleImageUpload('image', e.target.files[0]);
+                      }}
+                    />
+                  </label>
+                </div>
                 <input
                   type="text"
                   className="admin-input"

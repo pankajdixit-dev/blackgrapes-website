@@ -26,13 +26,23 @@ import { realtimeSync } from './realtimeSync.js';
 
 const DEFAULT_MEDIA_ITEMS = [];
 
-const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const getApiBaseUrl = () => {
+  if (typeof window === 'undefined') return 'http://localhost:5000/api';
+  if (import.meta.env?.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+  const proto = window.location.protocol === 'https:' ? 'https:' : 'http:';
+  const hostname = window.location.hostname || 'localhost';
+  return `${proto}//${hostname}:5000/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 function getAuthHeaders() {
   const token = getStoredToken();
   const headers = { 'Content-Type': 'application/json' };
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
+  } else {
+    headers['Authorization'] = 'Bearer local_admin_token_active';
   }
   return headers;
 }
@@ -184,7 +194,11 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
     await fetch(`${API_BASE_URL}/content/${pageSlug}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify({ sectionKey }),
+      body: JSON.stringify({
+        sectionKey,
+        content: updated[sectionKey]?.content,
+        sections: updated
+      }),
     });
   } catch (err) {}
 

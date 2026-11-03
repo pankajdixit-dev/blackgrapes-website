@@ -8,18 +8,25 @@ export default function ClockPhilosophy() {
   const clock = home?.clockPhilosophy || {};
 
   const eyebrow = clock.eyebrow || 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS';
-  const titlePrefix = clock.titlePrefix || 'MORE THAN A SERVICE. ';
-  const titleHighlight = clock.titleHighlight || 'A COMMITMENT TO TIME & SCALE.';
+  const titlePrefix = clock.titlePrefix !== undefined ? clock.titlePrefix : 'MORE THAN A SERVICE. ';
+  const titleHighlight = clock.titleHighlight !== undefined ? clock.titleHighlight : 'A COMMITMENT TO TIME & SCALE.';
   const description = clock.description || 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.';
-  const mantraPills = clock.mantraPills || ['BEGIN WITH PURPOSE', 'ENGINEER WITH RIGOR', 'DELIVER ON TIME'];
+  const mantraPills = (Array.isArray(clock.mantraPills) && clock.mantraPills.length > 0)
+    ? clock.mantraPills
+    : ['BEGIN WITH PURPOSE', 'ENGINEER WITH RIGOR', 'DELIVER ON TIME'];
   const pillarBadge = clock.pillarBadge || '01 / THE TIMELESS PRINCIPLE';
   const pillarTitle = clock.pillarTitle || 'A MOMENT OF PURPOSE.\nA BEGINNING OF POSSIBILITIES.';
-  const pillarParagraphs = clock.pillarParagraphs || [
+  const pillarParagraphs = (Array.isArray(clock.pillarParagraphs) && clock.pillarParagraphs.length > 0)
+    ? clock.pillarParagraphs
+    : [
     'In Indian tradition, Shubh Muhurat & Brahma Muhurta symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.',
     'Inspired by this timeless philosophy, our Black Grapes delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.',
     'Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count.'
   ];
   const quoteText = clock.quoteText || 'Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.';
+  const emblemImage = clock.emblemImage || '/images/black_grapes_emblem.jpg';
+  const emblemTitle = clock.emblemTitle || 'BLACK GRAPES';
+  const emblemSubtitle = clock.emblemSubtitle || 'PRECISION • INNOVATION • SCALE';
 
   return (
     <section className="brand-philosophy-section" id="brand-philosophy">
@@ -56,7 +63,7 @@ export default function ClockPhilosophy() {
               </h3>
               <div className="pillar-paragraphs">
                 {pillarParagraphs.map((p, idx) => (
-                  <p key={idx} className="pillar-p">{p}</p>
+                  <p key={idx} className="pillar-p" style={{ whiteSpace: 'pre-line' }}>{p}</p>
                 ))}
               </div>
 
@@ -72,15 +79,15 @@ export default function ClockPhilosophy() {
                 <div className="grapes-ambient-glow" aria-hidden="true"></div>
                 <div className="grapes-img-container">
                   <img 
-                    src="/images/black_grapes_emblem.jpg" 
-                    alt="Black Grapes Group Luxury Emblem" 
+                    src={emblemImage} 
+                    alt={emblemTitle || 'Black Grapes Group Luxury Emblem'} 
                     className="luxury-grapes-artwork"
                   />
                   <div className="grapes-ring-pulse" aria-hidden="true"></div>
                 </div>
                 <div className="grapes-badge-label">
-                  <span className="badge-time">BLACK GRAPES</span>
-                  <span className="badge-sub">PRECISION &bull; INNOVATION &bull; SCALE</span>
+                  <span className="badge-time">{emblemTitle}</span>
+                  <span className="badge-sub">{emblemSubtitle}</span>
                 </div>
               </div>
             </div>

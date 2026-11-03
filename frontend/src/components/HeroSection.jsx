@@ -1,9 +1,21 @@
 import React from 'react';
 import { COMPANY_INFO } from '../data/siteData';
+import { useHomePage } from '@backend/useContent';
 
 export default function HeroSection({ onOpenModal }) {
+  const { home } = useHomePage();
+  const hero = home?.hero || {};
 
-  const techBadges = [
+  const badgeText = hero.badge || '10+ Years of Proven IT Excellence • Indore, India';
+  const prefix = hero.prefix || 'Innovate. Integrate. Elevate.';
+  const breakText = hero.break_text || 'And Digitalize Your Ideas into Success via';
+  const brandHighlight = hero.brand_highlight || 'BLACK GRAPES SOFTECH';
+  const suffix = hero.suffix || ', Where Innovation And ideas Meets Excellence.';
+  const description = hero.description || `${COMPANY_INFO.consultationText}. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.`;
+  const ctaPrimary = hero.cta_primary_text || 'Request a Demo';
+  const ctaSecondary = hero.cta_secondary_text || 'Get the offer';
+
+  const defaultBadges = [
     { name: 'React', category: 'Frontend' },
     { name: 'Flutter', category: 'Mobile' },
     { name: 'Node.js', category: 'Backend' },
@@ -16,6 +28,8 @@ export default function HeroSection({ onOpenModal }) {
     { name: 'MLM Engines', category: 'FinTech' }
   ];
 
+  const techBadges = (hero.techBadges && hero.techBadges.length > 0) ? hero.techBadges : defaultBadges;
+
   return (
     <section id="home" className="hero-section">
       <div className="container hero-container">
@@ -23,18 +37,18 @@ export default function HeroSection({ onOpenModal }) {
         <div className="hero-content">
           <div className="hero-badge-pill">
             <span className="badge-glow-dot"></span>
-            <span className="badge-text">10+ Years of Proven IT Excellence &bull; Indore, India</span>
+            <span className="badge-text">{badgeText}</span>
           </div>
 
           <h1 className="hero-title">
-            <span className="hero-prefix">Innovate. Integrate. Elevate.</span>
-            <span className="hero-break">And Digitalize Your Ideas into Success via</span>
-            <span className="hero-gradient-brand"> BLACK GRAPES SOFTECH</span>
-            <span className="hero-suffix">, Where Innovation And ideas Meets Excellence.</span>
+            <span className="hero-prefix">{prefix} </span>
+            <span className="hero-break">{breakText} </span>
+            <span className="hero-gradient-brand"> {brandHighlight}</span>
+            <span className="hero-suffix">{suffix}</span>
           </h1>
 
           <p className="hero-description">
-            {COMPANY_INFO.consultationText}. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.
+            {description}
           </p>
 
           <div className="hero-cta-group">
@@ -44,7 +58,7 @@ export default function HeroSection({ onOpenModal }) {
               onClick={() => onOpenModal('Request a Demo')}
             >
               <span className="btn-icon">⚡</span>
-              <span>Request a Demo</span>
+              <span>{ctaPrimary}</span>
             </button>
 
             <button
@@ -53,7 +67,7 @@ export default function HeroSection({ onOpenModal }) {
               onClick={() => onOpenModal('Get the offer')}
             >
               <span className="btn-icon">🎁</span>
-              <span>Get the offer</span>
+              <span>{ctaSecondary}</span>
             </button>
 
             <a href="#services" className="hero-link-btn">
@@ -154,14 +168,18 @@ export const EnterprisePortal = () => {
 
       {/* Tech Stack Marquee Strip */}
       <div className="tech-marquee-wrapper">
-        <div className="marquee-label">Core Tech Stack:</div>
-        <div className="marquee-track">
-          {[...techBadges, ...techBadges].map((item, idx) => (
-            <div key={idx} className="marquee-item">
-              <span className="marquee-tech-name">{item.name}</span>
-              <span className="marquee-category">{item.category}</span>
-            </div>
-          ))}
+        <div className="marquee-label-container">
+          <span className="marquee-label">Core Tech Stack:</span>
+        </div>
+        <div className="marquee-track-container">
+          <div className="marquee-track">
+            {[...techBadges, ...techBadges].map((item, idx) => (
+              <div key={idx} className="marquee-item">
+                <span className="marquee-tech-name">{item.name}</span>
+                <span className="marquee-category">{item.category}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

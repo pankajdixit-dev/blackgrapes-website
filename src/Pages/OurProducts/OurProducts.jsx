@@ -36,7 +36,7 @@ import {
   OFFICIAL_INDUSTRIES,
   PRODUCT_GUARANTEES
 } from './productsData';
-import { useProducts, useSeo } from '@backend/useContent';
+import { useProducts, useProductsPage, useSeo } from '@backend/useContent';
 import ProductVideoModal from './ProductVideoModal';
 import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';
@@ -67,6 +67,7 @@ const GUARANTEE_ICONS = {
 export default function OurProducts({ onOpenDemoModal }) {
   useSeo('/products');
   const { products } = useProducts();
+  const { productsPageData } = useProductsPage();
 
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -107,36 +108,33 @@ export default function OurProducts({ onOpenDemoModal }) {
           <div className="products-hero-content">
             <div className="hero-eyebrow-badge">
               <Sparkles size={14} />
-              <span>BLACK GRAPES SOFTECH PROPRIETARY SUITE</span>
+              <span>{productsPageData?.badge || 'BLACK GRAPES SOFTECH PROPRIETARY SUITE'}</span>
             </div>
 
             <h1 className="products-hero-title">
-              Our Products: <br />
-              <span className="text-gradient">Engineered to Transform Modern Business</span>
+              {productsPageData?.title || 'Our Products:'} <br />
+              <span className="text-gradient">
+                {productsPageData?.titleAccent || 'Engineered to Transform Modern Business'}
+              </span>
             </h1>
 
             <p className="products-hero-desc">
-              Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.
+              {productsPageData?.subtitle || 'Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.'}
             </p>
 
             {/* Quick Metrics Bar */}
             <div className="hero-stats-row">
-              <div className="hero-stat-item">
-                <span className="stat-metric text-gradient">12+</span>
-                <span className="stat-label">Turnkey Products</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric">100%</span>
-                <span className="stat-label">Source Code Ownership</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric text-gradient">7+</span>
-                <span className="stat-label">Core Industries</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric">5-7</span>
-                <span className="stat-label">Days Deployment</span>
-              </div>
+              {(productsPageData?.stats || [
+                { metric: '12+', label: 'Turnkey Products' },
+                { metric: '100%', label: 'Source Code Ownership' },
+                { metric: '7+', label: 'Core Industries' },
+                { metric: '5-7', label: 'Days Deployment' }
+              ]).map((st, idx) => (
+                <div key={idx} className="hero-stat-item">
+                  <span className={`stat-metric ${idx % 2 === 0 ? 'text-gradient' : ''}`}>{st.metric}</span>
+                  <span className="stat-label">{st.label}</span>
+                </div>
+              ))}
             </div>
 
             {/* CTA Action Row */}
@@ -145,11 +143,11 @@ export default function OurProducts({ onOpenDemoModal }) {
                 onClick={onOpenDemoModal}
                 className="btn btn-primary btn-pulse-glow"
               >
-                <span>Request Live Demo</span>
+                <span>{productsPageData?.primaryBtnText || 'Request Live Demo'}</span>
                 <ArrowRight size={18} />
               </button>
               <a href="#catalog" className="btn btn-secondary">
-                <span>Browse All Products ({PRODUCTS_LIST.length})</span>
+                <span>{productsPageData?.secondaryBtnText || `Browse All Products (${activeCatalog.length})`}</span>
               </a>
             </div>
           </div>

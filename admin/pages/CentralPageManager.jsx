@@ -33,6 +33,7 @@ import {
   getPageSections,
   publishSection,
   updateSectionDraft,
+  saveAboutPageSections,
   getServicesPage,
   saveServicesPage,
   getSoftechPage,
@@ -50,7 +51,9 @@ import {
   getPartnership,
   savePartnership,
   getBusinessPartners,
-  saveBusinessPartners
+  saveBusinessPartners,
+  saveModuleApi,
+  notifyContentUpdated
 } from '@backend/dataService';
 
 // All 11 Official Pages Definition
@@ -243,12 +246,23 @@ export default function CentralPageManager() {
       if (selectedPageId === 'home') {
         await updateHomePage(pageData);
       } else if (selectedPageId === 'about') {
-        // Publish current active section
-        if (pageData[activeSectionKey]) {
-          const draft = pageData[activeSectionKey].draft_content || pageData[activeSectionKey].content || {};
-          await updateSectionDraft(activeSectionKey, draft);
-          await publishSection(activeSectionKey);
-        }
+        // Publish all sections with latest drafts directly to live DB
+        const updatedSections = { ...pageData };
+        Object.keys(updatedSections).forEach((key) => {
+          if (updatedSections[key] && typeof updatedSections[key] === 'object') {
+            const draft = updatedSections[key].draft_content || updatedSections[key].content;
+            if (draft) {
+              updatedSections[key] = {
+                ...updatedSections[key],
+                content: draft,
+                draft_content: draft,
+                has_unpublished_changes: false,
+                updated_at: new Date().toISOString()
+              };
+            }
+          }
+        });
+        await saveAboutPageSections(updatedSections);
       } else if (selectedPageId === 'services') {
         await saveServicesPage(pageData);
       } else if (selectedPageId === 'softech') {
@@ -1478,7 +1492,35 @@ export default function CentralPageManager() {
                 ======================================================== */}
             {selectedPageId === 'business-partners' && (
               <div>
-                <h3 style={{ fontSize: '1.05rem', color: '#fff', marginBottom: '1rem' }}>
+                <div className="admin-form-group">
+                  <label className="admin-label">Top Eyebrow Badge</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={pageData.badge || ''}
+                    onChange={(e) => setPageData({ ...pageData, badge: e.target.value })}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Page Title</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={pageData.title || ''}
+                    onChange={(e) => setPageData({ ...pageData, title: e.target.value })}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Page Subtitle</label>
+                  <textarea
+                    rows={2}
+                    className="admin-textarea"
+                    value={pageData.subtitle || ''}
+                    onChange={(e) => setPageData({ ...pageData, subtitle: e.target.value })}
+                  />
+                </div>
+
+                <h3 style={{ fontSize: '1.05rem', color: '#fff', marginTop: '1.5rem', marginBottom: '1rem' }}>
                   Product Companies Tie-up Intro
                 </h3>
                 <div className="admin-form-group">

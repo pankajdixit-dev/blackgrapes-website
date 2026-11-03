@@ -285,11 +285,11 @@ export default function HomePageManager() {
           </div>
 
           <div className="admin-card">
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1rem' }}>
               Core Technology Stack Marquee Badges
             </h3>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: '1rem', columnGap: '0.65rem', marginBottom: '1.5rem', marginTop: '0.5rem' }}>
               {(hero.techBadges || []).map((badge, idx) => (
                 <div
                   key={idx}

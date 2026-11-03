@@ -46,7 +46,7 @@ export default function SoftechServiceCard({ service, onOpenDetails, onOpenInqui
 
         {/* Feature Highlights */}
         <div className="softech-features-list">
-          {service.keyDeliverables.slice(0, 3).map((feat, idx) => (
+          {(service.keyDeliverables || service.key_deliverables || service.features || []).slice(0, 3).map((feat, idx) => (
             <div key={idx} className="softech-feat-item">
               <CheckCircle2 size={14} color="#f86200" style={{ flexShrink: 0, marginTop: '3px' }} />
               <span>{feat}</span>
@@ -56,7 +56,7 @@ export default function SoftechServiceCard({ service, onOpenDetails, onOpenInqui
 
         {/* Tech Stack Pills */}
         <div className="softech-tech-row">
-          {service.techStack.map((tech, idx) => (
+          {(service.techStack || service.tags || []).map((tech, idx) => (
             <span key={idx} className="tech-tag-pill">
               {tech}
             </span>

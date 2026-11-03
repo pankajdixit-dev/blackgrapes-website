@@ -52,7 +52,23 @@ function subscribeToUpdates(moduleName, onUpdate) {
   };
   window.addEventListener('bgst_content_updated', handleWindow);
 
-  // 2. Real-Time WebSocket Listener (millisecond synchronization across all ports)
+  // 2. Cross-tab Broadcast Channel listener (instant multi-tab synchronization)
+  let syncChannel = null;
+  const handleSyncChannel = (event) => {
+    if (event.data && (!moduleName || event.data.module === moduleName)) {
+      onUpdate(event.data.data);
+    }
+  };
+  try {
+    if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+      syncChannel = new BroadcastChannel('bgst_content_sync');
+      syncChannel.addEventListener('message', handleSyncChannel);
+    }
+  } catch {
+    // ignore
+  }
+
+  // 3. Real-Time WebSocket Listener (millisecond synchronization across all ports)
   const unsubscribeWs = subscribeToWebSocket(moduleName, (freshData) => {
     console.log(`[useContent] Real-Time WebSocket event for "${moduleName}" received! Updating UI...`);
     onUpdate(freshData);
@@ -60,6 +76,10 @@ function subscribeToUpdates(moduleName, onUpdate) {
 
   return () => {
     window.removeEventListener('bgst_content_updated', handleWindow);
+    if (syncChannel) {
+      syncChannel.removeEventListener('message', handleSyncChannel);
+      syncChannel.close();
+    }
     unsubscribeWs();
   };
 }
@@ -359,14 +379,14 @@ export function useITStaffing() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.headline) {
+    if (freshData && typeof freshData === 'object' && ('headline' in freshData || 'badge' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getITStaffing();
-      if (res && res.headline) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // keep fallback
     } finally {
@@ -388,14 +408,14 @@ export function useEcommerce() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.title) {
+    if (freshData && typeof freshData === 'object' && ('title' in freshData || 'badge' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getEcommerce();
-      if (res && res.title) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // keep fallback
     } finally {
@@ -417,14 +437,14 @@ export function usePartnership() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.heroTitle) {
+    if (freshData && typeof freshData === 'object' && ('heroTitle' in freshData || 'heroBadge' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getPartnership();
-      if (res && res.heroTitle) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // keep fallback
     } finally {
@@ -446,14 +466,14 @@ export function useContactPage() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.heroTitle) {
+    if (freshData && typeof freshData === 'object' && ('heroTitle' in freshData || 'heroBadge' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getContactPage();
-      if (res && res.heroTitle) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // keep fallback
     } finally {
@@ -475,14 +495,14 @@ export function useClientsPage() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.metrics) {
+    if (freshData && typeof freshData === 'object' && ('heroTitle' in freshData || 'metrics' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getClientsPage();
-      if (res && res.metrics) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // keep fallback
     } finally {
@@ -533,14 +553,14 @@ export function useBusinessPartners() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && (freshData.product_partners || freshData.service_partners)) {
+    if (freshData && typeof freshData === 'object' && ('title' in freshData || 'product_partners' in freshData || 'product_intro' in freshData)) {
       setPartners(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getBusinessPartners();
-      if (res) setPartners(res);
+      if (res && typeof res === 'object') setPartners(res);
     } catch {
       // fallback
     } finally {
@@ -562,14 +582,16 @@ export function useServicesPage() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.title) {
+    if (freshData && typeof freshData === 'object' && ('title' in freshData || 'group_services' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getServicesPage();
-      if (res && res.title) setData(res);
+      if (res && typeof res === 'object') {
+        setData(res);
+      }
     } catch {
       // fallback
     } finally {
@@ -620,14 +642,14 @@ export function useProductsPage() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async (freshData) => {
-    if (freshData && typeof freshData === 'object' && freshData.title) {
+    if (freshData && typeof freshData === 'object' && ('title' in freshData || 'badge' in freshData)) {
       setData(freshData);
       setLoading(false);
       return;
     }
     try {
       const res = await getProductsPage();
-      if (res && res.title) setData(res);
+      if (res && typeof res === 'object') setData(res);
     } catch {
       // fallback
     } finally {

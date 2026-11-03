@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useServices, useSeo } from '@backend/useContent';
+import { useServices, useSoftechPage, useSeo } from '@backend/useContent';
 import SoftechDropdownPicker from '../components/softech/SoftechDropdownPicker';
 import SoftechSpotlightCard from '../components/softech/SoftechSpotlightCard';
 import SoftechServiceCard from '../components/softech/SoftechServiceCard';
@@ -22,7 +22,9 @@ import {
   Home,
   GraduationCap,
   UtensilsCrossed,
-  Stethoscope
+  Stethoscope,
+  Briefcase,
+  MessageCircle
 } from 'lucide-react';
 import '../styles/CyberServices.css';
 
@@ -40,6 +42,7 @@ const originalIndustries = [
 export default function SoftechServicesPage({ selectedServiceId = null, onSelectService = null }) {
   useSeo('/softech-services');
   const { services } = useServices();
+  const { softechPageData } = useSoftechPage();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDropdownServiceId, setSelectedDropdownServiceId] = useState(selectedServiceId);
   const [searchQuery, setSearchQuery] = useState('');
@@ -116,23 +119,27 @@ export default function SoftechServicesPage({ selectedServiceId = null, onSelect
           <div className="hero-badge-wrap">
             <span className="hero-top-pill">
               <Zap size={13} color="#f86200" />
-              <span>BLACK GRAPES SOFTECH • WHAT WE DO</span>
+              <span>{softechPageData?.badge || 'BLACK GRAPES SOFTECH • WHAT WE DO'}</span>
             </span>
           </div>
 
           {/* Centered Main Title */}
           <h1 className="black-hero-title">
-            Engineering Next-Gen
-            <span className="hero-title-accent"> Digital Products & Software</span>
+            {softechPageData?.title || 'Engineering Next-Gen'}
+            {softechPageData?.titleAccent ? (
+              <span className="hero-title-accent"> {softechPageData.titleAccent}</span>
+            ) : (
+              <span className="hero-title-accent"> Digital Products & Software</span>
+            )}
           </h1>
 
           {/* Centered Subtitle with Original Website Copy */}
           <div className="black-hero-subtitle">
             <p style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.15rem', marginBottom: '0.5rem', lineHeight: '1.4' }}>
-              We Provide best Quality services and products in affordable price. Here is the list of services that we provide.
+              {softechPageData?.subtitle || 'We Provide best Quality services and products in affordable price. Here is the list of services that we provide.'}
             </p>
             <p style={{ color: '#cbd5e1', fontSize: '0.95rem', margin: '0 auto', maxWidth: '780px' }}>
-              From modern MERN cloud architectures and native mobile apps to AI-enabled CRM, high-yield MLM platforms, and enterprise software. Engineered for maximum speed, security, and real business ROI.
+              {softechPageData?.description || 'From modern MERN cloud architectures and native mobile apps to AI-enabled CRM, high-yield MLM platforms, and enterprise software. Engineered for maximum speed, security, and real business ROI.'}
             </p>
           </div>
 
@@ -339,7 +346,7 @@ export default function SoftechServicesPage({ selectedServiceId = null, onSelect
             className="btn-primary"
             onClick={() => handleOpenInquiry(null)}
           >
-            <span>Request Custom Proposal</span>
+            <span>{softechPageData?.primaryCtaText || 'Request Custom Proposal'}</span>
             <ArrowRight size={16} />
           </button>
         </div>

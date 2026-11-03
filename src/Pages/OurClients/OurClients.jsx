@@ -80,16 +80,18 @@ export default function OurClients({ onOpenDemoModal }) {
           <div className="clients-hero-content">
             <div className="hero-eyebrow-pill">
               <Sparkles size={14} />
-              <span>TRUSTED BY 150+ GLOBAL ENTERPRISES</span>
+              <span>{clientsPageData?.heroBadge || 'TRUSTED BY 150+ GLOBAL ENTERPRISES'}</span>
             </div>
 
             <h1 className="clients-hero-title">
-              Our Clients: <br />
-              <span className="text-gradient">Powering Leaders Across 15+ Nations</span>
+              {clientsPageData?.heroTitle || 'Our Clients:'} <br />
+              <span className="text-gradient">
+                {clientsPageData?.heroTitleAccent || 'Powering Leaders Across 15+ Nations'}
+              </span>
             </h1>
 
             <p className="clients-hero-desc">
-              At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.
+              {clientsPageData?.heroSubtitle || 'At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.'}
             </p>
 
             {/* Metrics Counter Strip */}

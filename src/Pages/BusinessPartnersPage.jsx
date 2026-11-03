@@ -23,11 +23,17 @@ export default function BusinessPartnersPage() {
         <div className="partner-page-header">
           <div className="partner-eyebrow">
             <Sparkles size={14} />
-            <span>WHAT WE DO</span>
+            <span>{partners?.badge || 'WHAT WE DO'}</span>
           </div>
-          <h1 className="partner-page-title">Our <span className="text-gradient">Business Partners</span></h1>
+          <h1 className="partner-page-title">
+            {partners?.title ? (
+              partners.title
+            ) : (
+              <>Our <span className="text-gradient">Business Partners</span></>
+            )}
+          </h1>
           <p className="partner-page-subtitle">
-            {partnershipData?.heroSubtitle || 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.'}
+            {partners?.subtitle || partnershipData?.heroSubtitle || 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.'}
           </p>
         </div>
 
@@ -36,11 +42,11 @@ export default function BusinessPartnersPage() {
           <div className="bp-intro-card">
             <h2 className="bp-section-title">
               <Handshake size={24} color="#f86200" />
-              <span>{partnershipData?.productPartnersTitle || PRODUCT_PARTNERS_INTRO.sectionTitle}</span>
+              <span>{partners?.product_intro?.title || partnershipData?.productPartnersTitle || PRODUCT_PARTNERS_INTRO.sectionTitle}</span>
             </h2>
 
             <div className="bp-intro-paragraphs">
-              {PRODUCT_PARTNERS_INTRO.paragraphs.map((p, idx) => (
+              {(partners?.product_intro?.paragraphs?.length ? partners.product_intro.paragraphs : PRODUCT_PARTNERS_INTRO.paragraphs).map((p, idx) => (
                 <p key={idx} className="bp-intro-para">{p}</p>
               ))}
             </div>
@@ -91,11 +97,11 @@ export default function BusinessPartnersPage() {
           <div className="bp-intro-card">
             <h2 className="bp-section-title">
               <Layers size={24} color="#a855f7" />
-              <span>{SERVICE_PARTNERS_INTRO.sectionTitle}</span>
+              <span>{partners?.service_intro?.title || SERVICE_PARTNERS_INTRO.sectionTitle}</span>
             </h2>
 
             <div className="bp-intro-paragraphs">
-              {SERVICE_PARTNERS_INTRO.paragraphs.map((p, idx) => (
+              {(partners?.service_intro?.paragraphs?.length ? partners.service_intro.paragraphs : SERVICE_PARTNERS_INTRO.paragraphs).map((p, idx) => (
                 <p key={idx} className="bp-intro-para">{p}</p>
               ))}
             </div>

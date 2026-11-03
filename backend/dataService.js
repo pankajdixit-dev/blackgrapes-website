@@ -47,6 +47,16 @@ const STORAGE_KEYS = {
   REVISIONS: 'bgst_content_revisions'
 };
 
+// Cross-Tab Broadcast Channel (Native Web Standard for instant cross-tab sync)
+let syncChannel = null;
+try {
+  if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+    syncChannel = new BroadcastChannel('bgst_content_sync');
+  }
+} catch {
+  // ignore
+}
+
 // Event Dispatcher for instantaneous frontend updates upon publishing
 export function notifyContentUpdated(moduleName, details = {}) {
   try {
@@ -55,7 +65,11 @@ export function notifyContentUpdated(moduleName, details = {}) {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('bgst_content_updated', { detail: payload }));
     }
-    // 2. Real-time WebSocket broadcast across ports 5173, 5174 and 5000
+    // 2. Cross-tab Broadcast Channel (synchronizes all open browser tabs in < 1ms)
+    if (syncChannel) {
+      syncChannel.postMessage(payload);
+    }
+    // 3. Real-time WebSocket broadcast across ports 5173, 5174 and 5000
     sendWsBroadcast(moduleName, details);
   } catch {
     // ignore
@@ -89,10 +103,14 @@ function getApiUrl(endpoint) {
 }
 
 // API Helpers with dual-connection (Server port 5000 first, fallback to local origin)
-async function fetchModuleApi(moduleName, defaultVal) {
+export async function fetchModuleApi(moduleName, defaultVal) {
+  const cacheBust = `_t=${Date.now()}`;
+
   // 1. Try central backend server on port 5000
   try {
-    const res = await fetch(getApiUrl(`/api/content/${moduleName}`));
+    const res = await fetch(getApiUrl(`/api/content/${moduleName}?${cacheBust}`), {
+      cache: 'no-store'
+    });
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data !== undefined) {
@@ -106,7 +124,9 @@ async function fetchModuleApi(moduleName, defaultVal) {
 
   // 2. Try relative Vite dev server
   try {
-    const res2 = await fetch(`/api/content/${moduleName}`);
+    const res2 = await fetch(`/api/content/${moduleName}?${cacheBust}`, {
+      cache: 'no-store'
+    });
     if (res2.ok) {
       const json = await res2.json();
       if (json.success && json.data !== undefined) {
@@ -121,7 +141,7 @@ async function fetchModuleApi(moduleName, defaultVal) {
   return getLocal(`bgst_${moduleName}`, defaultVal);
 }
 
-async function saveModuleApi(moduleName, data) {
+export async function saveModuleApi(moduleName, data) {
   setLocal(`bgst_${moduleName}`, data);
   const userEmail = typeof localStorage !== 'undefined' 
     ? localStorage.getItem('bgst_current_admin_email') || 'admin@blackgrapessoftech.com'
@@ -153,6 +173,15 @@ async function saveModuleApi(moduleName, data) {
 
   // 3. Broadcast over WebSocket
   sendWsBroadcast(moduleName, data);
+
+  // 4. Broadcast over Broadcast Channel for instant cross-tab sync
+  if (syncChannel) {
+    try {
+      syncChannel.postMessage({ module: moduleName, timestamp: Date.now(), data });
+    } catch {
+      // ignore
+    }
+  }
 }
 
 // Check Backend API Health
@@ -252,23 +281,25 @@ export async function updateSectionDraft(sectionKey, newContent) {
 
   sections[sectionKey] = {
     ...current,
+    content: newContent,
     draft_content: newContent,
-    has_unpublished_changes: true,
+    has_unpublished_changes: false,
     updated_at: new Date().toISOString()
   };
 
   await saveModuleApi('page_sections', sections);
-  logActivity('Draft Saved', 'Page Sections', sectionKey, `Saved draft changes for: ${current.section_name}`);
+  logActivity('Section Updated', 'Page Sections', sectionKey, `Saved live updates for: ${current.section_name}`);
+  notifyContentUpdated('page_sections', sections);
   return sections[sectionKey];
 }
 
-export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com') {
+export async function publishSection(sectionKey, overrideContent = null, userEmail = 'admin@blackgrapessoftech.com') {
   const sections = { ...(await fetchModuleApi('page_sections', DEFAULT_PAGE_SECTIONS)) };
   const current = sections[sectionKey] || DEFAULT_PAGE_SECTIONS[sectionKey];
 
   if (!current) return null;
 
-  const publishedContent = current.draft_content || current.content;
+  const publishedContent = overrideContent || current.draft_content || current.content;
 
   sections[sectionKey] = {
     ...current,
@@ -294,7 +325,7 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
 
   await saveModuleApi('page_sections', sections);
   logActivity('Published', 'Page Sections', sectionKey, `Published live updates for: ${current.section_name}`);
-  notifyContentUpdated('page_sections', { sectionKey, content: publishedContent });
+  notifyContentUpdated('page_sections', sections);
   return sections[sectionKey];
 }
 
@@ -313,6 +344,13 @@ export async function revertSectionDraft(sectionKey) {
   await saveModuleApi('page_sections', sections);
   logActivity('Draft Reverted', 'Page Sections', sectionKey, `Reverted changes for: ${current.section_name}`);
   return sections[sectionKey];
+}
+
+export async function saveAboutPageSections(sections) {
+  await saveModuleApi('page_sections', sections);
+  logActivity('About Page Published', 'Page Sections', 'about', 'Saved live modifications for About Us page');
+  notifyContentUpdated('page_sections', sections);
+  return sections;
 }
 
 // ==========================================

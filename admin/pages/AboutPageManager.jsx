@@ -11,6 +11,7 @@ import {
   Building2,
   CheckCircle,
   Eye,
+  ExternalLink,
   History,
   AlertCircle
 } from 'lucide-react';
@@ -64,20 +65,34 @@ export default function AboutPageManager() {
     });
   };
 
-  const handleSaveDraft = async () => {
-    setSaving(true);
-    await updateSectionDraft(activeTab, draftContent);
-    setSaving(false);
-    showToast('Draft changes saved successfully.');
-    await loadSections();
+  const handlePublish = async (e) => {
+    if (e) e.preventDefault();
+    setPublishing(true);
+    try {
+      await publishSection(activeTab, draftContent);
+      showToast(`About Us (${currentSection?.section_name || activeTab}) saved & published! Live website updated instantly.`);
+      await loadSections();
+    } catch (err) {
+      console.error('Publish failed:', err);
+      showToast('Error saving changes to database.');
+    } finally {
+      setPublishing(false);
+    }
   };
 
-  const handlePublish = async () => {
-    setPublishing(true);
-    await publishSection(activeTab);
-    setPublishing(false);
-    showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
-    await loadSections();
+  const handleSaveDraft = async (e) => {
+    if (e) e.preventDefault();
+    setSaving(true);
+    try {
+      await publishSection(activeTab, draftContent);
+      showToast('About Us changes saved and published live to website!');
+      await loadSections();
+    } catch (err) {
+      console.error('Save failed:', err);
+      showToast('Error saving changes to database.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleRevert = async () => {
@@ -126,31 +141,35 @@ export default function AboutPageManager() {
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href="/about"
+            target="_blank"
+            rel="noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview Live Website"
+          >
+            <span>Preview Live Site</span>
+            <ExternalLink size={15} />
+          </a>
+
           <button onClick={openRevisions} className="admin-btn admin-btn-secondary" title="View Version History">
             <History size={15} />
             <span>Revisions</span>
           </button>
 
-          {currentSection?.has_unpublished_changes && (
-            <button onClick={handleRevert} className="admin-btn admin-btn-secondary" title="Discard draft">
-              <RotateCcw size={15} />
-              <span>Discard Draft</span>
-            </button>
-          )}
-
-          <button onClick={handleSaveDraft} disabled={saving} className="admin-btn admin-btn-secondary">
-            <Save size={15} />
-            <span>{saving ? 'Saving...' : 'Save Draft'}</span>
-          </button>
-
-          <button onClick={handlePublish} disabled={publishing} className="admin-btn admin-btn-primary">
-            <Send size={15} />
-            <span>{publishing ? 'Publishing...' : 'Publish to Live Website'}</span>
+          <button
+            onClick={handlePublish}
+            disabled={publishing || saving}
+            className="admin-btn admin-btn-primary"
+            style={{ minWidth: '190px', justifyContent: 'center' }}
+          >
+            <Save size={16} />
+            <span>{publishing ? 'Publishing...' : 'Save & Publish to Live'}</span>
           </button>
         </div>
       </div>
 
-      {/* Draft Status Strip */}
+      {/* Live Status Strip */}
       {currentSection?.has_unpublished_changes ? (
         <div
           style={{
@@ -169,9 +188,17 @@ export default function AboutPageManager() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <AlertCircle size={16} />
             <span>
-              <strong>Unpublished Draft Changes:</strong> This section has draft modifications not yet visible to public visitors. Click "Publish to Live Website" to release them.
+              <strong>Unpublished Draft Changes:</strong> Click "Save & Publish to Live" to update the live website immediately.
             </span>
           </div>
+          <button
+            onClick={handlePublish}
+            disabled={publishing}
+            className="admin-btn admin-btn-primary"
+            style={{ padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+          >
+            <span>Publish Now</span>
+          </button>
         </div>
       ) : (
         <div
@@ -179,17 +206,19 @@ export default function AboutPageManager() {
             background: 'rgba(16, 185, 129, 0.08)',
             border: '1px solid rgba(16, 185, 129, 0.2)',
             borderRadius: '8px',
-            padding: '0.6rem 1.25rem',
+            padding: '0.65rem 1.25rem',
             marginBottom: '1.5rem',
-            fontSize: '0.8rem',
-            color: '#34d399',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem'
+            gap: '0.5rem',
+            fontSize: '0.85rem',
+            color: '#34d399'
           }}
         >
-          <CheckCircle size={15} />
-          <span>Section is in sync with the live website.</span>
+          <CheckCircle size={16} />
+          <span>
+            <strong>Live Website Synced:</strong> All current modifications are active and visible on the public website.
+          </span>
         </div>
       )}
 
@@ -891,6 +920,17 @@ export default function AboutPageManager() {
             </div>
           </div>
         )}
+        <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--admin-border)', display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+          <button
+            onClick={handlePublish}
+            disabled={publishing || saving}
+            className="admin-btn admin-btn-primary"
+            style={{ minWidth: '190px', justifyContent: 'center' }}
+          >
+            <Save size={16} />
+            <span>{publishing ? 'Publishing...' : 'Save & Publish to Live'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Revision History Modal */}

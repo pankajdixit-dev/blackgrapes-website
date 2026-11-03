@@ -37,7 +37,7 @@
       "brand_highlight": "BLACK GRAPES SOFTECH",
       "suffix": ", Where Innovation And ideas Meets Excellence.",
       "description": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.",
-      "cta_primary_text": "Request a Demo",
+      "cta_primary_text": "Request a Demo ",
       "cta_secondary_text": "Explore Services",
       "techBadges": [
         {
@@ -149,7 +149,7 @@
       "primaryBtnText": "Get Started Now!",
       "secondaryBtnText": "Get Free Consultation"
     },
-    "updated_at": "2026-11-02T09:46:25.871Z"
+    "updated_at": "2026-11-03T09:08:07.044Z"
   },
   "page_sections": {
     "about_hero": {
@@ -161,8 +161,8 @@
       "is_visible": true,
       "has_unpublished_changes": false,
       "content": {
-        "badge": "ABOUT BLACK GRAPES SOFTECH",
-        "title": "We Don’t Just Write Code —",
+        "badge": "ABOUT BLACK GRAPES SOFTECH ",
+        "title": "Empowering Businesses with Next-Gen Tech",
         "titleHighlight": "We Engineer The Digital Future.",
         "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
         "primaryBtnText": "Partner With Us",
@@ -180,8 +180,8 @@
         ]
       },
       "draft_content": {
-        "badge": "ABOUT BLACK GRAPES SOFTECH",
-        "title": "We Don’t Just Write Code —",
+        "badge": "ABOUT BLACK GRAPES SOFTECH ",
+        "title": "Empowering Businesses with Next-Gen Tech",
         "titleHighlight": "We Engineer The Digital Future.",
         "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
         "primaryBtnText": "Partner With Us",
@@ -198,7 +198,7 @@
           "24/7 Dedicated Support"
         ]
       },
-      "updated_at": "2026-11-02T10:26:50.755Z"
+      "updated_at": "2026-11-03T07:12:52.275Z"
     },
     "stats_strip": {
       "id": "sec-stats-strip",
@@ -231,7 +231,32 @@
             "highlight": "Industry Best"
           }
         ]
-      }
+      },
+      "draft_content": {
+        "stats": [
+          {
+            "number": "10+",
+            "label": "Years of Innovation",
+            "highlight": "Since 2014"
+          },
+          {
+            "number": "250+",
+            "label": "Projects Completed",
+            "highlight": "Global Scale"
+          },
+          {
+            "number": "150+",
+            "label": "Satisfied Clients",
+            "highlight": "15+ Countries"
+          },
+          {
+            "number": "99%",
+            "label": "Client Retention",
+            "highlight": "Industry Best"
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
     },
     "vision_mission": {
       "id": "sec-vision-mission",
@@ -254,7 +279,22 @@
           "Radical Transparency: Open sprint backlogs, continuous client demos, and honest roadmaps.",
           "Velocity with Stability: Fast time-to-market without ever compromising system security."
         ]
-      }
+      },
+      "draft_content": {
+        "badge": "CORE COMPASS",
+        "heading": "Guided by Purpose, Driven by Precision",
+        "visionTitle": "Our Strategic Vision",
+        "visionText": "To be the most trusted software engineering partner globally, accelerating digital transformation through architectural brilliance, ethical technology practices, and sustainable engineering.",
+        "missionTitle": "Our Operational Mission",
+        "missionText": "To empower ambitious enterprises with custom-built software, high-performance web platforms, and mobile apps that dramatically improve bottom lines and delight end-users.",
+        "philosophyTitle": "The Black Grapes Code",
+        "philosophyBullets": [
+          "Code as a Craft: Clean, test-driven architectures that scale without technical debt.",
+          "Radical Transparency: Open sprint backlogs, continuous client demos, and honest roadmaps.",
+          "Velocity with Stability: Fast time-to-market without ever compromising system security."
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
     },
     "founders_story": {
       "id": "sec-founders-story",
@@ -273,7 +313,18 @@
         "foundersRole": "Founders & Managing Directors",
         "quote": "Technology without strategy is overhead. Our goal is to transform code into a dominant business advantage for every client we serve.",
         "image": "/images/good-business-relationship-2.jpg"
-      }
+      },
+      "draft_content": {
+        "badge": "LEADERSHIP STORY",
+        "heading": "Built From The Ground Up with Passion and Technical Grit",
+        "storyP1": "Founded with a clear conviction that technology services should be personal, accountable, and deeply technical, Black Grapes Softech began as an agile squad solving complex algorithmic challenges for local enterprises in Madhya Pradesh.",
+        "storyP2": "Over the last decade, our leadership team has steered the company into an internationally recognized engineering hub, deploying mission-critical systems across Healthcare, Logistics, FinTech, and Enterprise SaaS.",
+        "foundersName": "Arpit Jain & Deepika Jain",
+        "foundersRole": "Founders & Managing Directors",
+        "quote": "Technology without strategy is overhead. Our goal is to transform code into a dominant business advantage for every client we serve.",
+        "image": "/images/good-business-relationship-2.jpg"
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
     },
     "culture_values": {
       "id": "sec-culture-values",
@@ -308,7 +359,34 @@
             "text": "Rigorous peer reviews, zero-warning lint policies, and comprehensive test suites for every PR merged."
           }
         ]
-      }
+      },
+      "draft_content": {
+        "badge": "CULTURAL ANCHORS",
+        "heading": "The Principles That Power Our Daily Sprints",
+        "pillars": [
+          {
+            "icon": "Shield",
+            "title": "Absolute Integrity",
+            "text": "We treat our clients IP, customer data, and security with bank-grade diligence and confidentiality."
+          },
+          {
+            "icon": "Zap",
+            "title": "Relentless Innovation",
+            "text": "We invest 15% of engineering bandwidth into researching AI models, modern cloud primitives, and reactive frameworks."
+          },
+          {
+            "icon": "Users",
+            "title": "Empowered Teams",
+            "text": "Flat hierarchy where the best technical idea always wins. We nurture leadership at every engineering level."
+          },
+          {
+            "icon": "Award",
+            "title": "Obsession With Quality",
+            "text": "Rigorous peer reviews, zero-warning lint policies, and comprehensive test suites for every PR merged."
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
     },
     "about_faqs": {
       "id": "sec-about-faqs",
@@ -339,50 +417,33 @@
             "a": "We provide 24/7 dedicated monitoring, zero-downtime updates, infrastructure patching, and continuous feature roadmapping via customized SLA tiers."
           }
         ]
-      }
+      },
+      "draft_content": {
+        "badge": "CLARITY FIRST",
+        "heading": "Frequently Asked Questions About Partnering With Us",
+        "faqs": [
+          {
+            "q": "What engagement models do you support?",
+            "a": "We offer dedicated team augmentation, milestone-based fixed price projects, and time-and-materials agile sprints depending on your product stage and requirements."
+          },
+          {
+            "q": "How do you handle Intellectual Property (IP) and NDAs?",
+            "a": "Full 100% IP ownership transfers to you upon final invoice settlement. We execute strict bilateral NDAs prior to any technical briefing or architectural review."
+          },
+          {
+            "q": "Can you scale a team on short notice?",
+            "a": "Yes, our bench of pre-vetted engineers allows us to onboard senior React, Flutter, Node.js, and Python developers within 3-7 business days."
+          },
+          {
+            "q": "Do you offer post-launch maintenance & SLA support?",
+            "a": "We provide 24/7 dedicated monitoring, zero-downtime updates, infrastructure patching, and continuous feature roadmapping via customized SLA tiers."
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
     }
   },
   "services": [
-    {
-      "id": "web-development",
-      "number": "01",
-      "title": "Website Designing and Development",
-      "tagline": "High-Speed Modern Web Applications & Portals",
-      "category": "web",
-      "categoryLabel": "Web & Cloud",
-      "badge": "Popular",
-      "image": "/softech-services/web.jpg",
-      "url": "https://blackgrapessoftech.com/services/web-designing-and-development/",
-      "description": "We architect and build hyper-performant web applications, corporate web portals, and enterprise SaaS platforms with modern MERN architecture, responsive UI/UX, and sub-second load times.",
-      "shortDesc": "We architect and build hyper-performant web applications, corporate web portals, and enterprise SaaS platforms with modern MERN architecture...",
-      "keyDeliverables": [
-        "Custom React, Next.js & Full-Stack MERN engineering",
-        "Ultra-responsive UI/UX designed with mobile-first principles",
-        "SEO-optimized semantic code adhering to Core Web Vitals < 1s",
-        "REST & GraphQL API integration with cloud-native caching"
-      ],
-      "techStack": [
-        "React",
-        "Next.js",
-        "Node.js",
-        "Tailwind CSS",
-        "MongoDB",
-        "AWS"
-      ],
-      "tags": [
-        "React",
-        "Next.js",
-        "Node.js",
-        "Tailwind CSS",
-        "MongoDB",
-        "AWS"
-      ],
-      "accentColor": "#f86200",
-      "timeline": "3 - 6 Weeks",
-      "clientTypes": "Startups, SMEs, E-Commerce Brands, Corporate Enterprises",
-      "is_active": true,
-      "order_index": 1
-    },
     {
       "id": "mobile-app-development",
       "number": "02",
@@ -917,7 +978,8 @@
       "badgeColor": "orange",
       "services": "Cloud Data Engineering & Microservices Architecture",
       "impact": "High-availability data pipelines handling billions of queries.",
-      "order_index": 1
+      "order_index": 1,
+      "updated_at": "2026-11-03T07:18:50.853Z"
     },
     {
       "id": "mastercard",
@@ -1655,319 +1717,904 @@
   ],
   "activity_logs": [
     {
-      "id": "log-1793616811101",
+      "id": "log-1793696887224",
       "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
+      "module": "home_page",
+      "record_id": "home_page",
       "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-02T10:53:31.101Z"
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T09:08:07.224Z"
     },
     {
-      "id": "log-1793616810487",
+      "id": "log-1793696887122",
       "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
+      "module": "home_page",
+      "record_id": "home_page",
       "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-02T10:53:30.487Z"
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T09:08:07.126Z"
     },
     {
-      "id": "log-1793616752063",
-      "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-02T10:52:32.063Z"
-    },
-    {
-      "id": "log-1793616751415",
-      "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-02T10:52:31.415Z"
-    },
-    {
-      "id": "log-1793616062353",
-      "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-02T10:41:02.353Z"
-    },
-    {
-      "id": "log-1793615210988",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:26:50.988Z"
-    },
-    {
-      "id": "log-1793615210794",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:26:50.799Z"
-    },
-    {
-      "id": "log-1793614133498",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:08:53.498Z"
-    },
-    {
-      "id": "log-1793614133468",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:08:53.468Z"
-    },
-    {
-      "id": "log-1793614042393",
+      "id": "log-1793695395053",
       "action": "Updated Module",
       "module": "partnership_page",
       "record_id": "partnership_page",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: partnership_page",
-      "created_at": "2026-11-02T10:07:22.393Z"
+      "created_at": "2026-11-03T08:43:15.053Z"
     },
     {
-      "id": "log-1793614042221",
-      "action": "Updated Module",
-      "module": "ecommerce_page",
-      "record_id": "ecommerce_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: ecommerce_page",
-      "created_at": "2026-11-02T10:07:22.221Z"
-    },
-    {
-      "id": "log-1793614042045",
-      "action": "Updated Module",
-      "module": "it_staffing",
-      "record_id": "it_staffing",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: it_staffing",
-      "created_at": "2026-11-02T10:07:22.045Z"
-    },
-    {
-      "id": "log-1793613761361",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:02:41.361Z"
-    },
-    {
-      "id": "log-1793613761341",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T10:02:41.341Z"
-    },
-    {
-      "id": "log-1793612795685",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:46:35.685Z"
-    },
-    {
-      "id": "log-1793612795667",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:46:35.667Z"
-    },
-    {
-      "id": "log-1793612785909",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:46:25.909Z"
-    },
-    {
-      "id": "log-1793612785890",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:46:25.890Z"
-    },
-    {
-      "id": "log-1793612767847",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:46:07.847Z"
-    },
-    {
-      "id": "log-1793612767831",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:46:07.832Z"
-    },
-    {
-      "id": "log-1793612753517",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:45:53.517Z"
-    },
-    {
-      "id": "log-1793612753491",
-      "action": "Updated Module",
-      "module": "page_sections",
-      "record_id": "page_sections",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:45:53.491Z"
-    },
-    {
-      "id": "log-1793612513344",
+      "id": "log-1793695395015",
       "action": "Updated Module",
       "module": "partnership_page",
       "record_id": "partnership_page",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: partnership_page",
-      "created_at": "2026-11-02T09:41:53.344Z"
+      "created_at": "2026-11-03T08:43:15.015Z"
     },
     {
-      "id": "log-1793612513174",
+      "id": "log-1793695377701",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:42:57.701Z"
+    },
+    {
+      "id": "log-1793695377419",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:42:57.420Z"
+    },
+    {
+      "id": "log-1793690330998",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:50.998Z"
+    },
+    {
+      "id": "log-1793690330925",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:50.925Z"
+    },
+    {
+      "id": "log-1793690283320",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:03.322Z"
+    },
+    {
+      "id": "log-1793690283017",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:03.018Z"
+    },
+    {
+      "id": "log-1793690231159",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:17:11.160Z"
+    },
+    {
+      "id": "log-1793690231104",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:17:11.105Z"
+    },
+    {
+      "id": "log-1793690195214",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:16:35.214Z"
+    },
+    {
+      "id": "log-1793690195110",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:16:35.110Z"
+    },
+    {
+      "id": "log-1793690048969",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:14:08.970Z"
+    },
+    {
+      "id": "log-1793690048885",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:14:08.887Z"
+    },
+    {
+      "id": "log-1793689972322",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:52.322Z"
+    },
+    {
+      "id": "log-1793689972290",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:52.291Z"
+    },
+    {
+      "id": "log-1793689958405",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:38.405Z"
+    },
+    {
+      "id": "log-1793689958373",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:38.373Z"
+    },
+    {
+      "id": "log-1793689944555",
       "action": "Updated Module",
       "module": "ecommerce_page",
       "record_id": "ecommerce_page",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: ecommerce_page",
-      "created_at": "2026-11-02T09:41:53.174Z"
+      "created_at": "2026-11-03T07:12:24.555Z"
     },
     {
-      "id": "log-1793612512997",
+      "id": "log-1793689944530",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:24.530Z"
+    },
+    {
+      "id": "log-1793689934926",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:14.927Z"
+    },
+    {
+      "id": "log-1793689934862",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:14.862Z"
+    },
+    {
+      "id": "log-1793689770348",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:30.348Z"
+    },
+    {
+      "id": "log-1793689770322",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:30.323Z"
+    },
+    {
+      "id": "log-1793689755343",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:15.343Z"
+    },
+    {
+      "id": "log-1793689755309",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:15.310Z"
+    },
+    {
+      "id": "log-1793689729186",
       "action": "Updated Module",
       "module": "it_staffing",
       "record_id": "it_staffing",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: it_staffing",
-      "created_at": "2026-11-02T09:41:52.997Z"
+      "created_at": "2026-11-03T07:08:49.187Z"
     },
     {
-      "id": "log-1793611411167",
+      "id": "log-1793689729152",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T07:08:49.152Z"
+    },
+    {
+      "id": "log-1793689629707",
       "action": "Updated Module",
       "module": "page_sections",
       "record_id": "page_sections",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:23:31.168Z"
+      "created_at": "2026-11-03T07:07:09.707Z"
     },
     {
-      "id": "log-1793611036359",
+      "id": "log-1793689629684",
       "action": "Updated Module",
       "module": "page_sections",
       "record_id": "page_sections",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: page_sections",
-      "created_at": "2026-11-02T09:17:16.359Z"
+      "created_at": "2026-11-03T07:07:09.684Z"
     },
     {
-      "id": "log-1793610605817",
+      "id": "log-1793689580219",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:20.219Z"
+    },
+    {
+      "id": "log-1793689580199",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:20.199Z"
+    },
+    {
+      "id": "log-1793689563868",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:03.870Z"
+    },
+    {
+      "id": "log-1793689563782",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:03.783Z"
+    },
+    {
+      "id": "log-1793686916224",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:56.224Z"
+    },
+    {
+      "id": "log-1793686916180",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:56.180Z"
+    },
+    {
+      "id": "log-1793686879174",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:19.174Z"
+    },
+    {
+      "id": "log-1793686878992",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:18.993Z"
+    },
+    {
+      "id": "log-1793685806101",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:03:26.102Z"
+    },
+    {
+      "id": "log-1793685806050",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:03:26.050Z"
+    },
+    {
+      "id": "log-1793685649384",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:00:49.384Z"
+    },
+    {
+      "id": "log-1793685649363",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:00:49.363Z"
+    },
+    {
+      "id": "log-1793685645799",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T06:00:45.799Z"
+    },
+    {
+      "id": "log-1793685645777",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T06:00:45.777Z"
+    },
+    {
+      "id": "log-1793685642215",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T06:00:42.215Z"
+    },
+    {
+      "id": "log-1793685642184",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T06:00:42.184Z"
+    },
+    {
+      "id": "log-1793685638613",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T06:00:38.613Z"
+    },
+    {
+      "id": "log-1793685638590",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T06:00:38.590Z"
+    },
+    {
+      "id": "log-1793685635034",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T06:00:35.034Z"
+    },
+    {
+      "id": "log-1793685635008",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T06:00:35.008Z"
+    },
+    {
+      "id": "log-1793685631450",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T06:00:31.450Z"
+    },
+    {
+      "id": "log-1793685631426",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T06:00:31.426Z"
+    },
+    {
+      "id": "log-1793685627863",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T06:00:27.863Z"
+    },
+    {
+      "id": "log-1793685627838",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T06:00:27.838Z"
+    },
+    {
+      "id": "log-1793685624270",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T06:00:24.270Z"
+    },
+    {
+      "id": "log-1793685624231",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T06:00:24.232Z"
+    },
+    {
+      "id": "log-1793685620656",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T06:00:20.656Z"
+    },
+    {
+      "id": "log-1793685620629",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T06:00:20.630Z"
+    },
+    {
+      "id": "log-1793685617053",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T06:00:17.053Z"
+    },
+    {
+      "id": "log-1793685616992",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T06:00:16.992Z"
+    },
+    {
+      "id": "log-1793685357843",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:55:57.843Z"
+    },
+    {
+      "id": "log-1793685357821",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:55:57.821Z"
+    },
+    {
+      "id": "log-1793685354260",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:55:54.260Z"
+    },
+    {
+      "id": "log-1793685354232",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:55:54.232Z"
+    },
+    {
+      "id": "log-1793685350680",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:55:50.680Z"
+    },
+    {
+      "id": "log-1793685350657",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:55:50.657Z"
+    },
+    {
+      "id": "log-1793685347102",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:55:47.102Z"
+    },
+    {
+      "id": "log-1793685347078",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:55:47.078Z"
+    },
+    {
+      "id": "log-1793685343522",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:55:43.522Z"
+    },
+    {
+      "id": "log-1793685343494",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:55:43.494Z"
+    },
+    {
+      "id": "log-1793685339931",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:55:39.932Z"
+    },
+    {
+      "id": "log-1793685339911",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:55:39.911Z"
+    },
+    {
+      "id": "log-1793685336331",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:55:36.331Z"
+    },
+    {
+      "id": "log-1793685336298",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:55:36.298Z"
+    },
+    {
+      "id": "log-1793685332708",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:55:32.708Z"
+    },
+    {
+      "id": "log-1793685332671",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:55:32.671Z"
+    },
+    {
+      "id": "log-1793685329091",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:55:29.091Z"
+    },
+    {
+      "id": "log-1793685329029",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:55:29.029Z"
+    },
+    {
+      "id": "log-1793685252657",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:54:12.657Z"
+    },
+    {
+      "id": "log-1793685252629",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:54:12.629Z"
+    },
+    {
+      "id": "log-1793685250289",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:54:10.289Z"
+    },
+    {
+      "id": "log-1793685250257",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:54:10.257Z"
+    },
+    {
+      "id": "log-1793685247906",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:54:07.906Z"
+    },
+    {
+      "id": "log-1793685247875",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:54:07.875Z"
+    },
+    {
+      "id": "log-1793685245518",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:54:05.518Z"
+    },
+    {
+      "id": "log-1793685245491",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:54:05.492Z"
+    },
+    {
+      "id": "log-1793685243165",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:54:03.165Z"
+    },
+    {
+      "id": "log-1793685243130",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:54:03.130Z"
+    },
+    {
+      "id": "log-1793685240787",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:54:00.787Z"
+    },
+    {
+      "id": "log-1793685240766",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:54:00.767Z"
+    },
+    {
+      "id": "log-1793685238414",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:53:58.414Z"
+    },
+    {
+      "id": "log-1793685238387",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:53:58.387Z"
+    },
+    {
+      "id": "log-1793685236049",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:53:56.049Z"
+    },
+    {
+      "id": "log-1793685236017",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:53:56.017Z"
+    },
+    {
+      "id": "log-1793685233659",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:53:53.659Z"
+    },
+    {
+      "id": "log-1793685233608",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:53:53.608Z"
+    },
+    {
+      "id": "log-1793685228922",
       "action": "Updated Module",
       "module": "home_page",
       "record_id": "home_page",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:10:05.818Z"
+      "created_at": "2026-11-03T05:53:48.923Z"
     },
     {
-      "id": "log-1793610589867",
+      "id": "log-1793685228890",
       "action": "Updated Module",
       "module": "home_page",
       "record_id": "home_page",
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:09:49.867Z"
-    },
-    {
-      "id": "log-1793610563703",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:09:23.703Z"
-    },
-    {
-      "id": "log-1793610528736",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T09:08:48.736Z"
-    },
-    {
-      "id": "log-1793604408898",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T07:26:48.898Z"
-    },
-    {
-      "id": "log-1793604387294",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T07:26:27.294Z"
-    },
-    {
-      "id": "log-1793603139562",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-02T07:05:39.562Z"
-    },
-    {
-      "id": "log-1",
-      "action": "System Initialized",
-      "module": "Core System",
-      "record_id": "init",
-      "user_email": "system",
-      "description": "Persistent file database initialized successfully with complete website content.",
-      "created_at": "2026-11-02T06:51:54.065Z"
+      "created_at": "2026-11-03T05:53:48.890Z"
     }
   ],
   "content_revisions": [],
@@ -2037,7 +2684,7 @@
     }
   ],
   "it_staffing": {
-    "badge": "LIVE TEST BADGE",
+    "badge": "LIVE TEST BADGE MAHESH ",
     "headline": "Stay on course with growth plans by hiring contractual staff",
     "subtitle": "Live WebSocket Test Subtitle",
     "description": "Updated via Admin panel test"
@@ -2050,7 +2697,7 @@
     "targetLaunch": "Q3 2026"
   },
   "partnership_page": {
-    "heroBadge": "TEST ALLIANCES",
+    "heroBadge": "TEST ALLIANCES ",
     "heroTitle": "Partnership",
     "heroSubtitle": "Cultivating strategic relationships"
   },
@@ -3058,7 +3705,8 @@
         "By uniting specialized consulting, digital marketing, and software engineering capabilities, we create full-spectrum execution squads."
       ],
       "subheading": "Services Companies Tie-up"
-    }
+    },
+    "title": "Our Business Partners"
   },
   "services_page": {
     "badge": "BLACK GRAPES GROUP",
@@ -3230,11 +3878,11 @@
       }
     ],
     "isVisible": true,
-    "updated_at": "2026-11-02T10:53:31.096Z"
+    "updated_at": "2026-11-02T12:35:34.487Z"
   },
   "softech_page": {
     "badge": "BLACK GRAPES SOFTECH • WHAT WE DO",
-    "title": "Engineering High-Impact Custom Software & Digital Products",
+    "title": "Engineering Next-Gen",
     "subtitle": "From bespoke web platforms and native mobile apps to AI-powered enterprise automation, we build scalable software designed to lead your market.",
     "primaryCtaText": "Request Technical Quote",
     "secondaryCtaText": "Schedule Consultation",
@@ -3273,5 +3921,8 @@
     "pillBadge": "WHITE-LABEL",
     "isVisible": true,
     "updated_at": "2026-11-02T10:35:25.986Z"
+  },
+  "ecommerce": {
+    "title": "BG TEST ECOMMERCE 222"
   }
 }

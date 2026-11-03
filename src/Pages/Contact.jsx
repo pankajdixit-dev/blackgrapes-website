@@ -97,15 +97,19 @@ export default function ContactPage() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <span className="hero-top-pill">
               <Sparkles size={13} color="#f86200" />
-              <span>BLACK GRAPES GROUP</span>
+              <span>{contactData?.heroBadge || 'BLACK GRAPES GROUP'}</span>
             </span>
           </div>
 
           <h1 className="black-hero-title">
-            Get in <span className="hero-title-accent">Touch</span>
+            {contactData?.heroTitle || (
+              <>
+                Get in <span className="hero-title-accent">Touch</span>
+              </>
+            )}
           </h1>
           <p className="black-hero-subtitle">
-            We are here to help and answer any questions you might have. We look forward to hearing from you.
+            {contactData?.heroSubtitle || 'We are here to help and answer any questions you might have. We look forward to hearing from you.'}
           </p>
         </div>
 

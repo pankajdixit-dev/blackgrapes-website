@@ -5,9 +5,13 @@ import { fileURLToPath, URL } from 'node:url';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true
+  },
   resolve: {
     alias: {
-      '@backend': fileURLToPath(new URL('./backend', import.meta.url)),
+      '@backend': fileURLToPath(new URL('../backend', import.meta.url)),
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url))
     }
   }

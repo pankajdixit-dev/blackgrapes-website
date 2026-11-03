@@ -41,8 +41,8 @@ function runProcess(name, cmd, args, color) {
 
 const backend = runProcess('BACKEND', 'node', ['backend/server.js'], '\x1b[36m');
 setTimeout(() => {
-  const frontend = runProcess('FRONTEND', 'npm', ['run', 'dev'], '\x1b[32m');
-  const admin = runProcess('ADMIN', 'npm', ['run', 'dev:admin'], '\x1b[33m');
+  const frontend = runProcess('FRONTEND', 'npm', ['--prefix', 'frontend', 'run', 'dev'], '\x1b[32m');
+  const admin = runProcess('ADMIN', 'npm', ['--prefix', 'admin', 'run', 'dev'], '\x1b[33m');
 
   const cleanExit = () => {
     try { backend.kill(); } catch (e) {}
@@ -54,4 +54,3 @@ setTimeout(() => {
   process.on('SIGINT', cleanExit);
   process.on('SIGTERM', cleanExit);
 }, 1500);
-

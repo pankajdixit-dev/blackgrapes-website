@@ -39,7 +39,7 @@ const getInitialAboutSections = () => {
         }
       }
     }
-  } catch (e) {}
+  } catch (e) { }
   return fallback;
 };
 

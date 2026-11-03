@@ -13,8 +13,7 @@ export default defineConfig({
     alias: {
       '@admin': fileURLToPath(new URL('./', import.meta.url)),
       '@backend': fileURLToPath(new URL('../backend', import.meta.url)),
-      '@assets': fileURLToPath(new URL('../src/assets', import.meta.url))
+      '@assets': fileURLToPath(new URL('../frontend/src/assets', import.meta.url))
     }
   }
 });
-

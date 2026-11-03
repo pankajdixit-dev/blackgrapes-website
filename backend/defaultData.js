@@ -2,8 +2,8 @@ const foundersImg = '/images/founders.jpg';
 const aboutHeroImg = '/images/about-hero.jpg';
 const workspaceImg = '/images/workspace.jpg';
 const logoImg = '/bgst-logo.png';
-import { PRODUCTS_LIST } from '../src/pages/OurProducts/productsData.js';
-import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../src/pages/OurClients/clientsData.js';
+import { PRODUCTS_LIST } from '../frontend/src/pages/OurProducts/productsData.js';
+import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../frontend/src/pages/OurClients/clientsData.js';
 
 export const DEFAULT_SITE_SETTINGS = {
   id: 'settings-1',

@@ -119,15 +119,35 @@ export async function saveMenus(menuItems) {
 // ==============================================================================
 // 3. PAGE SECTIONS & CONTENT
 // ==============================================================================
+function mergeDeepSections(defaults, incoming) {
+  if (!incoming || typeof incoming !== 'object') return defaults;
+  const result = { ...defaults };
+  Object.keys(incoming).forEach((key) => {
+    if (result[key] && incoming[key] && typeof incoming[key] === 'object' && !Array.isArray(incoming[key])) {
+      result[key] = {
+        ...result[key],
+        ...incoming[key],
+        content: {
+          ...(result[key].content || {}),
+          ...(incoming[key].content || {})
+        }
+      };
+    } else {
+      result[key] = incoming[key];
+    }
+  });
+  return result;
+}
+
 export async function getPageSections(pageSlug = 'about') {
   const fallbackDefaults = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections(pageSlug) : null) || (pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS);
 
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {}, 1500);
+    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {}, 2000);
     if (res && res.ok) {
       const json = await res.json();
       if (json.data && typeof json.data === 'object' && Object.keys(json.data).length > 0) {
-        const merged = { ...fallbackDefaults, ...json.data };
+        const merged = mergeDeepSections(fallbackDefaults, json.data);
         try {
           localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(merged));
         } catch (e) {}
@@ -142,7 +162,7 @@ export async function getPageSections(pageSlug = 'about') {
       try {
         const parsed = JSON.parse(raw);
         if (parsed && typeof parsed === 'object') {
-          return { ...fallbackDefaults, ...parsed };
+          return mergeDeepSections(fallbackDefaults, parsed);
         }
       } catch (e) {}
     }
@@ -196,37 +216,57 @@ export async function updateSectionDraft(sectionKey, newContent, pageSlug = 'abo
   return { success: true, sectionKey, newContent };
 }
 
-export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com', pageSlug = 'about') {
+export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com', pageSlug = 'about', directContent = null) {
   const current = await getPageSections(pageSlug);
   const updated = { ...current };
 
-  if (updated[sectionKey]) {
-    const draft = updated[sectionKey].draft_content;
+  if (!updated[sectionKey]) {
     updated[sectionKey] = {
-      ...updated[sectionKey],
-      content: {
-        ...(updated[sectionKey].content || {}),
-        ...(draft || {}),
-      },
-      has_unpublished_changes: false,
-      draft_content: null,
-      last_published_at: new Date().toISOString(),
-      published_by: userEmail,
+      id: `sec-${pageSlug}-${sectionKey}`,
+      page: pageSlug,
+      section_key: sectionKey,
+      content: {}
     };
   }
 
-  localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+  const draft = updated[sectionKey].draft_content || {};
+  const finalContent = {
+    ...(updated[sectionKey].content || {}),
+    ...(draft || {}),
+    ...(directContent || {})
+  };
+
+  updated[sectionKey] = {
+    ...updated[sectionKey],
+    content: finalContent,
+    has_unpublished_changes: false,
+    draft_content: null,
+    last_published_at: new Date().toISOString(),
+    published_by: userEmail,
+  };
 
   try {
-    await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}/publish`, {
+    localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+  } catch (e) {}
+
+  try {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}/publish`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({
         sectionKey,
-        content: updated[sectionKey]?.content,
+        content: finalContent,
         sections: updated
       }),
-    }, 2000);
+    }, 2500);
+    if (res && res.ok) {
+      const json = await res.json();
+      if (json.data && typeof json.data === 'object') {
+        try {
+          localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(json.data));
+        } catch (e) {}
+      }
+    }
   } catch (err) {}
 
   realtimeSync.broadcast({
@@ -238,7 +278,7 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
     action: 'publish'
   });
 
-  return { success: true, sectionKey };
+  return { success: true, sectionKey, content: finalContent };
 }
 
 export async function revertSectionDraft(sectionKey, pageSlug = 'about') {

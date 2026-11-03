@@ -126,7 +126,7 @@ export default function HomePageManager() {
   const handlePublish = async () => {
     setPublishing(true);
     await updateSectionDraft(activeTab, draftContent, 'home');
-    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'home');
+    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'home', draftContent);
     setPublishing(false);
     showToast(`Published live updates for ${currentSection.section_name || activeTab}! Website updated.`);
     await loadSections();

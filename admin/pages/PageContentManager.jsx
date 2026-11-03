@@ -128,7 +128,7 @@ export default function PageContentManager() {
     if (!activeSectionKey) return;
     setPublishing(true);
     try {
-      await publishSection(activeSectionKey, 'admin@blackgrapessoftech.com', selectedPageSlug);
+      await publishSection(activeSectionKey, 'admin@blackgrapessoftech.com', selectedPageSlug, draftContent);
       showToast(`Section "${activeSectionKey}" published live!`);
       await loadPageContent(selectedPageSlug);
     } catch (e) {

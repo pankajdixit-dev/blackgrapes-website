@@ -122,7 +122,7 @@ export default function AboutPageManager() {
   const handlePublish = async () => {
     setPublishing(true);
     await updateSectionDraft(activeTab, draftContent, 'about');
-    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about');
+    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about', draftContent);
     setPublishing(false);
     showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
     await loadSections();

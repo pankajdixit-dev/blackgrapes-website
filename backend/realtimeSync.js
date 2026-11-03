@@ -71,6 +71,12 @@ class RealtimeSyncManager {
       } catch (err) {}
     }
 
+    if (this.socket && this.socket.connected) {
+      try {
+        this.socket.emit('content_updated', payload);
+      } catch (err) {}
+    }
+
     this.triggerLocal(payload);
   }
 

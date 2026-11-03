@@ -23,3 +23,4 @@ export const safeRecordActivity = (data) => {
 };
 
 export default safeRecordActivity;
+

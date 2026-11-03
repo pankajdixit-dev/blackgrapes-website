@@ -47,6 +47,9 @@ const io = new SocketIOServer(httpServer, {
 app.set('io', io);
 
 io.on('connection', (socket) => {
+  socket.on('content_updated', (data) => {
+    socket.broadcast.emit('content_updated', data);
+  });
   socket.on('disconnect', () => {});
 });
 

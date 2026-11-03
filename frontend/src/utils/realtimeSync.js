@@ -96,6 +96,13 @@ class RealtimeSyncManager {
       } catch (err) {}
     }
 
+    // Send to backend socket to propagate to other origins/browsers
+    if (this.socket && this.socket.connected) {
+      try {
+        this.socket.emit('content_updated', payload);
+      } catch (err) {}
+    }
+
     // Trigger on current tab window
     this.triggerLocal(payload);
   }

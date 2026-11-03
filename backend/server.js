@@ -141,6 +141,19 @@ connectDB().then(async (connected) => {
   }
 });
 
+// Handle Port Conflict gracefully
+httpServer.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\x1b[31m[Port Error] Port ${PORT} is already in use by another process.\x1b[0m`);
+    console.log(`\x1b[33mTo free port ${PORT}, run in PowerShell:\x1b[0m`);
+    console.log(`\x1b[36m  Get-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess | Stop-Process -Force\x1b[0m`);
+    console.log(`\x1b[33mor simply run:\x1b[0m \x1b[36mnpx kill-port ${PORT}\x1b[0m`);
+    process.exit(1);
+  } else {
+    throw err;
+  }
+});
+
 // Start Server with WebSockets
 httpServer.listen(PORT, () => {
   console.log('\x1b[35m%s\x1b[0m', `======================================================`);

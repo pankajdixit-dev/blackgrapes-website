@@ -36,6 +36,12 @@ initStore();
  * Get stored sections for a page slug from local file / memory cache
  */
 export function getServerStoredSections(pageSlug) {
+  try {
+    if (fs.existsSync(STORE_FILE)) {
+      const raw = fs.readFileSync(STORE_FILE, 'utf8');
+      memoryCache = JSON.parse(raw);
+    }
+  } catch (err) {}
   if (memoryCache && memoryCache[pageSlug]) {
     return memoryCache[pageSlug];
   }

@@ -492,114 +492,327 @@ export const DEFAULT_PAGE_SECTIONS = {
 
 export const DEFAULT_SERVICES = [
   {
-    id: 'srv-1',
-    title: 'Web App Architecture',
-    slug: 'web-architecture',
-    short_desc: 'Next-gen reactive web applications engineered with React, Next.js, and cloud backends.',
-    full_desc: 'We build ultra-scalable, responsive, SEO-ready web applications with enterprise security and sub-second load times.',
-    icon_name: 'Layers',
-    category: 'Engineering',
-    order_index: 1,
-    status: 'published'
+    "id": "website-development",
+    "title": "Website Designing and Development",
+    "slug": "website-development",
+    "shortDesc": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
+    "short_desc": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
+    "fullDesc": "We build pixel-perfect, modern web applications leveraging React, Next.js, Vue, and modern serverless stacks. From high-converting corporate portals to complex web apps, our solutions are SEO-optimized, mobile-responsive, and blazing fast.",
+    "full_desc": "We build pixel-perfect, modern web applications leveraging React, Next.js, Vue, and modern serverless stacks. From high-converting corporate portals to complex web apps, our solutions are SEO-optimized, mobile-responsive, and blazing fast.",
+    "description": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
+    "image": "/images/Website-Designing.jpg",
+    "tags": [
+      "React",
+      "Next.js",
+      "SEO Optimized",
+      "Responsive UI",
+      "Custom CMS"
+    ],
+    "color": "#f86200",
+    "category": "Engineering",
+    "order_index": 1,
+    "status": "published"
   },
   {
-    id: 'srv-2',
-    title: 'Mobile App Development (iOS/Android)',
-    slug: 'mobile-apps',
-    short_desc: 'High-performance native and cross-platform Flutter/React Native mobile applications.',
-    full_desc: 'From concept to App Store / Google Play deployment, we deliver sleek, engaging mobile apps that users love.',
-    icon_name: 'Smartphone',
-    category: 'Engineering',
-    order_index: 2,
-    status: 'published'
+    "id": "mobile-app",
+    "title": "Mobile App Development",
+    "slug": "mobile-app",
+    "shortDesc": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
+    "short_desc": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
+    "fullDesc": "Specializing in Flutter, React Native, Swift, and Kotlin, we craft mobile experiences that users love. Whether consumer apps, enterprise utilities, or on-demand delivery portals, we ensure seamless App Store and Play Store approval.",
+    "full_desc": "Specializing in Flutter, React Native, Swift, and Kotlin, we craft mobile experiences that users love. Whether consumer apps, enterprise utilities, or on-demand delivery portals, we ensure seamless App Store and Play Store approval.",
+    "description": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
+    "image": "/images/app.jpg",
+    "tags": [
+      "Flutter",
+      "React Native",
+      "iOS / Android",
+      "Firebase",
+      "API Sync"
+    ],
+    "color": "#9333ea",
+    "category": "Engineering",
+    "order_index": 2,
+    "status": "published"
   },
   {
-    id: 'srv-3',
-    title: 'Enterprise CRM Solutions',
-    slug: 'enterprise-crm',
-    short_desc: 'Tailor-made Customer Relationship Management platforms tailored to your sales funnel.',
-    full_desc: 'Automate lead scoring, pipeline management, client communications, and real-time sales reporting.',
-    icon_name: 'Building',
-    category: 'Enterprise',
-    order_index: 3,
-    status: 'published'
+    "id": "software-development",
+    "title": "Software Development",
+    "slug": "software-development",
+    "shortDesc": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
+    "short_desc": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
+    "fullDesc": "We design robust backends, cloud microservices, and database systems that eliminate manual bottlenecks. Scale operations with custom desktop and cloud software tailored to your specific organizational needs.",
+    "full_desc": "We design robust backends, cloud microservices, and database systems that eliminate manual bottlenecks. Scale operations with custom desktop and cloud software tailored to your specific organizational needs.",
+    "description": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
+    "image": "/images/Software.jpg",
+    "tags": [
+      "Custom ERP",
+      "Microservices",
+      "Cloud Database",
+      "Python / Node",
+      "API Gateway"
+    ],
+    "color": "#3b82f6",
+    "category": "Engineering",
+    "order_index": 3,
+    "status": "published"
   },
   {
-    id: 'srv-4',
-    title: 'MLM Software Systems',
-    slug: 'mlm-software',
-    short_desc: 'Robust multi-level marketing matrix, binary, generation, and commission calculation software.',
-    full_desc: 'Secure, fraud-proof transaction handling with real-time wallet sync and instant payout calculations.',
-    icon_name: 'Zap',
-    category: 'Enterprise',
-    order_index: 4,
-    status: 'published'
+    "id": "crm-software",
+    "title": "CRM Software Development",
+    "slug": "crm-software",
+    "shortDesc": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
+    "short_desc": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
+    "fullDesc": "Eliminate scattered spreadsheets with unified customer data, automated follow-up workflows, omnichannel messaging, and real-time sales reporting tailored to your sales process.",
+    "full_desc": "Eliminate scattered spreadsheets with unified customer data, automated follow-up workflows, omnichannel messaging, and real-time sales reporting tailored to your sales process.",
+    "description": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
+    "image": "/images/crm-1.png",
+    "tags": [
+      "Lead Scoring",
+      "Pipeline Automation",
+      "WhatsApp Integration",
+      "Role Access"
+    ],
+    "color": "#10b981",
+    "category": "Engineering",
+    "order_index": 4,
+    "status": "published"
   },
   {
-    id: 'srv-5',
-    title: 'Digital Growth & SEO',
-    slug: 'digital-marketing',
-    short_desc: 'Data-driven search engine optimization, performance marketing, and conversion growth.',
-    full_desc: 'Dominating search rankings and driving targeted customer acquisition for your brand.',
-    icon_name: 'TrendingUp',
-    category: 'Marketing',
-    order_index: 5,
-    status: 'published'
+    "id": "mlm-software",
+    "title": "MLM Software Development",
+    "slug": "mlm-software",
+    "shortDesc": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
+    "short_desc": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
+    "fullDesc": "Engineered specifically for MLM and network marketing organizations. Features include automated payout calculation, genealogy tree views, fraud detection, member management, and integrated payment gateways.",
+    "full_desc": "Engineered specifically for MLM and network marketing organizations. Features include automated payout calculation, genealogy tree views, fraud detection, member management, and integrated payment gateways.",
+    "description": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
+    "image": "/images/mlm-software.png",
+    "tags": [
+      "Binary / Matrix Plans",
+      "Digital Wallet",
+      "Genealogy Tree",
+      "Auto Payouts"
+    ],
+    "color": "#ec4899",
+    "category": "Engineering",
+    "order_index": 5,
+    "status": "published"
   },
   {
-    id: 'srv-6',
-    title: 'UI/UX & Brand Identity',
-    slug: 'ui-ux-design',
-    short_desc: 'Human-centered user experience design, wireframing, high-fidelity prototypes, and design systems.',
-    full_desc: 'Crafting captivating digital experiences that turn visitors into loyal paying customers.',
-    icon_name: 'Palette',
-    category: 'Design',
-    order_index: 6,
-    status: 'published'
+    "id": "digital-marketing",
+    "title": "Digital Marketing",
+    "slug": "digital-marketing",
+    "shortDesc": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
+    "short_desc": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
+    "fullDesc": "We drive measurable growth. From top-tier organic search rankings to laser-targeted paid advertising and social media engagement, our digital marketing team delivers real ROI for your brand.",
+    "full_desc": "We drive measurable growth. From top-tier organic search rankings to laser-targeted paid advertising and social media engagement, our digital marketing team delivers real ROI for your brand.",
+    "description": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
+    "image": "/images/digital-marketing.jpg",
+    "tags": [
+      "SEO & SEM",
+      "Social Media",
+      "Lead Funnels",
+      "Google Ads",
+      "Content Growth"
+    ],
+    "color": "#f59e0b",
+    "category": "Engineering",
+    "order_index": 6,
+    "status": "published"
   },
   {
-    id: 'srv-7',
-    title: 'Interactive Game Development',
-    slug: 'game-development',
-    short_desc: 'Engaging 2D/3D mobile and web games with real-time multiplayer logic and monetization.',
-    full_desc: 'Built with Unity, WebGL, and high-performance server architectures.',
-    icon_name: 'Award',
-    category: 'Gaming',
-    order_index: 7,
-    status: 'published'
+    "id": "graphic-designing",
+    "title": "Graphic Designing",
+    "slug": "graphic-designing",
+    "shortDesc": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
+    "short_desc": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
+    "fullDesc": "Transform brand perception with sophisticated visual storytelling. We craft modern logos, interactive UI wireframes, social media creatives, brochures, and enterprise design systems.",
+    "full_desc": "Transform brand perception with sophisticated visual storytelling. We craft modern logos, interactive UI wireframes, social media creatives, brochures, and enterprise design systems.",
+    "description": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
+    "image": "/images/Graphic-Design-Black-Grapes-Softech.jpg",
+    "tags": [
+      "Figma UI/UX",
+      "Brand Identity",
+      "Vector Graphics",
+      "Social Kits",
+      "3D Art"
+    ],
+    "color": "#8b5cf6",
+    "category": "Engineering",
+    "order_index": 7,
+    "status": "published"
   },
   {
-    id: 'srv-8',
-    title: 'Cloud & DevOps (AWS/Azure)',
-    slug: 'cloud-devops',
-    short_desc: 'Zero-downtime CI/CD pipelines, Docker containerization, Kubernetes, and serverless architectures.',
-    full_desc: 'Maximizing infrastructure reliability, security compliance, and cost efficiency.',
-    icon_name: 'CloudLightning',
-    category: 'DevOps',
-    order_index: 8,
-    status: 'published'
+    "id": "game-development",
+    "title": "Game Development",
+    "slug": "game-development",
+    "shortDesc": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
+    "short_desc": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
+    "fullDesc": "Using Unity and modern WebGL engines, we build multiplayer and single-player games with immersive audio, vibrant graphics, in-app economies, and fluid cross-platform mechanics.",
+    "full_desc": "Using Unity and modern WebGL engines, we build multiplayer and single-player games with immersive audio, vibrant graphics, in-app economies, and fluid cross-platform mechanics.",
+    "description": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
+    "image": "/images/Game-Development.jpg",
+    "tags": [
+      "Unity 3D",
+      "WebGL",
+      "Cross-Platform",
+      "Physics Engine",
+      "In-Game Store"
+    ],
+    "color": "#06b6d4",
+    "category": "Engineering",
+    "order_index": 8,
+    "status": "published"
   }
 ];
 
-export const DEFAULT_PROJECTS = PRODUCTS_LIST.map((prod, idx) => ({
-  id: prod.id,
-  product_key: prod.id,
-  title: prod.title,
-  subtitle: prod.subtitle,
-  category: prod.category,
-  industry: prod.industry,
-  badge: prod.badge,
-  badge_color: prod.badgeColor || 'orange',
-  youtube_id: prod.youtubeId,
-  deployment_days: prod.deploymentDays,
-  rating: prod.rating,
-  summary: prod.summary,
-  key_features: prod.keyFeatures || [],
-  tech_stack: prod.techStack || [],
-  highlights: prod.highlights || [],
-  order_index: idx + 1,
-  status: 'published'
-}));
+export const DEFAULT_PROJECTS = [
+  {
+    "id": "proj-1",
+    "name": "www.borit.com",
+    "title": "www.borit.com",
+    "category": "Website",
+    "type": "Corporate Web Experience",
+    "desc": "Precision engineering corporate portal with sleek branding and multi-language support.",
+    "description": "Precision engineering corporate portal with sleek branding and multi-language support.",
+    "url": "https://www.borit.com",
+    "order_index": 1,
+    "status": "published"
+  },
+  {
+    "id": "proj-2",
+    "name": "blushandbloom.co.in",
+    "title": "blushandbloom.co.in",
+    "category": "E-Commerce",
+    "type": "Luxury Cosmetics & Lifestyle",
+    "desc": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
+    "description": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
+    "url": "https://blushandbloom.co.in",
+    "order_index": 2,
+    "status": "published"
+  },
+  {
+    "id": "proj-3",
+    "name": "atonfitness.in",
+    "title": "atonfitness.in",
+    "category": "Website",
+    "type": "Health & Fitness Platform",
+    "desc": "Interactive fitness training, membership management, and workout schedule ecosystem.",
+    "description": "Interactive fitness training, membership management, and workout schedule ecosystem.",
+    "url": "https://atonfitness.in",
+    "order_index": 3,
+    "status": "published"
+  },
+  {
+    "id": "proj-4",
+    "name": "IOS App - ReadMore",
+    "title": "IOS App - ReadMore",
+    "category": "Android / IOS - Mobile Apps",
+    "type": "Digital Reading & E-Book Utility",
+    "desc": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
+    "description": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
+    "url": "#",
+    "order_index": 4,
+    "status": "published"
+  },
+  {
+    "id": "proj-5",
+    "name": "IOS App - DBT 24/7",
+    "title": "IOS App - DBT 24/7",
+    "category": "Android / IOS - Mobile Apps",
+    "type": "FinTech & Banking Service App",
+    "desc": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
+    "description": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
+    "url": "#",
+    "order_index": 5,
+    "status": "published"
+  },
+  {
+    "id": "proj-6",
+    "name": "IOS App - Beauty Counter",
+    "title": "IOS App - Beauty Counter",
+    "category": "Android / IOS - Mobile Apps",
+    "type": "Cosmetics Catalog & Consultation",
+    "desc": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
+    "description": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
+    "url": "#",
+    "order_index": 6,
+    "status": "published"
+  },
+  {
+    "id": "proj-7",
+    "name": "Android App - Eduvacancy - Teaching Jobs",
+    "title": "Android App - Eduvacancy - Teaching Jobs",
+    "category": "Android / IOS - Mobile Apps",
+    "type": "Education Recruitment Portal",
+    "desc": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
+    "description": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
+    "url": "#",
+    "order_index": 7,
+    "status": "published"
+  },
+  {
+    "id": "proj-8",
+    "name": "Android App - HoneyliaEmart",
+    "title": "Android App - HoneyliaEmart",
+    "category": "Android / IOS - Mobile Apps",
+    "type": "Hyperlocal E-Commerce & Delivery",
+    "desc": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
+    "description": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
+    "url": "#",
+    "order_index": 8,
+    "status": "published"
+  },
+  {
+    "id": "proj-9",
+    "name": "www.jobberman.com",
+    "title": "www.jobberman.com",
+    "category": "Web Apps",
+    "type": "Enterprise Career Portal",
+    "desc": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
+    "description": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
+    "url": "https://www.jobberman.com",
+    "order_index": 9,
+    "status": "published"
+  },
+  {
+    "id": "proj-10",
+    "name": "Stavanger Parkering",
+    "title": "Stavanger Parkering",
+    "category": "Web Apps",
+    "type": "Smart Mobility & Parking System",
+    "desc": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
+    "description": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
+    "url": "#",
+    "order_index": 10,
+    "status": "published"
+  },
+  {
+    "id": "proj-11",
+    "name": "DC Shoes",
+    "title": "DC Shoes",
+    "category": "E-Commerce",
+    "type": "Global Apparel & Footwear Store",
+    "desc": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
+    "description": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
+    "url": "#",
+    "order_index": 11,
+    "status": "published"
+  },
+  {
+    "id": "proj-12",
+    "name": "Pikto.com",
+    "title": "Pikto.com",
+    "category": "Web Apps",
+    "type": "Creative Visual Media SaaS",
+    "desc": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
+    "description": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
+    "url": "https://pikto.com",
+    "order_index": 12,
+    "status": "published"
+  }
+];
 
 export const DEFAULT_CLIENTS = CLIENTS_LIST.map((client, idx) => ({
   id: client.id,
@@ -629,17 +842,56 @@ export const DEFAULT_CASE_STUDIES = CLIENT_CASE_STUDIES.map((cs, idx) => ({
   status: 'published'
 }));
 
-export const DEFAULT_TESTIMONIALS = CLIENT_TESTIMONIALS.map((t, idx) => ({
-  id: `testi-${idx + 1}`,
-  quote: t.quote,
-  author: t.author,
-  role: t.role,
-  company: t.company,
-  country: t.country,
-  rating: t.rating || 5,
-  order_index: idx + 1,
-  status: 'published'
-}));
+export const DEFAULT_TESTIMONIALS = [
+  {
+    "id": "testi-1",
+    "name": "Subodh Bhandari",
+    "author": "Subodh Bhandari",
+    "role": "Enterprise Client",
+    "company": "Enterprise Client",
+    "rating": 5,
+    "quote": "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.",
+    "avatar": "SB",
+    "order_index": 1,
+    "status": "published"
+  },
+  {
+    "id": "testi-2",
+    "name": "Kartik Mali",
+    "author": "Kartik Mali",
+    "role": "Business Director",
+    "company": "Business Director",
+    "rating": 5,
+    "quote": "From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.",
+    "avatar": "KM",
+    "order_index": 2,
+    "status": "published"
+  },
+  {
+    "id": "testi-3",
+    "name": "Joel Burdine",
+    "author": "Joel Burdine",
+    "role": "Senior UI/UX Designer",
+    "company": "Senior UI/UX Designer",
+    "rating": 5,
+    "quote": "Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.",
+    "avatar": "JB",
+    "order_index": 3,
+    "status": "published"
+  },
+  {
+    "id": "testi-4",
+    "name": "Ashley Hoyt",
+    "author": "Ashley Hoyt",
+    "role": "Creative Director",
+    "company": "Creative Director",
+    "rating": 5,
+    "quote": "Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.",
+    "avatar": "AH",
+    "order_index": 4,
+    "status": "published"
+  }
+];
 
 export const DEFAULT_TEAM_MEMBERS = [
   {

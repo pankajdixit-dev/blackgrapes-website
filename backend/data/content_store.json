@@ -24,12 +24,12 @@
         "stat2Label": "Satisfied Clients",
         "stat3Num": "150+",
         "stat3Label": "Projects Shipped",
-        "stat4Num": "25+",
-        "stat4Label": "Expert Engineers",
+        "stat4Num": "50+",
+        "stat4Label": "Tech Services",
         "codeSnippetTitle": "FullStackApp.tsx",
         "codeSnippetTag": "Live Production"
       },
-      "last_published_at": "2026-11-03T09:24:03.554Z",
+      "last_published_at": "2026-11-03T09:31:16.897Z",
       "published_by": "admin@blackgrapessoftech.com",
       "draft_content": null
     },
@@ -239,10 +239,10 @@
       "is_visible": true,
       "has_unpublished_changes": false,
       "content": {
-        "badge": "ABOUT BLACK GRAPES SOFTECH (OFFICIAL)",
+        "badge": "ABOUT BLACK GRAPES SOFTECH",
         "title": "We Don’t Just Write Code —",
         "titleHighlight": "We Engineer The Digital Future.",
-        "lead": "Test dynamic lead published directly to MongoDB Atlas!",
+        "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
         "primaryBtnText": "Partner With Us",
         "secondaryBtnText": "Meet Our Leadership",
         "secondaryBtnLink": "#founders",

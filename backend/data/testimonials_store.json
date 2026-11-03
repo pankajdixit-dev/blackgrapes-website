@@ -1,0 +1,54 @@
+[
+  {
+    "id": "testi-1",
+    "_id": "testi-1",
+    "name": "Subodh Bhandari",
+    "author": "Subodh Bhandari",
+    "role": "Enterprise Client",
+    "company": "Enterprise Client",
+    "rating": 5,
+    "quote": "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.",
+    "avatar": "SB",
+    "order_index": 1,
+    "status": "published"
+  },
+  {
+    "id": "testi-2",
+    "_id": "testi-2",
+    "name": "Kartik Mali",
+    "author": "Kartik Mali",
+    "role": "Business Director",
+    "company": "Business Director",
+    "rating": 5,
+    "quote": "From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.",
+    "avatar": "KM",
+    "order_index": 2,
+    "status": "published"
+  },
+  {
+    "id": "testi-3",
+    "_id": "testi-3",
+    "name": "Joel Burdine",
+    "author": "Joel Burdine",
+    "role": "Senior UI/UX Designer",
+    "company": "Senior UI/UX Designer",
+    "rating": 5,
+    "quote": "Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.",
+    "avatar": "JB",
+    "order_index": 3,
+    "status": "published"
+  },
+  {
+    "id": "testi-4",
+    "_id": "testi-4",
+    "name": "Ashley Hoyt",
+    "author": "Ashley Hoyt",
+    "role": "Creative Director",
+    "company": "Creative Director",
+    "rating": 5,
+    "quote": "Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.",
+    "avatar": "AH",
+    "order_index": 4,
+    "status": "published"
+  }
+]

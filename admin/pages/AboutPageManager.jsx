@@ -113,26 +113,41 @@ export default function AboutPageManager() {
 
   const handleSaveDraft = async () => {
     setSaving(true);
-    await updateSectionDraft(activeTab, draftContent, 'about');
-    setSaving(false);
-    showToast('Draft changes saved successfully.');
-    await loadSections();
+    try {
+      const res = await updateSectionDraft(activeTab, draftContent, 'about');
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
+      showToast('Draft changes saved successfully.');
+    } catch (e) {
+      showToast('Error saving draft.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handlePublish = async () => {
     setPublishing(true);
-    await updateSectionDraft(activeTab, draftContent, 'about');
-    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about', draftContent);
-    setPublishing(false);
-    showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
-    await loadSections();
+    try {
+      const res = await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about', draftContent);
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
+      showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
+    } catch (e) {
+      showToast('Error publishing updates.');
+    } finally {
+      setPublishing(false);
+    }
   };
 
   const handleRevert = async () => {
     if (window.confirm('Discard all unsaved draft changes and revert to published version?')) {
-      await revertSectionDraft(activeTab, 'about');
+      const res = await revertSectionDraft(activeTab, 'about');
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
       showToast('Reverted to published version.');
-      await loadSections();
     }
   };
 

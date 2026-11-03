@@ -9,11 +9,11 @@
       "is_visible": true,
       "has_unpublished_changes": false,
       "content": {
-        "eyebrowBadge": "10+ Years of Proven IT Excellence • Indore, India ",
+        "eyebrowBadge": "10+ Years of Proven IT Excellence • Indore, India 460001",
         "prefix": "Innovate. Integrate. Elevate.",
         "title": "And Digitalize Your Ideas into Success via",
         "brandHighlight": "BLACK GRAPES SOFTECH",
-        "suffix": "",
+        "suffix": ", Where Innovation And ideas Meets Excellence.",
         "lead": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.",
         "primaryBtnText": "Request a Demo",
         "secondaryBtnText": "Get the offer",
@@ -29,7 +29,7 @@
         "codeSnippetTitle": "FullStackApp.tsx",
         "codeSnippetTag": "Live Production"
       },
-      "last_published_at": "2026-11-03T06:32:07.642Z",
+      "last_published_at": "2026-11-03T08:58:34.351Z",
       "published_by": "admin@blackgrapessoftech.com",
       "draft_content": null
     },
@@ -239,13 +239,26 @@
       "is_visible": true,
       "has_unpublished_changes": false,
       "content": {
-        "badge": "ABOUT BLACK GRAPES SOFTECH ",
+        "badge": "ABOUT BLACK GRAPES SOFTECH (OFFICIAL)",
         "title": "We Don’t Just Write Code —",
         "titleHighlight": "We Engineer The Digital Future.",
-        "lead": "Test dynamic lead published directly to MongoDB Atlas!"
+        "lead": "Test dynamic lead published directly to MongoDB Atlas!",
+        "primaryBtnText": "Partner With Us",
+        "secondaryBtnText": "Meet Our Leadership",
+        "secondaryBtnLink": "#founders",
+        "image": "/images/about-hero.jpg",
+        "floatingStat1Num": "250+ Projects",
+        "floatingStat1Sub": "Shipped Globally",
+        "floatingStat2Num": "15+ Nations",
+        "floatingStat2Sub": "Active Client Base",
+        "microBadges": [
+          "Certified Developers",
+          "Full Cycle Development",
+          "24/7 Dedicated Support"
+        ]
       },
       "draft_content": null,
-      "last_published_at": "2026-11-02T10:49:11.644Z",
+      "last_published_at": "2026-11-03T08:59:29.352Z",
       "published_by": "admin@blackgrapessoftech.com"
     },
     "stats_strip": {

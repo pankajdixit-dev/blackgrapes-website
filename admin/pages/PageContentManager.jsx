@@ -114,9 +114,11 @@ export default function PageContentManager() {
     if (!activeSectionKey) return;
     setSaving(true);
     try {
-      await updateSectionDraft(activeSectionKey, draftContent, selectedPageSlug);
+      const res = await updateSectionDraft(activeSectionKey, draftContent, selectedPageSlug);
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
       showToast('Draft changes saved successfully.');
-      await loadPageContent(selectedPageSlug);
     } catch (e) {
       setErrorMessage('Failed to save draft.');
     } finally {
@@ -128,9 +130,14 @@ export default function PageContentManager() {
     if (!activeSectionKey) return;
     setPublishing(true);
     try {
-      await publishSection(activeSectionKey, 'admin@blackgrapessoftech.com', selectedPageSlug, draftContent);
+      const res = await publishSection(activeSectionKey, 'admin@blackgrapessoftech.com', selectedPageSlug, draftContent);
+      if (res && res.sections) {
+        setSections(res.sections);
+        if (res.sections[activeSectionKey]) {
+          setDraftContent(res.sections[activeSectionKey].content || {});
+        }
+      }
       showToast(`Section "${activeSectionKey}" published live!`);
-      await loadPageContent(selectedPageSlug);
     } catch (e) {
       setErrorMessage('Failed to publish section.');
     } finally {
@@ -141,9 +148,14 @@ export default function PageContentManager() {
   const handleDiscardDraft = async () => {
     if (!activeSectionKey) return;
     if (window.confirm('Discard all unpublished draft changes for this section?')) {
-      await revertSectionDraft(activeSectionKey, selectedPageSlug);
+      const res = await revertSectionDraft(activeSectionKey, selectedPageSlug);
+      if (res && res.sections) {
+        setSections(res.sections);
+        if (res.sections[activeSectionKey]) {
+          setDraftContent(res.sections[activeSectionKey].content || {});
+        }
+      }
       showToast('Draft discarded. Restored published content.');
-      await loadPageContent(selectedPageSlug);
     }
   };
 

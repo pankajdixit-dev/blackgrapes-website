@@ -49,7 +49,7 @@ function getAuthHeaders() {
   return headers;
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 1500) {
+async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
   if (typeof AbortController === 'undefined') {
     return fetch(url, options);
   }
@@ -143,7 +143,7 @@ export async function getPageSections(pageSlug = 'about') {
   const fallbackDefaults = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections(pageSlug) : null) || (pageSlug === 'home' ? DEFAULT_HOME_SECTIONS : DEFAULT_PAGE_SECTIONS);
 
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {}, 2000);
+    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {}, 8000);
     if (res && res.ok) {
       const json = await res.json();
       if (json.data && typeof json.data === 'object' && Object.keys(json.data).length > 0) {
@@ -154,7 +154,9 @@ export async function getPageSections(pageSlug = 'about') {
         return merged;
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    console.warn(`[getPageSections] Server read error:`, err.message);
+  }
 
   if (typeof window !== 'undefined') {
     const raw = localStorage.getItem(`bg_page_sections_${pageSlug}`);
@@ -180,40 +182,63 @@ export async function updateSectionDraft(sectionKey, newContent, pageSlug = 'abo
   const current = await getPageSections(pageSlug);
   const updated = { ...current };
 
-  if (updated[sectionKey]) {
-    updated[sectionKey] = {
-      ...updated[sectionKey],
-      draft_content: newContent,
-      has_unpublished_changes: true,
-    };
-  } else {
-    updated[sectionKey] = {
-      section_key: sectionKey,
-      draft_content: newContent,
-      has_unpublished_changes: true,
-    };
-  }
+  const currentSection = updated[sectionKey] || {
+    id: `sec-${pageSlug}-${sectionKey}`,
+    page: pageSlug,
+    section_key: sectionKey,
+    content: {}
+  };
 
-  localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+  updated[sectionKey] = {
+    ...currentSection,
+    draft_content: {
+      ...(currentSection.content || {}),
+      ...(currentSection.draft_content || {}),
+      ...newContent
+    },
+    has_unpublished_changes: true,
+  };
 
   try {
-    await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {
+    localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+  } catch (e) {}
+
+  let serverData = null;
+  try {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify({ sections: updated }),
-    }, 2000);
-  } catch (err) {}
+      body: JSON.stringify({
+        sections: updated,
+        draftSectionKey: sectionKey,
+        draftContent: updated[sectionKey].draft_content
+      }),
+    }, 8000);
+    if (res && res.ok) {
+      const json = await res.json();
+      if (json.data && typeof json.data === 'object') {
+        serverData = json.data;
+        try {
+          localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(json.data));
+        } catch (e) {}
+      }
+    }
+  } catch (err) {
+    console.warn(`[updateSectionDraft] Server sync error:`, err.message);
+  }
+
+  const finalSections = serverData || updated;
 
   realtimeSync.broadcast({
     type: 'content_updated',
     module: 'page_sections',
     pageSlug,
     key: sectionKey,
-    sections: updated,
+    sections: finalSections,
     action: 'draft_save'
   });
 
-  return { success: true, sectionKey, newContent };
+  return { success: true, sectionKey, newContent, sections: finalSections };
 }
 
 export async function publishSection(sectionKey, userEmail = 'admin@blackgrapessoftech.com', pageSlug = 'about', directContent = null) {
@@ -230,9 +255,10 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
   }
 
   const draft = updated[sectionKey].draft_content || {};
+  const currentContent = updated[sectionKey].content || {};
   const finalContent = {
-    ...(updated[sectionKey].content || {}),
-    ...(draft || {}),
+    ...currentContent,
+    ...draft,
     ...(directContent || {})
   };
 
@@ -249,6 +275,7 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
     localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
   } catch (e) {}
 
+  let serverData = null;
   try {
     const res = await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}/publish`, {
       method: 'POST',
@@ -258,27 +285,32 @@ export async function publishSection(sectionKey, userEmail = 'admin@blackgrapess
         content: finalContent,
         sections: updated
       }),
-    }, 2500);
+    }, 8000);
     if (res && res.ok) {
       const json = await res.json();
       if (json.data && typeof json.data === 'object') {
+        serverData = json.data;
         try {
           localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(json.data));
         } catch (e) {}
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    console.warn(`[publishSection] Server sync fallback:`, err.message);
+  }
+
+  const finalSections = serverData || updated;
 
   realtimeSync.broadcast({
     type: 'content_updated',
     module: 'page_sections',
     pageSlug,
     key: sectionKey,
-    sections: updated,
+    sections: finalSections,
     action: 'publish'
   });
 
-  return { success: true, sectionKey, content: finalContent };
+  return { success: true, sectionKey, content: finalContent, sections: finalSections };
 }
 
 export async function revertSectionDraft(sectionKey, pageSlug = 'about') {
@@ -291,8 +323,17 @@ export async function revertSectionDraft(sectionKey, pageSlug = 'about') {
       draft_content: null,
       has_unpublished_changes: false,
     };
-    localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+    try {
+      localStorage.setItem(`bg_page_sections_${pageSlug}`, JSON.stringify(updated));
+    } catch (e) {}
   }
+
+  try {
+    await fetchWithTimeout(`${API_BASE_URL}/content/${pageSlug}/revert/${sectionKey}`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+    }, 8000);
+  } catch (err) {}
 
   realtimeSync.broadcast({
     type: 'content_updated',
@@ -303,7 +344,7 @@ export async function revertSectionDraft(sectionKey, pageSlug = 'about') {
     action: 'revert'
   });
 
-  return { success: true, sectionKey };
+  return { success: true, sectionKey, sections: updated };
 }
 
 

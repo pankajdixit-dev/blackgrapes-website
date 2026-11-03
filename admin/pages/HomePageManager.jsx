@@ -117,26 +117,41 @@ export default function HomePageManager() {
 
   const handleSaveDraft = async () => {
     setSaving(true);
-    await updateSectionDraft(activeTab, draftContent, 'home');
-    setSaving(false);
-    showToast('Draft changes saved successfully.');
-    await loadSections();
+    try {
+      const res = await updateSectionDraft(activeTab, draftContent, 'home');
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
+      showToast('Draft changes saved successfully.');
+    } catch (e) {
+      showToast('Error saving draft.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handlePublish = async () => {
     setPublishing(true);
-    await updateSectionDraft(activeTab, draftContent, 'home');
-    await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'home', draftContent);
-    setPublishing(false);
-    showToast(`Published live updates for ${currentSection.section_name || activeTab}! Website updated.`);
-    await loadSections();
+    try {
+      const res = await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'home', draftContent);
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
+      showToast(`Published live updates for ${currentSection.section_name || activeTab}! Website updated.`);
+    } catch (e) {
+      showToast('Error publishing updates.');
+    } finally {
+      setPublishing(false);
+    }
   };
 
   const handleRevert = async () => {
     if (window.confirm('Discard all unsaved draft changes and revert to published version?')) {
-      await revertSectionDraft(activeTab, 'home');
+      const res = await revertSectionDraft(activeTab, 'home');
+      if (res && res.sections) {
+        setSections(res.sections);
+      }
       showToast('Reverted to published version.');
-      await loadSections();
     }
   };
 

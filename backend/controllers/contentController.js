@@ -1,11 +1,31 @@
 import mongoose from 'mongoose';
 import PageContent from '../models/PageContent.js';
-import ActivityLog from '../models/ActivityLog.js';
 import { getPageDefaultSections, ALL_PAGE_DEFINITIONS } from '../defaultData.js';
 import { getServerStoredSections, saveServerStoredSections, getAllStoredPages } from '../utils/contentStore.js';
+import { safeRecordActivity } from '../utils/activityLogger.js';
 
 function getDefaultSections(pageSlug) {
-  return getPageDefaultSections(pageSlug) || {};
+  return (typeof getPageDefaultSections === 'function' ? getPageDefaultSections(pageSlug) : null) || {};
+}
+
+function mergeDeepSections(defaults, incoming) {
+  if (!incoming || typeof incoming !== 'object') return defaults;
+  const result = { ...defaults };
+  Object.keys(incoming).forEach((key) => {
+    if (result[key] && incoming[key] && typeof incoming[key] === 'object' && !Array.isArray(incoming[key])) {
+      result[key] = {
+        ...result[key],
+        ...incoming[key],
+        content: {
+          ...(result[key].content || {}),
+          ...(incoming[key].content || {})
+        }
+      };
+    } else {
+      result[key] = incoming[key];
+    }
+  });
+  return result;
 }
 
 // Helper to get active sections across MongoDB, Local Server File Store, and Defaults
@@ -13,22 +33,23 @@ async function resolvePageSections(pageSlug) {
   const defaults = getDefaultSections(pageSlug);
   const stored = getServerStoredSections(pageSlug);
 
-  if (mongoose.connection.readyState === 1) {
+  if (mongoose.connection && mongoose.connection.readyState === 1) {
     try {
-      const doc = await PageContent.findOne({ pageSlug }).maxTimeMS(2000).lean();
+      const doc = await PageContent.findOne({ pageSlug }).maxTimeMS(1000).lean();
       if (doc && doc.sections && Object.keys(doc.sections).length > 0) {
-        // Sync Mongo doc into local file store cache
-        saveServerStoredSections(pageSlug, doc.sections);
-        return { sections: doc.sections, doc };
+        const merged = mergeDeepSections(defaults, doc.sections);
+        saveServerStoredSections(pageSlug, merged);
+        return { sections: merged, doc };
       }
     } catch (e) {
       console.warn(`[ContentController] Mongo read warning for ${pageSlug}:`, e.message);
     }
   }
 
-  // Fallback to local server persistent file store
+  // Fallback to local server persistent file store merged with defaults
   if (stored && Object.keys(stored).length > 0) {
-    return { sections: stored, doc: null };
+    const merged = mergeDeepSections(defaults, stored);
+    return { sections: merged, doc: null };
   }
 
   // Fallback to default hardcoded sections
@@ -37,11 +58,11 @@ async function resolvePageSections(pageSlug) {
 
 // Helper to persist sections across Local Server File Store and MongoDB
 async function persistPageSections(pageSlug, sections, user) {
-  // 1. Always save to local server file store (works offline & in sandbox)
+  // 1. Always save to local server file store (works offline & in sandbox immediately)
   saveServerStoredSections(pageSlug, sections);
 
-  // 2. If MongoDB Atlas is connected, also persist to MongoDB
-  if (mongoose.connection.readyState === 1) {
+  // 2. If MongoDB Atlas is connected, also persist to MongoDB without blocking
+  if (mongoose.connection && mongoose.connection.readyState === 1) {
     try {
       await PageContent.findOneAndUpdate(
         { pageSlug },
@@ -51,7 +72,7 @@ async function persistPageSections(pageSlug, sections, user) {
           lastUpdatedBy: user?.name || user?.email || 'Admin'
         },
         { upsert: true, new: true, runValidators: false }
-      ).maxTimeMS(2500);
+      ).maxTimeMS(1500);
     } catch (err) {
       console.warn(`[ContentController] Mongo write warning for ${pageSlug}:`, err.message);
     }
@@ -64,9 +85,9 @@ async function persistPageSections(pageSlug, sections, user) {
 export const getAllPagesSummary = async (req, res, next) => {
   try {
     let docMap = {};
-    if (mongoose.connection.readyState === 1) {
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
       try {
-        const docs = await PageContent.find({}, 'pageSlug sections updatedAt lastUpdatedBy').maxTimeMS(2500).lean();
+        const docs = await PageContent.find({}, 'pageSlug sections updatedAt lastUpdatedBy').maxTimeMS(1500).lean();
         (docs || []).forEach((d) => {
           docMap[d.pageSlug] = d;
         });
@@ -76,7 +97,8 @@ export const getAllPagesSummary = async (req, res, next) => {
     const pages = ALL_PAGE_DEFINITIONS.map((def) => {
       const doc = docMap[def.slug];
       const stored = getServerStoredSections(def.slug);
-      const sections = doc?.sections || stored || getDefaultSections(def.slug);
+      const defaults = getDefaultSections(def.slug);
+      const sections = doc?.sections || stored ? mergeDeepSections(defaults, doc?.sections || stored) : defaults;
       const sectionKeys = Object.keys(sections || {});
       const visibleCount = sectionKeys.filter((k) => sections[k]?.is_visible !== false).length;
       const unpublishedCount = sectionKeys.filter((k) => sections[k]?.has_unpublished_changes).length;
@@ -168,7 +190,7 @@ export const savePageContent = async (req, res, next) => {
     const { sections, draftSectionKey, draftContent } = req.body;
     const { sections: currentSections } = await resolvePageSections(pageSlug);
 
-    let targetSections = sections ? { ...sections } : { ...currentSections };
+    let targetSections = sections ? { ...currentSections, ...sections } : { ...currentSections };
 
     if (draftSectionKey && draftContent) {
       if (!targetSections[draftSectionKey]) {
@@ -182,7 +204,11 @@ export const savePageContent = async (req, res, next) => {
       }
       targetSections[draftSectionKey] = {
         ...targetSections[draftSectionKey],
-        draft_content: draftContent,
+        draft_content: {
+          ...(targetSections[draftSectionKey].content || {}),
+          ...(targetSections[draftSectionKey].draft_content || {}),
+          ...draftContent
+        },
         has_unpublished_changes: true,
         last_draft_at: new Date().toISOString()
       };
@@ -202,14 +228,14 @@ export const savePageContent = async (req, res, next) => {
       });
     }
 
-    await ActivityLog.create({
+    safeRecordActivity({
       adminName: req.user?.name || 'Admin',
       adminEmail: req.user?.email || '',
       action: 'DRAFT_SAVE',
       module: 'PAGE_CONTENT',
       details: `Saved draft for ${pageSlug} page`,
       ipAddress: req.ip || ''
-    }).catch(() => {});
+    });
 
     res.json({
       success: true,
@@ -231,7 +257,7 @@ export const publishSectionContent = async (req, res, next) => {
     const { sectionKey, content, sections } = req.body;
     const { sections: currentSections } = await resolvePageSections(pageSlug);
 
-    let targetSections = sections ? { ...sections } : { ...currentSections };
+    let targetSections = sections ? { ...currentSections, ...sections } : { ...currentSections };
 
     if (sectionKey) {
       if (!targetSections[sectionKey]) {
@@ -244,7 +270,15 @@ export const publishSectionContent = async (req, res, next) => {
         };
       }
 
-      const publishedContent = content || targetSections[sectionKey].draft_content || targetSections[sectionKey].content || {};
+      const currentContent = targetSections[sectionKey].content || {};
+      const draftContent = targetSections[sectionKey].draft_content || {};
+      const incomingContent = content || {};
+      const publishedContent = {
+        ...currentContent,
+        ...draftContent,
+        ...incomingContent
+      };
+
       targetSections[sectionKey] = {
         ...targetSections[sectionKey],
         content: publishedContent,
@@ -282,14 +316,14 @@ export const publishSectionContent = async (req, res, next) => {
       });
     }
 
-    await ActivityLog.create({
+    safeRecordActivity({
       adminName: req.user?.name || 'Admin',
       adminEmail: req.user?.email || '',
       action: 'PUBLISH',
       module: 'PAGE_CONTENT',
       details: `Published section "${sectionKey || 'All'}" on "${pageSlug}" page`,
       ipAddress: req.ip || ''
-    }).catch(() => {});
+    });
 
     res.json({
       success: true,
@@ -311,14 +345,16 @@ export const revertSectionDraftContent = async (req, res, next) => {
     const sectionKey = req.params.sectionKey;
     const { sections: currentSections } = await resolvePageSections(pageSlug);
 
-    const targetSections = { ...currentSections };
-    if (targetSections[sectionKey]) {
-      targetSections[sectionKey] = {
-        ...targetSections[sectionKey],
-        draft_content: null,
-        has_unpublished_changes: false
-      };
+    if (!currentSections || !currentSections[sectionKey]) {
+      return res.status(404).json({ success: false, message: 'Section not found' });
     }
+
+    const targetSections = { ...currentSections };
+    targetSections[sectionKey] = {
+      ...targetSections[sectionKey],
+      draft_content: null,
+      has_unpublished_changes: false
+    };
 
     await persistPageSections(pageSlug, targetSections, req.user);
 
@@ -384,6 +420,15 @@ export const addPageSection = async (req, res, next) => {
       });
     }
 
+    safeRecordActivity({
+      adminName: req.user?.name || 'Admin',
+      adminEmail: req.user?.email || '',
+      action: 'ADD_SECTION',
+      module: 'PAGE_CONTENT',
+      details: `Added new section "${sectionName}" on "${pageSlug}" page`,
+      ipAddress: req.ip || ''
+    });
+
     res.status(201).json({
       success: true,
       message: `New section "${sectionName}" added successfully to ${pageSlug} page`,
@@ -423,6 +468,15 @@ export const deletePageSection = async (req, res, next) => {
       });
     }
 
+    safeRecordActivity({
+      adminName: req.user?.name || 'Admin',
+      adminEmail: req.user?.email || '',
+      action: 'DELETE_SECTION',
+      module: 'PAGE_CONTENT',
+      details: `Deleted section "${sectionKey}" from "${pageSlug}" page`,
+      ipAddress: req.ip || ''
+    });
+
     res.json({
       success: true,
       message: `Section "${sectionKey}" removed from ${pageSlug} page`,
@@ -461,6 +515,15 @@ export const duplicatePageSection = async (req, res, next) => {
     };
 
     await persistPageSections(pageSlug, targetSections, req.user);
+
+    safeRecordActivity({
+      adminName: req.user?.name || 'Admin',
+      adminEmail: req.user?.email || '',
+      action: 'DUPLICATE_SECTION',
+      module: 'PAGE_CONTENT',
+      details: `Duplicated section "${sectionKey}" as "${newKey}" on "${pageSlug}" page`,
+      ipAddress: req.ip || ''
+    });
 
     res.status(201).json({
       success: true,
@@ -506,6 +569,15 @@ export const reorderPageSections = async (req, res, next) => {
       });
     }
 
+    safeRecordActivity({
+      adminName: req.user?.name || 'Admin',
+      adminEmail: req.user?.email || '',
+      action: 'REORDER_SECTIONS',
+      module: 'PAGE_CONTENT',
+      details: `Reordered sections on "${pageSlug}" page`,
+      ipAddress: req.ip || ''
+    });
+
     res.json({
       success: true,
       message: `Sections reordered successfully on ${pageSlug} page`,
@@ -547,6 +619,15 @@ export const toggleSectionVisibility = async (req, res, next) => {
         timestamp: new Date().toISOString()
       });
     }
+
+    safeRecordActivity({
+      adminName: req.user?.name || 'Admin',
+      adminEmail: req.user?.email || '',
+      action: 'TOGGLE_VISIBILITY',
+      module: 'PAGE_CONTENT',
+      details: `Toggled visibility of section "${sectionKey}" on "${pageSlug}" page to ${targetSections[sectionKey].is_visible}`,
+      ipAddress: req.ip || ''
+    });
 
     res.json({
       success: true,

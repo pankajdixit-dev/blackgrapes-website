@@ -32,14 +32,15 @@
   "home_page": {
     "hero": {
       "badge": "10+ Years of Proven IT Excellence • Indore, India",
-      "prefix": "Innovate. Integrate. Elevate.",
+      "prefix": "Innovate. Integrate. Elevate. ",
       "break_text": "And Digitalize Your Ideas into Success via",
       "brand_highlight": "BLACK GRAPES SOFTECH",
       "suffix": ", Where Innovation And ideas Meets Excellence.",
       "description": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.",
       "cta_primary_text": "Request a Demo",
       "cta_secondary_text": "Get the offer"
-    }
+    },
+    "updated_at": "2026-11-03T10:54:00.158Z"
   },
   "page_sections": {
     "about_hero": {
@@ -1594,7 +1595,7 @@
       "full_name": "Lead Administrator",
       "role": "super_admin",
       "is_active": true,
-      "last_login_at": "2026-11-02T06:51:54.065Z"
+      "last_login_at": "2026-11-03T10:47:09.765Z"
     },
     {
       "id": "usr-2",
@@ -1606,6 +1607,78 @@
     }
   ],
   "activity_logs": [
+    {
+      "id": "log-1793703240221",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:54:00.221Z"
+    },
+    {
+      "id": "log-1793703240181",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:54:00.181Z"
+    },
+    {
+      "id": "log-1793703186609",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:53:06.609Z"
+    },
+    {
+      "id": "log-1793703186493",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:53:06.493Z"
+    },
+    {
+      "id": "log-1793702915430",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:48:35.430Z"
+    },
+    {
+      "id": "log-1793702915388",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:48:35.388Z"
+    },
+    {
+      "id": "log-1793702895188",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:48:15.188Z"
+    },
+    {
+      "id": "log-1793702895156",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:48:15.156Z"
+    },
     {
       "id": "log-1793701216085",
       "action": "Updated Module",
@@ -2433,78 +2506,6 @@
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: clients_page",
       "created_at": "2026-11-03T05:54:00.787Z"
-    },
-    {
-      "id": "log-1793685240766",
-      "action": "Updated Module",
-      "module": "clients_page",
-      "record_id": "clients_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: clients_page",
-      "created_at": "2026-11-03T05:54:00.767Z"
-    },
-    {
-      "id": "log-1793685238414",
-      "action": "Updated Module",
-      "module": "products_page",
-      "record_id": "products_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: products_page",
-      "created_at": "2026-11-03T05:53:58.414Z"
-    },
-    {
-      "id": "log-1793685238387",
-      "action": "Updated Module",
-      "module": "products_page",
-      "record_id": "products_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: products_page",
-      "created_at": "2026-11-03T05:53:58.387Z"
-    },
-    {
-      "id": "log-1793685236049",
-      "action": "Updated Module",
-      "module": "softech_page",
-      "record_id": "softech_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: softech_page",
-      "created_at": "2026-11-03T05:53:56.049Z"
-    },
-    {
-      "id": "log-1793685236017",
-      "action": "Updated Module",
-      "module": "softech_page",
-      "record_id": "softech_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: softech_page",
-      "created_at": "2026-11-03T05:53:56.017Z"
-    },
-    {
-      "id": "log-1793685233659",
-      "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-03T05:53:53.659Z"
-    },
-    {
-      "id": "log-1793685233608",
-      "action": "Updated Module",
-      "module": "services_page",
-      "record_id": "services_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: services_page",
-      "created_at": "2026-11-03T05:53:53.608Z"
-    },
-    {
-      "id": "log-1793685228922",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-03T05:53:48.923Z"
     }
   ],
   "content_revisions": [],

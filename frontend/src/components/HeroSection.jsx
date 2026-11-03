@@ -169,11 +169,14 @@ export const EnterprisePortal = () => {
       {/* Tech Stack Marquee Strip */}
       <div className="tech-marquee-wrapper">
         <div className="marquee-label-container">
-          <span className="marquee-label">Core Tech Stack:</span>
+          <div className="marquee-label-pill">
+            <span className="marquee-dot"></span>
+            <span className="marquee-label">Core Tech Stack</span>
+          </div>
         </div>
         <div className="marquee-track-container">
           <div className="marquee-track">
-            {[...techBadges, ...techBadges].map((item, idx) => (
+            {[...techBadges, ...techBadges, ...techBadges, ...techBadges].map((item, idx) => (
               <div key={idx} className="marquee-item">
                 <span className="marquee-tech-name">{item.name}</span>
                 <span className="marquee-category">{item.category}</span>

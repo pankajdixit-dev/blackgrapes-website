@@ -1,7 +1,15 @@
 import React from 'react';
 import { WHY_CHOOSE_US, COMPANY_INFO } from '../data/siteData';
+import { useHomePage } from '@backend/useContent';
 
 export default function WhyChooseUs({ onOpenModal }) {
+  const { home } = useHomePage();
+  const whyUs = home?.whyChooseUs || {};
+
+  const badge = whyUs.badge || 'WHY CHOOSE US ?';
+  const titlePrefix = whyUs.titlePrefix || 'Built On Security, Uncompromising Quality & ';
+  const titleHighlight = whyUs.titleHighlight || 'Lifelong Relationships';
+  const visionQuote = whyUs.visionQuote || WHY_CHOOSE_US.vision;
   return (
     <section id="why-us" className="section why-us-section">
       <div className="container">
@@ -9,13 +17,13 @@ export default function WhyChooseUs({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>WHY CHOOSE US ?</span>
+            <span>{badge}</span>
           </div>
           <h2 className="section-title">
-            Built On Security, Uncompromising Quality & <span className="text-highlight">Lifelong Relationships</span>
+            {titlePrefix}<span className="text-highlight">{titleHighlight}</span>
           </h2>
           <p className="vision-quote">
-            &ldquo;{WHY_CHOOSE_US.vision}&rdquo;
+            &ldquo;{visionQuote}&rdquo;
           </p>
         </div>
 

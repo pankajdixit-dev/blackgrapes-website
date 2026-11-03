@@ -290,7 +290,7 @@ export default function HomePageManager() {
             </h3>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: '1rem', columnGap: '0.65rem', marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-              {(hero.techBadges || []).map((badge, idx) => (
+              {((hero.techBadges && hero.techBadges.length > 0) ? hero.techBadges : DEFAULT_TECH_BADGES).map((badge, idx) => (
                 <div
                   key={idx}
                   style={{

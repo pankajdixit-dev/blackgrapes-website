@@ -38,7 +38,116 @@
       "suffix": ", Where Innovation And ideas Meets Excellence.",
       "description": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.",
       "cta_primary_text": "Request a Demo",
-      "cta_secondary_text": "Get the offer"
+      "cta_secondary_text": "Get the offer",
+      "techBadges": [
+        {
+          "name": "React",
+          "category": "Frontend"
+        },
+        {
+          "name": "Flutter",
+          "category": "Mobile"
+        },
+        {
+          "name": "Node.js",
+          "category": "Backend"
+        },
+        {
+          "name": "Python",
+          "category": "AI & Data"
+        },
+        {
+          "name": "Next.js",
+          "category": "Full Stack"
+        },
+        {
+          "name": "iOS / Swift",
+          "category": "Native"
+        },
+        {
+          "name": "Android / Kotlin",
+          "category": "Native"
+        },
+        {
+          "name": "AWS Cloud",
+          "category": "DevOps"
+        },
+        {
+          "name": "Custom CRM",
+          "category": "Enterprise"
+        },
+        {
+          "name": "MLM Engines",
+          "category": "FinTech"
+        }
+      ]
+    },
+    "clockPhilosophy": {
+      "eyebrow": "BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS",
+      "titlePrefix": "MORE THAN A SERVICE. ",
+      "titleHighlight": "A COMMITMENT TO TIME & SCALE.",
+      "description": "Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.",
+      "mantraPills": [
+        "BEGIN WITH PURPOSE",
+        "ENGINEER WITH RIGOR",
+        "DELIVER ON TIME"
+      ],
+      "pillarBadge": "01 / THE TIMELESS PRINCIPLE",
+      "pillarTitle": "A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.",
+      "pillarParagraphs": [
+        "In Indian tradition, Shubh Muhurat & Brahma Muhurta symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.",
+        "Inspired by this timeless philosophy, our Black Grapes delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.",
+        "Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count."
+      ],
+      "quoteText": "Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership."
+    },
+    "whyChooseUs": {
+      "badge": "WHY CHOOSE US ?",
+      "titlePrefix": "Built On Security, Uncompromising Quality & ",
+      "titleHighlight": "Lifelong Relationships",
+      "visionQuote": "To be the most reliable, visionary IT catalyst for modern businesses by delivering robust code, high ROI, and lifelong partnerships.",
+      "clientsCount": "100+",
+      "projectsCount": "150+",
+      "experienceYears": "10+",
+      "pillars": [
+        {
+          "subtitle": "Unmatched Reliability",
+          "title": "Enterprise Security & Compliance",
+          "description": "Military-grade encryption, OWASP Top 10 mitigation, and ISO-standard coding conventions ensure your product scales without vulnerability.",
+          "points": [
+            "Zero Data Leak Architecture",
+            "Strict NDAs & IP Ownership",
+            "Regular Security Audits"
+          ]
+        },
+        {
+          "subtitle": "Uncompromising Quality",
+          "title": "Precision-Driven Engineering",
+          "description": "Clean, modular, thoroughly tested code architectures that minimize technical debt and maximize page speed, uptime, and user adoption.",
+          "points": [
+            "Automated CI/CD Pipelines",
+            "99.9% Uptime Guarantee",
+            "Pixel-Perfect UI/UX Execution"
+          ]
+        },
+        {
+          "subtitle": "Dedicated Partnership",
+          "title": "End-to-End Strategic Lifecycle",
+          "description": "We don’t stop at deployment. We stand shoulder to shoulder with founders and CIOs as true technology partners from MVP to multi-million user scale.",
+          "points": [
+            "24/7 Priority Support Desk",
+            "Dedicated Tech Project Manager",
+            "Continuous Feature Evolution"
+          ]
+        }
+      ]
+    },
+    "ctaBanner": {
+      "badge": "GET STARTED WITH BLACK GRAPES SOFTECH",
+      "title": "Assess Your Business Potentials Now & Find Take Care of What Matters Most!",
+      "subtitle": "Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.",
+      "primaryBtnText": "Get Started Now!",
+      "secondaryBtnText": "Get Free Consultation"
     },
     "updated_at": "2026-11-03T10:54:00.158Z"
   },
@@ -159,6 +268,50 @@
       "has_unpublished_changes": false,
       "content": {
         "badge": "CORE COMPASS",
+        "title": "The Guiding Pillars Behind Our Growth",
+        "subtitle": "Every system we engineer is backed by our relentless commitment to excellence and transformative technology.",
+        "vision": {
+          "tag": "Strategic Vision",
+          "heading": "Empowering Tomorrow Through",
+          "headingHighlight": "Innovative Code",
+          "p1": "At Black Grapes Softech, our vision is to lead the way in software development, using innovation and creativity to shape the future of technology.",
+          "p2": "We envision a world where every software solution we architect empowers individuals, businesses, and communities to thrive, automate, and excel in the digital-first economy.",
+          "points": [
+            "Pioneering intelligent, scalable cloud and web infrastructures.",
+            "Cultivating technological self-reliance and commercial success for clients.",
+            "Constantly innovating ahead of emerging market trends."
+          ],
+          "quote": "\"Technology should not just automate tasks; it should multiply human potential and drive real-world transformation.\"",
+          "quoteAuthor": "— Black Grapes Softech Leadership"
+        },
+        "mission": {
+          "tag": "Execution & Commitment",
+          "heading": "Crafting Excellence,",
+          "headingHighlight": "One Line of Code at a Time",
+          "p1": "Our mission is to provide exceptional software development services tailored to our clients’ unique business requirements. We are dedicated to delivering top-notch, cutting-edge solutions while fostering a culture of collaboration, growth, and continuous innovation.",
+          "p2": "At Black Grapes Softech, we don’t just write code; we build the solid architectural foundation for a better, smarter, and more connected digital world.",
+          "points": [
+            "High-velocity development with bulletproof security & QA.",
+            "Transparent communication and milestone visibility at all times.",
+            "Tailored solutions engineered precisely for client ROI."
+          ],
+          "quote": "\"We don’t settle for 'good enough'. We build digital products designed to dominate their industry.\"",
+          "quoteAuthor": "— Engineering Philosophy"
+        },
+        "philosophy": {
+          "tag": "Architectural Integrity",
+          "heading": "Engineering For",
+          "headingHighlight": "Infinite Scale & Speed",
+          "p1": "Software isn't merely lines of script — it is the digital nervous system of your business. Our philosophy emphasizes clean code, microservices scalability, robust security protocols, and human-centered design.",
+          "p2": "Whether developing custom MLM platforms, enterprise CRM systems, or high-throughput SaaS engines, our engineering principles guarantee longevity and seamless scalability.",
+          "points": [
+            "Modularity and maintainability baked in from Day 1.",
+            "Lightning-fast user interfaces with modern reactive frameworks.",
+            "Zero technical debt tolerance through strict code reviews."
+          ],
+          "quote": "\"Great code is invisible; what users experience is flawless speed, intuition, and undeniable value.\"",
+          "quoteAuthor": "— Core Tech Standard"
+        },
         "heading": "Guided by Purpose, Driven by Precision",
         "visionTitle": "Our Strategic Vision",
         "visionText": "To be the most trusted software engineering partner globally, accelerating digital transformation through architectural brilliance, ethical technology practices, and sustainable engineering.",
@@ -186,6 +339,156 @@
         ]
       },
       "updated_at": "2026-11-03T06:00:49.351Z"
+    },
+    "founders": {
+      "id": "sec-founders",
+      "page": "about",
+      "section_key": "founders",
+      "section_name": "Meet the Founders & Leadership",
+      "order_index": 4,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "LEADERSHIP & VISION",
+        "title": "Meet the Visionaries Behind Black Grapes",
+        "subtitle": "Passionate innovators dedicated to redefining software engineering standards.",
+        "photo": "/images/founders.jpg",
+        "photoTagName": "Mr. Arpit Jain & Mrs. Deepika Jain",
+        "photoTagRole": "Founders & Executive Directors",
+        "heading": "Driven By Innovation, Grounded In Excellence",
+        "intro": "Behind Black Grapes Softech stand two visionary leaders with an unquenchable passion for digital advancement.",
+        "founder1Name": "Mr. Arpit Jain — Founder & Chief Architect",
+        "founder1Bio": "The driving force behind our software development journey. With a wealth of architectural experience and an instinctive knack for staying ahead of technological curves, he has pioneered cutting-edge solutions that have redefined client operations across industries.",
+        "founder2Name": "Mrs. Deepika Jain — Co-Founder & Strategic Director",
+        "founder2Bio": "Deepika Jain doesn’t just see challenges; she envisions opportunities. Her boundless creativity, strategic acumen, and people-first leadership have shaped our company’s culture of relentless innovation and customer delight."
+      }
+    },
+    "core_values": {
+      "id": "sec-core-values",
+      "page": "about",
+      "section_key": "core_values",
+      "section_name": "Core Values Section",
+      "order_index": 5,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "OUR CORE DNA",
+        "title": "The Values That Fuel Our Work",
+        "subtitle": "Every decision we make, line of code we write, and system we deliver is guided by our core values.",
+        "values": [
+          {
+            "title": "Innovation-First Mindset",
+            "desc": "We explore modern architectures and pioneering technologies to give our clients an unbeatable competitive advantage."
+          },
+          {
+            "title": "Uncompromised Quality",
+            "desc": "Every piece of code is rigorously tested, clean, documented, and built to scale effortlessly under intense enterprise load."
+          },
+          {
+            "title": "Agile & Rapid Delivery",
+            "desc": "Short iterative sprints, continuous feedback loops, and transparent milestones ensure on-time and on-budget delivery."
+          },
+          {
+            "title": "Client-Centric Synergy",
+            "desc": "We do not view ourselves merely as vendors; we act as dedicated tech co-founders and growth partners in your journey."
+          }
+        ]
+      }
+    },
+    "technical_expertise": {
+      "id": "sec-domains",
+      "page": "about",
+      "section_key": "technical_expertise",
+      "section_name": "Technical Expertise & Domains",
+      "order_index": 6,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "TECHNICAL EXPERTISE",
+        "title": "Versatile Engineering Across Critical Digital Domains",
+        "subtitle": "Our team delivers custom solutions across complex enterprise requirements with precision and high performance.",
+        "domains": [
+          "CRM Software Systems",
+          "MLM Architecture",
+          "Full-Stack Web Apps",
+          "iOS & Android Native/Flutter",
+          "Cloud & DevOps (AWS/Azure)",
+          "UI/UX Design Systems",
+          "Enterprise ERP Solutions",
+          "Interactive Game Development"
+        ]
+      }
+    },
+    "milestones": {
+      "id": "sec-milestones",
+      "page": "about",
+      "section_key": "milestones",
+      "section_name": "Company Milestones & History",
+      "order_index": 7,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "OUR MILESTONES",
+        "title": "A Decade of Relentless Evolution",
+        "subtitle": "From a dedicated local engineering hub in Indore to an internationally trusted software powerhouse.",
+        "milestones": [
+          {
+            "year": "2014",
+            "title": "The Foundation",
+            "desc": "Black Grapes Softech was founded in Indore with a vision to deliver world-class software development."
+          },
+          {
+            "year": "2017",
+            "title": "Specialized Enterprise Solutions",
+            "desc": "Expanded into specialized CRM, MLM platforms, and high-performance cross-platform mobile apps."
+          },
+          {
+            "year": "2021",
+            "title": "Global Footprint Expansion",
+            "desc": "Reached 150+ international deployments spanning North America, Europe, the Middle East, and Asia."
+          },
+          {
+            "year": "2024 - 2026",
+            "title": "AI, Cloud & Next-Gen Ecosystems",
+            "desc": "Pioneering intelligent automation, scalable cloud infra, and enterprise-grade web applications."
+          }
+        ]
+      }
+    },
+    "culture_hq": {
+      "id": "sec-culture-hq",
+      "page": "about",
+      "section_key": "culture_hq",
+      "section_name": "Headquarters & Culture Section",
+      "order_index": 8,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "HEADQUARTERS & CULTURE",
+        "title": "Where Passionate Technologists Thrive",
+        "image": "/images/workspace.jpg",
+        "locationTag": "Indore Tech Hub — Madhya Pradesh, India",
+        "p1": "Situated at 252-F/H Scheme No 54, Vijaynagar, Indore, our software development center is where bold ideas turn into robust reality.",
+        "p2": "We cultivate an open culture of perpetual learning, deep code reviews, creative freedom, and rigorous problem-solving. This energetic environment inspires our engineers to push boundaries and build applications that inspire.",
+        "stat1Num": "50+",
+        "stat1Label": "In-House Engineers & Designers",
+        "stat2Num": "100%",
+        "stat2Label": "Code Quality & Transparency"
+      }
+    },
+    "final_cta": {
+      "id": "sec-final-cta",
+      "page": "about",
+      "section_key": "final_cta",
+      "section_name": "About Final CTA Banner",
+      "order_index": 9,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "title": "Ready to Accelerate Your Business With Custom Tech?",
+        "text": "Speak directly with our technical leadership. Let's design, engineer, and deploy your software solution with unmatched precision.",
+        "buttonText": "Book a Technical Discovery Session"
+      }
     },
     "founders_story": {
       "id": "sec-founders-story",
@@ -2578,19 +2881,148 @@
     "badge": "LIVE TEST BADGE MAHESH ",
     "headline": "Stay on course with growth plans by hiring contractual staff",
     "subtitle": "Live WebSocket Test Subtitle",
+    "stats": [
+      {
+        "label": "Deployment Time",
+        "value": "48 Hours",
+        "sub": "Ready-to-code talent"
+      },
+      {
+        "label": "Vetting Standard",
+        "value": "Top 1%",
+        "sub": "Rigorous technical screens"
+      },
+      {
+        "label": "Replacement Guarantee",
+        "value": "100%",
+        "sub": "Zero-risk trial"
+      },
+      {
+        "label": "Client Retention",
+        "value": "98.5%",
+        "sub": "Long-term contracts"
+      }
+    ],
+    "mandateOptions": [
+      "1-10",
+      "10-50",
+      "51-100",
+      "101+"
+    ],
+    "staffingServices": [
+      "NAPS/Apprenticeship Hiring",
+      "Bulk Hiring",
+      "Diversity Hiring",
+      "Gig Hiring/Flexi Staffing",
+      "General Staffing/Payroll Management",
+      "IT/Technical Hiring"
+    ],
+    "guaranteePoints": [
+      "48-Hour Talent Deployment to your Slack or Jira",
+      "Risk-Free 2-Week Trial Period",
+      "Strict NDAs & Complete IP Transfer",
+      "Transparent Hourly or Monthly Retainer Pricing"
+    ],
+    "models": [
+      {
+        "id": "m-1",
+        "title": "Dedicated Developers",
+        "desc": "Full-time senior software engineers integrated into your sprint cycles.",
+        "rate": "From $18/hr",
+        "bestFor": "Scaling product teams"
+      },
+      {
+        "id": "m-2",
+        "title": "Managed Engineering Squads",
+        "desc": "Autonomous squads complete with Tech Lead, QA, and Scrum Master.",
+        "rate": "Custom Scope",
+        "bestFor": "Turnkey feature builds"
+      },
+      {
+        "id": "m-3",
+        "title": "Contract & Flexi Staffing",
+        "desc": "On-demand niche talent for specific project deliverables without long-term overhead.",
+        "rate": "Flexible",
+        "bestFor": "Spike workloads & MVPs"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "t-1",
+        "name": "Subodh Bhandari",
+        "role": "Businessman",
+        "company": "Enterprise Partner",
+        "rating": 5,
+        "quote": "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights."
+      }
+    ],
     "description": "Updated via Admin panel test"
   },
   "ecommerce_page": {
     "badge": "TEST ECOMMERCE BADGE",
     "title": "Exciting News! Naya Purana Bazaar is Coming Soon!",
+    "byline": "An Online Marketplace By Black Grapes Softech",
     "domain": "https://www.nayapuranabazaar.com",
     "domainDisplay": "nayapuranabazaar.com",
-    "targetLaunch": "Q3 2026"
+    "targetLaunch": "Q3 2026",
+    "summary": "India's next-generation hybrid marketplace connecting buyers and verified sellers for certified new and pre-owned goods with escrow security, fast courier logistics, and verified buyer protection.",
+    "categories": [
+      {
+        "id": "electronics",
+        "name": "Electronics & Appliances",
+        "count": "120+ Listings Pending",
+        "icon": "Cpu"
+      },
+      {
+        "id": "vehicles",
+        "name": "Two Wheelers & Cars",
+        "count": "85+ Listings Pending",
+        "icon": "Car"
+      },
+      {
+        "id": "furniture",
+        "name": "Home & Office Furniture",
+        "count": "60+ Listings Pending",
+        "icon": "Home"
+      },
+      {
+        "id": "fashion",
+        "name": "Fashion & Lifestyle",
+        "count": "200+ Listings Pending",
+        "icon": "ShoppingBag"
+      }
+    ],
+    "buyerPerks": [
+      "100% Escrow Payment Protection",
+      "Doorstep Quality Verification",
+      "7-Day Easy Return Policy",
+      "Direct WhatsApp Chat with Sellers"
+    ],
+    "sellerPerks": [
+      "0% Listing Fee for First 100 Products",
+      "Instant Payment Settlements to Bank",
+      "Free Integrated Logistics & Pickup",
+      "Automated Inventory & Invoicing Portal"
+    ],
+    "waitlist_count": 450
   },
   "partnership_page": {
     "heroBadge": "TEST ALLIANCES ",
     "heroTitle": "Partnership",
-    "heroSubtitle": "Cultivating strategic relationships"
+    "heroSubtitle": "Cultivating strategic relationships",
+    "partnerWithUsTitle": "Partner With Us",
+    "partnerWithUsText": "If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.",
+    "partnerImage": "/partners/partner_with_us.webp",
+    "benefits": [
+      "Dedicated Offshore Development Center (ODC) setup in Indore tech corridor",
+      "Seamless collaboration across global time zones (US, UK, UAE, Australia)",
+      "Transparent billing, daily standups, and dedicated engineering leadership",
+      "Strict intellectual property protection and confidentiality agreements"
+    ],
+    "productPartnersTitle": "Products Companies Tie-up",
+    "productPartnersIntro": "Facilitating strategic alliances between product companies to expand reach, unlock mutual growth, and integrate complementary cloud platforms.",
+    "servicePartnersTitle": "Services Companies Tie-up",
+    "servicePartnersIntro": "Strategic collaborations between service enterprises to expand offerings, share cross-domain expertise, and co-deliver complex client mandates."
   },
   "contact_page": {
     "heroBadge": "BLACK GRAPES GROUP",

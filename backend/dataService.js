@@ -102,6 +102,32 @@ function getApiUrl(endpoint) {
   return `http://localhost:5000${cleanEndpoint}`;
 }
 
+// Deep merge helper to ensure rich default fields are never lost if partial updates occur
+function deepMergeDefaults(source, target) {
+  if (!source) return target;
+  if (!target) return source;
+
+  if (Array.isArray(source)) {
+    return (Array.isArray(target) && target.length > 0) ? target : source;
+  }
+
+  if (typeof source === 'object' && typeof target === 'object' && !Array.isArray(source) && !Array.isArray(target)) {
+    const result = { ...source };
+    for (const key of Object.keys(target)) {
+      if (target[key] !== undefined && target[key] !== null) {
+        if (typeof target[key] === 'object' && typeof source[key] === 'object') {
+          result[key] = deepMergeDefaults(source[key], target[key]);
+        } else {
+          result[key] = target[key];
+        }
+      }
+    }
+    return result;
+  }
+
+  return target !== undefined ? target : source;
+}
+
 // API Helpers with dual-connection (Server port 5000 first, fallback to local origin)
 export async function fetchModuleApi(moduleName, defaultVal) {
   const cacheBust = `_t=${Date.now()}`;
@@ -114,8 +140,9 @@ export async function fetchModuleApi(moduleName, defaultVal) {
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data !== undefined) {
-        setLocal(`bgst_${moduleName}`, json.data);
-        return json.data;
+        const merged = deepMergeDefaults(defaultVal, json.data);
+        setLocal(`bgst_${moduleName}`, merged);
+        return merged;
       }
     }
   } catch {
@@ -130,15 +157,17 @@ export async function fetchModuleApi(moduleName, defaultVal) {
     if (res2.ok) {
       const json = await res2.json();
       if (json.success && json.data !== undefined) {
-        setLocal(`bgst_${moduleName}`, json.data);
-        return json.data;
+        const merged = deepMergeDefaults(defaultVal, json.data);
+        setLocal(`bgst_${moduleName}`, merged);
+        return merged;
       }
     }
   } catch {
     // fallback
   }
 
-  return getLocal(`bgst_${moduleName}`, defaultVal);
+  const localVal = getLocal(`bgst_${moduleName}`, defaultVal);
+  return deepMergeDefaults(defaultVal, localVal);
 }
 
 export async function saveModuleApi(moduleName, data) {

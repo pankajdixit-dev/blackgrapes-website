@@ -224,6 +224,10 @@ export default function About({ onOpenDemoModal }) {
                 src={heroContent.image || aboutHeroImg}
                 alt="Black Grapes Softech Modern Tech Lab"
                 className="hero-main-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = aboutHeroImg;
+                }}
               />
               <div className="visual-glass-overlay">
                 <div className="floating-stat-box floating-elem">
@@ -457,6 +461,10 @@ export default function About({ onOpenDemoModal }) {
                       src={founderPhoto}
                       alt="Mr. Arpit Jain and Mrs. Deepika Jain - Founders of Black Grapes Softech"
                       className="founders-img"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = foundersImg;
+                      }}
                     />
                     <div className="founders-photo-tag">
                       <span className="photo-tag-name">{founderPhotoTag}</span>

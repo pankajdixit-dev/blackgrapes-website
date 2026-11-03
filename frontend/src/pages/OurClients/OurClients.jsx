@@ -150,6 +150,7 @@ export default function OurClients({ onOpenDemoModal }) {
                 src={heroImage}
                 alt="Black Grapes Softech Global Client Footprint"
                 className="clients-network-img"
+                onError={(e) => { e.target.onerror = null; e.target.src = clientsNetworkImg; }}
               />
               <div className="floating-partners-badge">
                 <div className="badge-inner-flex">
@@ -262,6 +263,7 @@ export default function OurClients({ onOpenDemoModal }) {
                       alt={`${client.name} Logo`}
                       className="client-brand-img"
                       loading="lazy"
+                      onError={(e) => { e.target.onerror = null; e.target.src = "/bgst-logo.png"; }}
                     />
                   </div>
 

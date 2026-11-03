@@ -192,6 +192,7 @@ export default function OurProducts({ onOpenDemoModal }) {
                 src={heroImage}
                 alt="Black Grapes Softech Enterprise Products Suite"
                 className="hero-showcase-img"
+                onError={(e) => { e.target.onerror = null; e.target.src = productsHeroImg; }}
               />
               <div className="floating-glass-pill">
                 <div className="pill-info">

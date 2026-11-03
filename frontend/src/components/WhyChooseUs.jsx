@@ -70,6 +70,15 @@ export default function WhyChooseUs({ onOpenModal }) {
                   alt={pillar.title}
                   className={`why-us-img why-us-img-${idx + 1}`}
                   loading="lazy"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    const fallbacks = [
+                      '/images/services-infograph.png',
+                      '/images/tech-innovation.jpg',
+                      '/images/workspace.jpg'
+                    ];
+                    e.target.src = fallbacks[idx] || '/images/workspace.jpg';
+                  }}
                 />
                 <div className="why-us-img-gradient"></div>
                 <div className="pillar-number">0{idx + 1}</div>

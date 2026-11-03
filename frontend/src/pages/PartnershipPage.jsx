@@ -99,7 +99,7 @@ export default function PartnershipPage() {
                 className="partner-feature-img"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://blackgrapessoftech.com/wp-content/uploads/elementor/thumbs/download-qgt1jk7bs4228h6seuo0sgqmw7vet6s2p2wi6s411u.webp";
+                  e.target.src = "/partners/partner_with_us.webp";
                 }}
               />
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Sparkles,
   Search,
@@ -41,8 +41,6 @@ import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';
 import productsDevicesImg from '../../assets/products-devices.jpg';
 import './OurProducts.css';
-import { getPageSections } from '@backend/dataService.js';
-import '../../utils/realtimeSync';
 
 // Industry Icon Helper
 const INDUSTRY_ICONS = {
@@ -66,45 +64,9 @@ const GUARANTEE_ICONS = {
 };
 
 export default function OurProducts({ onOpenDemoModal }) {
-  const [pageSections, setPageSections] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoProduct, setActiveVideoProduct] = useState(null);
-
-  useEffect(() => {
-    getPageSections('products').then((secs) => {
-      if (secs) setPageSections(secs);
-    });
-
-    const handleUpdate = (e) => {
-      const detail = e.detail || {};
-      if (detail.pageSlug === 'products' && detail.sections) {
-        setPageSections(detail.sections);
-      } else {
-        getPageSections('products').then((secs) => {
-          if (secs) setPageSections(secs);
-        });
-      }
-    };
-
-    window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
-  }, []);
-
-  const heroContent = pageSections?.products_hero?.content;
-  const eyebrow = heroContent?.eyebrow || 'BLACK GRAPES SOFTECH PROPRIETARY SUITE';
-  const heroTitle = heroContent?.title || 'Our Products:';
-  const heroHighlight = heroContent?.highlight || 'Engineered to Transform Modern Business';
-  const heroDesc = heroContent?.description || 'Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.';
-  const heroImage = heroContent?.heroImage || productsHeroImg;
-  const heroStats = heroContent?.stats || [
-    { metric: '12+', label: 'Turnkey Products', gradient: true },
-    { metric: '100%', label: 'Source Code Ownership' },
-    { metric: '7+', label: 'Core Industries', gradient: true },
-    { metric: '5-7', label: 'Days Deployment' }
-  ];
-  const primaryBtnText = heroContent?.primaryBtnText || 'Request Live Demo';
-  const secondaryBtnText = heroContent?.secondaryBtnText || `Browse All Products (${PRODUCTS_LIST.length})`;
 
   // Filtered products calculation
   const filteredProducts = useMemo(() => {
@@ -138,16 +100,16 @@ export default function OurProducts({ onOpenDemoModal }) {
           <div className="products-hero-content">
             <div className="hero-eyebrow-badge">
               <Sparkles size={14} />
-              <span>{eyebrow}</span>
+              <span>BLACK GRAPES SOFTECH PROPRIETARY SUITE</span>
             </div>
 
             <h1 className="products-hero-title">
-              {heroTitle} <br />
-              <span className="text-gradient">{heroHighlight}</span>
+              Our Products: <br />
+              <span className="text-gradient">Engineered to Transform Modern Business</span>
             </h1>
 
             <p className="products-hero-desc">
-              {heroDesc}
+              Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.
             </p>
 
             {/* Quick Metrics Bar */}
@@ -176,11 +138,11 @@ export default function OurProducts({ onOpenDemoModal }) {
                 onClick={onOpenDemoModal}
                 className="btn btn-primary btn-pulse-glow"
               >
-                <span>{primaryBtnText}</span>
+                <span>Request Live Demo</span>
                 <ArrowRight size={18} />
               </button>
               <a href="#catalog" className="btn btn-secondary">
-                <span>{secondaryBtnText}</span>
+                <span>Browse All Products ({PRODUCTS_LIST.length})</span>
               </a>
             </div>
           </div>
@@ -189,10 +151,9 @@ export default function OurProducts({ onOpenDemoModal }) {
           <div className="products-hero-visual">
             <div className="hero-image-frame">
               <img
-                src={heroImage}
+                src={productsHeroImg}
                 alt="Black Grapes Softech Enterprise Products Suite"
                 className="hero-showcase-img"
-                onError={(e) => { e.target.onerror = null; e.target.src = productsHeroImg; }}
               />
               <div className="floating-glass-pill">
                 <div className="pill-info">

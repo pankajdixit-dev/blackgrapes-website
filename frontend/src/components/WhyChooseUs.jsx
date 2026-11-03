@@ -1,46 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { WHY_CHOOSE_US, COMPANY_INFO } from '../data/siteData';
-import { getPageSections } from '@backend/dataService.js';
-import '../utils/realtimeSync';
 
 export default function WhyChooseUs({ onOpenModal }) {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    getPageSections('home').then((sections) => {
-      if (sections && sections.home_why_us) {
-        setData(sections.home_why_us.content);
-      }
-    });
-
-    const handleUpdate = (e) => {
-      const detail = e.detail || {};
-      if (detail.pageSlug === 'home' && detail.sections?.home_why_us) {
-        setData(detail.sections.home_why_us.content);
-      } else {
-        getPageSections('home').then((sections) => {
-          if (sections && sections.home_why_us) {
-            setData(sections.home_why_us.content);
-          }
-        });
-      }
-    };
-
-    window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
-  }, []);
-
-  const badge = data?.badge || 'WHY CHOOSE US ?';
-  const heading = data?.heading || 'Built On Security, Uncompromising Quality & Lifelong Relationships';
-  const vision = data?.vision || WHY_CHOOSE_US.vision;
-  const pillars = data?.pillars || WHY_CHOOSE_US.pillars;
-  const stats = data?.stats || [
-    { icon: '👥', number: COMPANY_INFO.clientsCount, name: 'Happy Clients' },
-    { icon: '🚀', number: COMPANY_INFO.projectsCount, name: 'Projects Delivered' },
-    { icon: '⚙️', number: COMPANY_INFO.servicesCount, name: 'Services & Modules' },
-    { icon: '👨‍💻', number: COMPANY_INFO.teamMembersCount, name: 'Tech Wizards' }
-  ];
-
   return (
     <section id="why-us" className="section why-us-section">
       <div className="container">
@@ -48,21 +9,19 @@ export default function WhyChooseUs({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>{badge}</span>
+            <span>WHY CHOOSE US ?</span>
           </div>
           <h2 className="section-title">
-            {heading}
+            Built On Security, Uncompromising Quality & <span className="text-highlight">Lifelong Relationships</span>
           </h2>
-          {vision && (
-            <p className="vision-quote">
-              &ldquo;{vision}&rdquo;
-            </p>
-          )}
+          <p className="vision-quote">
+            &ldquo;{WHY_CHOOSE_US.vision}&rdquo;
+          </p>
         </div>
 
         {/* 3 Pillars Grid */}
         <div className="why-us-grid home-why-us-grid">
-          {pillars.map((pillar, idx) => (
+          {WHY_CHOOSE_US.pillars.map((pillar, idx) => (
             <div key={idx} className="why-us-card home-why-us-card">
               <div className="why-us-img-container">
                 <img
@@ -70,15 +29,6 @@ export default function WhyChooseUs({ onOpenModal }) {
                   alt={pillar.title}
                   className={`why-us-img why-us-img-${idx + 1}`}
                   loading="lazy"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    const fallbacks = [
-                      '/images/services-infograph.png',
-                      '/images/tech-innovation.jpg',
-                      '/images/workspace.jpg'
-                    ];
-                    e.target.src = fallbacks[idx] || '/images/workspace.jpg';
-                  }}
                 />
                 <div className="why-us-img-gradient"></div>
                 <div className="pillar-number">0{idx + 1}</div>
@@ -89,16 +39,14 @@ export default function WhyChooseUs({ onOpenModal }) {
                 <h3 className="pillar-title">{pillar.title}</h3>
                 <p className="pillar-description">{pillar.description}</p>
 
-                {pillar.points && pillar.points.length > 0 && (
-                  <div className="pillar-points-list">
-                    {pillar.points.map((pt, pIdx) => (
-                      <div key={pIdx} className="pillar-point-item">
-                        <span className="check-icon">✓</span>
-                        <span>{pt}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="pillar-points-list">
+                  {pillar.points.map((pt, pIdx) => (
+                    <div key={pIdx} className="pillar-point-item">
+                      <span className="check-icon">✓</span>
+                      <span>{pt}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -106,18 +54,43 @@ export default function WhyChooseUs({ onOpenModal }) {
 
         {/* Live Counters Banner */}
         <div className="counters-banner">
-          {stats.map((stat, sIdx) => (
-            <React.Fragment key={sIdx}>
-              {sIdx > 0 && <div className="counter-divider"></div>}
-              <div className="counter-card">
-                <div className="counter-icon-wrap">{stat.icon}</div>
-                <div className="counter-data">
-                  <span className="counter-number">{stat.number}</span>
-                  <span className="counter-name">{stat.name}</span>
-                </div>
-              </div>
-            </React.Fragment>
-          ))}
+          <div className="counter-card">
+            <div className="counter-icon-wrap">👥</div>
+            <div className="counter-data">
+              <span className="counter-number">{COMPANY_INFO.clientsCount}</span>
+              <span className="counter-name">Happy Clients</span>
+            </div>
+          </div>
+
+          <div className="counter-divider"></div>
+
+          <div className="counter-card">
+            <div className="counter-icon-wrap">🚀</div>
+            <div className="counter-data">
+              <span className="counter-number">{COMPANY_INFO.projectsCount}</span>
+              <span className="counter-name">Projects Delivered</span>
+            </div>
+          </div>
+
+          <div className="counter-divider"></div>
+
+          <div className="counter-card">
+            <div className="counter-icon-wrap">⚙️</div>
+            <div className="counter-data">
+              <span className="counter-number">{COMPANY_INFO.servicesCount}</span>
+              <span className="counter-name">Services & Modules</span>
+            </div>
+          </div>
+
+          <div className="counter-divider"></div>
+
+          <div className="counter-card">
+            <div className="counter-icon-wrap">👨‍💻</div>
+            <div className="counter-data">
+              <span className="counter-number">{COMPANY_INFO.teamMembersCount}</span>
+              <span className="counter-name">Tech Wizards</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

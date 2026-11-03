@@ -11,6 +11,7 @@ import {
   Building2,
   CheckCircle,
   Eye,
+  ExternalLink,
   History,
   AlertCircle
 } from 'lucide-react';
@@ -19,36 +20,14 @@ import {
   updateSectionDraft,
   publishSection,
   revertSectionDraft,
-  getContentRevisions,
-  uploadMediaItem
+  getContentRevisions
 } from '@backend/dataService';
-import {
-  getPageDefaultSections,
-  DEFAULT_PAGE_SECTIONS
-} from '@backend/defaultData';
-
-const getInitialAboutSections = () => {
-  const fallback = (typeof getPageDefaultSections === 'function' ? getPageDefaultSections('about') : null) || DEFAULT_PAGE_SECTIONS || {};
-  try {
-    if (typeof window !== 'undefined') {
-      const raw = localStorage.getItem('bg_page_sections_about');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-          return { ...fallback, ...parsed };
-        }
-      }
-    }
-  } catch (e) { }
-  return fallback;
-};
 
 export default function AboutPageManager() {
-  const [sections, setSections] = useState(getInitialAboutSections);
+  const [sections, setSections] = useState(null);
   const [activeTab, setActiveTab] = useState('about_hero');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [revisions, setRevisions] = useState([]);
   const [showRevisionsModal, setShowRevisionsModal] = useState(false);
@@ -58,14 +37,8 @@ export default function AboutPageManager() {
   }, []);
 
   const loadSections = async () => {
-    try {
-      const data = await getPageSections('about');
-      if (data && typeof data === 'object' && Object.keys(data).length > 0) {
-        setSections((prev) => ({ ...prev, ...data }));
-      }
-    } catch (e) {
-      console.warn('Could not refresh about sections from server:', e);
-    }
+    const data = await getPageSections('about');
+    setSections(data);
   };
 
   const showToast = (msg) => {
@@ -73,30 +46,11 @@ export default function AboutPageManager() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  const handleImageUpload = async (key, file) => {
-    if (!file) return;
-    setUploadingImage(true);
-    try {
-      const res = await uploadMediaItem(file);
-      if (res.success && res.data?.url) {
-        handleFieldChange(key, res.data.url);
-        showToast('Photo uploaded successfully.');
-      } else {
-        const reader = new FileReader();
-        reader.onload = () => {
-          handleFieldChange(key, reader.result);
-          showToast('Photo loaded.');
-        };
-        reader.readAsDataURL(file);
-      }
-    } catch (err) {
-      showToast('Error uploading photo.');
-    } finally {
-      setUploadingImage(false);
-    }
-  };
+  if (!sections) {
+    return <div style={{ color: '#9ca3af', padding: '2rem' }}>Loading content editor...</div>;
+  }
 
-  const currentSection = (sections && sections[activeTab]) || getInitialAboutSections()[activeTab] || {};
+  const currentSection = sections[activeTab];
   const draftContent = currentSection?.draft_content || currentSection?.content || {};
 
   const handleFieldChange = (key, val) => {
@@ -111,43 +65,41 @@ export default function AboutPageManager() {
     });
   };
 
-  const handleSaveDraft = async () => {
-    setSaving(true);
-    try {
-      const res = await updateSectionDraft(activeTab, draftContent, 'about');
-      if (res && res.sections) {
-        setSections(res.sections);
-      }
-      showToast('Draft changes saved successfully.');
-    } catch (e) {
-      showToast('Error saving draft.');
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handlePublish = async () => {
+  const handlePublish = async (e) => {
+    if (e) e.preventDefault();
     setPublishing(true);
     try {
-      const res = await publishSection(activeTab, 'admin@blackgrapessoftech.com', 'about', draftContent);
-      if (res && res.sections) {
-        setSections(res.sections);
-      }
-      showToast(`Published live updates for ${currentSection.section_name}! Website updated.`);
-    } catch (e) {
-      showToast('Error publishing updates.');
+      await publishSection(activeTab, draftContent);
+      showToast(`About Us (${currentSection?.section_name || activeTab}) saved & published! Live website updated instantly.`);
+      await loadSections();
+    } catch (err) {
+      console.error('Publish failed:', err);
+      showToast('Error saving changes to database.');
     } finally {
       setPublishing(false);
     }
   };
 
+  const handleSaveDraft = async (e) => {
+    if (e) e.preventDefault();
+    setSaving(true);
+    try {
+      await publishSection(activeTab, draftContent);
+      showToast('About Us changes saved and published live to website!');
+      await loadSections();
+    } catch (err) {
+      console.error('Save failed:', err);
+      showToast('Error saving changes to database.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handleRevert = async () => {
     if (window.confirm('Discard all unsaved draft changes and revert to published version?')) {
-      const res = await revertSectionDraft(activeTab, 'about');
-      if (res && res.sections) {
-        setSections(res.sections);
-      }
+      await revertSectionDraft(activeTab);
       showToast('Reverted to published version.');
+      await loadSections();
     }
   };
 
@@ -189,31 +141,35 @@ export default function AboutPageManager() {
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href="/about"
+            target="_blank"
+            rel="noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview Live Website"
+          >
+            <span>Preview Live Site</span>
+            <ExternalLink size={15} />
+          </a>
+
           <button onClick={openRevisions} className="admin-btn admin-btn-secondary" title="View Version History">
             <History size={15} />
             <span>Revisions</span>
           </button>
 
-          {currentSection?.has_unpublished_changes && (
-            <button onClick={handleRevert} className="admin-btn admin-btn-secondary" title="Discard draft">
-              <RotateCcw size={15} />
-              <span>Discard Draft</span>
-            </button>
-          )}
-
-          <button onClick={handleSaveDraft} disabled={saving} className="admin-btn admin-btn-secondary">
-            <Save size={15} />
-            <span>{saving ? 'Saving...' : 'Save Draft'}</span>
-          </button>
-
-          <button onClick={handlePublish} disabled={publishing} className="admin-btn admin-btn-primary">
-            <Send size={15} />
-            <span>{publishing ? 'Publishing...' : 'Publish to Live Website'}</span>
+          <button
+            onClick={handlePublish}
+            disabled={publishing || saving}
+            className="admin-btn admin-btn-primary"
+            style={{ minWidth: '190px', justifyContent: 'center' }}
+          >
+            <Save size={16} />
+            <span>{publishing ? 'Publishing...' : 'Save & Publish to Live'}</span>
           </button>
         </div>
       </div>
 
-      {/* Draft Status Strip */}
+      {/* Live Status Strip */}
       {currentSection?.has_unpublished_changes ? (
         <div
           style={{
@@ -232,9 +188,17 @@ export default function AboutPageManager() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <AlertCircle size={16} />
             <span>
-              <strong>Unpublished Draft Changes:</strong> This section has draft modifications not yet visible to public visitors. Click "Publish to Live Website" to release them.
+              <strong>Unpublished Draft Changes:</strong> Click "Save & Publish to Live" to update the live website immediately.
             </span>
           </div>
+          <button
+            onClick={handlePublish}
+            disabled={publishing}
+            className="admin-btn admin-btn-primary"
+            style={{ padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+          >
+            <span>Publish Now</span>
+          </button>
         </div>
       ) : (
         <div
@@ -242,17 +206,19 @@ export default function AboutPageManager() {
             background: 'rgba(16, 185, 129, 0.08)',
             border: '1px solid rgba(16, 185, 129, 0.2)',
             borderRadius: '8px',
-            padding: '0.6rem 1.25rem',
+            padding: '0.65rem 1.25rem',
             marginBottom: '1.5rem',
-            fontSize: '0.8rem',
-            color: '#34d399',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem'
+            gap: '0.5rem',
+            fontSize: '0.85rem',
+            color: '#34d399'
           }}
         >
-          <CheckCircle size={15} />
-          <span>Section is in sync with the live website.</span>
+          <CheckCircle size={16} />
+          <span>
+            <strong>Live Website Synced:</strong> All current modifications are active and visible on the public website.
+          </span>
         </div>
       )}
 
@@ -388,25 +354,7 @@ export default function AboutPageManager() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">Hero Section Picture / Banner</label>
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.6rem' }}>
-                {draftContent.image && (
-                  <img
-                    src={draftContent.image}
-                    alt="Hero Preview"
-                    style={{ width: '80px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--admin-border)' }}
-                  />
-                )}
-                <label className="admin-btn admin-btn-secondary" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '0.45rem 0.9rem' }}>
-                  <span>{uploadingImage ? 'Uploading Picture...' : '📁 Choose & Upload New Photo'}</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={(e) => handleImageUpload('image', e.target.files[0])}
-                  />
-                </label>
-              </div>
+              <label className="admin-label">Hero Image URL or Asset Path</label>
               <input
                 type="text"
                 className="admin-input"
@@ -550,28 +498,7 @@ export default function AboutPageManager() {
                 />
               </div>
               <div className="admin-form-group">
-                <label className="admin-label">Founders Photo / Portrait</label>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.6rem' }}>
-                  {(draftContent.photo || draftContent.image) && (
-                    <img
-                      src={draftContent.photo || draftContent.image}
-                      alt="Founders Preview"
-                      style={{ width: '80px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--admin-border)' }}
-                    />
-                  )}
-                  <label className="admin-btn admin-btn-secondary" style={{ cursor: 'pointer', fontSize: '0.8rem', padding: '0.45rem 0.9rem' }}>
-                    <span>{uploadingImage ? 'Uploading Picture...' : '📁 Choose & Upload New Photo'}</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={(e) => {
-                        handleImageUpload('photo', e.target.files[0]);
-                        handleImageUpload('image', e.target.files[0]);
-                      }}
-                    />
-                  </label>
-                </div>
+                <label className="admin-label">Founders Photo URL</label>
                 <input
                   type="text"
                   className="admin-input"
@@ -733,32 +660,8 @@ export default function AboutPageManager() {
                   marginBottom: '1rem'
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-orange)' }}>
-                    Core Value #{idx + 1}
-                  </span>
-                  <button
-                    type="button"
-                    style={{
-                      background: 'rgba(239, 68, 68, 0.15)',
-                      border: '1px solid rgba(239, 68, 68, 0.35)',
-                      color: '#ef4444',
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                      fontSize: '0.75rem',
-                      fontWeight: 600
-                    }}
-                    onClick={() => {
-                      const newVals = draftContent.values.filter((_, i) => i !== idx);
-                      handleFieldChange('values', newVals);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
                 <div className="admin-form-group">
-                  <label className="admin-label">Value Title</label>
+                  <label className="admin-label">Value #{idx + 1} Title</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -785,18 +688,6 @@ export default function AboutPageManager() {
                 </div>
               </div>
             ))}
-
-            <button
-              type="button"
-              className="btn btn-outline btn-sm"
-              style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
-              onClick={() => {
-                const newVals = [...(draftContent.values || []), { title: '', desc: '' }];
-                handleFieldChange('values', newVals);
-              }}
-            >
-              + Add New Value
-            </button>
           </div>
         )}
 
@@ -1029,6 +920,17 @@ export default function AboutPageManager() {
             </div>
           </div>
         )}
+        <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--admin-border)', display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+          <button
+            onClick={handlePublish}
+            disabled={publishing || saving}
+            className="admin-btn admin-btn-primary"
+            style={{ minWidth: '190px', justifyContent: 'center' }}
+          >
+            <Save size={16} />
+            <span>{publishing ? 'Publishing...' : 'Save & Publish to Live'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Revision History Modal */}

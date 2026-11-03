@@ -1,7 +1,7 @@
-const foundersImg = '/images/founders.jpg';
-const aboutHeroImg = '/images/about-hero.jpg';
-const workspaceImg = '/images/workspace.jpg';
-const logoImg = '/bgst-logo.png';
+import foundersImg from '../frontend/src/assets/founders.jpg';
+import aboutHeroImg from '../frontend/src/assets/about-hero.jpg';
+import workspaceImg from '../frontend/src/assets/workspace.jpg';
+import logoImg from '../frontend/src/assets/bgst-logo.png';
 import { PRODUCTS_LIST } from '../frontend/src/pages/OurProducts/productsData.js';
 import { CLIENTS_LIST, CLIENT_CASE_STUDIES, CLIENT_TESTIMONIALS } from '../frontend/src/pages/OurClients/clientsData.js';
 
@@ -39,208 +39,79 @@ export const DEFAULT_MENUS = [
   { id: 'm-6', label: 'Contact', path: '/contact', order_index: 6, is_active: true }
 ];
 
-export const DEFAULT_HOME_SECTIONS = {
-  home_hero: {
-    id: 'sec-home-hero',
-    page: 'home',
-    section_key: 'home_hero',
-    section_name: 'Home Hero & Headline',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrowBadge: '10+ Years of Proven IT Excellence • Indore, India',
-      prefix: 'Innovate. Integrate. Elevate.',
-      title: 'And Digitalize Your Ideas into Success via',
-      brandHighlight: 'BLACK GRAPES SOFTECH',
-      suffix: ', Where Innovation And ideas Meets Excellence.',
-      lead: 'Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.',
-      primaryBtnText: 'Request a Demo',
-      secondaryBtnText: 'Get the offer',
-      linkBtnText: 'View Services',
-      stat1Num: '10+',
-      stat1Label: 'Years Experience',
-      stat2Num: '100+',
-      stat2Label: 'Satisfied Clients',
-      stat3Num: '150+',
-      stat3Label: 'Projects Shipped',
-      stat4Num: '25+',
-      stat4Label: 'Expert Engineers',
-      codeSnippetTitle: 'FullStackApp.tsx',
-      codeSnippetTag: 'Live Production'
-    }
+export const DEFAULT_HOME_PAGE = {
+  hero: {
+    badge: '10+ Years of Proven IT Excellence • Indore, India',
+    prefix: 'Innovate. Integrate. Elevate.',
+    break_text: 'And Digitalize Your Ideas into Success via',
+    brand_highlight: 'BLACK GRAPES SOFTECH',
+    suffix: ', Where Innovation And ideas Meets Excellence.',
+    description: 'Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.',
+    cta_primary_text: 'Request a Demo',
+    cta_secondary_text: 'Explore Services',
+    techBadges: [
+      { name: 'React', category: 'Frontend' },
+      { name: 'Flutter', category: 'Mobile' },
+      { name: 'Node.js', category: 'Backend' },
+      { name: 'Python', category: 'AI & Data' },
+      { name: 'Next.js', category: 'Full Stack' },
+      { name: 'iOS / Swift', category: 'Native' },
+      { name: 'Android / Kotlin', category: 'Native' },
+      { name: 'AWS Cloud', category: 'DevOps' },
+      { name: 'Custom CRM', category: 'Enterprise' },
+      { name: 'MLM Engines', category: 'FinTech' }
+    ]
   },
-  home_philosophy: {
-    id: 'sec-home-philosophy',
-    page: 'home',
-    section_key: 'home_philosophy',
-    section_name: 'Brand Philosophy & Purposeful Beginnings',
-    order_index: 2,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS',
-      title: 'MORE THAN A SERVICE.',
-      titleHighlight: 'A COMMITMENT TO TIME & SCALE.',
-      lead: 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.',
-      mantra1: 'BEGIN WITH PURPOSE',
-      mantra2: 'ENGINEER WITH RIGOR',
-      mantra3: 'DELIVER ON TIME',
-      pillarBadge: '01 / THE TIMELESS PRINCIPLE',
-      pillarTitle: 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.'
-    }
+  clockPhilosophy: {
+    eyebrow: 'BLACK GRAPES PHILOSOPHY • PURPOSEFUL BEGINNINGS',
+    titlePrefix: 'MORE THAN A SERVICE. ',
+    titleHighlight: 'A COMMITMENT TO TIME & SCALE.',
+    description: 'Every transformative enterprise starts with a decisive moment. At Black Grapes Group, our approach embodies purposeful beginnings, engineering rigor, and the execution power to turn ambitious visions into enduring realities.',
+    mantraPills: ['BEGIN WITH PURPOSE', 'ENGINEER WITH RIGOR', 'DELIVER ON TIME'],
+    pillarBadge: '01 / THE TIMELESS PRINCIPLE',
+    pillarTitle: 'A MOMENT OF PURPOSE. A BEGINNING OF POSSIBILITIES.',
+    pillarParagraphs: [
+      'In Indian tradition, Shubh Muhurat & Brahma Muhurta symbolizes the peak window of mental clarity, creative power, and spiritual resolve when the groundwork for monumental achievements is laid.',
+      'Inspired by this timeless philosophy, our Black Grapes delivery model represents the conviction that every milestone project deserves undivided focus, zero technical shortcuts, and absolute punctuality.',
+      'Whether launching a complex ERP system, validating property for a ₹50-crore bank facility, or securing municipal Naksha Pass approvals, we make every second of execution count.'
+    ],
+    quoteText: 'Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.'
   },
-
-  home_services: {
-    id: 'sec-home-services',
-    page: 'home',
-    section_key: 'home_services',
-    section_name: 'Services Grid Showcase',
-    order_index: 3,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'WHAT WE DO',
-      title: 'We Provide Best Quality Services & Products At',
-      titleHighlight: 'Affordable Price',
-      subtitle: 'Here is the list of specialized IT services and scalable digital solutions that we provide to elevate your business.'
-    }
+  whyChooseUs: {
+    badge: 'WHY CHOOSE US ?',
+    titlePrefix: 'Built On Security, Uncompromising Quality & ',
+    titleHighlight: 'Lifelong Relationships',
+    visionQuote: 'To be the most reliable, visionary IT catalyst for modern businesses by delivering robust code, high ROI, and lifelong partnerships.',
+    clientsCount: '100+',
+    projectsCount: '150+',
+    experienceYears: '10+',
+    pillars: [
+      {
+        subtitle: 'Unmatched Reliability',
+        title: 'Enterprise Security & Compliance',
+        description: 'Military-grade encryption, OWASP Top 10 mitigation, and ISO-standard coding conventions ensure your product scales without vulnerability.',
+        points: ['Zero Data Leak Architecture', 'Strict NDAs & IP Ownership', 'Regular Security Audits']
+      },
+      {
+        subtitle: 'Uncompromising Quality',
+        title: 'Precision-Driven Engineering',
+        description: 'Clean, modular, thoroughly tested code architectures that minimize technical debt and maximize page speed, uptime, and user adoption.',
+        points: ['Automated CI/CD Pipelines', '99.9% Uptime Guarantee', 'Pixel-Perfect UI/UX Execution']
+      },
+      {
+        subtitle: 'Dedicated Partnership',
+        title: 'End-to-End Strategic Lifecycle',
+        description: 'We don’t stop at deployment. We stand shoulder to shoulder with founders and CIOs as true technology partners from MVP to multi-million user scale.',
+        points: ['24/7 Priority Support Desk', 'Dedicated Tech Project Manager', 'Continuous Feature Evolution']
+      }
+    ]
   },
-  home_about: {
-    id: 'sec-home-about',
-    page: 'home',
-    section_key: 'home_about',
-    section_name: 'About Section Showcase',
-    order_index: 4,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'ABOUT BLACK GRAPES SOFTECH',
-      title: 'Best Website Development Company | Best IT Software Company | Best Mobile App Development Company',
-      lead: 'Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.'
-    }
-  },
-  home_why_us: {
-    id: 'sec-home-why-us',
-    page: 'home',
-    section_key: 'home_why_us',
-    section_name: 'Why Choose Us Section',
-    order_index: 5,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'WHY CHOOSE US ?',
-      title: 'Built On Security, Uncompromising Quality &',
-      titleHighlight: 'Lifelong Relationships',
-      vision: 'Our commitment is to eliminate technological roadblocks, provide unmatched security, and build software that scales effortlessly with your commercial ambition.',
-      pillars: [
-        {
-          title: 'High Security & Rock-Solid Reliability',
-          subtitle: 'Security & Reliability',
-          description: 'Every software build incorporates enterprise-grade cryptographic controls, zero-trust protocols, continuous vulnerability scanning, and reliable data pipelines.',
-          image: '/images/services-infograph.png',
-          points: [
-            'Zero-trust access architectures & hardened endpoints',
-            'ISO and statutory data compliance safeguards',
-            '24/7 proactive monitoring & self-healing cloud nodes'
-          ]
-        },
-        {
-          title: 'Unmatched Perfection & Clean Architecture',
-          subtitle: 'Pure Perfection',
-          description: 'We adhere to clean code principles, test-driven methodologies, and modular microservices to ensure software that never degrades over time.',
-          image: '/images/tech-innovation.jpg',
-          points: [
-            'High test coverage & automated CI/CD pipelines',
-            'Sub-second page loads & optimized SQL/NoSQL indexes',
-            'Enterprise design systems & accessible interfaces'
-          ]
-        },
-        {
-          title: 'Lifelong Partnership & Continuous Evolution',
-          subtitle: 'Strategic Evolution',
-          description: 'We view ourselves as dedicated technology co-founders. Our commitment extends far past deployment to ongoing modernization and scaling.',
-          image: '/images/workspace.jpg',
-          points: [
-            'Dedicated technical account management',
-            'SLA-backed priority engineering support',
-            'Quarterly cloud cost optimization & performance tuning'
-          ]
-        }
-      ]
-    }
-  },
-  home_projects: {
-    id: 'sec-home-projects',
-    page: 'home',
-    section_key: 'home_projects',
-    section_name: 'Portfolio / Projects Showcase',
-    order_index: 6,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'OUR PORTFOLIO',
-      title: 'Explore Some of Our Best',
-      titleHighlight: 'Development Work',
-      subtitle: 'Browse through custom websites, cross-platform mobile apps, enterprise web applications, and e-commerce platforms we have delivered globally.'
-    }
-  },
-  home_testimonials: {
-    id: 'sec-home-testimonials',
-    page: 'home',
-    section_key: 'home_testimonials',
-    section_name: 'Client Testimonials Showcase',
-    order_index: 7,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'CLIENT TESTIMONIALS',
-      title: 'What Global Leaders Say About',
-      titleHighlight: 'Our Partnership',
-      subtitle: 'Direct feedback from startup founders and enterprise CTOs who trusted us to engineer their flagship software products.'
-    }
-  },
-  home_industries: {
-    id: 'sec-home-industries',
-    page: 'home',
-    section_key: 'home_industries',
-    section_name: 'Industries We Serve',
-    order_index: 8,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'INDUSTRIES',
-      title: 'Tailored IT Solutions Across',
-      titleHighlight: 'High-Growth Industries',
-      subtitle: 'From regulated healthcare ecosystems to high-velocity on-demand logistics, we engineer software built for specific market dynamics.',
-      industries: [
-        { name: 'Healthcare', desc: 'HIPAA-ready telemedicine, patient portals, and automated diagnostic workflows.' },
-        { name: 'Food Delivery', desc: 'Real-time GPS dispatch, restaurant partner dashboards, and multi-currency checkouts.' },
-        { name: 'E-Commerce', desc: 'Headless storefronts, custom CRM integration, and high-concurrency payment engines.' },
-        { name: 'Taxi and Transportation', desc: 'Live ride hailing, driver telemetry, dynamic surge pricing, and fleet tracking.' },
-        { name: 'Home Services', desc: 'On-demand service booking, verified technician scheduling, and instant escrow billing.' },
-        { name: 'Education', desc: 'Interactive LMS suites, live virtual classrooms, proctored exams, and student analytics.' },
-        { name: 'Real Estate', desc: 'Virtual 3D property tours, MLS feeds, agent CRM platforms, and escrow agreements.' },
-        { name: 'FinTech & Banking', desc: 'Multi-tiered wallet engines, automated compliance checks, and micro-lending portals.' }
-      ]
-    }
-  },
-  home_cta: {
-    id: 'sec-home-cta',
-    page: 'home',
-    section_key: 'home_cta',
-    section_name: 'Bottom CTA Banner',
-    order_index: 3,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'GET STARTED WITH BLACK GRAPES SOFTECH',
-      title: 'Assess Your Business Potentials Now & Find',
-      titleHighlight: 'Take Care of What Matters Most!',
-      subtitle: 'Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.',
-      primaryBtnText: 'Get Started Now!',
-      secondaryBtnText: 'Get Free Consultation'
-    }
+  ctaBanner: {
+    badge: 'GET STARTED WITH BLACK GRAPES SOFTECH',
+    title: 'Assess Your Business Potentials Now & Find Take Care of What Matters Most!',
+    subtitle: 'Speak directly with our senior architects. Whether you need a full enterprise software build, high-conversion mobile app, or modern web platform, we deliver excellence on time and on budget.',
+    primaryBtnText: 'Get Started Now!',
+    secondaryBtnText: 'Get Free Consultation'
   }
 };
 
@@ -389,6 +260,10 @@ export const DEFAULT_PAGE_SECTIONS = {
         {
           title: 'Agile & Rapid Delivery',
           desc: 'Short iterative sprints, continuous feedback loops, and transparent milestones ensure on-time and on-budget delivery.'
+        },
+        {
+          title: 'Client-Centric Synergy',
+          desc: 'We do not view ourselves merely as vendors; we act as dedicated tech co-founders and growth partners in your journey.'
         }
       ]
     }
@@ -492,327 +367,114 @@ export const DEFAULT_PAGE_SECTIONS = {
 
 export const DEFAULT_SERVICES = [
   {
-    "id": "website-development",
-    "title": "Website Designing and Development",
-    "slug": "website-development",
-    "shortDesc": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
-    "short_desc": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
-    "fullDesc": "We build pixel-perfect, modern web applications leveraging React, Next.js, Vue, and modern serverless stacks. From high-converting corporate portals to complex web apps, our solutions are SEO-optimized, mobile-responsive, and blazing fast.",
-    "full_desc": "We build pixel-perfect, modern web applications leveraging React, Next.js, Vue, and modern serverless stacks. From high-converting corporate portals to complex web apps, our solutions are SEO-optimized, mobile-responsive, and blazing fast.",
-    "description": "High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.",
-    "image": "/images/Website-Designing.jpg",
-    "tags": [
-      "React",
-      "Next.js",
-      "SEO Optimized",
-      "Responsive UI",
-      "Custom CMS"
-    ],
-    "color": "#f86200",
-    "category": "Engineering",
-    "order_index": 1,
-    "status": "published"
+    id: 'srv-1',
+    title: 'Web App Architecture',
+    slug: 'web-architecture',
+    short_desc: 'Next-gen reactive web applications engineered with React, Next.js, and cloud backends.',
+    full_desc: 'We build ultra-scalable, responsive, SEO-ready web applications with enterprise security and sub-second load times.',
+    icon_name: 'Layers',
+    category: 'Engineering',
+    order_index: 1,
+    status: 'published'
   },
   {
-    "id": "mobile-app",
-    "title": "Mobile App Development",
-    "slug": "mobile-app",
-    "shortDesc": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
-    "short_desc": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
-    "fullDesc": "Specializing in Flutter, React Native, Swift, and Kotlin, we craft mobile experiences that users love. Whether consumer apps, enterprise utilities, or on-demand delivery portals, we ensure seamless App Store and Play Store approval.",
-    "full_desc": "Specializing in Flutter, React Native, Swift, and Kotlin, we craft mobile experiences that users love. Whether consumer apps, enterprise utilities, or on-demand delivery portals, we ensure seamless App Store and Play Store approval.",
-    "description": "Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.",
-    "image": "/images/app.jpg",
-    "tags": [
-      "Flutter",
-      "React Native",
-      "iOS / Android",
-      "Firebase",
-      "API Sync"
-    ],
-    "color": "#9333ea",
-    "category": "Engineering",
-    "order_index": 2,
-    "status": "published"
+    id: 'srv-2',
+    title: 'Mobile App Development (iOS/Android)',
+    slug: 'mobile-apps',
+    short_desc: 'High-performance native and cross-platform Flutter/React Native mobile applications.',
+    full_desc: 'From concept to App Store / Google Play deployment, we deliver sleek, engaging mobile apps that users love.',
+    icon_name: 'Smartphone',
+    category: 'Engineering',
+    order_index: 2,
+    status: 'published'
   },
   {
-    "id": "software-development",
-    "title": "Software Development",
-    "slug": "software-development",
-    "shortDesc": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
-    "short_desc": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
-    "fullDesc": "We design robust backends, cloud microservices, and database systems that eliminate manual bottlenecks. Scale operations with custom desktop and cloud software tailored to your specific organizational needs.",
-    "full_desc": "We design robust backends, cloud microservices, and database systems that eliminate manual bottlenecks. Scale operations with custom desktop and cloud software tailored to your specific organizational needs.",
-    "description": "Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.",
-    "image": "/images/Software.jpg",
-    "tags": [
-      "Custom ERP",
-      "Microservices",
-      "Cloud Database",
-      "Python / Node",
-      "API Gateway"
-    ],
-    "color": "#3b82f6",
-    "category": "Engineering",
-    "order_index": 3,
-    "status": "published"
+    id: 'srv-3',
+    title: 'Enterprise CRM Solutions',
+    slug: 'enterprise-crm',
+    short_desc: 'Tailor-made Customer Relationship Management platforms tailored to your sales funnel.',
+    full_desc: 'Automate lead scoring, pipeline management, client communications, and real-time sales reporting.',
+    icon_name: 'Building',
+    category: 'Enterprise',
+    order_index: 3,
+    status: 'published'
   },
   {
-    "id": "crm-software",
-    "title": "CRM Software Development",
-    "slug": "crm-software",
-    "shortDesc": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
-    "short_desc": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
-    "fullDesc": "Eliminate scattered spreadsheets with unified customer data, automated follow-up workflows, omnichannel messaging, and real-time sales reporting tailored to your sales process.",
-    "full_desc": "Eliminate scattered spreadsheets with unified customer data, automated follow-up workflows, omnichannel messaging, and real-time sales reporting tailored to your sales process.",
-    "description": "Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.",
-    "image": "/images/crm-1.png",
-    "tags": [
-      "Lead Scoring",
-      "Pipeline Automation",
-      "WhatsApp Integration",
-      "Role Access"
-    ],
-    "color": "#10b981",
-    "category": "Engineering",
-    "order_index": 4,
-    "status": "published"
+    id: 'srv-4',
+    title: 'MLM Software Systems',
+    slug: 'mlm-software',
+    short_desc: 'Robust multi-level marketing matrix, binary, generation, and commission calculation software.',
+    full_desc: 'Secure, fraud-proof transaction handling with real-time wallet sync and instant payout calculations.',
+    icon_name: 'Zap',
+    category: 'Enterprise',
+    order_index: 4,
+    status: 'published'
   },
   {
-    "id": "mlm-software",
-    "title": "MLM Software Development",
-    "slug": "mlm-software",
-    "shortDesc": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
-    "short_desc": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
-    "fullDesc": "Engineered specifically for MLM and network marketing organizations. Features include automated payout calculation, genealogy tree views, fraud detection, member management, and integrated payment gateways.",
-    "full_desc": "Engineered specifically for MLM and network marketing organizations. Features include automated payout calculation, genealogy tree views, fraud detection, member management, and integrated payment gateways.",
-    "description": "High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.",
-    "image": "/images/mlm-software.png",
-    "tags": [
-      "Binary / Matrix Plans",
-      "Digital Wallet",
-      "Genealogy Tree",
-      "Auto Payouts"
-    ],
-    "color": "#ec4899",
-    "category": "Engineering",
-    "order_index": 5,
-    "status": "published"
+    id: 'srv-5',
+    title: 'Digital Growth & SEO',
+    slug: 'digital-marketing',
+    short_desc: 'Data-driven search engine optimization, performance marketing, and conversion growth.',
+    full_desc: 'Dominating search rankings and driving targeted customer acquisition for your brand.',
+    icon_name: 'TrendingUp',
+    category: 'Marketing',
+    order_index: 5,
+    status: 'published'
   },
   {
-    "id": "digital-marketing",
-    "title": "Digital Marketing",
-    "slug": "digital-marketing",
-    "shortDesc": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
-    "short_desc": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
-    "fullDesc": "We drive measurable growth. From top-tier organic search rankings to laser-targeted paid advertising and social media engagement, our digital marketing team delivers real ROI for your brand.",
-    "full_desc": "We drive measurable growth. From top-tier organic search rankings to laser-targeted paid advertising and social media engagement, our digital marketing team delivers real ROI for your brand.",
-    "description": "Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.",
-    "image": "/images/digital-marketing.jpg",
-    "tags": [
-      "SEO & SEM",
-      "Social Media",
-      "Lead Funnels",
-      "Google Ads",
-      "Content Growth"
-    ],
-    "color": "#f59e0b",
-    "category": "Engineering",
-    "order_index": 6,
-    "status": "published"
+    id: 'srv-6',
+    title: 'UI/UX & Brand Identity',
+    slug: 'ui-ux-design',
+    short_desc: 'Human-centered user experience design, wireframing, high-fidelity prototypes, and design systems.',
+    full_desc: 'Crafting captivating digital experiences that turn visitors into loyal paying customers.',
+    icon_name: 'Palette',
+    category: 'Design',
+    order_index: 6,
+    status: 'published'
   },
   {
-    "id": "graphic-designing",
-    "title": "Graphic Designing",
-    "slug": "graphic-designing",
-    "shortDesc": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
-    "short_desc": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
-    "fullDesc": "Transform brand perception with sophisticated visual storytelling. We craft modern logos, interactive UI wireframes, social media creatives, brochures, and enterprise design systems.",
-    "full_desc": "Transform brand perception with sophisticated visual storytelling. We craft modern logos, interactive UI wireframes, social media creatives, brochures, and enterprise design systems.",
-    "description": "Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.",
-    "image": "/images/Graphic-Design-Black-Grapes-Softech.jpg",
-    "tags": [
-      "Figma UI/UX",
-      "Brand Identity",
-      "Vector Graphics",
-      "Social Kits",
-      "3D Art"
-    ],
-    "color": "#8b5cf6",
-    "category": "Engineering",
-    "order_index": 7,
-    "status": "published"
+    id: 'srv-7',
+    title: 'Interactive Game Development',
+    slug: 'game-development',
+    short_desc: 'Engaging 2D/3D mobile and web games with real-time multiplayer logic and monetization.',
+    full_desc: 'Built with Unity, WebGL, and high-performance server architectures.',
+    icon_name: 'Award',
+    category: 'Gaming',
+    order_index: 7,
+    status: 'published'
   },
   {
-    "id": "game-development",
-    "title": "Game Development",
-    "slug": "game-development",
-    "shortDesc": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
-    "short_desc": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
-    "fullDesc": "Using Unity and modern WebGL engines, we build multiplayer and single-player games with immersive audio, vibrant graphics, in-app economies, and fluid cross-platform mechanics.",
-    "full_desc": "Using Unity and modern WebGL engines, we build multiplayer and single-player games with immersive audio, vibrant graphics, in-app economies, and fluid cross-platform mechanics.",
-    "description": "Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.",
-    "image": "/images/Game-Development.jpg",
-    "tags": [
-      "Unity 3D",
-      "WebGL",
-      "Cross-Platform",
-      "Physics Engine",
-      "In-Game Store"
-    ],
-    "color": "#06b6d4",
-    "category": "Engineering",
-    "order_index": 8,
-    "status": "published"
+    id: 'srv-8',
+    title: 'Cloud & DevOps (AWS/Azure)',
+    slug: 'cloud-devops',
+    short_desc: 'Zero-downtime CI/CD pipelines, Docker containerization, Kubernetes, and serverless architectures.',
+    full_desc: 'Maximizing infrastructure reliability, security compliance, and cost efficiency.',
+    icon_name: 'CloudLightning',
+    category: 'DevOps',
+    order_index: 8,
+    status: 'published'
   }
 ];
 
-export const DEFAULT_PROJECTS = [
-  {
-    "id": "proj-1",
-    "name": "www.borit.com",
-    "title": "www.borit.com",
-    "category": "Website",
-    "type": "Corporate Web Experience",
-    "desc": "Precision engineering corporate portal with sleek branding and multi-language support.",
-    "description": "Precision engineering corporate portal with sleek branding and multi-language support.",
-    "url": "https://www.borit.com",
-    "order_index": 1,
-    "status": "published"
-  },
-  {
-    "id": "proj-2",
-    "name": "blushandbloom.co.in",
-    "title": "blushandbloom.co.in",
-    "category": "E-Commerce",
-    "type": "Luxury Cosmetics & Lifestyle",
-    "desc": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
-    "description": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
-    "url": "https://blushandbloom.co.in",
-    "order_index": 2,
-    "status": "published"
-  },
-  {
-    "id": "proj-3",
-    "name": "atonfitness.in",
-    "title": "atonfitness.in",
-    "category": "Website",
-    "type": "Health & Fitness Platform",
-    "desc": "Interactive fitness training, membership management, and workout schedule ecosystem.",
-    "description": "Interactive fitness training, membership management, and workout schedule ecosystem.",
-    "url": "https://atonfitness.in",
-    "order_index": 3,
-    "status": "published"
-  },
-  {
-    "id": "proj-4",
-    "name": "IOS App - ReadMore",
-    "title": "IOS App - ReadMore",
-    "category": "Android / IOS - Mobile Apps",
-    "type": "Digital Reading & E-Book Utility",
-    "desc": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
-    "description": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
-    "url": "#",
-    "order_index": 4,
-    "status": "published"
-  },
-  {
-    "id": "proj-5",
-    "name": "IOS App - DBT 24/7",
-    "title": "IOS App - DBT 24/7",
-    "category": "Android / IOS - Mobile Apps",
-    "type": "FinTech & Banking Service App",
-    "desc": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
-    "description": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
-    "url": "#",
-    "order_index": 5,
-    "status": "published"
-  },
-  {
-    "id": "proj-6",
-    "name": "IOS App - Beauty Counter",
-    "title": "IOS App - Beauty Counter",
-    "category": "Android / IOS - Mobile Apps",
-    "type": "Cosmetics Catalog & Consultation",
-    "desc": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
-    "description": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
-    "url": "#",
-    "order_index": 6,
-    "status": "published"
-  },
-  {
-    "id": "proj-7",
-    "name": "Android App - Eduvacancy - Teaching Jobs",
-    "title": "Android App - Eduvacancy - Teaching Jobs",
-    "category": "Android / IOS - Mobile Apps",
-    "type": "Education Recruitment Portal",
-    "desc": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
-    "description": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
-    "url": "#",
-    "order_index": 7,
-    "status": "published"
-  },
-  {
-    "id": "proj-8",
-    "name": "Android App - HoneyliaEmart",
-    "title": "Android App - HoneyliaEmart",
-    "category": "Android / IOS - Mobile Apps",
-    "type": "Hyperlocal E-Commerce & Delivery",
-    "desc": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
-    "description": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
-    "url": "#",
-    "order_index": 8,
-    "status": "published"
-  },
-  {
-    "id": "proj-9",
-    "name": "www.jobberman.com",
-    "title": "www.jobberman.com",
-    "category": "Web Apps",
-    "type": "Enterprise Career Portal",
-    "desc": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
-    "description": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
-    "url": "https://www.jobberman.com",
-    "order_index": 9,
-    "status": "published"
-  },
-  {
-    "id": "proj-10",
-    "name": "Stavanger Parkering",
-    "title": "Stavanger Parkering",
-    "category": "Web Apps",
-    "type": "Smart Mobility & Parking System",
-    "desc": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
-    "description": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
-    "url": "#",
-    "order_index": 10,
-    "status": "published"
-  },
-  {
-    "id": "proj-11",
-    "name": "DC Shoes",
-    "title": "DC Shoes",
-    "category": "E-Commerce",
-    "type": "Global Apparel & Footwear Store",
-    "desc": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
-    "description": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
-    "url": "#",
-    "order_index": 11,
-    "status": "published"
-  },
-  {
-    "id": "proj-12",
-    "name": "Pikto.com",
-    "title": "Pikto.com",
-    "category": "Web Apps",
-    "type": "Creative Visual Media SaaS",
-    "desc": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
-    "description": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
-    "url": "https://pikto.com",
-    "order_index": 12,
-    "status": "published"
-  }
-];
+export const DEFAULT_PROJECTS = PRODUCTS_LIST.map((prod, idx) => ({
+  id: prod.id,
+  product_key: prod.id,
+  title: prod.title,
+  subtitle: prod.subtitle,
+  category: prod.category,
+  industry: prod.industry,
+  badge: prod.badge,
+  badge_color: prod.badgeColor || 'orange',
+  youtube_id: prod.youtubeId,
+  deployment_days: prod.deploymentDays,
+  rating: prod.rating,
+  summary: prod.summary,
+  key_features: prod.keyFeatures || [],
+  tech_stack: prod.techStack || [],
+  highlights: prod.highlights || [],
+  order_index: idx + 1,
+  status: 'published'
+}));
 
 export const DEFAULT_CLIENTS = CLIENTS_LIST.map((client, idx) => ({
   id: client.id,
@@ -842,56 +504,17 @@ export const DEFAULT_CASE_STUDIES = CLIENT_CASE_STUDIES.map((cs, idx) => ({
   status: 'published'
 }));
 
-export const DEFAULT_TESTIMONIALS = [
-  {
-    "id": "testi-1",
-    "name": "Subodh Bhandari",
-    "author": "Subodh Bhandari",
-    "role": "Enterprise Client",
-    "company": "Enterprise Client",
-    "rating": 5,
-    "quote": "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.",
-    "avatar": "SB",
-    "order_index": 1,
-    "status": "published"
-  },
-  {
-    "id": "testi-2",
-    "name": "Kartik Mali",
-    "author": "Kartik Mali",
-    "role": "Business Director",
-    "company": "Business Director",
-    "rating": 5,
-    "quote": "From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.",
-    "avatar": "KM",
-    "order_index": 2,
-    "status": "published"
-  },
-  {
-    "id": "testi-3",
-    "name": "Joel Burdine",
-    "author": "Joel Burdine",
-    "role": "Senior UI/UX Designer",
-    "company": "Senior UI/UX Designer",
-    "rating": 5,
-    "quote": "Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.",
-    "avatar": "JB",
-    "order_index": 3,
-    "status": "published"
-  },
-  {
-    "id": "testi-4",
-    "name": "Ashley Hoyt",
-    "author": "Ashley Hoyt",
-    "role": "Creative Director",
-    "company": "Creative Director",
-    "rating": 5,
-    "quote": "Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.",
-    "avatar": "AH",
-    "order_index": 4,
-    "status": "published"
-  }
-];
+export const DEFAULT_TESTIMONIALS = CLIENT_TESTIMONIALS.map((t, idx) => ({
+  id: `testi-${idx + 1}`,
+  quote: t.quote,
+  author: t.author,
+  role: t.role,
+  company: t.company,
+  country: t.country,
+  rating: t.rating || 5,
+  order_index: idx + 1,
+  status: 'published'
+}));
 
 export const DEFAULT_TEAM_MEMBERS = [
   {
@@ -1030,44 +653,7 @@ export const DEFAULT_SEO_METADATA = [
     meta_title: 'Contact Us | Black Grapes Softech - Indore Office',
     meta_description: 'Direct line: +91 7470997884. Office: 252-F/H Scheme No 54, Vijaynagar, Indore-452010.',
     meta_keywords: 'contact black grapes, indore office, it company phone',
-    canonical_url: 'https://blackgrapessoftech.com/contact',
-    og_image: ''
-  },
-  {
-    id: 'seo-7',
-    page_route: '/it-staffing',
-    meta_title: 'IT Staffing & Contractual Hiring | Black Grapes Softech',
-    meta_description: 'Deploy pre-vetted senior software engineers, technical squads, and bulk contractual staff across 28 Indian states.',
-    meta_keywords: 'it staffing, contractual hiring, technical manpower, dev staffing indore',
-    canonical_url: 'https://blackgrapessoftech.com/it-staffing',
-    og_image: '/it-staffing/staffing-hero.jpg'
-  },
-  {
-    id: 'seo-8',
-    page_route: '/ecommerce',
-    meta_title: 'Naya Purana Bazaar | Black Grapes Softech Online Marketplace',
-    meta_description: 'An online marketplace platform by Black Grapes Softech for buying and selling new and used products.',
-    meta_keywords: 'nayapuranabazaar, ecommerce marketplace, buy sell products, indore ecommerce',
-    canonical_url: 'https://blackgrapessoftech.com/ecommerce',
-    og_image: ''
-  },
-  {
-    id: 'seo-9',
-    page_route: '/partnership',
-    meta_title: 'Partnership Program | Black Grapes Softech Development Centre',
-    meta_description: 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development in India.',
-    meta_keywords: 'offshore development centre, software partnership, it outsourcing partner india',
-    canonical_url: 'https://blackgrapessoftech.com/partnership',
-    og_image: '/partners/partner_with_us.webp'
-  },
-  {
-    id: 'seo-10',
-    page_route: '/business-partners',
-    meta_title: 'Our Business Partners | Black Grapes Softech Alliances',
-    meta_description: 'Forging strategic alliances, distribution networks, and scalable tech integrations across global enterprise platforms.',
-    meta_keywords: 'business partners, strategic alliances, distribution networks, tech integrations',
-    canonical_url: 'https://blackgrapessoftech.com/business-partners',
-    og_image: ''
+    canonical_url: 'https://blackgrapessoftech.com/contact'
   }
 ];
 
@@ -1102,260 +688,172 @@ export const DEFAULT_ACTIVITY_LOGS = [
   }
 ];
 
-
-export const DEFAULT_SERVICES_PAGE_SECTIONS = {
-  services_hero: {
-    id: 'sec-services-hero',
-    page: 'services',
-    section_key: 'services_hero',
-    section_name: 'Services Hero Banner',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'ENTERPRISE TECH STACK',
-      title: 'Specialized IT Services & High-Yield Solutions',
-      titleHighlight: 'For Ambitious Enterprises',
-      subtitle: 'From bespoke ERPs and CRM engines to native mobile apps and scalable cloud architectures.',
-      stat1Num: '50+',
-      stat1Label: 'Specialized Services',
-      stat2Num: '99.9%',
-      stat2Label: 'SLA Reliability',
-      stat3Num: '24/7',
-      stat3Label: 'Architecture Support'
+export const DEFAULT_IT_STAFFING = {
+  badge: 'FAST-TRACK IT & TECHNICAL STAFFING',
+  headline: 'Hire Top 1% Pre-Vetted Tech Talent & Accelerate Engineering',
+  subtitle: 'Scalable dedicated engineering squads, contract developers, and executive tech hires ready to deploy within 48 hours.',
+  stats: [
+    { label: 'Deployment Time', value: '48 Hours', sub: 'Ready-to-code talent' },
+    { label: 'Vetting Standard', value: 'Top 1%', sub: 'Rigorous technical screens' },
+    { label: 'Replacement Guarantee', value: '100%', sub: 'Zero-risk trial' },
+    { label: 'Client Retention', value: '98.5%', sub: 'Long-term contracts' }
+  ],
+  mandateOptions: ['1-10', '10-50', '51-100', '101+'],
+  staffingServices: [
+    'NAPS/Apprenticeship Hiring',
+    'Bulk Hiring',
+    'Diversity Hiring',
+    'Gig Hiring/Flexi Staffing',
+    'General Staffing/Payroll Management',
+    'IT/Technical Hiring'
+  ],
+  guaranteePoints: [
+    '48-Hour Talent Deployment to your Slack or Jira',
+    'Risk-Free 2-Week Trial Period',
+    'Strict NDAs & Complete IP Transfer',
+    'Transparent Hourly or Monthly Retainer Pricing'
+  ],
+  models: [
+    { id: 'm-1', title: 'Dedicated Developers', desc: 'Full-time senior software engineers integrated into your sprint cycles.', rate: 'From $18/hr', bestFor: 'Scaling product teams' },
+    { id: 'm-2', title: 'Managed Engineering Squads', desc: 'Autonomous squads complete with Tech Lead, QA, and Scrum Master.', rate: 'Custom Scope', bestFor: 'Turnkey feature builds' },
+    { id: 'm-3', title: 'Contract & Flexi Staffing', desc: 'On-demand niche talent for specific project deliverables without long-term overhead.', rate: 'Flexible', bestFor: 'Spike workloads & MVPs' }
+  ],
+  testimonials: [
+    {
+      id: 't-1',
+      name: 'Subodh Bhandari',
+      role: 'Businessman',
+      company: 'Enterprise Partner',
+      rating: 5,
+      quote: 'I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.'
     }
-  },
-  services_intro: {
-    id: 'sec-services-intro',
-    page: 'services',
-    section_key: 'services_intro',
-    section_name: 'Services Group Overview',
-    order_index: 2,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'WHAT WE DO',
-      title: 'Empowering Modern Enterprises with Transformational Tech',
-      description: 'Explore our multi-disciplinary engineering hubs designed for high conversion, compliance, and enterprise scalability.'
-    }
-  },
-  services_cta: {
-    id: 'sec-services-cta',
-    page: 'services',
-    section_key: 'services_cta',
-    section_name: 'Services Inquiry Callout',
-    order_index: 3,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      title: 'Need a Custom Technology Architecture?',
-      subtitle: 'Speak directly with our principal architects for sprint estimates and tech stack advisory.',
-      btnText: 'Request Technical Discovery'
-    }
-  }
+  ]
 };
 
-export const DEFAULT_PRODUCTS_PAGE_SECTIONS = {
-  products_hero: {
-    id: 'sec-products-hero',
-    page: 'products',
-    section_key: 'products_hero',
-    section_name: 'Products Hero Showcase',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'PROPRIETARY PLATFORMS',
-      title: 'Turnkey Enterprise Software Solutions',
-      titleHighlight: 'Ready for Deployment',
-      subtitle: 'Battle-tested CRM suites, MLM architectures, multi-vendor marketplaces, and ERP solutions built for high concurrency.',
-      ctaBtnText: 'Explore Catalog',
-      demoBtnText: 'Request Live Demo'
-    }
-  },
-  products_video: {
-    id: 'sec-products-video',
-    page: 'products',
-    section_key: 'products_video',
-    section_name: 'Product Demonstration Video',
-    order_index: 2,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      badge: 'LIVE DEMO',
-      title: 'Experience Our Platforms in Action',
-      subtitle: 'Interactive walk-through of the administrative dashboard, high-concurrency payment engine, and analytics.',
-      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-    }
-  }
+export const DEFAULT_ECOMMERCE = {
+  badge: 'BLACK GRAPES SOFTECH • OFFICIAL ECOMMERCE PLATFORM',
+  title: 'Exciting News! Naya Purana Bazaar is Coming Soon!',
+  byline: 'An Online Marketplace By Black Grapes Softech',
+  domain: 'https://www.nayapuranabazaar.com',
+  domainDisplay: 'nayapuranabazaar.com',
+  targetLaunch: 'Q2 2026',
+  summary: "India's next-generation hybrid marketplace connecting buyers and verified sellers for certified new and pre-owned goods with escrow security, fast courier logistics, and verified buyer protection.",
+  categories: [
+    { id: 'electronics', name: 'Electronics & Appliances', count: '120+ Listings Pending', icon: 'Cpu' },
+    { id: 'vehicles', name: 'Two Wheelers & Cars', count: '85+ Listings Pending', icon: 'Car' },
+    { id: 'furniture', name: 'Home & Office Furniture', count: '60+ Listings Pending', icon: 'Home' },
+    { id: 'fashion', name: 'Fashion & Lifestyle', count: '200+ Listings Pending', icon: 'ShoppingBag' }
+  ],
+  buyerPerks: [
+    '100% Escrow Payment Protection',
+    'Doorstep Quality Verification',
+    '7-Day Easy Return Policy',
+    'Direct WhatsApp Chat with Sellers'
+  ],
+  sellerPerks: [
+    '0% Listing Fee for First 100 Products',
+    'Instant Payment Settlements to Bank',
+    'Free Integrated Logistics & Pickup',
+    'Automated Inventory & Invoicing Portal'
+  ],
+  waitlist_count: 450
 };
 
-export const DEFAULT_CLIENTS_PAGE_SECTIONS = {
-  clients_hero: {
-    id: 'sec-clients-hero',
-    page: 'clients',
-    section_key: 'clients_hero',
-    section_name: 'Clients Hero Banner',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'GLOBAL IMPACT & PARTNERSHIPS',
-      title: 'Trusted By Ambitious Enterprises',
-      titleHighlight: 'Across 15+ Countries',
-      subtitle: 'From disruptive startups to Fortune-caliber institutions, discover how our software engineering accelerates market leadership.',
-      stat1Num: '150+',
-      stat1Label: 'Deployments',
-      stat2Num: '15+',
-      stat2Label: 'Countries',
-      stat3Num: '99%',
-      stat3Label: 'Retention'
-    }
-  }
+export const DEFAULT_PARTNERSHIP = {
+  heroBadge: 'PARTNERSHIP & ALLIANCES',
+  heroTitle: 'Strategic Technology Alliances & Offshore Development',
+  heroSubtitle: 'Cultivating long-term strategic relationships and delivering high-velocity offshore technology development.',
+  partnerWithUsTitle: 'Partner With Us',
+  partnerWithUsText: 'If you are an IT or web software development company and are eager to expand your operations here in India, we are ready to help you as your development centre. Our business community is focused on cultivating long-term relationships with our clients and offers excellent experiences covering the strategic insights. Partnering with us enables you to provide endless growth and development. You can share our resources for your project requirements to work on technical areas that directly affect the growth of the organization.',
+  partnerImage: '/partners/partner_with_us.webp',
+  benefits: [
+    'Dedicated Offshore Development Center (ODC) setup in Indore tech corridor',
+    'Seamless collaboration across global time zones (US, UK, UAE, Australia)',
+    'Transparent billing, daily standups, and dedicated engineering leadership',
+    'Strict intellectual property protection and confidentiality agreements'
+  ],
+  productPartnersTitle: 'Products Companies Tie-up',
+  productPartnersIntro: 'Facilitating strategic alliances between product companies to expand reach, unlock mutual growth, and integrate complementary cloud platforms.',
+  servicePartnersTitle: 'Services Companies Tie-up',
+  servicePartnersIntro: 'Strategic collaborations between service enterprises to expand offerings, share cross-domain expertise, and co-deliver complex client mandates.'
 };
 
-export const DEFAULT_STAFFING_PAGE_SECTIONS = {
-  staffing_hero: {
-    id: 'sec-staffing-hero',
-    page: 'it-staffing',
-    section_key: 'staffing_hero',
-    section_name: 'IT Staffing Hero & Lead Form',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'CONTRACT & DEDICATED IT TALENT',
-      title: 'High-Velocity Contract & Permanent',
-      titleHighlight: 'Staffing Solutions',
-      subtitle: 'Pre-vetted software engineers, full-stack developers, cloud architects, and tech leaders ready to deploy within 48 to 72 hours.',
-      stat1Num: '25,000+',
-      stat1Label: 'Active on Payroll',
-      stat2Num: '28 States',
-      stat2Label: 'Pan-India Reach',
-      stat3Num: '48 Hours',
-      stat3Label: 'Rapid Deployment SLA',
-      stat4Num: '100%',
-      stat4Label: 'Statutory Compliant'
-    }
-  }
+export const DEFAULT_CONTACT_PAGE = {
+  heroBadge: 'BLACK GRAPES GROUP',
+  heroTitle: 'Get in Touch',
+  heroSubtitle: 'We are here to help and answer any questions you might have. We look forward to hearing from you.',
+  address1Label: 'Registered Office (Address 1)',
+  address1Text: '252-F/H, Scheme No 54, Vijay Nagar, Indore-452010, Madhya Pradesh, India.',
+  address1MapUrl: 'https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8',
+  address2Label: 'Development Centre (Address 2)',
+  address2Text: 'Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore-452010, Madhya Pradesh, India.',
+  address2MapUrl: 'https://maps.app.goo.gl/yahxDsm7BLK652mA8',
+  directPhones: [
+    { name: 'Arpit Jain', phones: ['+91 9039397884', '+91 7470997884'] },
+    { name: 'Support Desk', phones: ['+91 6262414463'] }
+  ],
+  emails: [
+    { department: 'General Inquiries', email: 'info@blackgrapessoftech.com' },
+    { department: 'Technical Support', email: 'support@blackgrapessoftech.com' }
+  ],
+  workingHours: 'Monday – Saturday: 10:00 AM – 7:30 PM (IST)'
 };
 
-export const DEFAULT_ECOMMERCE_PAGE_SECTIONS = {
-  ecommerce_hero: {
-    id: 'sec-ecommerce-hero',
-    page: 'ecommerce',
-    section_key: 'ecommerce_hero',
-    section_name: 'E-Commerce Platform Hero',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'NEXT-GEN MULTI-VENDOR MARKETPLACE',
-      title: 'Empowering India’s New & Pre-Owned',
-      titleHighlight: 'Trade Ecosystem',
-      subtitle: 'An end-to-end scalable marketplace platform connecting verified buyers and sellers nationwide with instant escrow.',
-      domainUrl: 'https://www.nayapuranabazaar.com',
-      waitlistBtnText: 'Join Seller Waitlist'
-    }
-  }
+export const DEFAULT_CLIENTS_PAGE = {
+  heroBadge: 'TRUSTED BY 150+ GLOBAL ENTERPRISES',
+  heroTitle: 'Our Clients:',
+  heroTitleAccent: 'Powering Leaders Across 15+ Nations',
+  heroSubtitle: 'At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.',
+  primaryBtnText: 'Partner With Us',
+  secondaryBtnText: 'Explore Client Brands',
+  metrics: [
+    { number: '150+', label: 'Enterprise Clients', highlight: 'Global Scale' },
+    { number: '15+', label: 'Countries Served', highlight: 'Worldwide Reach' },
+    { number: '99%', label: 'Client Retention', highlight: 'Long-term Trust' },
+    { number: '$50M+', label: 'Value Generated', highlight: 'Measurable ROI' }
+  ]
 };
 
-export const DEFAULT_CONTACT_PAGE_SECTIONS = {
-  contact_hero: {
-    id: 'sec-contact-hero',
-    page: 'contact',
-    section_key: 'contact_hero',
-    section_name: 'Contact Header & Coordinates',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'GET IN TOUCH',
-      title: 'Let’s Engineer Something Extraordinary',
-      titleHighlight: 'Together',
-      subtitle: 'Reach out to our principal consultants in Indore, India. We are ready to translate your hurdles into robust digital engines.',
-      address: '252-F/H, Scheme No 54, PU 4, Commercial, Vijay Nagar, Indore, Madhya Pradesh 452010',
-      phone: '+91 7470997884',
-      email: 'info@blackgrapessoftech.com',
-      hours: 'Monday - Saturday: 10:00 AM - 7:00 PM IST',
-      mapUrl: 'https://maps.google.com'
-    }
-  }
+export const DEFAULT_SERVICES_PAGE = {
+  badge: 'BLACK GRAPES GROUP',
+  title: 'Services Built Specifically',
+  titleAccent: ' For Your Business',
+  subtitle: 'Empowering businesses with tailored solutions to meet your unique needs.',
+  searchPlaceholder: 'Search services (Softech, Real Estate, Valuers, Investment, Insurance)...',
+  tab1Label: 'Group Companies (6 Core)',
+  tab2Label: 'IT Staffing Solutions',
+  tab3Label: 'E-Commerce (Naya Purana Bazaar)',
+  isVisible: true
 };
 
-export const DEFAULT_PARTNERSHIP_PAGE_SECTIONS = {
-  partnership_hero: {
-    id: 'sec-partnership-hero',
-    page: 'partnership',
-    section_key: 'partnership_hero',
-    section_name: 'Partnership Program Hero',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'GLOBAL STRATEGIC ALLIANCES',
-      title: 'Build High-Yield Tech Partnerships with',
-      titleHighlight: 'Black Grapes Softech',
-      subtitle: 'We act as your dedicated offshore engineering arm, technology incubator, and scalable co-founding team.',
-      btnText: 'Submit Alliance Proposal'
-    }
-  }
+export const DEFAULT_SOFTECH_PAGE = {
+  badge: 'BLACK GRAPES SOFTECH • WHAT WE DO',
+  title: 'Engineering High-Impact Custom Software & Digital Products',
+  subtitle: 'From bespoke web platforms and native mobile apps to AI-powered enterprise automation, we build scalable software designed to lead your market.',
+  primaryCtaText: 'Request Technical Quote',
+  secondaryCtaText: 'Schedule Consultation',
+  industriesBadge: 'CROSS-INDUSTRY EXPERTISE',
+  industriesTitle: 'Software Tailored for Real-World Business Vertical Demands',
+  isVisible: true
 };
 
-export const DEFAULT_BUSINESS_PARTNERS_PAGE_SECTIONS = {
-  bp_hero: {
-    id: 'sec-bp-hero',
-    page: 'business-partners',
-    section_key: 'bp_hero',
-    section_name: 'Business Partners Hero',
-    order_index: 1,
-    is_visible: true,
-    has_unpublished_changes: false,
-    content: {
-      eyebrow: 'ENTERPRISE TIE-UPS',
-      title: 'Our Strategic Business Partners &',
-      titleHighlight: 'Alliance Ecosystem',
-      subtitle: 'Forging deep integrations with global cloud networks, enterprise ERPs, and specialized technology ecosystems.'
-    }
-  }
+export const DEFAULT_PRODUCTS_PAGE = {
+  badge: 'BLACK GRAPES SOFTECH PROPRIETARY SUITE',
+  title: 'Our Products:',
+  titleAccent: 'Engineered to Transform Modern Business',
+  subtitle: 'Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.',
+  stats: [
+    { metric: '12+', label: 'Turnkey Products' },
+    { metric: '100%', label: 'Source Code Ownership' },
+    { metric: '7+', label: 'Core Industries' },
+    { metric: '5-7', label: 'Days Deployment' }
+  ],
+  primaryBtnText: 'Request Live Demo',
+  secondaryBtnText: 'Browse All Products',
+  pillTitle: 'Live Production Ready',
+  pillSub: 'Cloud Native • Web • iOS • Android',
+  pillBadge: 'WHITE-LABEL',
+  isVisible: true
 };
 
-export const ALL_PAGE_DEFINITIONS = [
-  { slug: 'home', name: 'Home Page', path: '/' },
-  { slug: 'about', name: 'About Us', path: '/about' },
-  { slug: 'services', name: 'Services Hub', path: '/services' },
-  { slug: 'products', name: 'Products & Platforms', path: '/products' },
-  { slug: 'clients', name: 'Clients & Portfolio', path: '/clients' },
-  { slug: 'it-staffing', name: 'IT Staffing Solutions', path: '/it-staffing' },
-  { slug: 'ecommerce', name: 'E-Commerce Solutions', path: '/ecommerce' },
-  { slug: 'contact', name: 'Contact & Coordinates', path: '/contact' },
-  { slug: 'partnership', name: 'Partnership Program', path: '/partnership' },
-  { slug: 'business-partners', name: 'Business Partners', path: '/business-partners' }
-];
 
-export function getPageDefaultSections(pageSlug) {
-  switch (pageSlug) {
-    case 'home':
-      return DEFAULT_HOME_SECTIONS;
-    case 'about':
-      return DEFAULT_PAGE_SECTIONS;
-    case 'services':
-      return DEFAULT_SERVICES_PAGE_SECTIONS;
-    case 'products':
-      return DEFAULT_PRODUCTS_PAGE_SECTIONS;
-    case 'clients':
-      return DEFAULT_CLIENTS_PAGE_SECTIONS;
-    case 'it-staffing':
-      return DEFAULT_STAFFING_PAGE_SECTIONS;
-    case 'ecommerce':
-      return DEFAULT_ECOMMERCE_PAGE_SECTIONS;
-    case 'contact':
-      return DEFAULT_CONTACT_PAGE_SECTIONS;
-    case 'partnership':
-      return DEFAULT_PARTNERSHIP_PAGE_SECTIONS;
-    case 'business-partners':
-      return DEFAULT_BUSINESS_PARTNERS_PAGE_SECTIONS;
-    default:
-      return {};
-  }
-}

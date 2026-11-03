@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
+  LayoutGrid,
   Home,
   Info,
   Layers,
@@ -13,7 +14,6 @@ import {
   Menu as MenuIcon,
   X,
   Sliders,
-  Globe,
   Image as ImageIcon,
   Search,
   Inbox,
@@ -24,11 +24,14 @@ import {
   ExternalLink,
   ChevronRight,
   Database,
-  Radio
+  Radio,
+  Briefcase,
+  ShoppingBag,
+  Handshake,
+  Building2
 } from 'lucide-react';
 import { getCurrentSession, logoutAdmin } from '@backend/authService';
-import { checkSupabaseHealth } from '@backend/supabaseClient';
-import { getEnquiries } from '@backend/dataService';
+import { getEnquiries, checkBackendHealth } from '@backend/dataService';
 import logoImg from '@assets/bgst-logo.png';
 import '../admin.css';
 
@@ -50,7 +53,7 @@ export default function AdminLayout() {
     setSession(current);
 
     // Check DB Status
-    checkSupabaseHealth().then((res) => {
+    checkBackendHealth().then((res) => {
       setDbStatus(res);
     });
 
@@ -85,11 +88,16 @@ export default function AdminLayout() {
     {
       group: 'Page Content',
       items: [
-        { label: 'All Pages CMS (Universal)', path: '/admin/pages', icon: Globe },
+        { label: 'Central Page Hub', path: '/admin/pages', icon: LayoutGrid, highlight: true },
         { label: 'Home Page', path: '/admin/home', icon: Home },
         { label: 'About Us Page', path: '/admin/about', icon: Info },
-        { label: 'Services', path: '/admin/services', icon: Layers },
-        { label: 'Projects / Products', path: '/admin/projects', icon: Package },
+        { label: 'Services & Softech', path: '/admin/services', icon: Layers },
+        { label: 'Products & Projects', path: '/admin/projects', icon: Package },
+        { label: 'Client Portfolio', path: '/admin/clients', icon: Building2 },
+        { label: 'IT Staffing Solutions', path: '/admin/it-staffing', icon: Briefcase },
+        { label: 'E-Commerce Platform', path: '/admin/ecommerce', icon: ShoppingBag },
+        { label: 'Partnership & Alliances', path: '/admin/partnership', icon: Handshake },
+        { label: 'Contact Coordinates', path: '/admin/contact', icon: MapPin },
         { label: 'Leadership & Team', path: '/admin/team', icon: Users },
         { label: 'Client Testimonials', path: '/admin/testimonials', icon: MessageSquareQuote },
         { label: 'Blog & Insights', path: '/admin/blog', icon: BookOpen }
@@ -191,7 +199,7 @@ export default function AdminLayout() {
               <span className={`status-dot ${dbStatus.connected ? 'green' : 'yellow'}`}></span>
               <span>
                 {dbStatus.connected
-                  ? 'MongoDB Atlas (Online)'
+                  ? 'Persistent Database: Active'
                   : 'Local Storage Mode'}
               </span>
             </div>

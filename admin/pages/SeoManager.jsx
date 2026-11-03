@@ -6,18 +6,14 @@ import {
   Globe,
   ExternalLink,
   Edit,
-  X,
-  Plus,
-  Image as ImageIcon
+  X
 } from 'lucide-react';
 import { getSeoMetadata, saveSeoMetadata } from '@backend/dataService';
-import MediaPickerModal from '../components/MediaPickerModal';
 
 export default function SeoManager() {
   const [seoList, setSeoList] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
   const [form, setForm] = useState({
@@ -25,8 +21,7 @@ export default function SeoManager() {
     meta_title: '',
     meta_description: '',
     meta_keywords: '',
-    canonical_url: '',
-    og_image: ''
+    canonical_url: ''
   });
 
   useEffect(() => {
@@ -35,25 +30,12 @@ export default function SeoManager() {
 
   const loadSeo = async () => {
     const list = await getSeoMetadata();
-    setSeoList(list || []);
+    setSeoList(list);
   };
 
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 3000);
-  };
-
-  const handleCreate = () => {
-    setEditingItem(null);
-    setForm({
-      page_route: '/',
-      meta_title: '',
-      meta_description: '',
-      meta_keywords: '',
-      canonical_url: 'https://blackgrapessoftech.com',
-      og_image: ''
-    });
-    setModalOpen(true);
   };
 
   const handleEdit = (item) => {
@@ -63,8 +45,7 @@ export default function SeoManager() {
       meta_title: item.meta_title || '',
       meta_description: item.meta_description || '',
       meta_keywords: item.meta_keywords || '',
-      canonical_url: item.canonical_url || '',
-      og_image: item.og_image || ''
+      canonical_url: item.canonical_url || ''
     });
     setModalOpen(true);
   };
@@ -76,7 +57,7 @@ export default function SeoManager() {
       ...form
     });
     setModalOpen(false);
-    showToast(`SEO tags saved for ${form.page_route}`);
+    showToast(`SEO tags updated for ${form.page_route}`);
     await loadSeo();
   };
 
@@ -93,13 +74,9 @@ export default function SeoManager() {
         <div>
           <h1 className="admin-page-title">SEO & Metadata Management</h1>
           <p className="admin-page-sub">
-            Configure page search titles, meta descriptions, OpenGraph social preview images, and canonical tags for all routes.
+            Configure search engine titles, descriptions, and OpenGraph parameters for every website route.
           </p>
         </div>
-        <button onClick={handleCreate} className="admin-btn admin-btn-primary">
-          <Plus size={16} />
-          <span>Add Route SEO</span>
-        </button>
       </div>
 
       <div className="admin-card">
@@ -110,7 +87,7 @@ export default function SeoManager() {
                 <th>Page Route</th>
                 <th>Search Meta Title</th>
                 <th>Meta Description Snippet</th>
-                <th>OG Image</th>
+                <th>Keywords</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -125,22 +102,15 @@ export default function SeoManager() {
                   <td>
                     <strong style={{ color: '#fff', fontSize: '0.85rem' }}>{item.meta_title}</strong>
                   </td>
-                  <td style={{ maxWidth: '300px' }}>
+                  <td style={{ maxWidth: '350px' }}>
                     <p style={{ margin: 0, fontSize: '0.8rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {item.meta_description}
                     </p>
                   </td>
-                  <td>
-                    {item.og_image ? (
-                      <img
-                        src={item.og_image}
-                        alt="OG Preview"
-                        style={{ width: '45px', height: '30px', objectFit: 'cover', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    ) : (
-                      <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>Default</span>
-                    )}
+                  <td style={{ maxWidth: '200px' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                      {item.meta_keywords}
+                    </span>
                   </td>
                   <td style={{ textAlign: 'right' }}>
                     <button
@@ -165,7 +135,7 @@ export default function SeoManager() {
             <form onSubmit={handleSave}>
               <div className="admin-modal-header">
                 <h3 style={{ margin: 0, color: '#fff' }}>
-                  {editingItem ? `Edit SEO: ${form.page_route}` : 'Add New Route SEO'}
+                  Edit SEO Metadata: {form.page_route}
                 </h3>
                 <button
                   type="button"
@@ -198,17 +168,6 @@ export default function SeoManager() {
                   <div style={{ fontSize: '0.8rem', color: '#bdc1c6', lineHeight: 1.4 }}>
                     {form.meta_description || 'Page meta description preview snippet on Google SERP...'}
                   </div>
-                </div>
-
-                <div className="admin-form-group">
-                  <label className="admin-label">Page Route * (e.g. /, /about, /services)</label>
-                  <input
-                    type="text"
-                    required
-                    className="admin-input"
-                    value={form.page_route}
-                    onChange={(e) => setForm({ ...form, page_route: e.target.value })}
-                  />
                 </div>
 
                 <div className="admin-form-group">
@@ -251,37 +210,6 @@ export default function SeoManager() {
                     onChange={(e) => setForm({ ...form, canonical_url: e.target.value })}
                   />
                 </div>
-
-                <div className="admin-form-group">
-                  <label className="admin-label">Open Graph (OG) Social Share Image URL</label>
-                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      placeholder="https://... or select from Media Library"
-                      value={form.og_image}
-                      onChange={(e) => setForm({ ...form, og_image: e.target.value })}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setMediaPickerOpen(true)}
-                      className="admin-btn admin-btn-secondary"
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
-                      <ImageIcon size={14} />
-                      <span>Select Media</span>
-                    </button>
-                  </div>
-                  {form.og_image && (
-                    <div style={{ marginTop: '0.5rem' }}>
-                      <img
-                        src={form.og_image}
-                        alt="OG Preview"
-                        style={{ height: '60px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)' }}
-                      />
-                    </div>
-                  )}
-                </div>
               </div>
 
               <div className="admin-modal-footer">
@@ -294,23 +222,14 @@ export default function SeoManager() {
                 </button>
                 <button type="submit" className="admin-btn admin-btn-primary">
                   <Save size={15} />
-                  <span>Save SEO Metadata</span>
+                  <span>Update SEO</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
-
-      {/* Media Picker Modal for OG Image */}
-      <MediaPickerModal
-        isOpen={mediaPickerOpen}
-        onClose={() => setMediaPickerOpen(false)}
-        onSelectMedia={(media) => {
-          setForm((prev) => ({ ...prev, og_image: media.url }));
-        }}
-        allowedType="image"
-      />
     </div>
   );
 }
+

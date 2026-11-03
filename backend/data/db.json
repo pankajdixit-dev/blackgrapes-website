@@ -1,0 +1,3818 @@
+{
+  "site_settings": {
+    "id": "settings-1",
+    "site_name": "Black Grapes Softech Pvt. Ltd.",
+    "tagline": "Empowering Enterprises Worldwide with Next-Gen Tech",
+    "logo_url": "/bgst-logo.png",
+    "favicon_url": "/favicon.svg",
+    "primary_email": "info@blackgrapessoftech.com",
+    "support_email": "support@blackgrapessoftech.com",
+    "primary_phone": "+91 9039397884",
+    "secondary_phone": "+91 7470997884",
+    "whatsapp_number": "+919039397884",
+    "office_address": "252-F/H, Scheme No 54, Vijay Nagar, Indore - 452010, Madhya Pradesh, India",
+    "google_maps_url": "https://maps.google.com/?q=Vijaynagar,Indore,Madhya+Pradesh,India",
+    "working_hours": "Monday – Saturday: 10:00 AM – 7:30 PM (IST)",
+    "top_strip_text": "Empowering Enterprises Worldwide with Next-Gen Tech • Call: +91 7470997884",
+    "top_strip_enabled": true,
+    "social_linkedin": "https://www.linkedin.com/in/black-grapes-softech/",
+    "social_twitter": "https://twitter.com/grapessoftech",
+    "social_instagram": "https://www.instagram.com/blackgrapessoftech/",
+    "social_youtube": "https://www.youtube.com/channel/UC3gJA06Uxb0D82-PVJl0SbQ",
+    "footer_about_text": "We are an innovative IT solutions & custom software development company based in Indore, India. Empowering businesses across the globe with robust, scalable, and tailored digital products.",
+    "footer_trust_badge": "ISO & Quality Assured Development Standards",
+    "copyright_text": "© 2026 Black Grapes Softech Pvt. Ltd. All rights reserved.",
+    "maintenance_mode": false,
+    "google_analytics_id": "G-XXXXXXXXXX",
+    "custom_head_scripts": "",
+    "support_phone": "+91 6262414463",
+    "alt_email": "blackgrapesgroups@gmail.com",
+    "office_address_2": "Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore - 452010, Madhya Pradesh, India"
+  },
+  "home_page": {
+    "hero": {
+      "badge": "10+ Years of Proven IT Excellence • Indore, India",
+      "prefix": "Innovate. Integrate. Elevate.",
+      "break_text": "And Digitalize Your Ideas into Success via",
+      "brand_highlight": "BLACK GRAPES SOFTECH",
+      "suffix": ", Where Innovation And ideas Meets Excellence.",
+      "description": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises.",
+      "cta_primary_text": "Request a Demo",
+      "cta_secondary_text": "Get the offer"
+    }
+  },
+  "page_sections": {
+    "about_hero": {
+      "id": "sec-about-hero",
+      "page": "about",
+      "section_key": "about_hero",
+      "section_name": "About Hero Section",
+      "order_index": 1,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "ABOUT BLACK GRAPES SOFTECH ",
+        "title": "Empowering Businesses with Next-Gen Tech",
+        "titleHighlight": "We Engineer The Digital Future.",
+        "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
+        "primaryBtnText": "Partner With Us",
+        "secondaryBtnText": "Meet Our Leadership",
+        "secondaryBtnLink": "#founders",
+        "image": "/images/blackgrapes-1.png",
+        "floatingStat1Num": "250+ Projects",
+        "floatingStat1Sub": "Shipped Globally",
+        "floatingStat2Num": "15+ Nations",
+        "floatingStat2Sub": "Active Client Base",
+        "microBadges": [
+          "Certified Developers",
+          "Full Cycle Development",
+          "24/7 Dedicated Support"
+        ]
+      },
+      "draft_content": {
+        "badge": "ABOUT BLACK GRAPES SOFTECH ",
+        "title": "Empowering Businesses with Next-Gen Tech",
+        "titleHighlight": "We Engineer The Digital Future.",
+        "lead": "Headquartered in Indore, India, Black Grapes Softech is a premier software engineering & digital transformation agency. We translate complex business hurdles into elegant, high-impact digital products.",
+        "primaryBtnText": "Partner With Us",
+        "secondaryBtnText": "Meet Our Leadership",
+        "secondaryBtnLink": "#founders",
+        "image": "/images/blackgrapes-1.png",
+        "floatingStat1Num": "250+ Projects",
+        "floatingStat1Sub": "Shipped Globally",
+        "floatingStat2Num": "15+ Nations",
+        "floatingStat2Sub": "Active Client Base",
+        "microBadges": [
+          "Certified Developers",
+          "Full Cycle Development",
+          "24/7 Dedicated Support"
+        ]
+      },
+      "updated_at": "2026-11-03T07:12:52.275Z"
+    },
+    "stats_strip": {
+      "id": "sec-stats-strip",
+      "page": "about",
+      "section_key": "stats_strip",
+      "section_name": "Key Impact Metrics Bar",
+      "order_index": 2,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "stats": [
+          {
+            "number": "10+",
+            "label": "Years of Innovation",
+            "highlight": "Since 2014"
+          },
+          {
+            "number": "250+",
+            "label": "Projects Completed",
+            "highlight": "Global Scale"
+          },
+          {
+            "number": "150+",
+            "label": "Satisfied Clients",
+            "highlight": "15+ Countries"
+          },
+          {
+            "number": "99%",
+            "label": "Client Retention",
+            "highlight": "Industry Best"
+          }
+        ]
+      },
+      "draft_content": {
+        "stats": [
+          {
+            "number": "10+",
+            "label": "Years of Innovation",
+            "highlight": "Since 2014"
+          },
+          {
+            "number": "250+",
+            "label": "Projects Completed",
+            "highlight": "Global Scale"
+          },
+          {
+            "number": "150+",
+            "label": "Satisfied Clients",
+            "highlight": "15+ Countries"
+          },
+          {
+            "number": "99%",
+            "label": "Client Retention",
+            "highlight": "Industry Best"
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
+    },
+    "vision_mission": {
+      "id": "sec-vision-mission",
+      "page": "about",
+      "section_key": "vision_mission",
+      "section_name": "Vision, Mission & Philosophy Bento",
+      "order_index": 3,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "CORE COMPASS",
+        "heading": "Guided by Purpose, Driven by Precision",
+        "visionTitle": "Our Strategic Vision",
+        "visionText": "To be the most trusted software engineering partner globally, accelerating digital transformation through architectural brilliance, ethical technology practices, and sustainable engineering.",
+        "missionTitle": "Our Operational Mission",
+        "missionText": "To empower ambitious enterprises with custom-built software, high-performance web platforms, and mobile apps that dramatically improve bottom lines and delight end-users.",
+        "philosophyTitle": "The Black Grapes Code",
+        "philosophyBullets": [
+          "Code as a Craft: Clean, test-driven architectures that scale without technical debt.",
+          "Radical Transparency: Open sprint backlogs, continuous client demos, and honest roadmaps.",
+          "Velocity with Stability: Fast time-to-market without ever compromising system security."
+        ]
+      },
+      "draft_content": {
+        "badge": "CORE COMPASS",
+        "heading": "Guided by Purpose, Driven by Precision",
+        "visionTitle": "Our Strategic Vision",
+        "visionText": "To be the most trusted software engineering partner globally, accelerating digital transformation through architectural brilliance, ethical technology practices, and sustainable engineering.",
+        "missionTitle": "Our Operational Mission",
+        "missionText": "To empower ambitious enterprises with custom-built software, high-performance web platforms, and mobile apps that dramatically improve bottom lines and delight end-users.",
+        "philosophyTitle": "The Black Grapes Code",
+        "philosophyBullets": [
+          "Code as a Craft: Clean, test-driven architectures that scale without technical debt.",
+          "Radical Transparency: Open sprint backlogs, continuous client demos, and honest roadmaps.",
+          "Velocity with Stability: Fast time-to-market without ever compromising system security."
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
+    },
+    "founders_story": {
+      "id": "sec-founders-story",
+      "page": "about",
+      "section_key": "founders_story",
+      "section_name": "Founders & Heritage Narrative",
+      "order_index": 4,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "LEADERSHIP STORY",
+        "heading": "Built From The Ground Up with Passion and Technical Grit",
+        "storyP1": "Founded with a clear conviction that technology services should be personal, accountable, and deeply technical, Black Grapes Softech began as an agile squad solving complex algorithmic challenges for local enterprises in Madhya Pradesh.",
+        "storyP2": "Over the last decade, our leadership team has steered the company into an internationally recognized engineering hub, deploying mission-critical systems across Healthcare, Logistics, FinTech, and Enterprise SaaS.",
+        "foundersName": "Arpit Jain & Deepika Jain",
+        "foundersRole": "Founders & Managing Directors",
+        "quote": "Technology without strategy is overhead. Our goal is to transform code into a dominant business advantage for every client we serve.",
+        "image": "/images/good-business-relationship-2.jpg"
+      },
+      "draft_content": {
+        "badge": "LEADERSHIP STORY",
+        "heading": "Built From The Ground Up with Passion and Technical Grit",
+        "storyP1": "Founded with a clear conviction that technology services should be personal, accountable, and deeply technical, Black Grapes Softech began as an agile squad solving complex algorithmic challenges for local enterprises in Madhya Pradesh.",
+        "storyP2": "Over the last decade, our leadership team has steered the company into an internationally recognized engineering hub, deploying mission-critical systems across Healthcare, Logistics, FinTech, and Enterprise SaaS.",
+        "foundersName": "Arpit Jain & Deepika Jain",
+        "foundersRole": "Founders & Managing Directors",
+        "quote": "Technology without strategy is overhead. Our goal is to transform code into a dominant business advantage for every client we serve.",
+        "image": "/images/good-business-relationship-2.jpg"
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
+    },
+    "culture_values": {
+      "id": "sec-culture-values",
+      "page": "about",
+      "section_key": "culture_values",
+      "section_name": "Core Cultural Pillars",
+      "order_index": 5,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "CULTURAL ANCHORS",
+        "heading": "The Principles That Power Our Daily Sprints",
+        "pillars": [
+          {
+            "icon": "Shield",
+            "title": "Absolute Integrity",
+            "text": "We treat our clients IP, customer data, and security with bank-grade diligence and confidentiality."
+          },
+          {
+            "icon": "Zap",
+            "title": "Relentless Innovation",
+            "text": "We invest 15% of engineering bandwidth into researching AI models, modern cloud primitives, and reactive frameworks."
+          },
+          {
+            "icon": "Users",
+            "title": "Empowered Teams",
+            "text": "Flat hierarchy where the best technical idea always wins. We nurture leadership at every engineering level."
+          },
+          {
+            "icon": "Award",
+            "title": "Obsession With Quality",
+            "text": "Rigorous peer reviews, zero-warning lint policies, and comprehensive test suites for every PR merged."
+          }
+        ]
+      },
+      "draft_content": {
+        "badge": "CULTURAL ANCHORS",
+        "heading": "The Principles That Power Our Daily Sprints",
+        "pillars": [
+          {
+            "icon": "Shield",
+            "title": "Absolute Integrity",
+            "text": "We treat our clients IP, customer data, and security with bank-grade diligence and confidentiality."
+          },
+          {
+            "icon": "Zap",
+            "title": "Relentless Innovation",
+            "text": "We invest 15% of engineering bandwidth into researching AI models, modern cloud primitives, and reactive frameworks."
+          },
+          {
+            "icon": "Users",
+            "title": "Empowered Teams",
+            "text": "Flat hierarchy where the best technical idea always wins. We nurture leadership at every engineering level."
+          },
+          {
+            "icon": "Award",
+            "title": "Obsession With Quality",
+            "text": "Rigorous peer reviews, zero-warning lint policies, and comprehensive test suites for every PR merged."
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
+    },
+    "about_faqs": {
+      "id": "sec-about-faqs",
+      "page": "about",
+      "section_key": "about_faqs",
+      "section_name": "Frequently Asked Questions",
+      "order_index": 6,
+      "is_visible": true,
+      "has_unpublished_changes": false,
+      "content": {
+        "badge": "CLARITY FIRST",
+        "heading": "Frequently Asked Questions About Partnering With Us",
+        "faqs": [
+          {
+            "q": "What engagement models do you support?",
+            "a": "We offer dedicated team augmentation, milestone-based fixed price projects, and time-and-materials agile sprints depending on your product stage and requirements."
+          },
+          {
+            "q": "How do you handle Intellectual Property (IP) and NDAs?",
+            "a": "Full 100% IP ownership transfers to you upon final invoice settlement. We execute strict bilateral NDAs prior to any technical briefing or architectural review."
+          },
+          {
+            "q": "Can you scale a team on short notice?",
+            "a": "Yes, our bench of pre-vetted engineers allows us to onboard senior React, Flutter, Node.js, and Python developers within 3-7 business days."
+          },
+          {
+            "q": "Do you offer post-launch maintenance & SLA support?",
+            "a": "We provide 24/7 dedicated monitoring, zero-downtime updates, infrastructure patching, and continuous feature roadmapping via customized SLA tiers."
+          }
+        ]
+      },
+      "draft_content": {
+        "badge": "CLARITY FIRST",
+        "heading": "Frequently Asked Questions About Partnering With Us",
+        "faqs": [
+          {
+            "q": "What engagement models do you support?",
+            "a": "We offer dedicated team augmentation, milestone-based fixed price projects, and time-and-materials agile sprints depending on your product stage and requirements."
+          },
+          {
+            "q": "How do you handle Intellectual Property (IP) and NDAs?",
+            "a": "Full 100% IP ownership transfers to you upon final invoice settlement. We execute strict bilateral NDAs prior to any technical briefing or architectural review."
+          },
+          {
+            "q": "Can you scale a team on short notice?",
+            "a": "Yes, our bench of pre-vetted engineers allows us to onboard senior React, Flutter, Node.js, and Python developers within 3-7 business days."
+          },
+          {
+            "q": "Do you offer post-launch maintenance & SLA support?",
+            "a": "We provide 24/7 dedicated monitoring, zero-downtime updates, infrastructure patching, and continuous feature roadmapping via customized SLA tiers."
+          }
+        ]
+      },
+      "updated_at": "2026-11-03T06:00:49.351Z"
+    }
+  },
+  "services": [
+    {
+      "id": "mobile-app-development",
+      "number": "02",
+      "title": "Mobile Application Development",
+      "tagline": "Native iOS & Android and Cross-Platform Apps",
+      "category": "mobile",
+      "categoryLabel": "Mobile Apps",
+      "badge": "Trending",
+      "image": "/softech-services/app.jpg",
+      "url": "https://blackgrapessoftech.com/services/mobile-app-development/",
+      "description": "Turnkey mobile application development delivering smooth 60fps performance, offline sync, real-time push notifications, payment gateways, and biometric security for Android and iOS.",
+      "shortDesc": "Turnkey mobile application development delivering smooth 60fps performance, offline sync, real-time push notifications, payment gateways, an...",
+      "keyDeliverables": [
+        "Cross-platform Flutter & React Native app engineering",
+        "Native Swift (iOS) & Kotlin (Android) architecture",
+        "Real-time WebSocket notifications & cloud database sync",
+        "End-to-end App Store & Google Play publishing compliance"
+      ],
+      "techStack": [
+        "Flutter",
+        "React Native",
+        "Kotlin",
+        "Swift",
+        "Firebase",
+        "GraphQL"
+      ],
+      "tags": [
+        "Flutter",
+        "React Native",
+        "Kotlin",
+        "Swift",
+        "Firebase",
+        "GraphQL"
+      ],
+      "accentColor": "#8b5cf6",
+      "timeline": "4 - 10 Weeks",
+      "clientTypes": "Fintech, Healthcare, On-Demand Delivery, EdTech",
+      "is_active": true,
+      "order_index": 2
+    },
+    {
+      "id": "software-development",
+      "number": "03",
+      "title": "Custom Software Development",
+      "tagline": "Tailored Enterprise Automation & Microservices",
+      "category": "software",
+      "categoryLabel": "Custom Software",
+      "badge": "Enterprise",
+      "image": "/softech-services/software.jpg",
+      "url": "https://blackgrapessoftech.com/services/software-development-2/",
+      "description": "Bespoke enterprise software designed to automate complex operations, connect fragmented workflows, and eliminate manual bottlenecks with secure microservices and robust database architectures.",
+      "shortDesc": "Bespoke enterprise software designed to automate complex operations, connect fragmented workflows, and eliminate manual bottlenecks with sec...",
+      "keyDeliverables": [
+        "Custom workflow automation engines & business logic layers",
+        "High-throughput microservices built on Node.js and Python",
+        "Enterprise database architecture with automated failover",
+        "Role-based access control (RBAC) and immutable audit logging"
+      ],
+      "techStack": [
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "Docker",
+        "Redis",
+        "Kubernetes"
+      ],
+      "tags": [
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "Docker",
+        "Redis",
+        "Kubernetes"
+      ],
+      "accentColor": "#06b6d4",
+      "timeline": "6 - 14 Weeks",
+      "clientTypes": "Manufacturing, Distributors, Multi-Branch Businesses",
+      "is_active": true,
+      "order_index": 3
+    },
+    {
+      "id": "crm-software-development",
+      "number": "04",
+      "title": "CRM Software Development",
+      "tagline": "Intelligent Lead Pipelines & Sales Automation",
+      "category": "enterprise",
+      "categoryLabel": "CRM & MLM ERP",
+      "badge": "High ROI",
+      "image": "/softech-services/crm.png",
+      "url": "https://blackgrapessoftech.com/services/crm-software-development/",
+      "description": "Purpose-built Customer Relationship Management systems with real-time sales funnels, automated omnichannel communications (WhatsApp, Email, SMS), role-based permissions, and executive KPI dashboards.",
+      "shortDesc": "Purpose-built Customer Relationship Management systems with real-time sales funnels, automated omnichannel communications (WhatsApp, Email, ...",
+      "keyDeliverables": [
+        "Multi-channel lead capture & automated assignment routing",
+        "WhatsApp Business API, SMS & Email drip automation triggers",
+        "Interactive executive KPI reports & revenue conversion analytics",
+        "Complete client interaction timeline & document storage"
+      ],
+      "techStack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "WebSockets",
+        "Meta API"
+      ],
+      "tags": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "WebSockets",
+        "Meta API"
+      ],
+      "accentColor": "#10b981",
+      "timeline": "4 - 8 Weeks",
+      "clientTypes": "Real Estate Builders, B2B Sales, Financial Consultants",
+      "is_active": true,
+      "order_index": 4
+    },
+    {
+      "id": "mlm-software-development",
+      "number": "05",
+      "title": "MLM Software Development",
+      "tagline": "Automated Binary, Matrix & Generation Plans",
+      "category": "enterprise",
+      "categoryLabel": "CRM & MLM ERP",
+      "badge": "Specialized",
+      "image": "/softech-services/mlm.png",
+      "url": "https://blackgrapessoftech.com/services/mlm-software-development/",
+      "description": "High-security Multi-Level Marketing software supporting Binary, Matrix, Unilevel, and Hybrid compensation plans with automated genealogy calculation, instant payout processing, and digital wallets.",
+      "shortDesc": "High-security Multi-Level Marketing software supporting Binary, Matrix, Unilevel, and Hybrid compensation plans with automated genealogy cal...",
+      "keyDeliverables": [
+        "Visual interactive genealogy tree explorer with zoom navigation",
+        "Automated commission calculation engine with multi-tier rules",
+        "Multi-wallet member dashboard (Payout, E-Pin, Shopping Wallet)",
+        "Bank withdrawal module with automated TDS & GST deduction"
+      ],
+      "techStack": [
+        "Node.js",
+        "MongoDB",
+        "React",
+        "Payment Gateways",
+        "Encryption"
+      ],
+      "tags": [
+        "Node.js",
+        "MongoDB",
+        "React",
+        "Payment Gateways",
+        "Encryption"
+      ],
+      "accentColor": "#ec4899",
+      "timeline": "3 - 6 Weeks",
+      "clientTypes": "Direct Selling Enterprises, Product Network Marketers",
+      "is_active": true,
+      "order_index": 5
+    },
+    {
+      "id": "digital-marketing",
+      "number": "06",
+      "title": "Digital Marketing & Growth",
+      "tagline": "High-Intent SEO & Performance Advertising",
+      "category": "marketing",
+      "categoryLabel": "Digital Marketing",
+      "badge": "Growth Engine",
+      "image": "/softech-services/marketing.jpg",
+      "url": "https://blackgrapessoftech.com/services/digital-marketing/",
+      "description": "Scale your online brand authority and acquire qualified customer leads through precision Google Ads PPC, high-converting Meta performance campaigns, data-driven technical SEO, and conversion rate optimization.",
+      "shortDesc": "Scale your online brand authority and acquire qualified customer leads through precision Google Ads PPC, high-converting Meta performance ca...",
+      "keyDeliverables": [
+        "Comprehensive on-page & off-page authoritative SEO roadmap",
+        "High-ROI Google Search, Display & Performance Max campaigns",
+        "Meta (Facebook & Instagram) ads with hyper-targeted audience funnels",
+        "Conversion rate optimization (CRO) & live attribution tracking"
+      ],
+      "techStack": [
+        "Google Ads",
+        "GA4",
+        "Meta Ads",
+        "SEMrush",
+        "HubSpot",
+        "Hotjar"
+      ],
+      "tags": [
+        "Google Ads",
+        "GA4",
+        "Meta Ads",
+        "SEMrush",
+        "HubSpot",
+        "Hotjar"
+      ],
+      "accentColor": "#f59e0b",
+      "timeline": "Monthly Sprints",
+      "clientTypes": "B2B Services, D2C Brands, Real Estate, Healthcare",
+      "is_active": true,
+      "order_index": 6
+    },
+    {
+      "id": "graphic-designing",
+      "number": "07",
+      "title": "Graphic Designing & Brand Identity",
+      "tagline": "Strategic Visual Identity & UI/UX Systems",
+      "category": "design",
+      "categoryLabel": "UI/UX & Branding",
+      "badge": "Creative",
+      "image": "/softech-services/graphic.jpg",
+      "url": "https://blackgrapessoftech.com/services/graphic-designing/",
+      "description": "Crafting unforgettable corporate identities that communicate credibility. From logo design kits and marketing creatives to complete Figma UI/UX design systems and interactive prototypes.",
+      "shortDesc": "Crafting unforgettable corporate identities that communicate credibility. From logo design kits and marketing creatives to complete Figma UI...",
+      "keyDeliverables": [
+        "Corporate logo design, color typography & brand guideline book",
+        "High-fidelity web & mobile app UI/UX prototypes in Figma",
+        "High-converting social media creatives & promotional campaign assets",
+        "Print collateral: business cards, corporate brochures & pitch decks"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Photoshop",
+        "Illustrator",
+        "After Effects",
+        "Canva Pro"
+      ],
+      "tags": [
+        "Figma",
+        "Adobe Photoshop",
+        "Illustrator",
+        "After Effects",
+        "Canva Pro"
+      ],
+      "accentColor": "#a855f7",
+      "timeline": "1 - 3 Weeks",
+      "clientTypes": "New Ventures, Rebranding Enterprises, Consumer Brands",
+      "is_active": true,
+      "order_index": 7
+    },
+    {
+      "id": "game-development",
+      "number": "08",
+      "title": "Game & 3D Interactive Development",
+      "tagline": "Immersive 2D/3D Games & WebGL Simulations",
+      "category": "gaming",
+      "categoryLabel": "Game Development",
+      "badge": "Immersive",
+      "image": "/softech-services/game.jpg",
+      "url": "https://blackgrapessoftech.com/services/game-development/",
+      "description": "Developing captivating casual mobile games, multiplayer platforms, and 3D browser simulations utilizing Unity 3D and WebGL to create memorable interactive brand engagement.",
+      "shortDesc": "Developing captivating casual mobile games, multiplayer platforms, and 3D browser simulations utilizing Unity 3D and WebGL to create memorab...",
+      "keyDeliverables": [
+        "Multiplatform casual 2D and 3D game mechanics engineering",
+        "Real-time multiplayer server synchronization & leaderboards",
+        "Custom 2D/3D sprite modeling, animation, and spatial audio design",
+        "In-game monetization, rewards engine, and ad network integration"
+      ],
+      "techStack": [
+        "Unity 3D",
+        "C#",
+        "WebGL",
+        "Three.js",
+        "Blender",
+        "Photon Engine"
+      ],
+      "tags": [
+        "Unity 3D",
+        "C#",
+        "WebGL",
+        "Three.js",
+        "Blender",
+        "Photon Engine"
+      ],
+      "accentColor": "#6366f1",
+      "timeline": "8 - 16 Weeks",
+      "clientTypes": "Gaming Studios, EdTech, Gamified Brand Campaigns",
+      "is_active": true,
+      "order_index": 8
+    },
+    {
+      "id": "tender-services",
+      "number": "09",
+      "title": "Private & Government Tender Services",
+      "tagline": "End-to-End GeM Portal & e-Procurement Bidding",
+      "category": "tenders",
+      "categoryLabel": "Tenders & Staffing",
+      "badge": "Govt Ready",
+      "image": "/softech-services/tenders.jpg",
+      "url": "https://blackgrapessoftech.com/private-tender-service/",
+      "description": "Win high-stakes tenders without falling foul of technical disqualifications. We identify lucrative GeM and e-procurement opportunities, draft compliant technical proposals, and manage submissions.",
+      "shortDesc": "Win high-stakes tenders without falling foul of technical disqualifications. We identify lucrative GeM and e-procurement opportunities, draf...",
+      "keyDeliverables": [
+        "GeM (Government e-Marketplace) & CPPP technical bid preparation",
+        "Technical proposal drafting, BOQ analysis & compliance matrix",
+        "Consortium agreements, EMD and bank guarantee facilitation",
+        "Reverse auction monitoring and competitive price positioning"
+      ],
+      "techStack": [
+        "GeM Portal",
+        "CPPP",
+        "Bid Analytics",
+        "Documentation Matrix"
+      ],
+      "tags": [
+        "GeM Portal",
+        "CPPP",
+        "Bid Analytics",
+        "Documentation Matrix"
+      ],
+      "accentColor": "#14b8a6",
+      "timeline": "Per Tender Schedule",
+      "clientTypes": "EPC Contractors, IT Vendors, Industrial Suppliers",
+      "is_active": true,
+      "order_index": 9
+    },
+    {
+      "id": "it-staffing",
+      "number": "10",
+      "title": "Dedicated IT Staffing & Remote Squads",
+      "tagline": "Pre-Vetted Senior Engineers Deployed in 48-72h",
+      "category": "tenders",
+      "categoryLabel": "Tenders & Staffing",
+      "badge": "Flexible",
+      "image": "/softech-services/staffing.jpg",
+      "url": "https://blackgrapessoftech.com/it-staffing/",
+      "description": "Scale your engineering bandwidth without recruitment liability. Deploy dedicated full-stack MERN developers, mobile app engineers, DevOps architects, and UI/UX designers who report directly to your team lead.",
+      "shortDesc": "Scale your engineering bandwidth without recruitment liability. Deploy dedicated full-stack MERN developers, mobile app engineers, DevOps ar...",
+      "keyDeliverables": [
+        "Top 3% pre-screened technical talent ready to onboard in 48-72 hours",
+        "Same-timezone availability & fluent sprint standup communication",
+        "Zero recruitment liability, zero infrastructure overhead",
+        "Instant talent replacement guarantee with flexible monthly contracts"
+      ],
+      "techStack": [
+        "Full-Stack MERN",
+        "Python",
+        "DevOps / AWS",
+        "Flutter",
+        "QA Automation"
+      ],
+      "tags": [
+        "Full-Stack MERN",
+        "Python",
+        "DevOps / AWS",
+        "Flutter",
+        "QA Automation"
+      ],
+      "accentColor": "#f86200",
+      "timeline": "Immediate 48h Deployment",
+      "clientTypes": "Tech Startups, Digital Agencies, Global Product Teams",
+      "is_active": true,
+      "order_index": 10
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "title": "www.borit.com",
+      "name": "www.borit.com",
+      "category": "Website",
+      "type": "Corporate Web Experience",
+      "summary": "Precision engineering corporate portal with sleek branding and multi-language support.",
+      "description": "Precision engineering corporate portal with sleek branding and multi-language support.",
+      "link": "https://www.borit.com",
+      "url": "https://www.borit.com",
+      "is_featured": true,
+      "order_index": 1,
+      "status": "published"
+    },
+    {
+      "id": "proj-2",
+      "title": "blushandbloom.co.in",
+      "name": "blushandbloom.co.in",
+      "category": "E-Commerce",
+      "type": "Luxury Cosmetics & Lifestyle",
+      "summary": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
+      "description": "High-conversion D2C cosmetics eCommerce platform with seamless checkout and inventory sync.",
+      "link": "https://blushandbloom.co.in",
+      "url": "https://blushandbloom.co.in",
+      "is_featured": true,
+      "order_index": 2,
+      "status": "published"
+    },
+    {
+      "id": "proj-3",
+      "title": "atonfitness.in",
+      "name": "atonfitness.in",
+      "category": "Website",
+      "type": "Health & Fitness Platform",
+      "summary": "Interactive fitness training, membership management, and workout schedule ecosystem.",
+      "description": "Interactive fitness training, membership management, and workout schedule ecosystem.",
+      "link": "https://atonfitness.in",
+      "url": "https://atonfitness.in",
+      "is_featured": true,
+      "order_index": 3,
+      "status": "published"
+    },
+    {
+      "id": "proj-4",
+      "title": "IOS App - ReadMore",
+      "name": "IOS App - ReadMore",
+      "category": "Android / IOS - Mobile Apps",
+      "type": "Digital Reading & E-Book Utility",
+      "summary": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
+      "description": "Feature-rich iOS reader application with personalized annotations, dark mode, and cloud sync.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 4,
+      "status": "published"
+    },
+    {
+      "id": "proj-5",
+      "title": "IOS App - DBT 24/7",
+      "name": "IOS App - DBT 24/7",
+      "category": "Android / IOS - Mobile Apps",
+      "type": "FinTech & Banking Service App",
+      "summary": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
+      "description": "Secure mobile banking utility with biometric login, real-time transfers, and statement generator.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 5,
+      "status": "published"
+    },
+    {
+      "id": "proj-6",
+      "title": "IOS App - Beauty Counter",
+      "name": "IOS App - Beauty Counter",
+      "category": "Android / IOS - Mobile Apps",
+      "type": "Cosmetics Catalog & Consultation",
+      "summary": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
+      "description": "Modern beauty tech iOS app with AR shade finder and scheduled expert consultations.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 6,
+      "status": "published"
+    },
+    {
+      "id": "proj-7",
+      "title": "Android App - Eduvacancy - Teaching Jobs",
+      "name": "Android App - Eduvacancy - Teaching Jobs",
+      "category": "Android / IOS - Mobile Apps",
+      "type": "Education Recruitment Portal",
+      "summary": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
+      "description": "Scalable Android recruitment app connecting verified educators with top academic institutions.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 7,
+      "status": "published"
+    },
+    {
+      "id": "proj-8",
+      "title": "Android App - HoneyliaEmart",
+      "name": "Android App - HoneyliaEmart",
+      "category": "Android / IOS - Mobile Apps",
+      "type": "Hyperlocal E-Commerce & Delivery",
+      "summary": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
+      "description": "Real-time grocery and essentials ordering app with driver GPS tracking and instant wallet pay.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 8,
+      "status": "published"
+    },
+    {
+      "id": "proj-9",
+      "title": "www.jobberman.com",
+      "name": "www.jobberman.com",
+      "category": "Web Apps",
+      "type": "Enterprise Career Portal",
+      "summary": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
+      "description": "High-volume recruitment engine with algorithmic candidate matching and resume parser.",
+      "link": "https://www.jobberman.com",
+      "url": "https://www.jobberman.com",
+      "is_featured": true,
+      "order_index": 9,
+      "status": "published"
+    },
+    {
+      "id": "proj-10",
+      "title": "Stavanger Parkering",
+      "name": "Stavanger Parkering",
+      "category": "Web Apps",
+      "type": "Smart Mobility & Parking System",
+      "summary": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
+      "description": "Intelligent parking reservation, real-time sensor occupancy visualization, and automated billing.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 10,
+      "status": "published"
+    },
+    {
+      "id": "proj-11",
+      "title": "DC Shoes",
+      "name": "DC Shoes",
+      "category": "E-Commerce",
+      "type": "Global Apparel & Footwear Store",
+      "summary": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
+      "description": "Action sports apparel digital storefront with high-traffic seasonal sale infrastructure.",
+      "link": "#",
+      "url": "#",
+      "is_featured": true,
+      "order_index": 11,
+      "status": "published"
+    },
+    {
+      "id": "proj-12",
+      "title": "Pikto.com",
+      "name": "Pikto.com",
+      "category": "Web Apps",
+      "type": "Creative Visual Media SaaS",
+      "summary": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
+      "description": "Cloud-based visual editing and asset management suite with real-time browser rendering.",
+      "link": "https://pikto.com",
+      "url": "https://pikto.com",
+      "is_featured": true,
+      "order_index": 12,
+      "status": "published"
+    }
+  ],
+  "clients": [
+    {
+      "id": "alphabet",
+      "name": "Alphabet",
+      "category": "enterprise",
+      "industry": "Technology & Cloud",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Alphabet.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Alphabet.png",
+      "badge": "Fortune 500",
+      "badgeColor": "orange",
+      "services": "Cloud Data Engineering & Microservices Architecture",
+      "impact": "High-availability data pipelines handling billions of queries.",
+      "order_index": 1,
+      "updated_at": "2026-11-03T07:18:50.853Z"
+    },
+    {
+      "id": "mastercard",
+      "name": "Mastercard",
+      "category": "fintech",
+      "industry": "Financial Services & Payments",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Mastercard.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Mastercard.png",
+      "badge": "Global Leader",
+      "badgeColor": "purple",
+      "services": "Payment Gateway Security & High-Volume Transaction Processing",
+      "impact": "Zero-latency transaction authorization with PCI-DSS compliance.",
+      "order_index": 2
+    },
+    {
+      "id": "fujitsu",
+      "name": "Fujitsu",
+      "category": "enterprise",
+      "industry": "Information Technology",
+      "region": "Japan",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Fujitsu.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Fujitsu.png",
+      "badge": "Enterprise Tech",
+      "badgeColor": "cyan",
+      "services": "Enterprise Software Integration & Distributed Systems",
+      "impact": "Automated workflow modernization across enterprise business units.",
+      "order_index": 3
+    },
+    {
+      "id": "servicenow",
+      "name": "ServiceNow",
+      "category": "enterprise",
+      "industry": "Cloud Computing & Workflow",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ServiceNow.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ServiceNow.png",
+      "badge": "Cloud Enterprise",
+      "badgeColor": "orange",
+      "services": "Custom Workflow Automation & API Integrations",
+      "impact": "Accelerated digital workflow deployment by 40%.",
+      "order_index": 4
+    },
+    {
+      "id": "comcast",
+      "name": "Comcast",
+      "category": "enterprise",
+      "industry": "Telecommunications & Media",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Comcast.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Comcast.png",
+      "badge": "Media Giant",
+      "badgeColor": "purple",
+      "services": "Scalable Streaming APIs & Customer Portal Architecture",
+      "impact": "Built responsive web applications serving millions of subscribers.",
+      "order_index": 5
+    },
+    {
+      "id": "intuit",
+      "name": "Intuit",
+      "category": "fintech",
+      "industry": "Financial Software",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Intuit.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Intuit.png",
+      "badge": "Fintech Standard",
+      "badgeColor": "cyan",
+      "services": "Accounting Tax Engine & Secure Financial Dashboards",
+      "impact": "Enhanced automated ledger processing and accounting audits.",
+      "order_index": 6
+    },
+    {
+      "id": "pienso",
+      "name": "Pienso",
+      "category": "ai-tech",
+      "industry": "AI & Natural Language Processing",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Pienso.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Pienso.png",
+      "badge": "AI Pioneer",
+      "badgeColor": "purple",
+      "services": "Interactive Machine Learning & Deep Learning Dashboards",
+      "impact": "No-code NLP model training interface for non-technical domain experts.",
+      "order_index": 7
+    },
+    {
+      "id": "draftwise",
+      "name": "Draftwise",
+      "category": "ai-tech",
+      "industry": "LegalTech & Contract Intelligence",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Draftwise.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Draftwise.png",
+      "badge": "LegalTech AI",
+      "badgeColor": "orange",
+      "services": "Contract Intelligence AI & Semantic Search Algorithms",
+      "impact": "Saved corporate legal teams 60% of contract drafting review time.",
+      "order_index": 8
+    },
+    {
+      "id": "propenseai",
+      "name": "Propenseai",
+      "category": "ai-tech",
+      "industry": "Predictive B2B Intelligence",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Propenseai.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Propenseai.png",
+      "badge": "Predictive AI",
+      "badgeColor": "cyan",
+      "services": "Predictive Client Modeling & Automated Cross-Selling Engine",
+      "impact": "Drove 28% higher account expansion revenue for enterprise clients.",
+      "order_index": 9
+    },
+    {
+      "id": "qualiti",
+      "name": "Qualiti",
+      "category": "ai-tech",
+      "industry": "Autonomous QA & Testing",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Qualiti.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Qualiti.png",
+      "badge": "AI Automation",
+      "badgeColor": "orange",
+      "services": "AI-Powered Automated Test Script Generation",
+      "impact": "Reduced regression QA cycles from 48 hours to 15 minutes.",
+      "order_index": 10
+    },
+    {
+      "id": "readygg",
+      "name": "Readygg",
+      "category": "ai-tech",
+      "industry": "Web3 Gaming Infrastructure",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Readygg.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Readygg.png",
+      "badge": "Web3 Gaming",
+      "badgeColor": "purple",
+      "services": "Decentralized Wallet SDK & Cross-Game Asset Marketplace",
+      "impact": "Integrated Web3 player ownership into 20+ mobile and PC titles.",
+      "order_index": 11
+    },
+    {
+      "id": "emurgo",
+      "name": "Emurgo",
+      "category": "ai-tech",
+      "industry": "Blockchain & Cardano Web3",
+      "region": "Japan / Global",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Emurgo.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Emurgo.png",
+      "badge": "Blockchain Pioneer",
+      "badgeColor": "cyan",
+      "services": "Smart Contract Auditing & Distributed Ledger Systems",
+      "impact": "Secure enterprise blockchain integration for global banking.",
+      "order_index": 12
+    },
+    {
+      "id": "lionize",
+      "name": "Lionize",
+      "category": "ai-tech",
+      "industry": "Influencer Marketing Tech",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Lionize.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Lionize.png",
+      "badge": "SaaS Platform",
+      "badgeColor": "orange",
+      "services": "Influencer Discovery Analytics & Automated Payout Engine",
+      "impact": "Automated 10,000+ brand collaboration workflows.",
+      "order_index": 13
+    },
+    {
+      "id": "connexo",
+      "name": "Connexo",
+      "category": "ai-tech",
+      "industry": "IoT & Smart Grid Utilities",
+      "region": "Europe",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/connexo.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/connexo.png",
+      "badge": "Smart IoT",
+      "badgeColor": "purple",
+      "services": "Smart Metering IoT Protocols & Real-Time Utility Dashboards",
+      "impact": "Connected 500k+ smart energy meters with zero data loss.",
+      "order_index": 14
+    },
+    {
+      "id": "vacuumlabs",
+      "name": "Vacuumlabs",
+      "category": "fintech",
+      "industry": "Digital Banking & Crypto",
+      "region": "Europe",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Vacuumlabs.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Vacuumlabs.png",
+      "badge": "Fintech Specialist",
+      "badgeColor": "orange",
+      "services": "Neobank Mobile Banking Apps & Core Ledger Sync",
+      "impact": "Award-winning digital banking UX for European neo-challengers.",
+      "order_index": 15
+    },
+    {
+      "id": "navi",
+      "name": "Navi",
+      "category": "fintech",
+      "industry": "Lending, Insurance & UPI",
+      "region": "India",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Navi.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Navi.png",
+      "badge": "Unicorn Fintech",
+      "badgeColor": "purple",
+      "services": "Instant Loan Disbursal Algorithms & KYC Automation",
+      "impact": "Under 2-minute loan approval process with automated underwriting.",
+      "order_index": 16
+    },
+    {
+      "id": "synthesis",
+      "name": "Synthesis",
+      "category": "fintech",
+      "industry": "Enterprise Banking Software",
+      "region": "South Africa",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Synthesis.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Synthesis.png",
+      "badge": "Bank Cloud Tech",
+      "badgeColor": "cyan",
+      "services": "Regulatory Compliance Reporting & Cloud Financial Infra",
+      "impact": "Automated cross-border payment reconciliations across 10+ currencies.",
+      "order_index": 17
+    },
+    {
+      "id": "tryqit",
+      "name": "Tryqit",
+      "category": "fintech",
+      "industry": "Digital Payments & Invoicing",
+      "region": "South Africa",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tryqit.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tryqit.png",
+      "badge": "Mobile POS",
+      "badgeColor": "orange",
+      "services": "Tap-on-Phone SoftPOS & Instant Merchant Settlements",
+      "impact": "Empowered 25,000+ SMB merchants with contactless payment.",
+      "order_index": 18
+    },
+    {
+      "id": "it-trust",
+      "name": "IT Trust",
+      "category": "fintech",
+      "industry": "Secure Financial Networks",
+      "region": "South Africa",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/IT-Trust.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/IT-Trust.png",
+      "badge": "Cybersecurity",
+      "badgeColor": "purple",
+      "services": "Bank-Grade Firewall, Penetration Testing & Encryption",
+      "impact": "Protected mission-critical treasury data from zero-day threats.",
+      "order_index": 19
+    },
+    {
+      "id": "datalink",
+      "name": "Datalink",
+      "category": "fintech",
+      "industry": "Financial Data Pipelines",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Datalink.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Datalink.png",
+      "badge": "Data Infra",
+      "badgeColor": "cyan",
+      "services": "Stock Market Feed Ingestion & High-Speed Financial Analytics",
+      "impact": "Real-time financial ticker data streaming at sub-second speeds.",
+      "order_index": 20
+    },
+    {
+      "id": "hilabs",
+      "name": "Hilabs",
+      "category": "healthcare",
+      "industry": "Healthcare AI & Clinical EHR",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Hilabs.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Hilabs.png",
+      "badge": "AI Health",
+      "badgeColor": "purple",
+      "services": "Clinical Data Cleansing & Automated EHR Semantic Parsing",
+      "impact": "Eliminated 85% of clinical documentation discrepancies.",
+      "order_index": 21
+    },
+    {
+      "id": "mindmate",
+      "name": "Mindmate",
+      "category": "healthcare",
+      "industry": "Cognitive Health & Neurology",
+      "region": "United Kingdom",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Mindmate.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Mindmate.png",
+      "badge": "MedTech Leader",
+      "badgeColor": "orange",
+      "services": "Interactive Cognitive Brain Training & Patient Mobile App",
+      "impact": "Engaged 1M+ active elderly users with cognitive mental exercises.",
+      "order_index": 22
+    },
+    {
+      "id": "prolegis",
+      "name": "Prolegis",
+      "category": "healthcare",
+      "industry": "Public Health Policy Tech",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Prolegis.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Prolegis.png",
+      "badge": "Policy Tech",
+      "badgeColor": "cyan",
+      "services": "Healthcare Legislation Analysis & Stakeholder CRM",
+      "impact": "Unified public policy tracking for major health networks.",
+      "order_index": 23
+    },
+    {
+      "id": "tia-technology",
+      "name": "Tia Technology",
+      "category": "healthcare",
+      "industry": "Health & Life Insurance Systems",
+      "region": "Denmark / Global",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tia-Technology.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tia-Technology.png",
+      "badge": "InsurTech",
+      "badgeColor": "purple",
+      "services": "Claims Processing Workflow & Policyholder Mobile Portal",
+      "impact": "Accelerated health claim approvals from 7 days to 4 hours.",
+      "order_index": 24
+    },
+    {
+      "id": "japan-grabs",
+      "name": "Japan Grabs",
+      "category": "ecommerce",
+      "industry": "Cross-Border E-Commerce",
+      "region": "Japan",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Japan-Grabs.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Japan-Grabs.png",
+      "badge": "Cross-Border",
+      "badgeColor": "orange",
+      "services": "Bilingual Marketplace, Currency Converter & Global Logistics",
+      "impact": "Scaled Japanese specialty goods sales across 40+ countries.",
+      "order_index": 25
+    },
+    {
+      "id": "tangence",
+      "name": "Tangence",
+      "category": "ecommerce",
+      "industry": "Digital Experience & Commerce",
+      "region": "United States",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tangence.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tangence.png",
+      "badge": "Omnichannel",
+      "badgeColor": "purple",
+      "services": "Headless Commerce Architecture & Custom Shopify Plus",
+      "impact": "Boosted mobile checkout conversion rate by 34%.",
+      "order_index": 26
+    },
+    {
+      "id": "rocketsoft",
+      "name": "Rocketsoft",
+      "category": "ecommerce",
+      "industry": "SaaS Billing & Subscription Stores",
+      "region": "Europe",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Rocketsoft.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Rocketsoft.png",
+      "badge": "SaaS Commerce",
+      "badgeColor": "cyan",
+      "services": "Recurring Invoicing Engine & Global Tax Compliance (VAT/GST)",
+      "impact": "Handled over $50M in recurring annual software subscriptions.",
+      "order_index": 27
+    },
+    {
+      "id": "cubezoo",
+      "name": "CubeZoo",
+      "category": "ecommerce",
+      "industry": "Interactive Retail Experience",
+      "region": "South Africa",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/CubeZoo.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/CubeZoo.png",
+      "badge": "Retail Tech",
+      "badgeColor": "orange",
+      "services": "AR Virtual Product Fitting & Mobile E-Commerce Apps",
+      "impact": "Reduced product return rates by 22% through 3D previews.",
+      "order_index": 28
+    },
+    {
+      "id": "bermont-digital",
+      "name": "Bermont Digital",
+      "category": "ecommerce",
+      "industry": "High-Volume Online Retail",
+      "region": "United Kingdom",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Bermont-Digital.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Bermont-Digital.png",
+      "badge": "D2C Scaling",
+      "badgeColor": "purple",
+      "services": "Multi-Warehouse Inventory Sync & Courier Dispatch APIs",
+      "impact": "Eliminated order fulfillment backlogs during Black Friday surges.",
+      "order_index": 29
+    },
+    {
+      "id": "nashtech",
+      "name": "NashTech",
+      "category": "it-partners",
+      "industry": "Global Technology Solutions",
+      "region": "United Kingdom",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/NashTech.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/NashTech.png",
+      "badge": "Global Partner",
+      "badgeColor": "orange",
+      "services": "Dedicated Agile Engineering Squads & Cloud Migration",
+      "impact": "Co-developed mission-critical software for FTSE 100 clients.",
+      "order_index": 30
+    },
+    {
+      "id": "sotatek",
+      "name": "SotaTek",
+      "category": "it-partners",
+      "industry": "Software Development & Web3",
+      "region": "Japan / Vietnam",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/SotaTek.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/SotaTek.png",
+      "badge": "Web3 & AI",
+      "badgeColor": "purple",
+      "services": "Full-Stack Developers & Decentralized App Engineering",
+      "impact": "Delivered 35+ joint enterprise software projects.",
+      "order_index": 31
+    },
+    {
+      "id": "beetsoft",
+      "name": "Beetsoft",
+      "category": "it-partners",
+      "industry": "IT Consulting & AI",
+      "region": "Japan",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Beetsoft.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Beetsoft.png",
+      "badge": "Strategic Partner",
+      "badgeColor": "cyan",
+      "services": "Enterprise AI Automation & Japanese Localization",
+      "impact": "Expanded high-performance delivery across Tokyo enterprises.",
+      "order_index": 32
+    },
+    {
+      "id": "eb-pearls",
+      "name": "EB Pearls",
+      "category": "it-partners",
+      "industry": "Digital Product Studio",
+      "region": "Australia",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/EB-Pearls.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/EB-Pearls.png",
+      "badge": "Award Winning",
+      "badgeColor": "orange",
+      "services": "Flutter Mobile App Engineering & React Frontend UI",
+      "impact": "Built Top-10 trending apps in the Australian App Store.",
+      "order_index": 33
+    },
+    {
+      "id": "attract-group",
+      "name": "Attract Group",
+      "category": "it-partners",
+      "industry": "Web & Mobile Engineering",
+      "region": "Europe / USA",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Attract-Group.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Attract-Group.png",
+      "badge": "SaaS Agency",
+      "badgeColor": "purple",
+      "services": "Custom CRM Development & SaaS Architecture",
+      "impact": "Modernized 40+ legacy CRM systems to cloud microservices.",
+      "order_index": 34
+    },
+    {
+      "id": "appomate",
+      "name": "Appomate",
+      "category": "it-partners",
+      "industry": "Mobile App Incubator",
+      "region": "Australia",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Appomate.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Appomate.png",
+      "badge": "Mobile Scale",
+      "badgeColor": "cyan",
+      "services": "Rapid MVP Prototyping & Native iOS/Android Architecture",
+      "impact": "Helped 15+ startups secure Seed & Series-A capital.",
+      "order_index": 35
+    },
+    {
+      "id": "manektech",
+      "name": "ManekTech",
+      "category": "it-partners",
+      "industry": "Custom Software Development",
+      "region": "India / USA",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ManekTech.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ManekTech.png",
+      "badge": "Tech Partner",
+      "badgeColor": "orange",
+      "services": "Full-Stack Developers & Enterprise QA Automation",
+      "impact": "Over 5 years of seamless developer resource augmentation.",
+      "order_index": 36
+    },
+    {
+      "id": "opencollab",
+      "name": "OPENCOLLAB",
+      "category": "it-partners",
+      "industry": "Education & Enterprise Open Source",
+      "region": "South Africa",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/OPENCOLLAB.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/OPENCOLLAB.png",
+      "badge": "Open Collab",
+      "badgeColor": "purple",
+      "services": "Higher Education LMS Architecture & Student Information Systems",
+      "impact": "Supported 200k+ university students with uninterrupted remote learning.",
+      "order_index": 37
+    },
+    {
+      "id": "nekologic",
+      "name": "Nekologic",
+      "category": "it-partners",
+      "industry": "AI & Custom Software",
+      "region": "Japan",
+      "logo_url": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Nekologic.png",
+      "logo": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Nekologic.png",
+      "badge": "Tokyo Tech",
+      "badgeColor": "cyan",
+      "services": "Cross-Border Agile Engineering & Distributed Cloud Systems",
+      "impact": "Streamlined technical delivery for Japanese conglomerate clients.",
+      "order_index": 38
+    }
+  ],
+  "case_studies": [
+    {
+      "id": "cs-1",
+      "title": "Digital Transformation of 120+ Campuses Across India",
+      "clientName": "EduGroup India",
+      "metric": "85% Faster Fee Reconciliation",
+      "challenge": "Manual paperwork and error-prone accounting across multi-city schools.",
+      "solution": "Deployed custom cloud ERP with automated payment gateways and parent mobile app.",
+      "result": "100% digital fee compliance and zero cash discrepancy."
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "testi-1",
+      "name": "Subodh Bhandari",
+      "role": "Enterprise Client",
+      "designation": "Enterprise Client",
+      "avatar": "SB",
+      "rating": 5,
+      "quote": "I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.",
+      "is_featured": true
+    },
+    {
+      "id": "testi-2",
+      "name": "Kartik Mali",
+      "role": "Business Director",
+      "designation": "Business Director",
+      "avatar": "KM",
+      "rating": 5,
+      "quote": "From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.",
+      "is_featured": true
+    },
+    {
+      "id": "testi-3",
+      "name": "Joel Burdine",
+      "role": "Senior UI/UX Designer",
+      "designation": "Senior UI/UX Designer",
+      "avatar": "JB",
+      "rating": 5,
+      "quote": "Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.",
+      "is_featured": true
+    },
+    {
+      "id": "testi-4",
+      "name": "Ashley Hoyt",
+      "role": "Creative Director",
+      "designation": "Creative Director",
+      "avatar": "AH",
+      "rating": 5,
+      "quote": "Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.",
+      "is_featured": true
+    },
+    {
+      "id": "testi-cli-1",
+      "name": "David Thorne",
+      "role": "VP of Engineering, Fintech Solutions UK",
+      "designation": "VP of Engineering, Fintech Solutions UK",
+      "avatar": "DA",
+      "rating": 5,
+      "quote": "Black Grapes Softech transformed our legacy systems into a lightning-fast cloud architecture. Their engineers in Indore operate with the precision and caliber of Silicon Valley leaders.",
+      "is_featured": false
+    },
+    {
+      "id": "testi-cli-2",
+      "name": "Kenji Takahashi",
+      "role": "Managing Director, Tokyo Digital Commerce",
+      "designation": "Managing Director, Tokyo Digital Commerce",
+      "avatar": "KE",
+      "rating": 5,
+      "quote": "The dedication and agility of the Black Grapes team is unmatched. They delivered our multi-tenant SaaS application two weeks ahead of schedule with flawless code quality.",
+      "is_featured": false
+    },
+    {
+      "id": "testi-cli-3",
+      "name": "Sarah Jenkins",
+      "role": "Chief Product Officer, HealthFlow AI",
+      "designation": "Chief Product Officer, HealthFlow AI",
+      "avatar": "SA",
+      "rating": 5,
+      "quote": "We have collaborated with software agencies across the globe, but Black Grapes Softech stands out for transparency, communication, and real ownership of the business vision.",
+      "is_featured": false
+    }
+  ],
+  "team_members": [
+    {
+      "id": "tm-1",
+      "full_name": "Arpit Jain",
+      "role": "Managing Director & Chief Architect",
+      "bio": "Visionary technologist with 12+ years directing large-scale enterprise software systems, cloud migrations, and strategic partnerships.",
+      "image_url": "/images/good-business-relationship-2.jpg",
+      "linkedin_url": "https://www.linkedin.com/in/black-grapes-softech/",
+      "order_index": 1
+    },
+    {
+      "id": "tm-2",
+      "full_name": "Deepika Jain",
+      "role": "Co-Founder & Director of Operations",
+      "bio": "Specialist in organizational agility, client engagement frameworks, and quality delivery governance across global accounts.",
+      "image_url": "/images/headway-5QgIuuBxKwM-unsplash.jpg",
+      "linkedin_url": "https://www.linkedin.com/in/black-grapes-softech/",
+      "order_index": 2
+    }
+  ],
+  "blog_categories": [
+    {
+      "id": "cat-1",
+      "name": "Software Architecture",
+      "slug": "software-architecture"
+    },
+    {
+      "id": "cat-2",
+      "name": "Mobile Engineering",
+      "slug": "mobile-engineering"
+    },
+    {
+      "id": "cat-3",
+      "name": "Enterprise CRM",
+      "slug": "enterprise-crm"
+    },
+    {
+      "id": "cat-4",
+      "name": "AI & Cloud",
+      "slug": "ai-and-cloud"
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": "bp-1",
+      "title": "Architecting Scalable Multi-Tenant SaaS in 2026: A Deep Dive",
+      "slug": "architecting-scalable-multi-tenant-saas",
+      "category": "Software Architecture",
+      "excerpt": "Learn the architectural principles behind zero-downtime database partitioning, tenant isolation, and automated cloud deployments.",
+      "status": "published",
+      "published_at": "2026-03-15",
+      "author": "Arpit Jain"
+    }
+  ],
+  "enquiries": [
+    {
+      "id": "enq-1",
+      "ticket_id": "BG-849201",
+      "name": "Rajesh Malhotra",
+      "email": "rajesh.m@technovate.com",
+      "phone": "+91 98200 12345",
+      "service_required": "Custom Software Development",
+      "project_scope": "Full Enterprise ERP Migration",
+      "status": "contacted",
+      "notes": "Initial scope call scheduled for Wednesday 3 PM.",
+      "created_at": "2026-10-31T06:51:54.065Z"
+    }
+  ],
+  "media_library": [
+    {
+      "id": "med-1",
+      "name": "bgst-logo.png",
+      "url": "/bgst-logo.png",
+      "file_type": "image/png",
+      "file_size": 188221,
+      "uploaded_at": "2026-11-02T06:51:54.065Z"
+    },
+    {
+      "id": "med-2",
+      "name": "Software.jpg",
+      "url": "/images/Software.jpg",
+      "file_type": "image/jpeg",
+      "file_size": 450000,
+      "uploaded_at": "2026-11-02T06:51:54.065Z"
+    },
+    {
+      "id": "med-3",
+      "name": "app.jpg",
+      "url": "/images/app.jpg",
+      "file_type": "image/jpeg",
+      "file_size": 380000,
+      "uploaded_at": "2026-11-02T06:51:54.065Z"
+    }
+  ],
+  "seo_metadata": [
+    {
+      "id": "seo-1",
+      "page_path": "/",
+      "meta_title": "Black Grapes Softech | Best IT Software & Mobile App Development Company in Indore",
+      "meta_description": "Premier custom software, iOS/Android mobile apps, enterprise CRM, MLM solutions, and modern web application development agency in Indore, India.",
+      "keywords": "Software Company Indore, Mobile App Development, Custom CRM, MLM Software, IT Solutions India",
+      "og_title": "Black Grapes Softech - Innovate. Integrate. Elevate.",
+      "og_description": "Transform your vision into high-scale digital reality with our senior engineering architects."
+    },
+    {
+      "id": "seo-2",
+      "page_path": "/about",
+      "meta_title": "About Us | Black Grapes Softech - 10+ Years of Engineering Excellence",
+      "meta_description": "Discover the team, heritage, core values, and leadership behind Black Grapes Softech.",
+      "keywords": "About Black Grapes Softech, Arpit Jain, IT Company Indore History, Leadership Team",
+      "og_title": "About Black Grapes Softech",
+      "og_description": "Engineering the digital future since 2014."
+    }
+  ],
+  "admin_users": [
+    {
+      "id": "usr-1",
+      "email": "admin@blackgrapessoftech.com",
+      "full_name": "Lead Administrator",
+      "role": "super_admin",
+      "is_active": true,
+      "last_login_at": "2026-11-02T06:51:54.065Z"
+    },
+    {
+      "id": "usr-2",
+      "email": "arpit@blackgrapessoftech.com",
+      "full_name": "Arpit Jain",
+      "role": "super_admin",
+      "is_active": true,
+      "last_login_at": "2026-11-02T06:51:54.065Z"
+    }
+  ],
+  "activity_logs": [
+    {
+      "id": "log-1793701216085",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T10:20:16.085Z"
+    },
+    {
+      "id": "log-1793696887224",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T09:08:07.224Z"
+    },
+    {
+      "id": "log-1793696887122",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T09:08:07.126Z"
+    },
+    {
+      "id": "log-1793695395053",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:43:15.053Z"
+    },
+    {
+      "id": "log-1793695395015",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:43:15.015Z"
+    },
+    {
+      "id": "log-1793695377701",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:42:57.701Z"
+    },
+    {
+      "id": "log-1793695377419",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T08:42:57.420Z"
+    },
+    {
+      "id": "log-1793690330998",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:50.998Z"
+    },
+    {
+      "id": "log-1793690330925",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:50.925Z"
+    },
+    {
+      "id": "log-1793690283320",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:03.322Z"
+    },
+    {
+      "id": "log-1793690283017",
+      "action": "Updated Module",
+      "module": "clients",
+      "record_id": "clients",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients",
+      "created_at": "2026-11-03T07:18:03.018Z"
+    },
+    {
+      "id": "log-1793690231159",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:17:11.160Z"
+    },
+    {
+      "id": "log-1793690231104",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:17:11.105Z"
+    },
+    {
+      "id": "log-1793690195214",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:16:35.214Z"
+    },
+    {
+      "id": "log-1793690195110",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:16:35.110Z"
+    },
+    {
+      "id": "log-1793690048969",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:14:08.970Z"
+    },
+    {
+      "id": "log-1793690048885",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T07:14:08.887Z"
+    },
+    {
+      "id": "log-1793689972322",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:52.322Z"
+    },
+    {
+      "id": "log-1793689972290",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:52.291Z"
+    },
+    {
+      "id": "log-1793689958405",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:38.405Z"
+    },
+    {
+      "id": "log-1793689958373",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:12:38.373Z"
+    },
+    {
+      "id": "log-1793689944555",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:24.555Z"
+    },
+    {
+      "id": "log-1793689944530",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:24.530Z"
+    },
+    {
+      "id": "log-1793689934926",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:14.927Z"
+    },
+    {
+      "id": "log-1793689934862",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:12:14.862Z"
+    },
+    {
+      "id": "log-1793689770348",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:30.348Z"
+    },
+    {
+      "id": "log-1793689770322",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:30.323Z"
+    },
+    {
+      "id": "log-1793689755343",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:15.343Z"
+    },
+    {
+      "id": "log-1793689755309",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T07:09:15.310Z"
+    },
+    {
+      "id": "log-1793689729186",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T07:08:49.187Z"
+    },
+    {
+      "id": "log-1793689729152",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T07:08:49.152Z"
+    },
+    {
+      "id": "log-1793689629707",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:07:09.707Z"
+    },
+    {
+      "id": "log-1793689629684",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:07:09.684Z"
+    },
+    {
+      "id": "log-1793689580219",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:20.219Z"
+    },
+    {
+      "id": "log-1793689580199",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:20.199Z"
+    },
+    {
+      "id": "log-1793689563868",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:03.870Z"
+    },
+    {
+      "id": "log-1793689563782",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T07:06:03.783Z"
+    },
+    {
+      "id": "log-1793686916224",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:56.224Z"
+    },
+    {
+      "id": "log-1793686916180",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:56.180Z"
+    },
+    {
+      "id": "log-1793686879174",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:19.174Z"
+    },
+    {
+      "id": "log-1793686878992",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:21:18.993Z"
+    },
+    {
+      "id": "log-1793685806101",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:03:26.102Z"
+    },
+    {
+      "id": "log-1793685806050",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:03:26.050Z"
+    },
+    {
+      "id": "log-1793685649384",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:00:49.384Z"
+    },
+    {
+      "id": "log-1793685649363",
+      "action": "Updated Module",
+      "module": "page_sections",
+      "record_id": "page_sections",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: page_sections",
+      "created_at": "2026-11-03T06:00:49.363Z"
+    },
+    {
+      "id": "log-1793685645799",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T06:00:45.799Z"
+    },
+    {
+      "id": "log-1793685645777",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T06:00:45.777Z"
+    },
+    {
+      "id": "log-1793685642215",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T06:00:42.215Z"
+    },
+    {
+      "id": "log-1793685642184",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T06:00:42.184Z"
+    },
+    {
+      "id": "log-1793685638613",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T06:00:38.613Z"
+    },
+    {
+      "id": "log-1793685638590",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T06:00:38.590Z"
+    },
+    {
+      "id": "log-1793685635034",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T06:00:35.034Z"
+    },
+    {
+      "id": "log-1793685635008",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T06:00:35.008Z"
+    },
+    {
+      "id": "log-1793685631450",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T06:00:31.450Z"
+    },
+    {
+      "id": "log-1793685631426",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T06:00:31.426Z"
+    },
+    {
+      "id": "log-1793685627863",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T06:00:27.863Z"
+    },
+    {
+      "id": "log-1793685627838",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T06:00:27.838Z"
+    },
+    {
+      "id": "log-1793685624270",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T06:00:24.270Z"
+    },
+    {
+      "id": "log-1793685624231",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T06:00:24.232Z"
+    },
+    {
+      "id": "log-1793685620656",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T06:00:20.656Z"
+    },
+    {
+      "id": "log-1793685620629",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T06:00:20.630Z"
+    },
+    {
+      "id": "log-1793685617053",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T06:00:17.053Z"
+    },
+    {
+      "id": "log-1793685616992",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T06:00:16.992Z"
+    },
+    {
+      "id": "log-1793685357843",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:55:57.843Z"
+    },
+    {
+      "id": "log-1793685357821",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:55:57.821Z"
+    },
+    {
+      "id": "log-1793685354260",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:55:54.260Z"
+    },
+    {
+      "id": "log-1793685354232",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:55:54.232Z"
+    },
+    {
+      "id": "log-1793685350680",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:55:50.680Z"
+    },
+    {
+      "id": "log-1793685350657",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:55:50.657Z"
+    },
+    {
+      "id": "log-1793685347102",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:55:47.102Z"
+    },
+    {
+      "id": "log-1793685347078",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:55:47.078Z"
+    },
+    {
+      "id": "log-1793685343522",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:55:43.522Z"
+    },
+    {
+      "id": "log-1793685343494",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:55:43.494Z"
+    },
+    {
+      "id": "log-1793685339931",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:55:39.932Z"
+    },
+    {
+      "id": "log-1793685339911",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:55:39.911Z"
+    },
+    {
+      "id": "log-1793685336331",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:55:36.331Z"
+    },
+    {
+      "id": "log-1793685336298",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:55:36.298Z"
+    },
+    {
+      "id": "log-1793685332708",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:55:32.708Z"
+    },
+    {
+      "id": "log-1793685332671",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:55:32.671Z"
+    },
+    {
+      "id": "log-1793685329091",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:55:29.091Z"
+    },
+    {
+      "id": "log-1793685329029",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:55:29.029Z"
+    },
+    {
+      "id": "log-1793685252657",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:54:12.657Z"
+    },
+    {
+      "id": "log-1793685252629",
+      "action": "Updated Module",
+      "module": "business_partners",
+      "record_id": "business_partners",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: business_partners",
+      "created_at": "2026-11-03T05:54:12.629Z"
+    },
+    {
+      "id": "log-1793685250289",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:54:10.289Z"
+    },
+    {
+      "id": "log-1793685250257",
+      "action": "Updated Module",
+      "module": "partnership_page",
+      "record_id": "partnership_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: partnership_page",
+      "created_at": "2026-11-03T05:54:10.257Z"
+    },
+    {
+      "id": "log-1793685247906",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:54:07.906Z"
+    },
+    {
+      "id": "log-1793685247875",
+      "action": "Updated Module",
+      "module": "contact_page",
+      "record_id": "contact_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: contact_page",
+      "created_at": "2026-11-03T05:54:07.875Z"
+    },
+    {
+      "id": "log-1793685245518",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:54:05.518Z"
+    },
+    {
+      "id": "log-1793685245491",
+      "action": "Updated Module",
+      "module": "ecommerce_page",
+      "record_id": "ecommerce_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: ecommerce_page",
+      "created_at": "2026-11-03T05:54:05.492Z"
+    },
+    {
+      "id": "log-1793685243165",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:54:03.165Z"
+    },
+    {
+      "id": "log-1793685243130",
+      "action": "Updated Module",
+      "module": "it_staffing",
+      "record_id": "it_staffing",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: it_staffing",
+      "created_at": "2026-11-03T05:54:03.130Z"
+    },
+    {
+      "id": "log-1793685240787",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:54:00.787Z"
+    },
+    {
+      "id": "log-1793685240766",
+      "action": "Updated Module",
+      "module": "clients_page",
+      "record_id": "clients_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: clients_page",
+      "created_at": "2026-11-03T05:54:00.767Z"
+    },
+    {
+      "id": "log-1793685238414",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:53:58.414Z"
+    },
+    {
+      "id": "log-1793685238387",
+      "action": "Updated Module",
+      "module": "products_page",
+      "record_id": "products_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: products_page",
+      "created_at": "2026-11-03T05:53:58.387Z"
+    },
+    {
+      "id": "log-1793685236049",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:53:56.049Z"
+    },
+    {
+      "id": "log-1793685236017",
+      "action": "Updated Module",
+      "module": "softech_page",
+      "record_id": "softech_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: softech_page",
+      "created_at": "2026-11-03T05:53:56.017Z"
+    },
+    {
+      "id": "log-1793685233659",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:53:53.659Z"
+    },
+    {
+      "id": "log-1793685233608",
+      "action": "Updated Module",
+      "module": "services_page",
+      "record_id": "services_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: services_page",
+      "created_at": "2026-11-03T05:53:53.608Z"
+    },
+    {
+      "id": "log-1793685228922",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-03T05:53:48.923Z"
+    }
+  ],
+  "content_revisions": [],
+  "menus": [
+    {
+      "id": "m-1",
+      "label": "Home",
+      "path": "/",
+      "order_index": 1,
+      "is_active": true
+    },
+    {
+      "id": "m-2",
+      "label": "About Us",
+      "path": "/about-us",
+      "order_index": 2,
+      "is_active": true
+    },
+    {
+      "id": "m-3",
+      "label": "Services",
+      "path": "/services",
+      "order_index": 3,
+      "is_active": true
+    },
+    {
+      "id": "m-4",
+      "label": "Our Products",
+      "path": "/our-products",
+      "order_index": 4,
+      "is_active": true
+    },
+    {
+      "id": "m-5",
+      "label": "Ecommerce",
+      "path": "/ecommerce",
+      "order_index": 5,
+      "is_active": true
+    },
+    {
+      "id": "m-6",
+      "label": "Our Clients",
+      "path": "/our-clients",
+      "order_index": 6,
+      "is_active": true
+    },
+    {
+      "id": "m-7",
+      "label": "IT Staffing",
+      "path": "/it-staffing",
+      "order_index": 7,
+      "is_active": true
+    },
+    {
+      "id": "m-8",
+      "label": "Partnership",
+      "path": "/partnership",
+      "order_index": 8,
+      "is_active": true
+    },
+    {
+      "id": "m-9",
+      "label": "Contact",
+      "path": "/contact",
+      "order_index": 9,
+      "is_active": true
+    }
+  ],
+  "it_staffing": {
+    "badge": "LIVE TEST BADGE MAHESH ",
+    "headline": "Stay on course with growth plans by hiring contractual staff",
+    "subtitle": "Live WebSocket Test Subtitle",
+    "description": "Updated via Admin panel test"
+  },
+  "ecommerce_page": {
+    "badge": "TEST ECOMMERCE BADGE",
+    "title": "Exciting News! Naya Purana Bazaar is Coming Soon!",
+    "domain": "https://www.nayapuranabazaar.com",
+    "domainDisplay": "nayapuranabazaar.com",
+    "targetLaunch": "Q3 2026"
+  },
+  "partnership_page": {
+    "heroBadge": "TEST ALLIANCES ",
+    "heroTitle": "Partnership",
+    "heroSubtitle": "Cultivating strategic relationships"
+  },
+  "contact_page": {
+    "heroBadge": "BLACK GRAPES GROUP",
+    "heroTitle": "Get in Touch",
+    "heroSubtitle": "We are here to help and answer any questions you might have. We look forward to hearing from you.",
+    "address1Label": "Registered Office (Address 1)",
+    "address1Text": "252-F/H, Scheme No 54, Vijay Nagar, Indore - 452010, Madhya Pradesh, India.",
+    "address1MapUrl": "https://maps.app.goo.gl/qJcKNw9DMo4JVWrv8",
+    "address2Label": "Development Centre (Address 2)",
+    "address2Text": "Office No.1141, Scheme No.114, Part-1, Vijay Nagar, Indore - 452010, Madhya Pradesh, India.",
+    "address2MapUrl": "https://maps.app.goo.gl/yahxDsm7BLK652mA8",
+    "directPhones": [
+      {
+        "name": "Arpit Jain",
+        "phones": [
+          "+91 9039397884",
+          "+91 7470997884"
+        ]
+      },
+      {
+        "name": "Support Desk",
+        "phones": [
+          "+91 6262414463"
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "department": "General Inquiries",
+        "email": "info@blackgrapessoftech.com"
+      },
+      {
+        "department": "Technical Support",
+        "email": "support@blackgrapessoftech.com"
+      },
+      {
+        "department": "Direct Desk",
+        "email": "blackgrapesgroups@gmail.com"
+      }
+    ],
+    "workingHours": "Monday – Saturday: 10:00 AM – 7:30 PM (IST)"
+  },
+  "clients_page": {
+    "heroBadge": "TRUSTED BY 150+ GLOBAL ENTERPRISES",
+    "heroTitle": "Our Clients:",
+    "heroTitleAccent": "Powering Leaders Across 15+ Nations",
+    "heroSubtitle": "At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.",
+    "primaryBtnText": "Partner With Us",
+    "secondaryBtnText": "Explore Client Brands",
+    "metrics": [
+      {
+        "number": "150+",
+        "label": "Enterprise Clients",
+        "highlight": "Global Scale"
+      },
+      {
+        "number": "15+",
+        "label": "Countries Served",
+        "highlight": "Worldwide Reach"
+      },
+      {
+        "number": "99%",
+        "label": "Client Retention",
+        "highlight": "Long-term Trust"
+      },
+      {
+        "number": "+",
+        "label": "Value Generated",
+        "highlight": "Measurable ROI"
+      }
+    ],
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
+  },
+  "products": [
+    {
+      "id": "school-management-software",
+      "title": "School Management Software",
+      "subtitle": "Next-Gen Smart Campus & Academic ERP",
+      "category": "education",
+      "industry": "Education",
+      "badge": "Flagship ERP",
+      "badgeColor": "orange",
+      "badge_color": "orange",
+      "youtubeId": "GPuZ0QpRypw",
+      "youtube_id": "GPuZ0QpRypw",
+      "deploymentDays": "3 - 5 Days",
+      "deployment_days": "3 - 5 Days",
+      "rating": "4.9/5 (180+ Institutes)",
+      "summary": "A unified campus administration platform engineered for schools, colleges, and coaching academies. Automates admissions, fee management, student attendance, exams, and parent-teacher communication in real time.",
+      "keyFeatures": [
+        "Automated Student Attendance & RFID/Biometric Integration",
+        "Smart Fee Management with Online Payment Gateway & Invoicing",
+        "Digital Gradebook, Exam Schedules & Report Card Generator",
+        "Parent-Teacher Dedicated Mobile Apps (iOS & Android)",
+        "Library, Transport Tracking & Hostel Room Allocation",
+        "Staff Payroll & Teacher Workload Allocation"
+      ],
+      "key_features": [
+        "Automated Student Attendance & RFID/Biometric Integration",
+        "Smart Fee Management with Online Payment Gateway & Invoicing",
+        "Digital Gradebook, Exam Schedules & Report Card Generator",
+        "Parent-Teacher Dedicated Mobile Apps (iOS & Android)",
+        "Library, Transport Tracking & Hostel Room Allocation",
+        "Staff Payroll & Teacher Workload Allocation"
+      ],
+      "techStack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Flutter (iOS/Android)",
+        "AWS Cloud"
+      ],
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Flutter (iOS/Android)",
+        "AWS Cloud"
+      ],
+      "highlights": [
+        "Multi-Branch Support",
+        "100% White Label",
+        "CBSE/ICSE/State Board Ready"
+      ],
+      "order_index": 1,
+      "status": "published"
+    },
+    {
+      "id": "hospital-management-software",
+      "title": "Hospital Management Software - Smart Operate",
+      "subtitle": "Comprehensive Healthcare ERP & Clinical EHR Suite",
+      "category": "healthcare",
+      "industry": "Healthcare",
+      "badge": "Enterprise Choice",
+      "badgeColor": "purple",
+      "badge_color": "purple",
+      "youtubeId": "lXassfBY2Bw",
+      "youtube_id": "lXassfBY2Bw",
+      "deploymentDays": "5 - 7 Days",
+      "deployment_days": "5 - 7 Days",
+      "rating": "4.95/5 (85+ Hospitals)",
+      "summary": "Smart Operate is an all-in-one clinical administration software connecting OPD, IPD, doctor consultations, electronic health records (EHR), lab diagnostic reporting, and central hospital billing.",
+      "keyFeatures": [
+        "OPD & IPD Admission, Bed Allocation & Discharge Summaries",
+        "Doctor Appointment Scheduling & Digital Prescription Writer",
+        "Pathology & Radiology Diagnostic Lab Integration",
+        "Integrated Pharmacy Sync & Automated Drug Inventory Tracking",
+        "NABH & HIPAA Compliant Data Security & Encryption",
+        "TPA / Health Insurance Claim Settlement Workflow"
+      ],
+      "key_features": [
+        "OPD & IPD Admission, Bed Allocation & Discharge Summaries",
+        "Doctor Appointment Scheduling & Digital Prescription Writer",
+        "Pathology & Radiology Diagnostic Lab Integration",
+        "Integrated Pharmacy Sync & Automated Drug Inventory Tracking",
+        "NABH & HIPAA Compliant Data Security & Encryption",
+        "TPA / Health Insurance Claim Settlement Workflow"
+      ],
+      "techStack": [
+        "Next.js",
+        "Python FastAPI",
+        "MySQL Enterprise",
+        "React Native",
+        "Docker"
+      ],
+      "tech_stack": [
+        "Next.js",
+        "Python FastAPI",
+        "MySQL Enterprise",
+        "React Native",
+        "Docker"
+      ],
+      "highlights": [
+        "NABH Compliant",
+        "Multi-Specialty Ready",
+        "Doctor Mobile App"
+      ],
+      "order_index": 2,
+      "status": "published"
+    },
+    {
+      "id": "gymzy-management-software",
+      "title": "Gymzy - Gym & Fitness Center Software",
+      "subtitle": "Revolutionize Your Fitness Club & Gym Operations",
+      "category": "lifestyle",
+      "industry": "Home Services",
+      "badge": "Trending App",
+      "badgeColor": "orange",
+      "badge_color": "orange",
+      "youtubeId": "oYGAvul_2aM",
+      "youtube_id": "oYGAvul_2aM",
+      "deploymentDays": "2 - 4 Days",
+      "deployment_days": "2 - 4 Days",
+      "rating": "4.85/5 (240+ Gyms)",
+      "summary": "Gymzy empowers gym owners and fitness studios with biometric access turnstile sync, automated membership renewal alerts, personal trainer workout assigners, and member diet logs.",
+      "keyFeatures": [
+        "Biometric & RFID Turnstile / Door Access Sync",
+        "Automated Membership Subscriptions & WhatsApp Renewal Alerts",
+        "Trainer Shift Management & Client Workout Assignment",
+        "Dietary Plans, Body Measurement & BMI Tracking Charts",
+        "POS for Supplement Sales & Gym Merchandise Billing",
+        "Interactive Member Mobile App for Workout & Attendance"
+      ],
+      "key_features": [
+        "Biometric & RFID Turnstile / Door Access Sync",
+        "Automated Membership Subscriptions & WhatsApp Renewal Alerts",
+        "Trainer Shift Management & Client Workout Assignment",
+        "Dietary Plans, Body Measurement & BMI Tracking Charts",
+        "POS for Supplement Sales & Gym Merchandise Billing",
+        "Interactive Member Mobile App for Workout & Attendance"
+      ],
+      "techStack": [
+        "React.js",
+        "Node.js",
+        "MongoDB",
+        "Flutter",
+        "Cloud IoT"
+      ],
+      "tech_stack": [
+        "React.js",
+        "Node.js",
+        "MongoDB",
+        "Flutter",
+        "Cloud IoT"
+      ],
+      "highlights": [
+        "Biometric Hardware Sync",
+        "WhatsApp API Ready",
+        "Member App Included"
+      ],
+      "order_index": 3,
+      "status": "published"
+    },
+    {
+      "id": "hr-management-software",
+      "title": "HR Management Software (HRPulse)",
+      "subtitle": "Automated Employee Lifecycle, Payroll & Attendance",
+      "category": "enterprise",
+      "industry": "Home Services",
+      "badge": "Corporate Standard",
+      "badgeColor": "cyan",
+      "badge_color": "cyan",
+      "youtubeId": "35gZx2m_CPU",
+      "youtube_id": "35gZx2m_CPU",
+      "deploymentDays": "3 - 5 Days",
+      "deployment_days": "3 - 5 Days",
+      "rating": "4.9/5 (120+ Enterprises)",
+      "summary": "Enterprise HRMS engineered to eliminate administrative bottlenecks. Provides one-click salary generation, biometric time-tracking, leave management, appraisal scorecards, and statutory tax compliance.",
+      "keyFeatures": [
+        "One-Click Automated Payroll, Salary Slips & Tax Deductions (PF/ESI/TDS)",
+        "Geo-Fenced & Biometric Remote Employee Attendance",
+        "Multi-Tier Leave Approval System & Holiday Calendar",
+        "Employee Self-Service (ESS) Mobile & Web Portal",
+        "Performance Appraisal, KPI Tracking & 360 Feedback",
+        "Asset Management & New Hire Digital Onboarding"
+      ],
+      "key_features": [
+        "One-Click Automated Payroll, Salary Slips & Tax Deductions (PF/ESI/TDS)",
+        "Geo-Fenced & Biometric Remote Employee Attendance",
+        "Multi-Tier Leave Approval System & Holiday Calendar",
+        "Employee Self-Service (ESS) Mobile & Web Portal",
+        "Performance Appraisal, KPI Tracking & 360 Feedback",
+        "Asset Management & New Hire Digital Onboarding"
+      ],
+      "techStack": [
+        "Vue.js / React",
+        "Express.js",
+        "PostgreSQL",
+        "Android/iOS ESS App"
+      ],
+      "tech_stack": [
+        "Vue.js / React",
+        "Express.js",
+        "PostgreSQL",
+        "Android/iOS ESS App"
+      ],
+      "highlights": [
+        "Statutory Tax Ready",
+        "Geo-Fencing Clock-In",
+        "Audit Log Trail"
+      ],
+      "order_index": 4,
+      "status": "published"
+    },
+    {
+      "id": "real-estate-listing-software",
+      "title": "Real Estate Listing & Brokerage Software",
+      "subtitle": "Discover Your Dream Space Platform & Property CRM",
+      "category": "real-estate",
+      "industry": "Real Estate",
+      "badge": "High Conversion",
+      "badgeColor": "purple",
+      "badge_color": "purple",
+      "youtubeId": "Wm2hbgubnZQ",
+      "youtube_id": "Wm2hbgubnZQ",
+      "deploymentDays": "4 - 6 Days",
+      "deployment_days": "4 - 6 Days",
+      "rating": "4.9/5 (90+ Agencies)",
+      "summary": "A high-converting real estate marketplace and broker CRM for buying, selling, and renting residential and commercial properties with interactive Google Maps integration and lead capture.",
+      "keyFeatures": [
+        "Interactive Map Search with Geo-radius & Neighborhood Filters",
+        "Virtual 360 Tour, Video Walkthrough & High-Res Gallery Support",
+        "Broker / Agent Lead Pipeline & Automated Follow-Up Reminders",
+        "Multi-Vendor Builder & Property Owner Direct Submissions",
+        "EMI & Mortgage Calculator with Instant Inquiry Generation",
+        "Automated Property Alert Emails & WhatsApp Notifications"
+      ],
+      "key_features": [
+        "Interactive Map Search with Geo-radius & Neighborhood Filters",
+        "Virtual 360 Tour, Video Walkthrough & High-Res Gallery Support",
+        "Broker / Agent Lead Pipeline & Automated Follow-Up Reminders",
+        "Multi-Vendor Builder & Property Owner Direct Submissions",
+        "EMI & Mortgage Calculator with Instant Inquiry Generation",
+        "Automated Property Alert Emails & WhatsApp Notifications"
+      ],
+      "techStack": [
+        "React",
+        "Next.js SSR",
+        "Node.js",
+        "PostgreSQL",
+        "Google Maps API"
+      ],
+      "tech_stack": [
+        "React",
+        "Next.js SSR",
+        "Node.js",
+        "PostgreSQL",
+        "Google Maps API"
+      ],
+      "highlights": [
+        "Map Integration",
+        "Virtual Tour Ready",
+        "Agent Lead CRM"
+      ],
+      "order_index": 5,
+      "status": "published"
+    },
+    {
+      "id": "tenant-management-software",
+      "title": "Tenant & Rental Property Management Software",
+      "subtitle": "Optimize Rental Property Performance & Lease Tracker",
+      "category": "real-estate",
+      "industry": "Real Estate",
+      "badge": "Popular",
+      "badgeColor": "orange",
+      "badge_color": "orange",
+      "youtubeId": "zXJA0mkBgpQ",
+      "youtube_id": "zXJA0mkBgpQ",
+      "deploymentDays": "3 - 5 Days",
+      "deployment_days": "3 - 5 Days",
+      "rating": "4.8/5 (75+ Property Firms)",
+      "summary": "Streamline rental property portfolios, manage leases, automate rent invoicing with instant payment links, track maintenance work orders, and maintain complete landlord-tenant transparency.",
+      "keyFeatures": [
+        "Digital Lease Agreements & E-Signature Integration",
+        "Automated Monthly Rent Invoicing with Instant UPI/Card Payment Links",
+        "Tenant Background Verification & Document Vault",
+        "Maintenance Request & Work Order Ticketing System",
+        "Unit Occupancy Analytics & Vacancy Loss Calculator",
+        "Separate Landlord & Tenant Mobile Portals"
+      ],
+      "key_features": [
+        "Digital Lease Agreements & E-Signature Integration",
+        "Automated Monthly Rent Invoicing with Instant UPI/Card Payment Links",
+        "Tenant Background Verification & Document Vault",
+        "Maintenance Request & Work Order Ticketing System",
+        "Unit Occupancy Analytics & Vacancy Loss Calculator",
+        "Separate Landlord & Tenant Mobile Portals"
+      ],
+      "techStack": [
+        "React",
+        "Express",
+        "MySQL",
+        "React Native",
+        "Razorpay/Stripe"
+      ],
+      "tech_stack": [
+        "React",
+        "Express",
+        "MySQL",
+        "React Native",
+        "Razorpay/Stripe"
+      ],
+      "highlights": [
+        "E-Sign Support",
+        "Auto Payment Links",
+        "Maintenance Ticketing"
+      ],
+      "order_index": 6,
+      "status": "published"
+    },
+    {
+      "id": "pharmacy-management-software",
+      "title": "Pharmacy Management Software",
+      "subtitle": "Smart Inventory, POS Billing & Batch Expiry Tracking",
+      "category": "healthcare",
+      "industry": "Healthcare",
+      "badge": "Retail Tech",
+      "badgeColor": "cyan",
+      "badge_color": "cyan",
+      "youtubeId": "8u_RKkRxaRQ",
+      "youtube_id": "8u_RKkRxaRQ",
+      "deploymentDays": "2 - 4 Days",
+      "deployment_days": "2 - 4 Days",
+      "rating": "4.9/5 (210+ Pharmacies)",
+      "summary": "High-speed POS software designed specifically for retail pharmacies and wholesale medicine distributors. Prevents revenue loss through batch expiry alerts and automated medicine reordering.",
+      "keyFeatures": [
+        "Barcode Scanning POS Billing with Instant GST Invoice Generation",
+        "Smart Batch Number & Medicine Expiry Date Alert Warning",
+        "Salt/Substitute Composition Medicine Search Engine",
+        "Supplier Purchase Orders & Automated Reorder Point Triggers",
+        "Doctor Prescription Upload & Customer Order History",
+        "Multi-Store Warehouse Sync & Daily Cash Flow Auditing"
+      ],
+      "key_features": [
+        "Barcode Scanning POS Billing with Instant GST Invoice Generation",
+        "Smart Batch Number & Medicine Expiry Date Alert Warning",
+        "Salt/Substitute Composition Medicine Search Engine",
+        "Supplier Purchase Orders & Automated Reorder Point Triggers",
+        "Doctor Prescription Upload & Customer Order History",
+        "Multi-Store Warehouse Sync & Daily Cash Flow Auditing"
+      ],
+      "techStack": [
+        "React",
+        "Electron (Desktop Offline/Online)",
+        "Node.js",
+        "SQLite/PostgreSQL"
+      ],
+      "tech_stack": [
+        "React",
+        "Electron (Desktop Offline/Online)",
+        "Node.js",
+        "SQLite/PostgreSQL"
+      ],
+      "highlights": [
+        "Offline POS Mode",
+        "Batch Expiry Shield",
+        "GST Invoice Ready"
+      ],
+      "order_index": 7,
+      "status": "published"
+    },
+    {
+      "id": "dating-website-software",
+      "title": "Dating & Matchmaking Solution",
+      "subtitle": "Finding Love Made Easy: Next-Gen Dating Platform",
+      "category": "lifestyle",
+      "industry": "Home Services",
+      "badge": "Social Pioneer",
+      "badgeColor": "purple",
+      "badge_color": "purple",
+      "youtubeId": "XKJhoaLEDSI",
+      "youtube_id": "XKJhoaLEDSI",
+      "deploymentDays": "5 - 7 Days",
+      "deployment_days": "5 - 7 Days",
+      "rating": "4.8/5 (60+ Deployments)",
+      "summary": "A modern dating, matchmaking, and matrimonial application packed with smart matching algorithms, swipe gestures, real-time end-to-end chat, voice/video calls, and VIP subscription plans.",
+      "keyFeatures": [
+        "Smart Compatibility & Proximity Geo-Matching Algorithm",
+        "Smooth Swipe Right/Left Gesture Interface with Rewind & Superlikes",
+        "Real-Time WebSocket Text, Photo & Voice Note Messaging",
+        "In-App WebRTC Encrypted Audio & Video Calling",
+        "AI Selfie Verification & Fake Profile Detection Guard",
+        "VIP Tiered Subscriptions, Coin Wallets & In-App Purchases"
+      ],
+      "key_features": [
+        "Smart Compatibility & Proximity Geo-Matching Algorithm",
+        "Smooth Swipe Right/Left Gesture Interface with Rewind & Superlikes",
+        "Real-Time WebSocket Text, Photo & Voice Note Messaging",
+        "In-App WebRTC Encrypted Audio & Video Calling",
+        "AI Selfie Verification & Fake Profile Detection Guard",
+        "VIP Tiered Subscriptions, Coin Wallets & In-App Purchases"
+      ],
+      "techStack": [
+        "React / React Native",
+        "Node.js",
+        "Socket.io",
+        "WebRTC",
+        "MongoDB"
+      ],
+      "tech_stack": [
+        "React / React Native",
+        "Node.js",
+        "Socket.io",
+        "WebRTC",
+        "MongoDB"
+      ],
+      "highlights": [
+        "Swipe Interface",
+        "WebRTC Video Calls",
+        "VIP Monetization"
+      ],
+      "order_index": 8,
+      "status": "published"
+    },
+    {
+      "id": "project-management-software",
+      "title": "Project Management Software (TaskOrbit)",
+      "subtitle": "Project Management Made Easy & Agile Team Workspace",
+      "category": "enterprise",
+      "industry": "Home Services",
+      "badge": "Productivity",
+      "badgeColor": "orange",
+      "badge_color": "orange",
+      "youtubeId": "CiwkaRqWqZE",
+      "youtube_id": "CiwkaRqWqZE",
+      "deploymentDays": "3 - 5 Days",
+      "deployment_days": "3 - 5 Days",
+      "rating": "4.85/5 (110+ Companies)",
+      "summary": "An intuitive workspace for high-velocity software teams, agencies, and businesses. Features Kanban boards, Gantt timelines, milestone tracking, team worklogs, and sprint burndown charts.",
+      "keyFeatures": [
+        "Interactive Kanban Boards, Agile Sprints & Backlog Management",
+        "Interactive Gantt Charts & Critical Path Milestone Timelines",
+        "Team Timesheets, Hourly Billable Tracking & Invoicing",
+        "Granular Role-Based Permissions (Client, Member, Admin, PM)",
+        "Document Collaboration & Task Discussion Comment Threads",
+        "Automated Slack, Email & Webhook Notifications"
+      ],
+      "key_features": [
+        "Interactive Kanban Boards, Agile Sprints & Backlog Management",
+        "Interactive Gantt Charts & Critical Path Milestone Timelines",
+        "Team Timesheets, Hourly Billable Tracking & Invoicing",
+        "Granular Role-Based Permissions (Client, Member, Admin, PM)",
+        "Document Collaboration & Task Discussion Comment Threads",
+        "Automated Slack, Email & Webhook Notifications"
+      ],
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Redis",
+        "PostgreSQL"
+      ],
+      "tech_stack": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Redis",
+        "PostgreSQL"
+      ],
+      "highlights": [
+        "Kanban + Gantt",
+        "Time Tracking",
+        "Agile Sprints"
+      ],
+      "order_index": 9,
+      "status": "published"
+    },
+    {
+      "id": "salon-management-solution",
+      "title": "Salon & Spa Management Solution",
+      "subtitle": "The Ultimate Salon Appointment & POS Software",
+      "category": "lifestyle",
+      "industry": "Home Services",
+      "badge": "Client Favorite",
+      "badgeColor": "purple",
+      "badge_color": "purple",
+      "youtubeId": "vRkWDMQctgI",
+      "youtube_id": "vRkWDMQctgI",
+      "deploymentDays": "2 - 4 Days",
+      "deployment_days": "2 - 4 Days",
+      "rating": "4.9/5 (190+ Salons)",
+      "summary": "Comprehensive software for beauty salons, nail spas, and wellness centers. Manages online appointment bookings, stylist chair schedules, inventory, and customer loyalty rewards.",
+      "keyFeatures": [
+        "Online Customer Appointment Booking via Web & Instagram Link",
+        "Stylist Schedule & Service Duration Chair Allocation Matrix",
+        "Fast POS Billing with Split Payments, Tips & Gift Cards",
+        "Customer Loyalty Points, Birthday Discounts & SMS Reminders",
+        "Backbar Cosmetic Products & Retail Stock Control",
+        "Daily Revenue, Stylist Commission & Profit Margin Analytics"
+      ],
+      "key_features": [
+        "Online Customer Appointment Booking via Web & Instagram Link",
+        "Stylist Schedule & Service Duration Chair Allocation Matrix",
+        "Fast POS Billing with Split Payments, Tips & Gift Cards",
+        "Customer Loyalty Points, Birthday Discounts & SMS Reminders",
+        "Backbar Cosmetic Products & Retail Stock Control",
+        "Daily Revenue, Stylist Commission & Profit Margin Analytics"
+      ],
+      "techStack": [
+        "React",
+        "Tailwind",
+        "Express.js",
+        "MySQL",
+        "SMS Gateway"
+      ],
+      "tech_stack": [
+        "React",
+        "Tailwind",
+        "Express.js",
+        "MySQL",
+        "SMS Gateway"
+      ],
+      "highlights": [
+        "Online Booking Widget",
+        "Loyalty Rewards",
+        "Stylist Commissions"
+      ],
+      "order_index": 10,
+      "status": "published"
+    },
+    {
+      "id": "ecommerce-marketplace-software",
+      "title": "E-Commerce Marketplace Website & App",
+      "subtitle": "Revolutionize Shopping: High-Performance Multi-Vendor Hub",
+      "category": "ecommerce",
+      "industry": "E- Commerce",
+      "badge": "Scale Ready",
+      "badgeColor": "orange",
+      "badge_color": "orange",
+      "youtubeId": "dNES8Qy8-y8",
+      "youtube_id": "dNES8Qy8-y8",
+      "deploymentDays": "4 - 7 Days",
+      "deployment_days": "4 - 7 Days",
+      "rating": "4.95/5 (310+ Stores)",
+      "summary": "Robust multi-vendor and direct-to-consumer e-commerce suite featuring lightning-fast catalog search, one-click checkout, multiple payment gateways, and automated delivery partner integration.",
+      "keyFeatures": [
+        "Multi-Vendor Merchant Sub-Panels with Automated Commission Splits",
+        "Lightning-Fast Elastic Product Search with Filters & Facets",
+        "One-Step Checkout with Cash on Delivery & Pre-Paid Gateways",
+        "Shiprocket, Delhivery & Bluedart Courier Tracking Webhook Sync",
+        "Flash Sale Timer, Coupon Engine & Dynamic Discount Rules",
+        "Dedicated iOS & Android Shopper Apps with Push Notifications"
+      ],
+      "key_features": [
+        "Multi-Vendor Merchant Sub-Panels with Automated Commission Splits",
+        "Lightning-Fast Elastic Product Search with Filters & Facets",
+        "One-Step Checkout with Cash on Delivery & Pre-Paid Gateways",
+        "Shiprocket, Delhivery & Bluedart Courier Tracking Webhook Sync",
+        "Flash Sale Timer, Coupon Engine & Dynamic Discount Rules",
+        "Dedicated iOS & Android Shopper Apps with Push Notifications"
+      ],
+      "techStack": [
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "React Native"
+      ],
+      "tech_stack": [
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "React Native"
+      ],
+      "highlights": [
+        "Multi-Vendor Ready",
+        "Courier API Sync",
+        "Flash Sale Engine"
+      ],
+      "order_index": 11,
+      "status": "published"
+    },
+    {
+      "id": "car-rental-software",
+      "title": "Car Rental & Fleet Management Platform",
+      "subtitle": "Maximize Profits & Efficiency: Fleet Booking System",
+      "category": "mobility",
+      "industry": "Taxi and Transportation",
+      "badge": "Fleet Pro",
+      "badgeColor": "cyan",
+      "badge_color": "cyan",
+      "youtubeId": "2PLJeKPb7jA",
+      "youtube_id": "2PLJeKPb7jA",
+      "deploymentDays": "3 - 5 Days",
+      "deployment_days": "3 - 5 Days",
+      "rating": "4.85/5 (95+ Rental Operators)",
+      "summary": "Complete vehicle rental and self-drive reservation engine. Enables real-time fleet availability lookup, dynamic daily/hourly tariff calculations, driver management, and GPS vehicle tracking.",
+      "keyFeatures": [
+        "Real-Time Vehicle Availability Calendar & Instant Online Booking",
+        "Dynamic Tariff Rates (Hourly, Daily, Outstation, Security Deposit)",
+        "Digital Driver License & Identity Document Verification",
+        "Vehicle Maintenance Schedules, Insurance Expiry & Odometer Logs",
+        "Live GPS Tracking Integration & Geo-Fence Boundary Alerts",
+        "Customer Mobile App with Keyless Entry & Booking Extension"
+      ],
+      "key_features": [
+        "Real-Time Vehicle Availability Calendar & Instant Online Booking",
+        "Dynamic Tariff Rates (Hourly, Daily, Outstation, Security Deposit)",
+        "Digital Driver License & Identity Document Verification",
+        "Vehicle Maintenance Schedules, Insurance Expiry & Odometer Logs",
+        "Live GPS Tracking Integration & Geo-Fence Boundary Alerts",
+        "Customer Mobile App with Keyless Entry & Booking Extension"
+      ],
+      "techStack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Flutter",
+        "Google Maps / GPS"
+      ],
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Flutter",
+        "Google Maps / GPS"
+      ],
+      "highlights": [
+        "Fleet GPS Ready",
+        "Dynamic Pricing",
+        "License KYC Scanner"
+      ],
+      "order_index": 12,
+      "status": "published"
+    }
+  ],
+  "business_partners": {
+    "product_partners": [
+      {
+        "id": "pp-1",
+        "name": "Zoho",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Zoho.png",
+        "localImg": "/partners/zoho.png"
+      },
+      {
+        "id": "pp-2",
+        "name": "Salesforce",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Salesforce.png",
+        "localImg": "/partners/salesforce.png"
+      },
+      {
+        "id": "pp-3",
+        "name": "HubSpot",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/HubSpot.png",
+        "localImg": "/partners/hubspot.png"
+      },
+      {
+        "id": "pp-4",
+        "name": "Microsoft",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Microsoft.png",
+        "localImg": "/partners/microsoft.png"
+      },
+      {
+        "id": "pp-5",
+        "name": "SugarCRM",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/SugarCRM.png",
+        "localImg": "/partners/sugarcrm.png"
+      },
+      {
+        "id": "pp-6",
+        "name": "Oracle",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Oracle.png",
+        "localImg": "/partners/oracle.png"
+      },
+      {
+        "id": "pp-7",
+        "name": "SAP",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/SAP.png",
+        "localImg": "/partners/sap.png"
+      },
+      {
+        "id": "pp-8",
+        "name": "Sage",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Sage.png",
+        "localImg": "/partners/sage.png"
+      },
+      {
+        "id": "pp-9",
+        "name": "BUSINESSNEXT",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/BUSINESSNEXT.png",
+        "localImg": "/partners/businessnext.png"
+      },
+      {
+        "id": "pp-10",
+        "name": "Autodesk",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Autodesk.png",
+        "localImg": "/partners/autodesk.png"
+      },
+      {
+        "id": "pp-11",
+        "name": "Adobe",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Adobe.png",
+        "localImg": "/partners/adobe.png"
+      },
+      {
+        "id": "pp-12",
+        "name": "Act-On",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Act-On-.png",
+        "localImg": "/partners/act_on.png"
+      },
+      {
+        "id": "pp-13",
+        "name": "Acoustic",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Acoustic.png",
+        "localImg": "/partners/acoustic.png"
+      },
+      {
+        "id": "pp-14",
+        "name": "Acquia",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Acquia.png",
+        "localImg": "/partners/acquia.png"
+      },
+      {
+        "id": "pp-15",
+        "name": "Creatio",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Creatio.png",
+        "localImg": "/partners/creatio.png"
+      },
+      {
+        "id": "pp-16",
+        "name": "LeadSquared",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/LeadSquared.png",
+        "localImg": "/partners/leadsquared.png"
+      },
+      {
+        "id": "pp-17",
+        "name": "Freshworks",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Freshworks.png",
+        "localImg": "/partners/freshworks.png"
+      },
+      {
+        "id": "pp-18",
+        "name": "CentraHub",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/CentraHub.png",
+        "localImg": "/partners/centrahub.png"
+      },
+      {
+        "id": "pp-19",
+        "name": "ClickDimensions",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ClickDimensions.png",
+        "localImg": "/partners/clickdimensions.png"
+      },
+      {
+        "id": "pp-20",
+        "name": "Insightly",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Insightly.jpg",
+        "localImg": "/partners/insightly.jpg"
+      },
+      {
+        "id": "pp-21",
+        "name": "Pipedrive",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Pipedrive.jpg",
+        "localImg": "/partners/pipedrive.jpg"
+      },
+      {
+        "id": "pp-22",
+        "name": "Striker Soft Solutions",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Striker-Soft-Solutions.jpg",
+        "localImg": "/partners/striker_soft_solutions.jpg"
+      },
+      {
+        "id": "pp-23",
+        "name": "Mekari",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Mekari.jpg",
+        "localImg": "/partners/mekari.jpg"
+      },
+      {
+        "id": "pp-24",
+        "name": "Rocket Now",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Rocket-Now.jpg",
+        "localImg": "/partners/rocket_now.jpg"
+      },
+      {
+        "id": "pp-25",
+        "name": "Wigzo",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Wigzo.jpg",
+        "localImg": "/partners/wigzo.jpg"
+      },
+      {
+        "id": "pp-26",
+        "name": "inConcert",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/inConcert.jpg",
+        "localImg": "/partners/inconcert.jpg"
+      },
+      {
+        "id": "pp-27",
+        "name": "xiQ",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/xiQ.jpg",
+        "localImg": "/partners/xiq.jpg"
+      },
+      {
+        "id": "pp-28",
+        "name": "Tally",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Tally.jpg",
+        "localImg": "/partners/tally.jpg"
+      },
+      {
+        "id": "pp-29",
+        "name": "& more",
+        "img": "",
+        "localImg": ""
+      }
+    ],
+    "service_partners": [
+      {
+        "id": "sp-1",
+        "name": "JustDial",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/JustDial.jpg",
+        "localImg": "/partners/justdial.jpg"
+      },
+      {
+        "id": "sp-2",
+        "name": "Sulekha",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Sulekha.jpg",
+        "localImg": "/partners/sulekha.jpg"
+      },
+      {
+        "id": "sp-3",
+        "name": "Quikr",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Quikr.jpg",
+        "localImg": "/partners/quikr.jpg"
+      },
+      {
+        "id": "sp-4",
+        "name": "OLX",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/OLX.png",
+        "localImg": "/partners/olx.png"
+      },
+      {
+        "id": "sp-5",
+        "name": "IndiaMART",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/IndiaMART.png",
+        "localImg": "/partners/indiamart.png"
+      },
+      {
+        "id": "sp-6",
+        "name": "ExportersIndia",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/ExportersIndia.png",
+        "localImg": "/partners/exportersindia.png"
+      },
+      {
+        "id": "sp-7",
+        "name": "TradeIndia",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/TradeIndia.png",
+        "localImg": "/partners/tradeindia.png"
+      },
+      {
+        "id": "sp-8",
+        "name": "Leadzen.ai",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Leadzen.ai_.png",
+        "localImg": "/partners/leadzen_ai.png"
+      },
+      {
+        "id": "sp-9",
+        "name": "Lusha",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Lusha.png",
+        "localImg": "/partners/lusha.png"
+      },
+      {
+        "id": "sp-10",
+        "name": "SalesAladin",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/SalesAladin.png",
+        "localImg": "/partners/salesaladin.png"
+      },
+      {
+        "id": "sp-11",
+        "name": "upGrowth",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/upGrowth.png",
+        "localImg": "/partners/upgrowth.png"
+      },
+      {
+        "id": "sp-12",
+        "name": "LimeTray",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/images.png",
+        "localImg": "/partners/limetray.png"
+      },
+      {
+        "id": "sp-13",
+        "name": "LeadNXT",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/LeadNXT.png",
+        "localImg": "/partners/leadnxt.png"
+      },
+      {
+        "id": "sp-14",
+        "name": "Whizcrow",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/Whizcrow.png",
+        "localImg": "/partners/whizcrow.png"
+      },
+      {
+        "id": "sp-15",
+        "name": "EasyLeadz",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/EasyLeadz.png",
+        "localImg": "/partners/easyleadz.png"
+      },
+      {
+        "id": "sp-16",
+        "name": "PageTraffic",
+        "img": "https://blackgrapessoftech.com/wp-content/uploads/2024/07/PageTraffic.png",
+        "localImg": "/partners/pagetraffic.png"
+      },
+      {
+        "id": "sp-17",
+        "name": "& more",
+        "img": "",
+        "localImg": ""
+      }
+    ],
+    "product_intro": {
+      "title": "Products Companies Tie-up",
+      "paragraphs": [
+        "Facilitating strategic alliances between product companies to expand reach, unlock mutual growth, and integrate complementary cloud platforms.",
+        "Our collaborative framework empowers product businesses to cross-promote solutions, share technical toolsets, and deliver bundled digital value.",
+        "Through seamless API integrations and joint go-to-market strategies, we help emerging product innovators scale faster across international markets."
+      ],
+      "subheading": "Products Companies Tie-up"
+    },
+    "service_intro": {
+      "title": "Services Companies Tie-up",
+      "paragraphs": [
+        "Strategic collaborations between service enterprises to expand offerings, share cross-domain expertise, and co-deliver complex client mandates.",
+        "By uniting specialized consulting, digital marketing, and software engineering capabilities, we create full-spectrum execution squads."
+      ],
+      "subheading": "Services Companies Tie-up"
+    },
+    "title": "Our Business Partners"
+  },
+  "services_page": {
+    "badge": "BLACK GRAPES GROUP",
+    "title": "Services Built Specifically",
+    "titleAccent": " For Your Business",
+    "subtitle": "Empowering businesses with tailored solutions to meet your unique needs.",
+    "searchPlaceholder": "Search services (Softech, Real Estate, Valuers, Investment, Insurance)...",
+    "tab1Label": "Group Companies (6 Core)",
+    "tab2Label": "IT Staffing Solutions",
+    "tab3Label": "E-Commerce (Naya Purana Bazaar)",
+    "serviceCategories": [
+      {
+        "id": "all",
+        "label": "All Services"
+      },
+      {
+        "id": "softech",
+        "label": "IT & Softech"
+      },
+      {
+        "id": "valuers",
+        "label": "Valuers & Engineers"
+      },
+      {
+        "id": "realestate",
+        "label": "Real Estate"
+      },
+      {
+        "id": "investment",
+        "label": "Investment & Securities"
+      },
+      {
+        "id": "insurance",
+        "label": "Insurance Surveyors"
+      },
+      {
+        "id": "associates",
+        "label": "Associates"
+      }
+    ],
+    "group_services": [
+      {
+        "id": 1,
+        "title": "Black Grapes Associates",
+        "tagline": "Consultancy & Advisory",
+        "description": " Associate is a leading firm dedicated to providing innovative and customized solutions",
+        "image": "/services-logos/associates.webp",
+        "remoteImage": "https://blackgrapesassociates.com/wp-content/webp-express/webp-images/uploads/2022/12/2Black-Grapes-Associates.png.webp",
+        "url": "http://www.blackgrapesassociates.com",
+        "category": "associates",
+        "accentColor": "#f86200"
+      },
+      {
+        "id": 2,
+        "title": "Black Grapes Softech",
+        "tagline": "IT & Digital Solutions",
+        "description": "Softech is a dynamic IT solutions company dedicated to transforming businesses",
+        "image": "/services-logos/softech.png",
+        "remoteImage": "https://blackgrapessoftech.com/wp-content/uploads/2023/12/bgst-logo.png",
+        "url": "https://blackgrapessoftech.com/",
+        "category": "softech",
+        "accentColor": "#a855f7"
+      },
+      {
+        "id": 3,
+        "title": "Black Grapes Real Estate",
+        "tagline": "Property & Infrastructure",
+        "description": "Black Grapes Real Estate is a trusted name in the real estate industry, dedicated to providing exceptional property",
+        "image": "/services-logos/realestate.jpg",
+        "remoteImage": "https://blackgrapesrealestate.com/storage/photo-2024-06-29-03-24-08-1.jpg",
+        "url": "https://blackgrapesrealestate.com/",
+        "category": "realestate",
+        "accentColor": "#10b981"
+      },
+      {
+        "id": 4,
+        "title": "Black Grapes Investment & Securities",
+        "tagline": "Financial & Investment Services",
+        "description": "Black Grapes Investment Pvt. Ltd. is a trusted and reliable financial services company specializing in investment managemen.",
+        "image": "/services-logos/valuers.webp",
+        "remoteImage": "https://www.blackgrapesvaluers.com/wp-content/uploads/2023/12/LOGO.webp",
+        "url": "https://blackgrapesinvestments.com/",
+        "category": "investment",
+        "accentColor": "#3b82f6"
+      },
+      {
+        "id": 5,
+        "title": "Black Grapes Valuers & Engineers",
+        "tagline": "Valuation & Structural Consultancy",
+        "description": "Black Grapes Valuers and Engineers is a reputed firm specializing in property valuation, structural engineering, and technical consultancy",
+        "image": "/services-logos/valuers.webp",
+        "remoteImage": "https://www.blackgrapesvaluers.com/wp-content/uploads/2023/12/LOGO.webp",
+        "url": "https://www.blackgrapesvaluers.com/",
+        "category": "valuers",
+        "accentColor": "#06b6d4"
+      },
+      {
+        "id": 6,
+        "title": "Black Grapes Insurance Surveyors & Loss Assessors",
+        "tagline": "Insurance Survey & Loss Assessment",
+        "description": "This is a trusted name in the insurance industry, specializing in providing accurate, unbiased, and professional survey and loss assessment services.",
+        "image": "/services-logos/valuers.webp",
+        "remoteImage": "https://www.blackgrapesvaluers.com/wp-content/uploads/2023/12/LOGO.webp",
+        "url": "https://www.blackgrapesgroup.com/aso",
+        "category": "insurance",
+        "accentColor": "#f43f5e"
+      }
+    ],
+    "clientStats": [
+      {
+        "icon": "Layers",
+        "value": "14+",
+        "label": "Years of Experience"
+      },
+      {
+        "icon": "CheckCircle2",
+        "value": "500+",
+        "label": "Projects Executed"
+      },
+      {
+        "icon": "ShieldCheck",
+        "value": "100%",
+        "label": "Compliance & Quality"
+      },
+      {
+        "icon": "HeartHandshake",
+        "value": "98%",
+        "label": "Client Retention"
+      }
+    ],
+    "executionProcess": [
+      {
+        "step": "01",
+        "title": "Discovery & Consultation",
+        "subtitle": "Strategic Needs Assessment",
+        "description": "We dive deep into your operational objectives, statutory requirements, and technology prerequisites."
+      },
+      {
+        "step": "02",
+        "title": "Architectural Blueprint",
+        "subtitle": "Custom Solution Design",
+        "description": "Our engineers draft detailed technical specifications, regulatory roadmaps, and agile execution milestones."
+      },
+      {
+        "step": "03",
+        "title": "Execution & Quality Assurance",
+        "subtitle": "High-Velocity Delivery",
+        "description": "Development, rigorous testing, validation, and multi-tier quality checks ensure zero defect delivery."
+      },
+      {
+        "step": "04",
+        "title": "Deployment & Ongoing Support",
+        "subtitle": "Long-Term Partnership",
+        "description": "Seamless handover, training, enterprise SLA maintenance, and continuous optimization."
+      }
+    ],
+    "faqList": [
+      {
+        "q": "What sectors does Black Grapes Group operate in?",
+        "a": "Black Grapes Group operates across IT & Software Engineering (Black Grapes Softech), Asset Valuation & Chartered Engineering, Corporate & Municipal Advisory, Real Estate, Investment & Securities, and Insurance Surveying."
+      },
+      {
+        "q": "How do I request a custom quotation or project estimate?",
+        "a": "Click on the \"Inquire\" or \"Get Quote\" buttons on any service card or header to submit your requirements. Our specialists will respond within 24 business hours."
+      },
+      {
+        "q": "Where is Black Grapes Group headquartered?",
+        "a": "Our central office is located in Indore, Madhya Pradesh (252-F/H Scheme No 54, Vijaynagar, Indore - 452010), serving clients across India and internationally."
+      }
+    ],
+    "isVisible": true,
+    "updated_at": "2026-11-02T12:35:34.487Z"
+  },
+  "softech_page": {
+    "badge": "BLACK GRAPES SOFTECH • WHAT WE DO",
+    "title": "Engineering Next-Gen",
+    "subtitle": "From bespoke web platforms and native mobile apps to AI-powered enterprise automation, we build scalable software designed to lead your market.",
+    "primaryCtaText": "Request Technical Quote",
+    "secondaryCtaText": "Schedule Consultation",
+    "industriesBadge": "CROSS-INDUSTRY EXPERTISE",
+    "industriesTitle": "Software Tailored for Real-World Business Vertical Demands",
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
+  },
+  "products_page": {
+    "badge": "BLACK GRAPES SOFTECH PROPRIETARY SUITE",
+    "title": "Our Products:",
+    "titleAccent": "Engineered to Transform Modern Business",
+    "subtitle": "Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.",
+    "stats": [
+      {
+        "metric": "12+",
+        "label": "Turnkey Products"
+      },
+      {
+        "metric": "100%",
+        "label": "Source Code Ownership"
+      },
+      {
+        "metric": "7+",
+        "label": "Core Industries"
+      },
+      {
+        "metric": "5-7",
+        "label": "Days Deployment"
+      }
+    ],
+    "primaryBtnText": "Request Live Demo",
+    "secondaryBtnText": "Browse All Products",
+    "pillTitle": "Live Production Ready",
+    "pillSub": "Cloud Native • Web • iOS • Android",
+    "pillBadge": "WHITE-LABEL",
+    "isVisible": true,
+    "updated_at": "2026-11-02T10:35:25.986Z"
+  },
+  "ecommerce": {
+    "title": "BG TEST ECOMMERCE 222"
+  }
+}

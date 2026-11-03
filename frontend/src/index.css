@@ -995,7 +995,6 @@ button, input, select, textarea {
 /* Hero Visual: Glass Mockup Card */
 .hero-visual {
   position: relative;
-  margin-bottom: 1.5rem;
 }
 
 .hero-glass-card {
@@ -1067,7 +1066,7 @@ button, input, select, textarea {
 }
 
 .glass-card-body {
-  padding: 1.5rem 1.5rem 2.25rem 1.5rem;
+  padding: 1.5rem;
 }
 
 .code-header {
@@ -1106,7 +1105,6 @@ button, input, select, textarea {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.85rem;
   margin-top: 1.25rem;
-  margin-bottom: 0.85rem;
 }
 
 .kpi-box {
@@ -1140,34 +1138,29 @@ button, input, select, textarea {
   gap: 0.75rem;
   background: rgba(18, 14, 30, 0.95);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.75rem 1.15rem;
+  padding: 0.75rem 1rem;
   border-radius: 14px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(248, 98, 0, 0.15);
-  animation: heroFloatBadge 6s ease-in-out infinite alternate;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  animation: floatBadge 6s ease-in-out infinite alternate;
   z-index: 10;
-  pointer-events: auto;
 }
 
-.badge-top-right,
-.hero-visual .badge-top-right {
+.badge-top-right {
   top: -20px;
   right: -20px;
   animation-delay: -1s;
 }
 
-.badge-bottom-left,
-.hero-visual .badge-bottom-left {
-  bottom: -16px;
-  left: 10px;
+.badge-bottom-left {
+  bottom: -20px;
+  left: -20px;
   animation-delay: -3.5s;
-  z-index: 10;
 }
 
-@keyframes heroFloatBadge {
+@keyframes floatBadge {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-6px); }
+  100% { transform: translateY(-8px); }
 }
 
 .floating-icon {
@@ -1188,84 +1181,38 @@ button, input, select, textarea {
 /* Tech Marquee */
 .tech-marquee-wrapper {
   margin-top: 4rem;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(13, 10, 23, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(13, 10, 23, 0.4);
   display: flex;
   align-items: center;
   overflow: hidden;
   position: relative;
-  width: 100%;
-  box-sizing: border-box;
 }
 
-.marquee-label-container {
-  display: flex;
-  align-items: center;
-  padding: 0 1.75rem;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 20;
-  background: #0c0916 !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 18px 0 28px -2px #0c0916;
-}
-
-.marquee-label-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.marquee-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--brand-orange, #ff6b00);
-  box-shadow: 0 0 8px rgba(255, 107, 0, 0.8);
-  animation: pulse 2s infinite ease-in-out;
-}
-
-.marquee-label-text {
+.marquee-label {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--brand-orange-light, #ff8c38);
+  color: var(--brand-orange-light);
   white-space: nowrap;
-}
-
-.marquee-content-viewport {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+  padding: 0 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .marquee-track {
   display: flex;
-  gap: 1.5rem;
-  animation: marqueeSlide 38s linear infinite;
+  gap: 2rem;
+  animation: marqueeSlide 35s linear infinite;
   white-space: nowrap;
-  width: max-content;
-  will-change: transform;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
 }
 
 @keyframes marqueeSlide {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
+  100% { transform: translateX(-50%); }
 }
 
 .marquee-item {
@@ -1276,14 +1223,6 @@ button, input, select, textarea {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 999px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-.marquee-item:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 107, 0, 0.4);
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .marquee-tech-name {
@@ -1298,64 +1237,6 @@ button, input, select, textarea {
   background: rgba(147, 51, 234, 0.2);
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
-}
-
-@media (max-width: 768px) {
-  .tech-marquee-wrapper {
-    margin-top: 2rem !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0.85rem !important;
-    padding: 1rem 0 !important;
-    background: rgba(13, 10, 23, 0.95) !important;
-  }
-
-  .marquee-label-container {
-    padding: 0 !important;
-    border-right: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  .marquee-label-pill {
-    padding: 0.4rem 1rem !important;
-    background: rgba(255, 107, 0, 0.12) !important;
-    border: 1px solid rgba(255, 107, 0, 0.35) !important;
-    border-radius: 999px !important;
-  }
-
-  .marquee-label-text {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-  }
-
-  .marquee-content-viewport {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
-  }
-
-  .marquee-track {
-    gap: 1rem;
-    animation-duration: 30s;
-  }
-
-  .marquee-item {
-    padding: 0.35rem 0.75rem;
-  }
-
-  .marquee-tech-name {
-    font-size: 0.8rem;
-  }
-
-  .marquee-category {
-    font-size: 0.65rem;
-    padding: 0.1rem 0.4rem;
-  }
 }
 
 /* ==========================================================================
@@ -5005,25 +4886,6 @@ html, body {
     font-size: 0.62rem !important;
   }
 
-  .hero-visual .floating-badge,
-  .floating-badge {
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    margin: 1.25rem auto 0 !important;
-    width: fit-content !important;
-    max-width: 90% !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
-    animation: heroFloatBadgeMobile 4s ease-in-out infinite alternate !important;
-  }
-
-  @keyframes heroFloatBadgeMobile {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-4px); }
-  }
-
   .cta-banner-card {
     padding: 2.25rem 1.25rem !important;
   }
@@ -5377,10 +5239,24 @@ img, video, canvas, svg {
 
 /* Tech Marquee */
 .tech-marquee-wrapper {
+  margin-top: 9.75rem !important;
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .tech-marquee-wrapper {
+    margin-top: 6.5rem !important;
+    padding: 0.85rem 0 !important;
+  }
+  .marquee-label-container {
+    padding: 0 0.85rem !important;
+  }
+  .marquee-label {
+    font-size: 0.72rem !important;
+  }
 }
 
 /* 5. All Section Grids Collapse for Mobile */

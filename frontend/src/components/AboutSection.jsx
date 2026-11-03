@@ -1,38 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { getPageSections } from '@backend/dataService.js';
-import '../utils/realtimeSync';
+import React, { useState } from 'react';
 import { ABOUT_CONTENT } from '../data/siteData';
 
 export default function AboutSection({ onOpenModal }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [activeValueTab, setActiveValueTab] = useState(0);
-  const [aboutSections, setAboutSections] = useState(null);
-
-  useEffect(() => {
-    getPageSections('about').then((data) => {
-      setAboutSections(data);
-    });
-
-    const handleUpdate = (e) => {
-      const detail = e.detail || {};
-      if (detail.pageSlug === 'about' && detail.sections) {
-        setAboutSections(detail.sections);
-      } else {
-        getPageSections('about').then((data) => {
-          setAboutSections(data);
-        });
-      }
-    };
-
-    window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
-  }, []);
-
-  const heroContent = aboutSections?.about_hero?.content || {};
-  const dynamicCoreValues = (Array.isArray(aboutSections?.core_values?.content?.values) && aboutSections.core_values.content.values.length > 0)
-    ? aboutSections.core_values.content.values.slice(0, 3)
-    : ABOUT_CONTENT.coreValues.slice(0, 3);
-  const safeActiveTab = activeValueTab < dynamicCoreValues.length ? activeValueTab : 0;
 
   return (
     <section id="about" className="section about-section">
@@ -41,13 +12,13 @@ export default function AboutSection({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>{heroContent.badge || ABOUT_CONTENT.badge}</span>
+            <span>{ABOUT_CONTENT.badge}</span>
           </div>
           <h2 className="section-title">
             Best Website Development Company <span className="title-gradient-separator">|</span> Best IT Software Company <span className="title-gradient-separator">|</span> Best Mobile App Development Company
           </h2>
           <p className="section-subtitle">
-            {heroContent.lead || ABOUT_CONTENT.subtitle}
+            {ABOUT_CONTENT.subtitle}
           </p>
         </div>
 
@@ -59,7 +30,7 @@ export default function AboutSection({ onOpenModal }) {
             <div className="about-image-card">
               <div className="about-img-wrapper">
                 <img
-                  src={heroContent.image || "/images/blackgrapes-1.png"}
+                  src="/images/blackgrapes-1.png"
                   alt="Black Grapes Softech Team & Architecture"
                   className="about-main-img"
                   onError={(e) => {
@@ -154,11 +125,11 @@ export default function AboutSection({ onOpenModal }) {
             {/* Interactive Core Values Tabs */}
             <div className="values-tabs-wrapper">
               <div className="values-tab-buttons">
-                {dynamicCoreValues.map((val, idx) => (
+                {ABOUT_CONTENT.coreValues.map((val, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    className={`value-tab-btn ${safeActiveTab === idx ? 'value-tab-active' : ''}`}
+                    className={`value-tab-btn ${activeValueTab === idx ? 'value-tab-active' : ''}`}
                     onClick={() => setActiveValueTab(idx)}
                   >
                     <span>0{idx + 1}.</span> {val.title}
@@ -168,7 +139,7 @@ export default function AboutSection({ onOpenModal }) {
 
               <div className="value-tab-content">
                 <div className="value-tab-icon">🎯</div>
-                <p>{dynamicCoreValues[safeActiveTab]?.desc}</p>
+                <p>{ABOUT_CONTENT.coreValues[activeValueTab].desc}</p>
               </div>
             </div>
 

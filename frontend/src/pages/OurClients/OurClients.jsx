@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Sparkles,
   Search,
@@ -33,46 +33,11 @@ import ClientCaseStudyModal from './ClientCaseStudyModal';
 import clientsNetworkImg from '../../assets/clients-network.jpg';
 import clientsSummitImg from '../../assets/clients-summit.jpg';
 import './OurClients.css';
-import { getPageSections } from '@backend/dataService.js';
-import '../../utils/realtimeSync';
 
 export default function OurClients({ onOpenDemoModal }) {
-  const [pageSections, setPageSections] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedClient, setSelectedClient] = useState(null);
-
-  useEffect(() => {
-    getPageSections('clients').then((secs) => {
-      if (secs) setPageSections(secs);
-    });
-
-    const handleUpdate = (e) => {
-      const detail = e.detail || {};
-      if (detail.pageSlug === 'clients' && detail.sections) {
-        setPageSections(detail.sections);
-      } else {
-        getPageSections('clients').then((secs) => {
-          if (secs) setPageSections(secs);
-        });
-      }
-    };
-
-    window.addEventListener('bgst_content_updated', handleUpdate);
-    return () => window.removeEventListener('bgst_content_updated', handleUpdate);
-  }, []);
-
-  const heroContent = pageSections?.clients_hero?.content;
-  const statsContent = pageSections?.clients_stats?.content;
-
-  const eyebrow = heroContent?.eyebrow || 'TRUSTED BY 150+ GLOBAL ENTERPRISES';
-  const heroTitle = heroContent?.title || 'Our Clients:';
-  const heroHighlight = heroContent?.highlight || 'Powering Leaders Across 15+ Nations';
-  const heroDesc = heroContent?.description || 'At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.';
-  const heroImage = heroContent?.heroImage || clientsNetworkImg;
-  const primaryBtnText = heroContent?.primaryBtnText || 'Partner With Us';
-  const secondaryBtnText = heroContent?.secondaryBtnText || `Explore Client Brands (${CLIENTS_LIST.length})`;
-  const metrics = statsContent?.metrics || CLIENT_METRICS;
 
   // Filtered clients list
   const filteredClients = useMemo(() => {
@@ -105,21 +70,21 @@ export default function OurClients({ onOpenDemoModal }) {
           <div className="clients-hero-content">
             <div className="hero-eyebrow-pill">
               <Sparkles size={14} />
-              <span>{eyebrow}</span>
+              <span>TRUSTED BY 150+ GLOBAL ENTERPRISES</span>
             </div>
 
             <h1 className="clients-hero-title">
-              {heroTitle} <br />
-              <span className="text-gradient">{heroHighlight}</span>
+              Our Clients: <br />
+              <span className="text-gradient">Powering Leaders Across 15+ Nations</span>
             </h1>
 
             <p className="clients-hero-desc">
-              {heroDesc}
+              At Black Grapes Softech, we take pride in our diverse and dynamic client portfolio. Our clients span various industries including finance, healthcare, e-commerce, education, and technology. We partner with both high-velocity startups and Fortune 500 enterprises to deliver innovative software solutions tailored to their unique needs.
             </p>
 
             {/* Metrics Counter Strip */}
             <div className="clients-metrics-row">
-              {metrics.map((metric, idx) => (
+              {CLIENT_METRICS.map((metric, idx) => (
                 <div key={idx} className="metric-item">
                   <span className="metric-num text-gradient">{metric.number}</span>
                   <span className="metric-sub">{metric.label}</span>
@@ -133,12 +98,12 @@ export default function OurClients({ onOpenDemoModal }) {
                 onClick={onOpenDemoModal}
                 className="btn btn-primary btn-pulse-glow"
               >
-                <span>{primaryBtnText}</span>
+                <span>Partner With Us</span>
                 <ArrowRight size={18} />
               </button>
 
               <a href="#portfolio" className="btn btn-secondary">
-                <span>{secondaryBtnText}</span>
+                <span>Explore Client Brands ({CLIENTS_LIST.length})</span>
               </a>
             </div>
           </div>
@@ -147,10 +112,9 @@ export default function OurClients({ onOpenDemoModal }) {
           <div className="clients-hero-visual">
             <div className="clients-visual-frame">
               <img
-                src={heroImage}
+                src={clientsNetworkImg}
                 alt="Black Grapes Softech Global Client Footprint"
                 className="clients-network-img"
-                onError={(e) => { e.target.onerror = null; e.target.src = clientsNetworkImg; }}
               />
               <div className="floating-partners-badge">
                 <div className="badge-inner-flex">
@@ -263,7 +227,6 @@ export default function OurClients({ onOpenDemoModal }) {
                       alt={`${client.name} Logo`}
                       className="client-brand-img"
                       loading="lazy"
-                      onError={(e) => { e.target.onerror = null; e.target.src = "/bgst-logo.png"; }}
                     />
                   </div>
 

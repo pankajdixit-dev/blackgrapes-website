@@ -9,18 +9,31 @@ import {
   ExternalLink,
   Play,
   Save,
-  X
+  X,
+  Globe,
+  Layers
 } from 'lucide-react';
-import { getProjects, saveProject, deleteProject } from '@backend/dataService';
+import {
+  getProducts,
+  saveProduct,
+  deleteProduct,
+  getProjects,
+  saveProject,
+  deleteProject
+} from '@backend/dataService';
 
 export default function ProjectsManager() {
+  const [activeTab, setActiveTab] = useState('products'); // 'products', 'projects'
+  const [products, setProducts] = useState([]);
   const [projects, setProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const [form, setForm] = useState({
+  // Product Modal State
+  const [productModalOpen, setProductModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [productForm, setProductForm] = useState({
     title: '',
     subtitle: '',
     category: 'education',
@@ -33,17 +46,28 @@ export default function ProjectsManager() {
     summary: '',
     key_features_raw: '',
     tech_stack_raw: '',
-    highlights_raw: '',
-    status: 'published'
+    highlights_raw: ''
+  });
+
+  // Project Modal State
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [projectForm, setProjectForm] = useState({
+    title: '',
+    category: 'Web Apps',
+    type: 'Full-Stack Solution',
+    summary: '',
+    link: '#'
   });
 
   useEffect(() => {
-    loadProjects();
+    loadAll();
   }, []);
 
-  const loadProjects = async () => {
-    const list = await getProjects();
-    setProjects(list);
+  const loadAll = async () => {
+    const [prods, projs] = await Promise.all([getProducts(), getProjects()]);
+    setProducts(prods || []);
+    setProjects(projs || []);
   };
 
   const showToast = (msg) => {
@@ -51,9 +75,10 @@ export default function ProjectsManager() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  const handleOpenCreate = () => {
+  // PRODUCT HANDLERS
+  const handleOpenCreateProduct = () => {
     setEditingProduct(null);
-    setForm({
+    setProductForm({
       title: '',
       subtitle: '',
       category: 'education',
@@ -64,17 +89,16 @@ export default function ProjectsManager() {
       deployment_days: '3 - 5 Days',
       rating: '4.9/5',
       summary: '',
-      key_features_raw: 'Automated Student Attendance\nOnline Fee Payments & Invoicing\nParent-Teacher Dedicated Mobile Apps',
+      key_features_raw: 'Student Attendance & Biometrics\nOnline Fee Invoicing\nDedicated Mobile Apps',
       tech_stack_raw: 'React\nNode.js\nPostgreSQL\nFlutter',
-      highlights_raw: 'Multi-Branch Support\n100% White Label',
-      status: 'published'
+      highlights_raw: 'Multi-Branch Support\n100% White Label'
     });
-    setModalOpen(true);
+    setProductModalOpen(true);
   };
 
-  const handleOpenEdit = (prod) => {
+  const handleOpenEditProduct = (prod) => {
     setEditingProduct(prod);
-    setForm({
+    setProductForm({
       title: prod.title || '',
       subtitle: prod.subtitle || '',
       category: prod.category || 'education',
@@ -87,56 +111,114 @@ export default function ProjectsManager() {
       summary: prod.summary || '',
       key_features_raw: (prod.key_features || prod.keyFeatures || []).join('\n'),
       tech_stack_raw: (prod.tech_stack || prod.techStack || []).join('\n'),
-      highlights_raw: (prod.highlights || []).join('\n'),
-      status: prod.status || 'published'
+      highlights_raw: (prod.highlights || []).join('\n')
     });
-    setModalOpen(true);
+    setProductModalOpen(true);
   };
 
-  const handleSave = async (e) => {
+  const handleSaveProduct = async (e) => {
     e.preventDefault();
+    setSaving(true);
     const payload = {
       ...(editingProduct || {}),
-      title: form.title,
-      subtitle: form.subtitle,
-      category: form.category,
-      industry: form.industry,
-      badge: form.badge,
-      badge_color: form.badge_color,
-      badgeColor: form.badge_color,
-      youtube_id: form.youtube_id,
-      youtubeId: form.youtube_id,
-      deployment_days: form.deployment_days,
-      deploymentDays: form.deployment_days,
-      rating: form.rating,
-      summary: form.summary,
-      key_features: form.key_features_raw.split('\n').map((s) => s.trim()).filter(Boolean),
-      keyFeatures: form.key_features_raw.split('\n').map((s) => s.trim()).filter(Boolean),
-      tech_stack: form.tech_stack_raw.split('\n').map((s) => s.trim()).filter(Boolean),
-      techStack: form.tech_stack_raw.split('\n').map((s) => s.trim()).filter(Boolean),
-      highlights: form.highlights_raw.split('\n').map((s) => s.trim()).filter(Boolean),
-      status: form.status
+      title: productForm.title,
+      subtitle: productForm.subtitle,
+      category: productForm.category,
+      industry: productForm.industry,
+      badge: productForm.badge,
+      badge_color: productForm.badge_color,
+      badgeColor: productForm.badge_color,
+      youtube_id: productForm.youtube_id,
+      youtubeId: productForm.youtube_id,
+      deployment_days: productForm.deployment_days,
+      deploymentDays: productForm.deployment_days,
+      rating: productForm.rating,
+      summary: productForm.summary,
+      key_features: productForm.key_features_raw.split('\n').map((s) => s.trim()).filter(Boolean),
+      keyFeatures: productForm.key_features_raw.split('\n').map((s) => s.trim()).filter(Boolean),
+      tech_stack: productForm.tech_stack_raw.split('\n').map((s) => s.trim()).filter(Boolean),
+      techStack: productForm.tech_stack_raw.split('\n').map((s) => s.trim()).filter(Boolean),
+      highlights: productForm.highlights_raw.split('\n').map((s) => s.trim()).filter(Boolean)
     };
-
-    await saveProject(payload);
-    setModalOpen(false);
-    showToast(editingProduct ? 'Proprietary product updated.' : 'New product catalog entry created.');
-    await loadProjects();
+    await saveProduct(payload);
+    await loadAll();
+    setSaving(false);
+    setProductModalOpen(false);
+    showToast(editingProduct ? 'Product updated and published live!' : 'New product created in catalog!');
   };
 
-  const handleDelete = async (id, title) => {
+  const handleDeleteProduct = async (id, title) => {
     if (window.confirm(`Delete product "${title}" from the catalog?`)) {
-      await deleteProject(id);
+      await deleteProduct(id);
+      await loadAll();
       showToast('Product removed.');
-      await loadProjects();
     }
   };
 
-  const filtered = projects.filter(
-    (p) =>
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.industry.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // PROJECT HANDLERS
+  const handleOpenCreateProject = () => {
+    setEditingProject(null);
+    setProjectForm({
+      title: '',
+      category: 'Web Apps',
+      type: 'Full-Stack Solution',
+      summary: '',
+      link: '#'
+    });
+    setProjectModalOpen(true);
+  };
+
+  const handleOpenEditProject = (proj) => {
+    setEditingProject(proj);
+    setProjectForm({
+      title: proj.title || proj.name || '',
+      category: proj.category || 'Web Apps',
+      type: proj.type || 'Full-Stack Solution',
+      summary: proj.summary || proj.description || '',
+      link: proj.link || proj.url || '#'
+    });
+    setProjectModalOpen(true);
+  };
+
+  const handleSaveProject = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    const payload = {
+      ...(editingProject || {}),
+      title: projectForm.title,
+      name: projectForm.title,
+      category: projectForm.category,
+      type: projectForm.type,
+      summary: projectForm.summary,
+      description: projectForm.summary,
+      link: projectForm.link,
+      url: projectForm.link,
+      is_featured: true
+    };
+    await saveProject(payload);
+    await loadAll();
+    setSaving(false);
+    setProjectModalOpen(false);
+    showToast(editingProject ? 'Portfolio delivery updated!' : 'New portfolio delivery added!');
+  };
+
+  const handleDeleteProject = async (id, title) => {
+    if (window.confirm(`Delete project "${title}" from home portfolio?`)) {
+      await deleteProject(id);
+      await loadAll();
+      showToast('Portfolio project deleted.');
+    }
+  };
+
+  const filteredProducts = products.filter((p) => {
+    const q = searchQuery.toLowerCase();
+    return !q || p.title?.toLowerCase().includes(q) || p.industry?.toLowerCase().includes(q);
+  });
+
+  const filteredProjects = projects.filter((p) => {
+    const q = searchQuery.toLowerCase();
+    return !q || (p.title || p.name)?.toLowerCase().includes(q) || p.category?.toLowerCase().includes(q);
+  });
 
   return (
     <div>
@@ -147,285 +229,421 @@ export default function ProjectsManager() {
         </div>
       )}
 
+      {/* Header */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Proprietary Products & Solutions</h1>
+          <h1 className="admin-page-title">Products & Projects Manager</h1>
           <p className="admin-page-sub">
-            Manage the official software catalog, YouTube video demos, and specifications shown on /our-products.
+            Manage 12+ proprietary turnkey software products with video demos and 12+ live client deliveries on the homepage.
           </p>
         </div>
-        <button onClick={handleOpenCreate} className="admin-btn admin-btn-primary">
-          <Plus size={16} />
-          <span>Add New Product</span>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href={activeTab === 'products' ? '/products' : '/#projects'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview live in new tab"
+          >
+            <ExternalLink size={16} />
+            <span>View Live</span>
+          </a>
+          <button
+            onClick={activeTab === 'products' ? handleOpenCreateProduct : handleOpenCreateProject}
+            className="admin-btn admin-btn-primary"
+          >
+            <Plus size={16} />
+            <span>{activeTab === 'products' ? 'Add New Product' : 'Add New Portfolio Project'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="admin-tabs" style={{ marginBottom: '1.5rem' }}>
+        <button
+          className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`}
+          onClick={() => setActiveTab('products')}
+        >
+          <Package size={16} />
+          <span>Proprietary Turnkey Products ({products.length})</span>
+        </button>
+        <button
+          className={`admin-tab ${activeTab === 'projects' ? 'active' : ''}`}
+          onClick={() => setActiveTab('projects')}
+        >
+          <Globe size={16} />
+          <span>Home Portfolio Showcase ({projects.length})</span>
         </button>
       </div>
 
-      <div className="admin-card" style={{ padding: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Search size={18} color="#9ca3af" />
+      {/* Search Bar */}
+      <div className="admin-card" style={{ marginBottom: '1.25rem', padding: '1rem' }}>
+        <div className="admin-search-box">
+          <Search size={16} color="#9ca3af" />
           <input
             type="text"
-            className="admin-input"
-            style={{ border: 'none', background: 'transparent' }}
-            placeholder="Search software products by title or industry..."
+            placeholder={activeTab === 'products' ? 'Search turnkey software products...' : 'Search portfolio deliveries...'}
+            className="admin-search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="admin-card">
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Product Title</th>
-                <th>Industry</th>
-                <th>Demo Video</th>
-                <th>Turnaround</th>
-                <th>Rating</th>
-                <th>Status</th>
-                <th style={{ textAlign: 'right' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 ? (
+      {/* TAB 1: TURNKEY PRODUCTS */}
+      {activeTab === 'products' && (
+        <div className="admin-card">
+          <div className="admin-table-wrapper">
+            <table className="admin-table">
+              <thead>
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', color: '#9ca3af' }}>
-                    No products found matching search.
-                  </td>
+                  <th>Product Title</th>
+                  <th>Category</th>
+                  <th>YouTube Demo</th>
+                  <th>Rating</th>
+                  <th>Deployment</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
                 </tr>
-              ) : (
-                filtered.map((prod) => (
+              </thead>
+              <tbody>
+                {filteredProducts.map((prod) => (
                   <tr key={prod.id}>
                     <td>
-                      <strong style={{ color: '#fff' }}>{prod.title}</strong>
-                      <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{prod.subtitle}</div>
+                      <div>
+                        <strong style={{ color: '#fff', display: 'block' }}>{prod.title}</strong>
+                        <span style={{ fontSize: '0.8rem', color: '#9ca3af' }}>{prod.subtitle}</span>
+                      </div>
                     </td>
                     <td>
-                      <span className="badge badge-purple" style={{ fontSize: '0.7rem' }}>
-                        {prod.industry}
-                      </span>
+                      <span className="admin-badge admin-badge-orange">{prod.category}</span>
                     </td>
                     <td>
-                      {(prod.youtube_id || prod.youtubeId) ? (
+                      {prod.youtube_id || prod.youtubeId ? (
                         <a
                           href={`https://www.youtube.com/watch?v=${prod.youtube_id || prod.youtubeId}`}
                           target="_blank"
-                          rel="noreferrer"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.3rem',
-                            color: '#f87171',
-                            fontSize: '0.75rem',
-                            textDecoration: 'none'
-                          }}
+                          rel="noopener noreferrer"
+                          style={{ color: '#ef4444', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.85rem' }}
                         >
-                          <Play size={12} fill="#f87171" />
-                          <span>YouTube ID: {prod.youtube_id || prod.youtubeId}</span>
+                          <Play size={14} fill="currentColor" />
+                          <span>Watch Video</span>
                         </a>
                       ) : (
-                        <span style={{ color: '#6b7280', fontSize: '0.75rem' }}>No Video</span>
+                        <span style={{ color: '#6b7280', fontSize: '0.85rem' }}>No Video</span>
                       )}
                     </td>
-                    <td>
-                      <span style={{ fontSize: '0.8rem' }}>{prod.deployment_days || prod.deploymentDays}</span>
-                    </td>
-                    <td>
-                      <span style={{ fontSize: '0.8rem', color: '#fbbf24' }}>
-                        ★ {prod.rating}
-                      </span>
-                    </td>
-                    <td>
-                      <span className={`badge-status ${prod.status || 'published'}`}>
-                        {prod.status || 'published'}
-                      </span>
-                    </td>
+                    <td style={{ color: '#fbbf24', fontSize: '0.85rem' }}>{prod.rating}</td>
+                    <td style={{ fontSize: '0.85rem' }}>{prod.deployment_days || prod.deploymentDays}</td>
                     <td style={{ textAlign: 'right' }}>
-                      <button
-                        onClick={() => handleOpenEdit(prod)}
-                        className="btn-header-action"
-                        style={{ display: 'inline-flex', marginRight: '0.5rem' }}
-                        title="Edit product"
-                      >
-                        <Edit size={14} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(prod.id, prod.title)}
-                        className="btn-header-action"
-                        style={{ display: 'inline-flex', color: '#f87171' }}
-                        title="Delete product"
-                      >
-                        <Trash2 size={14} />
-                      </button>
+                      <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditProduct(prod)}
+                          className="admin-action-btn"
+                          title="Edit product"
+                        >
+                          <Edit size={16} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteProduct(prod.id, prod.title)}
+                          className="admin-action-btn danger"
+                          title="Delete product"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Product Modal */}
-      {modalOpen && (
-        <div className="admin-modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="admin-modal" style={{ maxWidth: '750px' }} onClick={(e) => e.stopPropagation()}>
-            <form onSubmit={handleSave}>
-              <div className="admin-modal-header">
-                <h3 style={{ margin: 0, color: '#fff' }}>
-                  {editingProduct ? 'Edit Proprietary Product' : 'Add New Proprietary Product'}
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="admin-btn admin-btn-secondary"
-                  style={{ padding: '0.3rem 0.6rem' }}
-                >
-                  <X size={16} />
-                </button>
-              </div>
+      {/* TAB 2: PORTFOLIO SHOWCASE */}
+      {activeTab === 'projects' && (
+        <div className="admin-card">
+          <div className="admin-table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Project / Brand Name</th>
+                  <th>Category</th>
+                  <th>Solution Type</th>
+                  <th>Website / Link</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProjects.map((proj) => (
+                  <tr key={proj.id}>
+                    <td>
+                      <strong style={{ color: '#fff' }}>{proj.title || proj.name}</strong>
+                    </td>
+                    <td>
+                      <span className="admin-badge admin-badge-orange">{proj.category}</span>
+                    </td>
+                    <td>{proj.type || '—'}</td>
+                    <td>
+                      <a
+                        href={proj.link || proj.url || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#38bdf8', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.85rem' }}
+                      >
+                        <span>{proj.link || proj.url || 'Visit'}</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditProject(proj)}
+                          className="admin-action-btn"
+                          title="Edit project"
+                        >
+                          <Edit size={16} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteProject(proj.id, proj.title || proj.name)}
+                          className="admin-action-btn danger"
+                          title="Delete project"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
+      {/* PRODUCT MODAL */}
+      {productModalOpen && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
+            <div className="admin-modal-header">
+              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.15rem' }}>
+                {editingProduct ? 'Edit Turnkey Product' : 'Add New Turnkey Product'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setProductModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveProduct}>
               <div className="admin-modal-body">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="admin-form-group">
+                  <label className="admin-label">Product Title *</label>
+                  <input
+                    type="text"
+                    required
+                    className="admin-input"
+                    value={productForm.title}
+                    onChange={(e) => setProductForm({ ...productForm, title: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Subtitle / Value Tagline</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={productForm.subtitle}
+                    onChange={(e) => setProductForm({ ...productForm, subtitle: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-grid-2">
                   <div className="admin-form-group">
-                    <label className="admin-label">Product Title *</label>
+                    <label className="admin-label">Category</label>
                     <input
                       type="text"
-                      required
                       className="admin-input"
-                      value={form.title}
-                      onChange={(e) => setForm({ ...form, title: e.target.value })}
+                      value={productForm.category}
+                      onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-label">Tagline / Subtitle</label>
+                    <label className="admin-label">Industry</label>
                     <input
                       type="text"
                       className="admin-input"
-                      value={form.subtitle}
-                      onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
+                      value={productForm.industry}
+                      onChange={(e) => setProductForm({ ...productForm, industry: e.target.value })}
                     />
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                <div className="admin-grid-2">
                   <div className="admin-form-group">
-                    <label className="admin-label">Category</label>
-                    <select
-                      className="admin-select"
-                      value={form.category}
-                      onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    >
-                      <option value="education">Education & Campus</option>
-                      <option value="healthcare">Healthcare & Pharma</option>
-                      <option value="real-estate">Real Estate & Rentals</option>
-                      <option value="enterprise">ERP, HR & Projects</option>
-                      <option value="ecommerce">E-Commerce & Retail</option>
-                      <option value="mobility">Mobility & Car Rental</option>
-                      <option value="lifestyle">Fitness, Dating & Salon</option>
-                    </select>
-                  </div>
-
-                  <div className="admin-form-group">
-                    <label className="admin-label">Industry Name</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={form.industry}
-                      onChange={(e) => setForm({ ...form, industry: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="admin-form-group">
-                    <label className="admin-label">YouTube Video ID</label>
+                    <label className="admin-label">YouTube Video ID (GPuZ0QpRypw)</label>
                     <input
                       type="text"
                       className="admin-input"
                       placeholder="e.g. GPuZ0QpRypw"
-                      value={form.youtube_id}
-                      onChange={(e) => setForm({ ...form, youtube_id: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Badge Label</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={form.badge}
-                      onChange={(e) => setForm({ ...form, badge: e.target.value })}
+                      value={productForm.youtube_id}
+                      onChange={(e) => setProductForm({ ...productForm, youtube_id: e.target.value })}
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label className="admin-label">Badge Color</label>
-                    <select
-                      className="admin-select"
-                      value={form.badge_color}
-                      onChange={(e) => setForm({ ...form, badge_color: e.target.value })}
-                    >
-                      <option value="orange">Orange</option>
-                      <option value="purple">Purple</option>
-                      <option value="cyan">Cyan</option>
-                    </select>
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Turnaround Days</label>
+                    <label className="admin-label">Deployment Turnaround</label>
                     <input
                       type="text"
                       className="admin-input"
-                      value={form.deployment_days}
-                      onChange={(e) => setForm({ ...form, deployment_days: e.target.value })}
+                      value={productForm.deployment_days}
+                      onChange={(e) => setProductForm({ ...productForm, deployment_days: e.target.value })}
                     />
                   </div>
                 </div>
 
                 <div className="admin-form-group">
-                  <label className="admin-label">Product Summary</label>
+                  <label className="admin-label">Summary</label>
                   <textarea
                     rows={3}
                     className="admin-textarea"
-                    value={form.summary}
-                    onChange={(e) => setForm({ ...form, summary: e.target.value })}
+                    value={productForm.summary}
+                    onChange={(e) => setProductForm({ ...productForm, summary: e.target.value })}
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Key Features (One per line)</label>
-                    <textarea
-                      rows={4}
-                      className="admin-textarea"
-                      value={form.key_features_raw}
-                      onChange={(e) => setForm({ ...form, key_features_raw: e.target.value })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label className="admin-label">Tech Stack (One per line)</label>
-                    <textarea
-                      rows={4}
-                      className="admin-textarea"
-                      value={form.tech_stack_raw}
-                      onChange={(e) => setForm({ ...form, tech_stack_raw: e.target.value })}
-                    />
-                  </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Key Features (One per line)</label>
+                  <textarea
+                    rows={4}
+                    className="admin-textarea"
+                    value={productForm.key_features_raw}
+                    onChange={(e) => setProductForm({ ...productForm, key_features_raw: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Tech Stack (One per line)</label>
+                  <textarea
+                    rows={3}
+                    className="admin-textarea"
+                    value={productForm.tech_stack_raw}
+                    onChange={(e) => setProductForm({ ...productForm, tech_stack_raw: e.target.value })}
+                  />
                 </div>
               </div>
 
               <div className="admin-modal-footer">
                 <button
                   type="button"
-                  onClick={() => setModalOpen(false)}
+                  onClick={() => setProductModalOpen(false)}
                   className="admin-btn admin-btn-secondary"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="admin-btn admin-btn-primary">
-                  <Save size={15} />
-                  <span>Save Product</span>
+                <button type="submit" disabled={saving} className="admin-btn admin-btn-primary">
+                  <Save size={16} />
+                  <span>{saving ? 'Saving...' : 'Save & Publish Product'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* PROJECT MODAL */}
+      {projectModalOpen && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
+            <div className="admin-modal-header">
+              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.15rem' }}>
+                {editingProject ? 'Edit Portfolio Delivery' : 'Add New Portfolio Delivery'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setProjectModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveProject}>
+              <div className="admin-modal-body">
+                <div className="admin-form-group">
+                  <label className="admin-label">Project / Brand Title *</label>
+                  <input
+                    type="text"
+                    required
+                    className="admin-input"
+                    value={projectForm.title}
+                    onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-grid-2">
+                  <div className="admin-form-group">
+                    <label className="admin-label">Category</label>
+                    <select
+                      className="admin-select"
+                      value={projectForm.category}
+                      onChange={(e) => setProjectForm({ ...projectForm, category: e.target.value })}
+                    >
+                      <option value="Website">Website</option>
+                      <option value="Android / IOS - Mobile Apps">Android / IOS - Mobile Apps</option>
+                      <option value="Web Apps">Web Apps</option>
+                      <option value="E-Commerce">E-Commerce</option>
+                    </select>
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Type / Subtitle</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={projectForm.type}
+                      onChange={(e) => setProjectForm({ ...projectForm, type: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Live Link / Website URL</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={projectForm.link}
+                    onChange={(e) => setProjectForm({ ...projectForm, link: e.target.value })}
+                  />
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Project Scope Summary</label>
+                  <textarea
+                    rows={3}
+                    className="admin-textarea"
+                    value={projectForm.summary}
+                    onChange={(e) => setProjectForm({ ...projectForm, summary: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-modal-footer">
+                <button
+                  type="button"
+                  onClick={() => setProjectModalOpen(false)}
+                  className="admin-btn admin-btn-secondary"
+                >
+                  Cancel
+                </button>
+                <button type="submit" disabled={saving} className="admin-btn admin-btn-primary">
+                  <Save size={16} />
+                  <span>{saving ? 'Saving...' : 'Save & Publish Delivery'}</span>
                 </button>
               </div>
             </form>
@@ -435,4 +653,3 @@ export default function ProjectsManager() {
     </div>
   );
 }
-

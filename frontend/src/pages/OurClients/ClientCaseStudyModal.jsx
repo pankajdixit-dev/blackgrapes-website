@@ -42,7 +42,7 @@ export default function ClientCaseStudyModal({ client, onClose, onOpenDemoModal 
           <div className="client-modal-brand-row">
             {client.logo && (
               <div className="client-modal-logo-frame">
-                <img src={client.logo} alt={title} className="client-modal-logo-img" onError={(e) => { e.target.onerror = null; e.target.src = "/bgst-logo.png"; }} />
+                <img src={client.logo} alt={title} className="client-modal-logo-img" />
               </div>
             )}
             <div>

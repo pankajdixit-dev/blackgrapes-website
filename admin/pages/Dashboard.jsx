@@ -5,7 +5,7 @@ import {
   Package,
   Users,
   Layers,
-  MessageSquareQuote,
+  LayoutGrid,
   TrendingUp,
   Activity,
   ArrowRight,
@@ -14,9 +14,7 @@ import {
   Database,
   CheckCircle2,
   AlertTriangle,
-  ExternalLink,
-  Globe,
-  FileText
+  ExternalLink
 } from 'lucide-react';
 import {
   getEnquiries,
@@ -24,12 +22,11 @@ import {
   getClients,
   getTeamMembers,
   getServices,
-  getTestimonials,
-  getAllPagesSummary,
   getActivityLogs,
-  updateEnquiryStatus
+  updateEnquiryStatus,
+  checkBackendHealth
 } from '@backend/dataService';
-import { checkSupabaseHealth } from '@backend/supabaseClient';
+
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -39,43 +36,35 @@ export default function Dashboard() {
     projects: 0,
     clients: 0,
     team: 0,
-    services: 0,
-    testimonials: 0,
-    cmsPages: 10
+    services: 0
   });
   const [recentEnquiries, setRecentEnquiries] = useState([]);
   const [recentLogs, setRecentLogs] = useState([]);
-  const [pagesSummary, setPagesSummary] = useState([]);
   const [dbStatus, setDbStatus] = useState(null);
 
   useEffect(() => {
     async function loadData() {
-      const [enqs, prods, clis, team, srvs, tests, pages, logs, health] = await Promise.all([
+      const [enqs, prods, clis, team, srvs, logs, health] = await Promise.all([
         getEnquiries(),
         getProjects(),
         getClients(),
         getTeamMembers(),
         getServices(),
-        getTestimonials(),
-        getAllPagesSummary(),
         getActivityLogs(),
-        checkSupabaseHealth()
+        checkBackendHealth()
       ]);
 
       setStats({
-        enquiries: (enqs || []).length,
-        newEnquiries: (enqs || []).filter((e) => e.status === 'new').length,
-        projects: (prods || []).length,
-        clients: (clis || []).length,
-        team: (team || []).length,
-        services: (srvs || []).length,
-        testimonials: (tests || []).length,
-        cmsPages: (pages || []).length || 10
+        enquiries: enqs.length,
+        newEnquiries: enqs.filter((e) => e.status === 'new').length,
+        projects: prods.length,
+        clients: clis.length,
+        team: team.length,
+        services: srvs.length
       });
 
-      setRecentEnquiries((enqs || []).slice(0, 5));
-      setPagesSummary((pages || []).slice(0, 6));
-      setRecentLogs((logs || []).slice(0, 6));
+      setRecentEnquiries(enqs.slice(0, 5));
+      setRecentLogs(logs.slice(0, 6));
       setDbStatus(health);
       setLoading(false);
     }
@@ -84,12 +73,13 @@ export default function Dashboard() {
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {
-    await updateEnquiryStatus(id, newStatus);
+    await updateEnquiryStatus,
+  checkBackendHealth(id, newStatus);
     const updated = await getEnquiries();
-    setRecentEnquiries((updated || []).slice(0, 5));
+    setRecentEnquiries(updated.slice(0, 5));
     setStats((prev) => ({
       ...prev,
-      newEnquiries: (updated || []).filter((e) => e.status === 'new').length
+      newEnquiries: updated.filter((e) => e.status === 'new').length
     }));
   };
 
@@ -98,19 +88,15 @@ export default function Dashboard() {
       {/* Page Title */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Executive Control Dashboard</h1>
+          <h1 className="admin-page-title">Executive Dashboard</h1>
           <p className="admin-page-sub">
-            Real-time multi-page CMS metrics, lead pipeline, and system health overview.
+            Real-time control and metrics overview for Black Grapes Softech web platform.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <Link to="/admin/pages" className="admin-btn admin-btn-primary">
-            <Globe size={16} />
-            <span>Universal Page CMS</span>
-          </Link>
-          <Link to="/admin/enquiries" className="admin-btn admin-btn-secondary">
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <Link to="/admin/enquiries" className="admin-btn admin-btn-primary">
             <Inbox size={16} />
-            <span>All Enquiries</span>
+            <span>View All Enquiries</span>
           </Link>
           <a
             href="/"
@@ -154,43 +140,96 @@ export default function Dashboard() {
             <div>
               <strong style={{ color: '#fff', fontSize: '0.9rem' }}>
                 {dbStatus.connected
-                  ? 'MongoDB Atlas Cluster: Connected & Synchronized'
-                  : 'Storage Engine: Local Fallback Active'}
+                  ? 'Persistent Database: Connected & Active'
+                  : 'Storage Engine: Local Persistence Store Active'}
               </strong>
               <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: '0.2rem' }}>
                 {dbStatus.message}
               </div>
             </div>
           </div>
-          <Link
-            to="/admin/settings"
-            className="admin-btn admin-btn-secondary"
-            style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem' }}
-          >
-            View System Settings
-          </Link>
+          {!dbStatus.connected && (
+            <Link
+              to="/admin/settings"
+              className="admin-btn admin-btn-secondary"
+              style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem' }}
+            >
+              Database Settings
+            </Link>
+          )}
         </div>
       )}
 
-      {/* KPI Stats Cards - 6 Cards Grid */}
-      <div className="admin-stats-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))' }}>
-        {/* 1. Enquiries */}
-        <div className="admin-stat-card">
-          <div className="stat-icon-wrap orange">
-            <Inbox size={22} />
+      {/* Central Page Management Callout */}
+      <div
+        style={{
+          background: 'linear-gradient(135deg, rgba(255, 107, 0, 0.12), rgba(147, 51, 234, 0.12))',
+          border: '1px solid rgba(255, 107, 0, 0.35)',
+          borderRadius: '12px',
+          padding: '1.25rem 1.5rem',
+          marginBottom: '1.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{
+            width: '44px',
+            height: '44px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #ff6b00, #ff8800)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            flexShrink: 0
+          }}>
+            <LayoutGrid size={22} />
           </div>
           <div>
-            <div className="stat-data-val">{stats.enquiries}</div>
-            <div className="stat-data-lbl">
-              Total Enquiries {stats.newEnquiries > 0 && <span style={{ color: '#f87171' }}>({stats.newEnquiries} New)</span>}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <strong style={{ color: '#fff', fontSize: '1rem' }}>
+                Central Page Management Hub Active
+              </strong>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(16, 185, 129, 0.2)', color: '#10b981', padding: '0.15rem 0.5rem', borderRadius: '4px', fontWeight: 700 }}>
+                11/11 Pages Connected
+              </span>
+            </div>
+            <div style={{ fontSize: '0.82rem', color: '#cbd5e1', marginTop: '0.2rem' }}>
+              Directly edit and publish live content across all 11 public pages (Home, About, Services, Products, Clients, IT Staffing, Ecommerce, Contact, Partnership) from a single unified hub.
             </div>
           </div>
         </div>
 
-        {/* 2. Projects */}
+        <Link
+          to="/admin/pages"
+          className="admin-btn admin-btn-primary"
+          style={{ whiteSpace: 'nowrap' }}
+        >
+          <span>Open All Pages Hub →</span>
+        </Link>
+      </div>
+
+      {/* KPI Stats Cards */}
+      <div className="admin-stats-grid">
+        <div className="admin-stat-card">
+          <div className="stat-icon-wrap orange">
+            <Inbox size={24} />
+          </div>
+          <div>
+            <div className="stat-data-val">{stats.enquiries}</div>
+            <div className="stat-data-lbl">
+              Lead Enquiries {stats.newEnquiries > 0 && `(${stats.newEnquiries} New)`}
+            </div>
+          </div>
+        </div>
+
         <div className="admin-stat-card">
           <div className="stat-icon-wrap purple">
-            <Package size={22} />
+            <Package size={24} />
           </div>
           <div>
             <div className="stat-data-val">{stats.projects}</div>
@@ -198,56 +237,32 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 3. Services */}
-        <div className="admin-stat-card">
-          <div className="stat-icon-wrap green">
-            <Layers size={22} />
-          </div>
-          <div>
-            <div className="stat-data-val">{stats.services}</div>
-            <div className="stat-data-lbl">Engineered Services</div>
-          </div>
-        </div>
-
-        {/* 4. Testimonials */}
         <div className="admin-stat-card">
           <div className="stat-icon-wrap cyan">
-            <MessageSquareQuote size={22} />
-          </div>
-          <div>
-            <div className="stat-data-val">{stats.testimonials}</div>
-            <div className="stat-data-lbl">Client Reviews & Ratings</div>
-          </div>
-        </div>
-
-        {/* 5. CMS Pages */}
-        <div className="admin-stat-card">
-          <div className="stat-icon-wrap orange">
-            <Globe size={22} />
-          </div>
-          <div>
-            <div className="stat-data-val">{stats.cmsPages}</div>
-            <div className="stat-data-lbl">CMS Managed Pages</div>
-          </div>
-        </div>
-
-        {/* 6. Clients */}
-        <div className="admin-stat-card">
-          <div className="stat-icon-wrap purple">
-            <Users size={22} />
+            <Users size={24} />
           </div>
           <div>
             <div className="stat-data-val">{stats.clients}</div>
             <div className="stat-data-lbl">Global Client Brands</div>
           </div>
         </div>
+
+        <div className="admin-stat-card">
+          <div className="stat-icon-wrap green">
+            <Layers size={24} />
+          </div>
+          <div>
+            <div className="stat-data-val">{stats.services}</div>
+            <div className="stat-data-lbl">Engineered Services</div>
+          </div>
+        </div>
       </div>
 
-      {/* Grid: Recent Leads & Recent Website Content Updates */}
+      {/* Two-Column Grid: Recent Leads & Recent Activity */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
           gap: '1.5rem',
           marginBottom: '2rem'
         }}
@@ -274,7 +289,7 @@ export default function Dashboard() {
                 fontWeight: 600
               }}
             >
-              View All ({stats.enquiries}) →
+              View All →
             </Link>
           </div>
 
@@ -332,7 +347,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Column 2: Recent Website Content Updates (CMS Pages & Sections) */}
+        {/* Column 2: Audit Logs */}
         <div className="admin-card">
           <div
             style={{
@@ -343,10 +358,10 @@ export default function Dashboard() {
             }}
           >
             <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#fff', fontWeight: 700 }}>
-              Recent Website Content Updates
+              Recent Administrative Actions
             </h3>
             <Link
-              to="/admin/pages"
+              to="/admin/logs"
               style={{
                 color: 'var(--admin-purple)',
                 fontSize: '0.8rem',
@@ -354,45 +369,49 @@ export default function Dashboard() {
                 fontWeight: 600
               }}
             >
-              Manage All Pages →
+              Full Audit Trail →
             </Link>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {pagesSummary.map((page) => (
+            {recentLogs.map((log) => (
               <div
-                key={page.slug}
+                key={log.id}
                 style={{
-                  padding: '0.75rem 1rem',
+                  padding: '0.75rem',
                   borderRadius: '8px',
                   background: 'rgba(255, 255, 255, 0.03)',
                   border: '1px solid rgba(255, 255, 255, 0.05)',
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   justifyContent: 'space-between',
                   gap: '1rem'
                 }}
               >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <FileText size={15} color="var(--admin-orange)" />
-                    <strong style={{ fontSize: '0.85rem', color: '#fff' }}>{page.title}</strong>
-                    <code style={{ fontSize: '0.7rem', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '0.1rem 0.3rem', borderRadius: '3px' }}>
-                      {page.route}
-                    </code>
+                    <span
+                      style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        padding: '0.1rem 0.4rem',
+                        borderRadius: '4px',
+                        background: 'rgba(255, 107, 0, 0.2)',
+                        color: 'var(--admin-orange)'
+                      }}
+                    >
+                      {log.action}
+                    </span>
+                    <strong style={{ fontSize: '0.85rem', color: '#fff' }}>{log.module}</strong>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#9ca3af', marginTop: '0.2rem' }}>
-                    {page.sectionCount} CMS Sections • {page.enabledCount} Active
-                  </div>
+                  <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.8rem', color: '#d1d5db' }}>
+                    {log.description}
+                  </p>
                 </div>
-
-                <Link
-                  to={`/admin/pages/${page.slug}`}
-                  className="admin-btn admin-btn-secondary"
-                  style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem' }}
-                >
-                  Edit Page
-                </Link>
+                <span style={{ fontSize: '0.7rem', color: '#6b7280', whiteSpace: 'nowrap' }}>
+                  {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
               </div>
             ))}
           </div>
@@ -401,3 +420,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

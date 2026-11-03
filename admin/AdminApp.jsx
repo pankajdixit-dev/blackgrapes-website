@@ -3,10 +3,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
+import CentralPageManager from './pages/CentralPageManager';
 import HomePageManager from './pages/HomePageManager';
 import AboutPageManager from './pages/AboutPageManager';
 import ServicesManager from './pages/ServicesManager';
 import ProjectsManager from './pages/ProjectsManager';
+import ClientsManager from './pages/ClientsManager';
+import ITStaffingManager from './pages/ITStaffingManager';
+import EcommerceManager from './pages/EcommerceManager';
+import PartnershipManager from './pages/PartnershipManager';
 import TeamManager from './pages/TeamManager';
 import TestimonialsManager from './pages/TestimonialsManager';
 import BlogManager from './pages/BlogManager';
@@ -15,7 +20,6 @@ import HeaderManager from './pages/HeaderManager';
 import FooterManager from './pages/FooterManager';
 import MenuManager from './pages/MenuManager';
 import MediaLibrary from './pages/MediaLibrary';
-import PageContentManager from './pages/PageContentManager';
 import SeoManager from './pages/SeoManager';
 import EnquiryManager from './pages/EnquiryManager';
 import WebsiteSettings from './pages/WebsiteSettings';
@@ -37,12 +41,15 @@ export default function AdminApp() {
         {/* Admin Modules */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="pages" element={<CentralPageManager />} />
           <Route path="home" element={<HomePageManager />} />
           <Route path="about" element={<AboutPageManager />} />
-          <Route path="pages" element={<PageContentManager />} />
-          <Route path="pages/:pageSlug" element={<PageContentManager />} />
           <Route path="services" element={<ServicesManager />} />
           <Route path="projects" element={<ProjectsManager />} />
+          <Route path="clients" element={<ClientsManager />} />
+          <Route path="it-staffing" element={<ITStaffingManager />} />
+          <Route path="ecommerce" element={<EcommerceManager />} />
+          <Route path="partnership" element={<PartnershipManager />} />
           <Route path="team" element={<TeamManager />} />
           <Route path="testimonials" element={<TestimonialsManager />} />
           <Route path="blog" element={<BlogManager />} />

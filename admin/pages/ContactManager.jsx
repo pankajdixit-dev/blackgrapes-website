@@ -7,17 +7,22 @@ import {
   CheckCircle,
   Building,
   Globe,
-  ExternalLink
+  ExternalLink,
+  Clock
 } from 'lucide-react';
-import { getSiteSettings, updateSiteSettings } from '@backend/dataService';
+import { getSiteSettings, updateSiteSettings, getContactPage, saveContactPage } from '@backend/dataService';
 
 export default function ContactManager() {
   const [settings, setSettings] = useState(null);
+  const [contactPage, setContactPage] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
-    getSiteSettings().then((res) => setSettings(res));
+    Promise.all([getSiteSettings(), getContactPage()]).then(([sRes, cRes]) => {
+      setSettings(sRes);
+      setContactPage(cRes);
+    });
   }, []);
 
   const showToast = (msg) => {
@@ -26,14 +31,17 @@ export default function ContactManager() {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setSaving(true);
-    await updateSiteSettings(settings);
+    await Promise.all([
+      updateSiteSettings(settings),
+      saveContactPage(contactPage)
+    ]);
     setSaving(false);
-    showToast('Contact coordinates saved and updated on live website.');
+    showToast('Contact coordinates & addresses published live via WebSocket!');
   };
 
-  if (!settings) {
+  if (!settings || !contactPage) {
     return <div style={{ color: '#9ca3af', padding: '2rem' }}>Loading contact coordinates...</div>;
   }
 
@@ -50,37 +58,87 @@ export default function ContactManager() {
         <div>
           <h1 className="admin-page-title">Contact & Location Coordinates</h1>
           <p className="admin-page-sub">
-            Manage official office addresses, phone numbers, and support email addresses.
+            Manage official registered office, development center, hotline phone numbers, and support email addresses across all pages.
           </p>
         </div>
-        <button onClick={handleSave} disabled={saving} className="admin-btn admin-btn-primary">
-          <Save size={16} />
-          <span>{saving ? 'Saving...' : 'Save Coordinates'}</span>
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a
+            href="/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+            title="Preview live contact page"
+          >
+            <ExternalLink size={16} />
+            <span>View Live Page</span>
+          </a>
+          <button onClick={handleSave} disabled={saving} className="admin-btn admin-btn-primary">
+            <Save size={16} />
+            <span>{saving ? 'Publishing...' : 'Save & Publish Live'}</span>
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSave}>
+        {/* Office Locations */}
         <div className="admin-card">
           <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
-            Office Physical Address & Headquarter
+            Office Physical Addresses
           </h3>
 
           <div className="admin-form-group">
-            <label className="admin-label">Registered Office Address</label>
+            <label className="admin-label">Address 1 (Registered Headquarter)</label>
             <textarea
-              rows={3}
+              rows={2}
               className="admin-textarea"
-              value={settings.office_address || ''}
-              onChange={(e) => setSettings({ ...settings, office_address: e.target.value })}
+              value={contactPage.address1Text || settings.office_address || ''}
+              onChange={(e) => {
+                setSettings({ ...settings, office_address: e.target.value });
+                setContactPage({ ...contactPage, address1Text: e.target.value });
+              }}
             />
-            <span style={{ fontSize: '0.75rem', color: '#9ca3af', marginTop: '0.25rem', display: 'block' }}>
-              Displayed on the top header, footer, contact placeholders, and demo confirmation.
-            </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div className="admin-form-group">
+            <label className="admin-label">Address 1 Google Maps Link</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={contactPage.address1MapUrl || ''}
+              onChange={(e) => setContactPage({ ...contactPage, address1MapUrl: e.target.value })}
+            />
+          </div>
+
+          <div className="admin-form-group" style={{ marginTop: '1rem' }}>
+            <label className="admin-label">Address 2 (Development Centre)</label>
+            <textarea
+              rows={2}
+              className="admin-textarea"
+              value={contactPage.address2Text || ''}
+              onChange={(e) => setContactPage({ ...contactPage, address2Text: e.target.value })}
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Address 2 Google Maps Link</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={contactPage.address2MapUrl || ''}
+              onChange={(e) => setContactPage({ ...contactPage, address2MapUrl: e.target.value })}
+            />
+          </div>
+        </div>
+
+        {/* Direct Contact Numbers & Emails */}
+        <div className="admin-card">
+          <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
+            Communication & Direct Hotline Channels
+          </h3>
+
+          <div className="admin-grid-2">
             <div className="admin-form-group">
-              <label className="admin-label">Primary Hotline Phone</label>
+              <label className="admin-label">Primary Executive Phone (Arpit Jain)</label>
               <input
                 type="text"
                 className="admin-input"
@@ -89,7 +147,7 @@ export default function ContactManager() {
               />
             </div>
             <div className="admin-form-group">
-              <label className="admin-label">Secondary Hotline Phone</label>
+              <label className="admin-label">Secondary Executive Phone</label>
               <input
                 type="text"
                 className="admin-input"
@@ -99,7 +157,7 @@ export default function ContactManager() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div className="admin-grid-2">
             <div className="admin-form-group">
               <label className="admin-label">Primary Inbound Email</label>
               <input
@@ -119,14 +177,25 @@ export default function ContactManager() {
               />
             </div>
           </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Support Desk Hours</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={contactPage.workingHours || ''}
+              onChange={(e) => setContactPage({ ...contactPage, workingHours: e.target.value })}
+            />
+          </div>
         </div>
 
+        {/* Social Links */}
         <div className="admin-card">
           <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.25rem' }}>
-            Social Media & Communication Links
+            Official Social Media Channels
           </h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div className="admin-grid-2">
             <div className="admin-form-group">
               <label className="admin-label">LinkedIn Corporate URL</label>
               <input
@@ -138,7 +207,7 @@ export default function ContactManager() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">Twitter / X Handle URL</label>
+              <label className="admin-label">Twitter / X URL</label>
               <input
                 type="url"
                 className="admin-input"
@@ -148,7 +217,7 @@ export default function ContactManager() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">Instagram Profile URL</label>
+              <label className="admin-label">Instagram URL</label>
               <input
                 type="url"
                 className="admin-input"
@@ -158,7 +227,7 @@ export default function ContactManager() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">YouTube Official Channel URL</label>
+              <label className="admin-label">YouTube Channel URL</label>
               <input
                 type="url"
                 className="admin-input"
@@ -172,4 +241,3 @@ export default function ContactManager() {
     </div>
   );
 }
-

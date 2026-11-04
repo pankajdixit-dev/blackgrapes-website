@@ -309,6 +309,50 @@ export const DEFAULT_HOME_PAGE = {
       btnText: "Start Your Project With Us"
     }
   },
+  testimonialsSection: {
+    badge: 'WHAT PEOPLE ARE SAYING',
+    titlePrefix: 'Preparing For Your Success • ',
+    titleHighlight: 'Trusted Source In IT Services',
+    subtitle: 'See how Black Grapes Softech delivers real business transformation for leaders and founders.',
+    testimonials: [
+      {
+        name: 'Subodh Bhandari',
+        role: 'Enterprise Client',
+        rating: 5,
+        ratingScore: '5.0 / 5.0 Rating',
+        verifiedBadge: '✓ Verified Client',
+        quote: 'I have had the pleasure of working with Black Grapes Softech Company for the past few years, and I can confidently say that they have significantly transformed our business operations. Their software solutions have not only streamlined our processes but also boosted our efficiency and productivity to new heights.',
+        avatar: 'SB'
+      },
+      {
+        name: 'Kartik Mali',
+        role: 'Business Director',
+        rating: 5,
+        ratingScore: '5.0 / 5.0 Rating',
+        verifiedBadge: '✓ Verified Client',
+        quote: 'From the moment we engaged with Black Grapes Softech, their team demonstrated a deep understanding of our unique business needs. They took the time to listen to our challenges, goals, and aspirations and then tailored their software solutions to meet our specific requirements. The level of customization and flexibility they provided was truly impressive.',
+        avatar: 'KM'
+      },
+      {
+        name: 'Joel Burdine',
+        role: 'Senior UI/UX Designer',
+        rating: 5,
+        ratingScore: '5.0 / 5.0 Rating',
+        verifiedBadge: '✓ Verified Client',
+        quote: 'Working alongside Black Grapes Softech was seamless. Their engineering team takes Figma designs and elevates them with pixel-perfect attention to detail and fluid micro-animations that deliver world-class digital experiences.',
+        avatar: 'JB'
+      },
+      {
+        name: 'Ashley Hoyt',
+        role: 'Creative Director',
+        rating: 5,
+        ratingScore: '5.0 / 5.0 Rating',
+        verifiedBadge: '✓ Verified Client',
+        quote: 'Black Grapes Softech delivered our app ahead of schedule with zero major bugs. Their transparent communication and proactive technological guidance made them feel like an in-house tech department.',
+        avatar: 'AH'
+      }
+    ]
+  },
   whyChooseUs: {
     badge: 'WHY CHOOSE US ?',
     titlePrefix: 'Built On Security, Uncompromising Quality & ',

@@ -10,6 +10,11 @@ export default function WhyChooseUs({ onOpenModal }) {
   const titlePrefix = whyUs.titlePrefix || 'Built On Security, Uncompromising Quality & ';
   const titleHighlight = whyUs.titleHighlight || 'Lifelong Relationships';
   const visionQuote = whyUs.visionQuote || WHY_CHOOSE_US.vision;
+
+  const pillarsList = (Array.isArray(whyUs.pillars) && whyUs.pillars.length > 0)
+    ? whyUs.pillars
+    : WHY_CHOOSE_US.pillars;
+
   return (
     <section id="why-us" className="section why-us-section">
       <div className="container">
@@ -29,11 +34,11 @@ export default function WhyChooseUs({ onOpenModal }) {
 
         {/* 3 Pillars Grid */}
         <div className="why-us-grid home-why-us-grid">
-          {WHY_CHOOSE_US.pillars.map((pillar, idx) => (
+          {pillarsList.map((pillar, idx) => (
             <div key={idx} className="why-us-card home-why-us-card">
               <div className="why-us-img-container">
                 <img
-                  src={pillar.image}
+                  src={pillar.image || (WHY_CHOOSE_US.pillars[idx] && WHY_CHOOSE_US.pillars[idx].image) || '/images/enterprise-security.jpg'}
                   alt={pillar.title}
                   className={`why-us-img why-us-img-${idx + 1}`}
                   loading="lazy"
@@ -48,7 +53,7 @@ export default function WhyChooseUs({ onOpenModal }) {
                 <p className="pillar-description">{pillar.description}</p>
 
                 <div className="pillar-points-list">
-                  {pillar.points.map((pt, pIdx) => (
+                  {(pillar.points || []).map((pt, pIdx) => (
                     <div key={pIdx} className="pillar-point-item">
                       <span className="check-icon">✓</span>
                       <span>{pt}</span>
@@ -65,7 +70,7 @@ export default function WhyChooseUs({ onOpenModal }) {
           <div className="counter-card">
             <div className="counter-icon-wrap">👥</div>
             <div className="counter-data">
-              <span className="counter-number">{COMPANY_INFO.clientsCount}</span>
+              <span className="counter-number">{whyUs.clientsCount || COMPANY_INFO.clientsCount}</span>
               <span className="counter-name">Happy Clients</span>
             </div>
           </div>
@@ -75,7 +80,7 @@ export default function WhyChooseUs({ onOpenModal }) {
           <div className="counter-card">
             <div className="counter-icon-wrap">🚀</div>
             <div className="counter-data">
-              <span className="counter-number">{COMPANY_INFO.projectsCount}</span>
+              <span className="counter-number">{whyUs.projectsCount || COMPANY_INFO.projectsCount}</span>
               <span className="counter-name">Projects Delivered</span>
             </div>
           </div>
@@ -85,8 +90,8 @@ export default function WhyChooseUs({ onOpenModal }) {
           <div className="counter-card">
             <div className="counter-icon-wrap">⚙️</div>
             <div className="counter-data">
-              <span className="counter-number">{COMPANY_INFO.servicesCount}</span>
-              <span className="counter-name">Services & Modules</span>
+              <span className="counter-number">{whyUs.experienceYears ? `${whyUs.experienceYears} Years` : COMPANY_INFO.servicesCount}</span>
+              <span className="counter-name">{whyUs.experienceYears ? 'IT Excellence' : 'Services & Modules'}</span>
             </div>
           </div>
 

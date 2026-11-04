@@ -112,6 +112,15 @@ app.get('/', (req, res) => {
   });
 });
 
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\x1b[31m[Port Busy] Port ${PORT} is already in use by another process. Please close the other process first.\x1b[0m`);
+    process.exit(1);
+  } else {
+    console.error('[Server Error]:', err.message);
+  }
+});
+
 server.listen(PORT, async () => {
   console.log(`\n======================================================`);
   console.log(`🚀 Black Grapes Softech Backend Server RUNNING!`);

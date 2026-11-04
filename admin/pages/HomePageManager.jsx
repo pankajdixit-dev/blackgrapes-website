@@ -19,7 +19,8 @@ import {
   HelpCircle,
   Award,
   X,
-  Briefcase
+  Briefcase,
+  MessageSquareQuote
 } from 'lucide-react';
 import { getHomePage, updateHomePage } from '@backend/dataService';
 import MediaPickerModal from '../components/MediaPickerModal';
@@ -51,7 +52,7 @@ export default function HomePageManager() {
   const [homeData, setHomeData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [activeTab, setActiveTab] = useState('projects');
+  const [activeTab, setActiveTab] = useState('testimonials');
 
   // New badge input state
   const [newBadgeName, setNewBadgeName] = useState('');
@@ -96,6 +97,7 @@ export default function HomePageManager() {
   const servicesSec = homeData.servicesSection || {};
   const about = homeData.aboutSection || {};
   const projectsSec = homeData.projectsSection || {};
+  const testimonialsSec = homeData.testimonialsSection || {};
   const whyUs = homeData.whyChooseUs || {};
   const cta = homeData.ctaBanner || {};
 
@@ -387,6 +389,63 @@ export default function HomePageManager() {
     });
   };
 
+  // Testimonials Section Handlers
+  const updateTestimonialsSec = (field, val) => {
+    setHomeData((prev) => ({
+      ...prev,
+      testimonialsSection: {
+        ...(prev.testimonialsSection || {}),
+        [field]: val
+      }
+    }));
+  };
+
+  const testimonialList = Array.isArray(testimonialsSec.testimonials)
+    ? testimonialsSec.testimonials
+    : [];
+
+  const handleAddTestimonial = () => {
+    const newTestimonial = {
+      name: 'Client Name / Executive',
+      role: 'Enterprise Client / Founder',
+      rating: 5,
+      ratingScore: '5.0 / 5.0 Rating',
+      verifiedBadge: '✓ Verified Client',
+      quote: 'Exceptional digital engineering delivery from Black Grapes Softech. Their team transformed our business processes with speed, agility, and world-class technical precision.',
+      avatar: 'CL'
+    };
+    updateTestimonialsSec('testimonials', [newTestimonial, ...testimonialList]);
+  };
+
+  const handleUpdateTestimonial = (index, field, value) => {
+    const updated = [...testimonialList];
+    updated[index] = {
+      ...updated[index],
+      [field]: value
+    };
+    updateTestimonialsSec('testimonials', updated);
+  };
+
+  const handleDeleteTestimonial = (index) => {
+    const item = testimonialList[index];
+    const name = item?.name || `Review #${index + 1}`;
+    if (!window.confirm(`Are you sure you want to delete testimonial from "${name}"?`)) {
+      return;
+    }
+    const updated = testimonialList.filter((_, i) => i !== index);
+    updateTestimonialsSec('testimonials', updated);
+  };
+
+  const handleMoveTestimonial = (index, direction) => {
+    const targetIdx = index + direction;
+    if (targetIdx < 0 || targetIdx >= testimonialList.length) return;
+    const list = [...testimonialList];
+    const temp = list[index];
+    list[index] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateTestimonialsSec('testimonials', list);
+  };
+
   const handleMediaSelected = (item) => {
     if (item && item.url) {
       if (aboutImageField) {
@@ -423,8 +482,8 @@ export default function HomePageManager() {
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <a
             href={typeof window !== 'undefined' && window.location.port === '5174' 
-              ? `http://localhost:5173/#${activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}` 
-              : `/#${activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}`}
+              ? `http://localhost:5173/#${activeTab === 'testimonials' ? 'testimonials' : activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}` 
+              : `/#${activeTab === 'testimonials' ? 'testimonials' : activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}`}
             target="_blank"
             rel="noreferrer"
             className="admin-btn admin-btn-secondary"
@@ -488,11 +547,19 @@ export default function HomePageManager() {
         </button>
 
         <button
+          className={`admin-tab ${activeTab === 'testimonials' ? 'active' : ''}`}
+          onClick={() => setActiveTab('testimonials')}
+        >
+          <MessageSquareQuote size={16} />
+          <span>6. Client Testimonials & Reviews</span>
+        </button>
+
+        <button
           className={`admin-tab ${activeTab === 'why' ? 'active' : ''}`}
           onClick={() => setActiveTab('why')}
         >
           <ShieldCheck size={16} />
-          <span>6. Why Choose Us & Metrics</span>
+          <span>7. Why Choose Us & Metrics</span>
         </button>
 
         <button
@@ -500,7 +567,7 @@ export default function HomePageManager() {
           onClick={() => setActiveTab('cta')}
         >
           <Megaphone size={16} />
-          <span>7. Bottom CTA Banner</span>
+          <span>8. Bottom CTA Banner</span>
         </button>
       </div>
 
@@ -2326,7 +2393,359 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 6: WHY CHOOSE US & METRICS */}
+      {/* TAB 6: CLIENT TESTIMONIALS & REVIEWS */}
+      {activeTab === 'testimonials' && (
+        <div>
+          {/* Card 1: Section Header */}
+          <div className="admin-card">
+            <h3 style={{ fontSize: '1.15rem', color: '#fff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <MessageSquareQuote size={20} color="var(--admin-orange)" />
+              <span>Testimonials Section Header & Subtitle</span>
+            </h3>
+
+            <div className="admin-grid-3">
+              <div className="admin-form-group">
+                <label className="admin-label">Eyebrow Badge Text</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={testimonialsSec.badge || 'WHAT PEOPLE ARE SAYING'}
+                  onChange={(e) => updateTestimonialsSec('badge', e.target.value)}
+                  placeholder="e.g. WHAT PEOPLE ARE SAYING"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Title Prefix (White text)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={testimonialsSec.titlePrefix !== undefined ? testimonialsSec.titlePrefix : 'Preparing For Your Success • '}
+                  onChange={(e) => updateTestimonialsSec('titlePrefix', e.target.value)}
+                  placeholder="e.g. Preparing For Your Success • "
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Title Highlight (Orange/Gradient text)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={testimonialsSec.titleHighlight !== undefined ? testimonialsSec.titleHighlight : 'Trusted Source In IT Services'}
+                  onChange={(e) => updateTestimonialsSec('titleHighlight', e.target.value)}
+                  placeholder="e.g. Trusted Source In IT Services"
+                />
+              </div>
+            </div>
+
+            <div className="admin-form-group" style={{ marginBottom: 0 }}>
+              <label className="admin-label">Section Subtitle / Description</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={testimonialsSec.subtitle || ''}
+                onChange={(e) => updateTestimonialsSec('subtitle', e.target.value)}
+                placeholder="e.g. See how Black Grapes Softech delivers real business transformation for leaders and founders."
+              />
+            </div>
+          </div>
+
+          {/* Card 2: Dynamic Testimonials Cards Manager */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span>Client Testimonials & Executive Reviews</span>
+                  <span
+                    style={{
+                      background: 'rgba(248, 98, 0, 0.2)',
+                      color: 'var(--admin-orange)',
+                      border: '1px solid rgba(248, 98, 0, 0.35)',
+                      padding: '0.15rem 0.55rem',
+                      borderRadius: '12px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    {testimonialList.length} Active Reviews
+                  </span>
+                </h3>
+                <p style={{ margin: '0.35rem 0 0', fontSize: '0.825rem', color: '#9ca3af' }}>
+                  Manage client review statements, star ratings, roles, and avatar badges shown on the homepage testimonial slider.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddTestimonial}
+                className="admin-btn admin-btn-primary"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.55rem 1.1rem' }}
+              >
+                <Plus size={16} />
+                <span>Add New Testimonial</span>
+              </button>
+            </div>
+
+            {testimonialList.length === 0 ? (
+              <div
+                style={{
+                  padding: '2.5rem 1rem',
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  borderRadius: '8px',
+                  border: '1px dashed var(--admin-border)'
+                }}
+              >
+                <p style={{ color: '#9ca3af', marginBottom: '1rem' }}>
+                  No testimonials currently configured for the homepage.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddTestimonial}
+                  className="admin-btn admin-btn-secondary"
+                >
+                  <Plus size={15} />
+                  <span>Create First Testimonial</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {testimonialList.map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: 'rgba(15, 23, 42, 0.65)',
+                      border: '1px solid var(--admin-border)',
+                      borderRadius: '10px',
+                      padding: '1.25rem',
+                      transition: 'border-color 0.2s',
+                      position: 'relative'
+                    }}
+                  >
+                    {/* Header Row */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '1rem',
+                        paddingBottom: '0.75rem',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+                        flexWrap: 'wrap',
+                        gap: '0.5rem'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                        <span
+                          style={{
+                            background: 'var(--admin-orange)',
+                            color: '#000',
+                            fontWeight: 700,
+                            fontSize: '0.75rem',
+                            padding: '0.2rem 0.55rem',
+                            borderRadius: '4px'
+                          }}
+                        >
+                          #{idx + 1}
+                        </span>
+
+                        <span
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, #f86200, #9333ea)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#fff',
+                            fontWeight: 700,
+                            fontSize: '0.75rem'
+                          }}
+                        >
+                          {item.avatar || 'CL'}
+                        </span>
+
+                        <strong style={{ color: '#fff', fontSize: '1rem' }}>
+                          {item.name || 'Untitled Client'}
+                        </strong>
+
+                        {item.role && (
+                          <span
+                            style={{
+                              background: 'rgba(147, 51, 234, 0.15)',
+                              border: '1px solid rgba(147, 51, 234, 0.35)',
+                              color: '#c084fc',
+                              fontSize: '0.75rem',
+                              padding: '0.15rem 0.5rem',
+                              borderRadius: '4px'
+                            }}
+                          >
+                            {item.role}
+                          </span>
+                        )}
+
+                        <span style={{ color: '#f59e0b', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                          ★ {item.rating || 5} Stars
+                        </span>
+                      </div>
+
+                      {/* Reorder and Delete controls */}
+                      <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveTestimonial(idx, -1)}
+                          disabled={idx === 0}
+                          title="Move Up"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === 0 ? '#4b5563' : '#e5e7eb',
+                            cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowUp size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleMoveTestimonial(idx, 1)}
+                          disabled={idx === testimonialList.length - 1}
+                          title="Move Down"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === testimonialList.length - 1 ? '#4b5563' : '#e5e7eb',
+                            cursor: idx === testimonialList.length - 1 ? 'not-allowed' : 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowDown size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteTestimonial(idx)}
+                          title="Delete Testimonial"
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.12)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                            borderRadius: '4px',
+                            color: '#ef4444',
+                            cursor: 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginLeft: '0.25rem'
+                          }}
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Inputs */}
+                    <div className="admin-grid-2" style={{ marginBottom: '0.75rem' }}>
+                      <div className="admin-form-group">
+                        <label className="admin-label">Client Name</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={item.name || ''}
+                          placeholder="e.g. Subodh Bhandari"
+                          onChange={(e) => handleUpdateTestimonial(idx, 'name', e.target.value)}
+                        />
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Role / Designation / Organization</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={item.role || ''}
+                          placeholder="e.g. Enterprise Client or Business Director"
+                          onChange={(e) => handleUpdateTestimonial(idx, 'role', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-grid-3" style={{ marginBottom: '0.75rem' }}>
+                      <div className="admin-form-group">
+                        <label className="admin-label">Avatar Initials / Icon</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={item.avatar || ''}
+                          placeholder="e.g. SB or KM"
+                          maxLength="4"
+                          onChange={(e) => handleUpdateTestimonial(idx, 'avatar', e.target.value.toUpperCase())}
+                        />
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Star Rating (1 - 5)</label>
+                        <select
+                          className="admin-input"
+                          value={item.rating || 5}
+                          onChange={(e) => handleUpdateTestimonial(idx, 'rating', Number(e.target.value))}
+                        >
+                          <option value={5}>★★★★★ (5 Stars)</option>
+                          <option value={4}>★★★★☆ (4 Stars)</option>
+                          <option value={3}>★★★☆☆ (3 Stars)</option>
+                          <option value={2}>★★☆☆☆ (2 Stars)</option>
+                          <option value={1}>★☆☆☆☆ (1 Star)</option>
+                        </select>
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Rating Label</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={item.ratingScore || '5.0 / 5.0 Rating'}
+                          placeholder="e.g. 5.0 / 5.0 Rating"
+                          onChange={(e) => handleUpdateTestimonial(idx, 'ratingScore', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-form-group" style={{ marginBottom: '0.75rem' }}>
+                      <label className="admin-label">Verification Badge Text</label>
+                      <input
+                        type="text"
+                        className="admin-input"
+                        value={item.verifiedBadge || '✓ Verified Client'}
+                        placeholder="e.g. ✓ Verified Client"
+                        onChange={(e) => handleUpdateTestimonial(idx, 'verifiedBadge', e.target.value)}
+                      />
+                    </div>
+
+                    <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                      <label className="admin-label">Review / Quote Text</label>
+                      <textarea
+                        className="admin-textarea"
+                        rows="3"
+                        value={item.quote || ''}
+                        placeholder="Enter the full testimonial quote provided by the client..."
+                        onChange={(e) => handleUpdateTestimonial(idx, 'quote', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 7: WHY CHOOSE US & METRICS */}
       {activeTab === 'why' && (
         <div>
           <div className="admin-card">
@@ -2417,7 +2836,7 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 7: BOTTOM CTA BANNER */}
+      {/* TAB 8: BOTTOM CTA BANNER */}
       {activeTab === 'cta' && (
         <div>
           <div className="admin-card">

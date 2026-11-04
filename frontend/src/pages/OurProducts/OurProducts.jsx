@@ -36,6 +36,7 @@ import {
   OFFICIAL_INDUSTRIES,
   PRODUCT_GUARANTEES
 } from './productsData';
+import { useProductsPage, useProducts } from '@backend/useContent';
 import ProductVideoModal from './ProductVideoModal';
 import ProductEstimator from './ProductEstimator';
 import productsHeroImg from '../../assets/products-hero.jpg';
@@ -68,24 +69,55 @@ export default function OurProducts({ onOpenDemoModal }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoProduct, setActiveVideoProduct] = useState(null);
 
+  const { productsPageData } = useProductsPage();
+  const { products } = useProducts();
+
+  const productsList = (Array.isArray(products) && products.length > 0)
+    ? products
+    : PRODUCTS_LIST;
+
+  const heroBadge = productsPageData?.badge || 'BLACK GRAPES SOFTECH PROPRIETARY SUITE';
+  const heroTitle = productsPageData?.title || 'Our Products:';
+  const heroTitleAccent = productsPageData?.titleAccent || 'Engineered to Transform Modern Business';
+  const heroDesc = productsPageData?.subtitle || 'Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.';
+  const heroStats = (Array.isArray(productsPageData?.stats) && productsPageData.stats.length > 0)
+    ? productsPageData.stats
+    : [
+        { metric: '12+', label: 'Turnkey Products' },
+        { metric: '100%', label: 'Source Code Ownership' },
+        { metric: '7+', label: 'Core Industries' },
+        { metric: '5-7', label: 'Days Deployment' }
+      ];
+  const primaryBtn = productsPageData?.primaryBtnText || 'Request Live Demo';
+  const secondaryBtn = productsPageData?.secondaryBtnText || 'Browse All Products';
+  const pillTitle = productsPageData?.pillTitle || 'Live Production Ready';
+  const pillSub = productsPageData?.pillSub || 'Cloud Native • Web • iOS • Android';
+  const pillBadge = productsPageData?.pillBadge || 'WHITE-LABEL';
+  const heroImg = productsPageData?.image || productsHeroImg;
+
   // Filtered products calculation
   const filteredProducts = useMemo(() => {
-    return PRODUCTS_LIST.filter((product) => {
+    return productsList.filter((product) => {
       const matchesCategory =
         activeCategory === 'all' || product.category === activeCategory;
 
       const q = searchQuery.toLowerCase().trim();
+      const title = product.title || '';
+      const subtitle = product.subtitle || '';
+      const industry = product.industry || '';
+      const summary = product.summary || '';
+      const features = product.keyFeatures || product.key_features || [];
       const matchesSearch =
         !q ||
-        product.title.toLowerCase().includes(q) ||
-        product.subtitle.toLowerCase().includes(q) ||
-        product.industry.toLowerCase().includes(q) ||
-        product.summary.toLowerCase().includes(q) ||
-        product.keyFeatures.some((feat) => feat.toLowerCase().includes(q));
+        title.toLowerCase().includes(q) ||
+        subtitle.toLowerCase().includes(q) ||
+        industry.toLowerCase().includes(q) ||
+        summary.toLowerCase().includes(q) ||
+        features.some((feat) => typeof feat === 'string' && feat.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, productsList]);
 
   return (
     <div className="products-page">
@@ -100,36 +132,26 @@ export default function OurProducts({ onOpenDemoModal }) {
           <div className="products-hero-content">
             <div className="hero-eyebrow-badge">
               <Sparkles size={14} />
-              <span>BLACK GRAPES SOFTECH PROPRIETARY SUITE</span>
+              <span>{heroBadge}</span>
             </div>
 
             <h1 className="products-hero-title">
-              Our Products: <br />
-              <span className="text-gradient">Engineered to Transform Modern Business</span>
+              {heroTitle} <br />
+              <span className="text-gradient">{heroTitleAccent}</span>
             </h1>
 
             <p className="products-hero-desc">
-              Explore our cutting-edge software solutions designed to transform the way you work and elevate your business to new heights. Our Products showcase a diverse range of powerful and user-friendly software applications tailored to meet the unique needs of modern businesses.
+              {heroDesc}
             </p>
 
             {/* Quick Metrics Bar */}
             <div className="hero-stats-row">
-              <div className="hero-stat-item">
-                <span className="stat-metric text-gradient">12+</span>
-                <span className="stat-label">Turnkey Products</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric">100%</span>
-                <span className="stat-label">Source Code Ownership</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric text-gradient">7+</span>
-                <span className="stat-label">Core Industries</span>
-              </div>
-              <div className="hero-stat-item">
-                <span className="stat-metric">5-7</span>
-                <span className="stat-label">Days Deployment</span>
-              </div>
+              {heroStats.map((stat, idx) => (
+                <div key={idx} className="hero-stat-item">
+                  <span className={`stat-metric ${idx % 2 === 0 ? 'text-gradient' : ''}`}>{stat.metric}</span>
+                  <span className="stat-label">{stat.label}</span>
+                </div>
+              ))}
             </div>
 
             {/* CTA Action Row */}
@@ -138,11 +160,11 @@ export default function OurProducts({ onOpenDemoModal }) {
                 onClick={onOpenDemoModal}
                 className="btn btn-primary btn-pulse-glow"
               >
-                <span>Request Live Demo</span>
+                <span>{primaryBtn}</span>
                 <ArrowRight size={18} />
               </button>
               <a href="#catalog" className="btn btn-secondary">
-                <span>Browse All Products ({PRODUCTS_LIST.length})</span>
+                <span>{secondaryBtn} ({productsList.length})</span>
               </a>
             </div>
           </div>
@@ -151,7 +173,7 @@ export default function OurProducts({ onOpenDemoModal }) {
           <div className="products-hero-visual">
             <div className="hero-image-frame">
               <img
-                src={productsHeroImg}
+                src={heroImg}
                 alt="Black Grapes Softech Enterprise Products Suite"
                 className="hero-showcase-img"
               />
@@ -159,11 +181,11 @@ export default function OurProducts({ onOpenDemoModal }) {
                 <div className="pill-info">
                   <span className="live-indicator-dot"></span>
                   <div>
-                    <div className="pill-title">Live Production Ready</div>
-                    <div className="pill-sub">Cloud Native • Web • iOS • Android</div>
+                    <div className="pill-title">{pillTitle}</div>
+                    <div className="pill-sub">{pillSub}</div>
                   </div>
                 </div>
-                <span className="pill-badge-code">WHITE-LABEL</span>
+                <span className="pill-badge-code">{pillBadge}</span>
               </div>
             </div>
           </div>
@@ -201,7 +223,7 @@ export default function OurProducts({ onOpenDemoModal }) {
             <div className="products-counter-badge">
               <span>Showing:</span>
               <span className="counter-num">{filteredProducts.length}</span>
-              <span>of {PRODUCTS_LIST.length} Products</span>
+              <span>of {productsList.length} Products</span>
             </div>
           </div>
 
@@ -218,8 +240,8 @@ export default function OurProducts({ onOpenDemoModal }) {
                   <span>{cat.label}</span>
                   <span className="tab-badge-count">
                     {cat.id === 'all'
-                      ? PRODUCTS_LIST.length
-                      : PRODUCTS_LIST.filter((p) => p.category === cat.id).length}
+                      ? productsList.length
+                      : productsList.filter((p) => p.category === cat.id).length}
                   </span>
                 </button>
               );
@@ -260,7 +282,7 @@ export default function OurProducts({ onOpenDemoModal }) {
                     title={`Watch live demo of ${product.title}`}
                   >
                     <img
-                      src={`https://img.youtube.com/vi/${product.youtubeId}/hqdefault.jpg`}
+                      src={`https://img.youtube.com/vi/${product.youtubeId || product.youtube_id || 'GPuZ0QpRypw'}/hqdefault.jpg`}
                       alt={product.title}
                       className="video-thumb-img"
                       loading="lazy"
@@ -298,7 +320,7 @@ export default function OurProducts({ onOpenDemoModal }) {
                     <div className="card-features-block">
                       <div className="card-features-heading">Core Capabilities:</div>
                       <ul className="card-feature-list">
-                        {product.keyFeatures.slice(0, 3).map((feat, idx) => (
+                        {(product.keyFeatures || product.key_features || []).slice(0, 3).map((feat, idx) => (
                           <li key={idx} className="card-feature-item">
                             <CheckCircle2 size={15} className="feature-check-icon" />
                             <span>{feat}</span>
@@ -309,13 +331,13 @@ export default function OurProducts({ onOpenDemoModal }) {
 
                     {/* Tech Stack Pills */}
                     <div className="card-tech-row">
-                      {product.techStack.slice(0, 3).map((tech, idx) => (
+                      {(product.techStack || product.tech_stack || []).slice(0, 3).map((tech, idx) => (
                         <span key={idx} className="tech-tag-mini">
                           {tech}
                         </span>
                       ))}
-                      {product.techStack.length > 3 && (
-                        <span className="tech-tag-mini">+{product.techStack.length - 3} more</span>
+                      {(product.techStack || product.tech_stack || []).length > 3 && (
+                        <span className="tech-tag-mini">+{(product.techStack || product.tech_stack || []).length - 3} more</span>
                       )}
                     </div>
 

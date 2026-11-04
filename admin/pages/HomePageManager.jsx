@@ -16,6 +16,8 @@ import {
   ArrowDown,
   Image as ImageIcon,
   FileText,
+  HelpCircle,
+  Award,
   X
 } from 'lucide-react';
 import { getHomePage, updateHomePage } from '@backend/dataService';
@@ -48,7 +50,7 @@ export default function HomePageManager() {
   const [homeData, setHomeData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [activeTab, setActiveTab] = useState('hero');
+  const [activeTab, setActiveTab] = useState('about');
 
   // New badge input state
   const [newBadgeName, setNewBadgeName] = useState('');
@@ -57,6 +59,8 @@ export default function HomePageManager() {
   // Clock Philosophy helper state
   const [newMantraPill, setNewMantraPill] = useState('');
   const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
+  const [serviceImagePickerIdx, setServiceImagePickerIdx] = useState(null);
+  const [aboutImageField, setAboutImageField] = useState(null);
 
   useEffect(() => {
     getHomePage().then((res) => {
@@ -88,6 +92,8 @@ export default function HomePageManager() {
 
   const hero = homeData.hero || {};
   const clock = homeData.clockPhilosophy || {};
+  const servicesSec = homeData.servicesSection || {};
+  const about = homeData.aboutSection || {};
   const whyUs = homeData.whyChooseUs || {};
   const cta = homeData.ctaBanner || {};
 
@@ -102,6 +108,20 @@ export default function HomePageManager() {
     setHomeData({
       ...homeData,
       clockPhilosophy: { ...clock, [field]: val }
+    });
+  };
+
+  const updateServicesSection = (field, val) => {
+    setHomeData({
+      ...homeData,
+      servicesSection: { ...servicesSec, [field]: val }
+    });
+  };
+
+  const updateAbout = (field, val) => {
+    setHomeData({
+      ...homeData,
+      aboutSection: { ...about, [field]: val }
     });
   };
 
@@ -189,6 +209,134 @@ export default function HomePageManager() {
     updateClock('mantraPills', list);
   };
 
+  // Services dynamic helpers
+  const servicesList = Array.isArray(servicesSec.services) ? servicesSec.services : [];
+
+  const handleUpdateService = (idx, field, val) => {
+    const list = [...servicesList];
+    list[idx] = { ...list[idx], [field]: val };
+    updateServicesSection('services', list);
+  };
+
+  const handleAddService = () => {
+    const newService = {
+      id: `service-${Date.now()}`,
+      title: 'New Specialized IT Service',
+      shortDesc: 'Comprehensive description of deliverables, architecture, and technology stack for this service.',
+      image: '/images/software-development-qgntl744xv0yqgpkq1174ayad7qp2f62p90f8mobkw.jpeg',
+      tags: ['Custom Engineering', 'Cloud', 'Enterprise']
+    };
+    const list = [...servicesList, newService];
+    updateServicesSection('services', list);
+  };
+
+  const handleDeleteService = (idx) => {
+    if (!window.confirm(`Are you sure you want to delete "${servicesList[idx]?.title || 'this service'}"?`)) {
+      return;
+    }
+    const list = servicesList.filter((_, i) => i !== idx);
+    updateServicesSection('services', list);
+  };
+
+  const handleMoveService = (idx, direction) => {
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= servicesList.length) return;
+    const list = [...servicesList];
+    const temp = list[idx];
+    list[idx] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateServicesSection('services', list);
+  };
+
+  const tendering = servicesSec.tendering || {};
+  const updateTendering = (field, val) => {
+    updateServicesSection('tendering', { ...tendering, [field]: val });
+  };
+
+  // About Company dynamic helpers
+  const coreValuesList = Array.isArray(about.coreValues) ? about.coreValues : [];
+
+  const handleUpdateCoreValue = (idx, field, val) => {
+    const list = [...coreValuesList];
+    list[idx] = { ...list[idx], [field]: val };
+    updateAbout('coreValues', list);
+  };
+
+  const handleAddCoreValue = () => {
+    const newValue = {
+      title: 'New Innovation Pillar',
+      desc: 'Description detailing this engineering standard, client collaboration methodology, or architecture pillar.'
+    };
+    updateAbout('coreValues', [...coreValuesList, newValue]);
+  };
+
+  const handleDeleteCoreValue = (idx) => {
+    if (!window.confirm(`Are you sure you want to delete "${coreValuesList[idx]?.title || 'this tab'}"?`)) {
+      return;
+    }
+    const list = coreValuesList.filter((_, i) => i !== idx);
+    updateAbout('coreValues', list);
+  };
+
+  const handleMoveCoreValue = (idx, direction) => {
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= coreValuesList.length) return;
+    const list = [...coreValuesList];
+    const temp = list[idx];
+    list[idx] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateAbout('coreValues', list);
+  };
+
+  const qaItemsList = Array.isArray(about.qaItems) ? about.qaItems : [];
+
+  const handleUpdateQaItem = (idx, field, val) => {
+    const list = [...qaItemsList];
+    list[idx] = { ...list[idx], [field]: val };
+    updateAbout('qaItems', list);
+  };
+
+  const handleAddQaItem = () => {
+    const newItem = {
+      q: 'Frequently asked strategic consultation question?',
+      a: 'In-depth answer outlining our enterprise lifecycle, deliverables, and technical ROI.'
+    };
+    updateAbout('qaItems', [...qaItemsList, newItem]);
+  };
+
+  const handleDeleteQaItem = (idx) => {
+    if (!window.confirm(`Are you sure you want to delete question #${idx + 1}?`)) {
+      return;
+    }
+    const list = qaItemsList.filter((_, i) => i !== idx);
+    updateAbout('qaItems', list);
+  };
+
+  const handleMoveQaItem = (idx, direction) => {
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= qaItemsList.length) return;
+    const list = [...qaItemsList];
+    const temp = list[idx];
+    list[idx] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateAbout('qaItems', list);
+  };
+
+  const handleMediaSelected = (item) => {
+    if (item && item.url) {
+      if (aboutImageField) {
+        updateAbout(aboutImageField, item.url);
+        setAboutImageField(null);
+      } else if (serviceImagePickerIdx !== null) {
+        handleUpdateService(serviceImagePickerIdx, 'image', item.url);
+        setServiceImagePickerIdx(null);
+      } else {
+        updateClock('emblemImage', item.url);
+      }
+    }
+    setMediaPickerOpen(false);
+  };
+
   return (
     <div>
       {toastMessage && (
@@ -209,7 +357,7 @@ export default function HomePageManager() {
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <a
-            href={typeof window !== 'undefined' && window.location.port === '5174' ? 'http://localhost:5173/#brand-philosophy' : '/#brand-philosophy'}
+            href={typeof window !== 'undefined' && window.location.port === '5174' ? 'http://localhost:5173/#about' : '/#about'}
             target="_blank"
             rel="noreferrer"
             className="admin-btn admin-btn-secondary"
@@ -231,7 +379,7 @@ export default function HomePageManager() {
       </div>
 
       {/* Section Navigation Tabs */}
-      <div className="admin-tabs" style={{ marginBottom: '1.5rem' }}>
+      <div className="admin-tabs" style={{ marginBottom: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
         <button
           className={`admin-tab ${activeTab === 'hero' ? 'active' : ''}`}
           onClick={() => setActiveTab('hero')}
@@ -249,11 +397,27 @@ export default function HomePageManager() {
         </button>
 
         <button
+          className={`admin-tab ${activeTab === 'services' ? 'active' : ''}`}
+          onClick={() => setActiveTab('services')}
+        >
+          <Layers size={16} />
+          <span>3. Services & Products (What We Do)</span>
+        </button>
+
+        <button
+          className={`admin-tab ${activeTab === 'about' ? 'active' : ''}`}
+          onClick={() => setActiveTab('about')}
+        >
+          <Award size={16} />
+          <span>4. About Company</span>
+        </button>
+
+        <button
           className={`admin-tab ${activeTab === 'why' ? 'active' : ''}`}
           onClick={() => setActiveTab('why')}
         >
           <ShieldCheck size={16} />
-          <span>3. Why Choose Us & Metrics</span>
+          <span>5. Why Choose Us & Metrics</span>
         </button>
 
         <button
@@ -261,7 +425,7 @@ export default function HomePageManager() {
           onClick={() => setActiveTab('cta')}
         >
           <Megaphone size={16} />
-          <span>4. Bottom CTA Banner</span>
+          <span>6. Bottom CTA Banner</span>
         </button>
       </div>
 
@@ -756,7 +920,11 @@ export default function HomePageManager() {
                 />
                 <button
                   type="button"
-                  onClick={() => setMediaPickerOpen(true)}
+                  onClick={() => {
+                    setServiceImagePickerIdx(null);
+                    setAboutImageField(null);
+                    setMediaPickerOpen(true);
+                  }}
                   className="admin-btn admin-btn-secondary"
                   style={{ height: '42px', whiteSpace: 'nowrap', fontSize: '0.85rem' }}
                 >
@@ -808,7 +976,864 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 3: WHY CHOOSE US & METRICS */}
+      {/* TAB 3: SERVICES & PRODUCTS (WHAT WE DO) */}
+      {activeTab === 'services' && (
+        <div>
+          {/* Card 1: Header & Subtitle */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <Layers size={20} color="var(--admin-orange)" />
+              <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                Services Section Header & Narrative
+              </h3>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Top Eyebrow Badge</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={servicesSec.badge || ''}
+                placeholder="WHAT WE DO"
+                onChange={(e) => updateServicesSection('badge', e.target.value)}
+              />
+              <span className="admin-hint">e.g. WHAT WE DO</span>
+            </div>
+
+            <div className="admin-grid-2">
+              <div className="admin-form-group">
+                <label className="admin-label">Main Title Prefix</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={servicesSec.titlePrefix || ''}
+                  placeholder="We Provide Best Quality Services & Products At "
+                  onChange={(e) => updateServicesSection('titlePrefix', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Main Title Highlight (Gradient Color)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={servicesSec.titleHighlight || ''}
+                  placeholder="Affordable Price"
+                  onChange={(e) => updateServicesSection('titleHighlight', e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Section Subtitle / Description</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={servicesSec.subtitle || ''}
+                placeholder="Here is the list of specialized IT services and scalable digital solutions that we provide to elevate your business."
+                onChange={(e) => updateServicesSection('subtitle', e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Card 2: Dynamic Services Grid Cards */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                  Services & Digital Solutions List ({servicesList.length})
+                </h3>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+                  Manage the cards displayed on the homepage. Add, edit titles, descriptions, images, tags, reorder, or delete cards.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddService}
+                className="admin-btn admin-btn-primary"
+                style={{ height: '38px', fontSize: '0.85rem' }}
+              >
+                <Plus size={15} />
+                <span>Add New Service</span>
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {servicesList.map((service, idx) => {
+                const tagsStr = Array.isArray(service.tags) ? service.tags.join(', ') : (service.tags || '');
+                return (
+                  <div
+                    key={service.id || idx}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid var(--admin-border)',
+                      borderRadius: '10px',
+                      padding: '1.25rem',
+                      transition: 'border-color 0.2s'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.05)', paddingBottom: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                        <span style={{
+                          background: 'rgba(255, 107, 0, 0.15)',
+                          color: 'var(--admin-orange)',
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '6px',
+                          fontSize: '0.8rem',
+                          fontWeight: 800
+                        }}>
+                          #{String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <strong style={{ color: '#fff', fontSize: '0.95rem' }}>
+                          {service.title || 'Untitled Service'}
+                        </strong>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveService(idx, -1)}
+                          disabled={idx === 0}
+                          className="admin-action-btn"
+                          title="Move up"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === 0 ? '#4b5563' : '#d1d5db',
+                            cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                            padding: '0.3rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowUp size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveService(idx, 1)}
+                          disabled={idx === servicesList.length - 1}
+                          className="admin-action-btn"
+                          title="Move down"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === servicesList.length - 1 ? '#4b5563' : '#d1d5db',
+                            cursor: idx === servicesList.length - 1 ? 'not-allowed' : 'pointer',
+                            padding: '0.3rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowDown size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteService(idx)}
+                          className="admin-action-btn danger"
+                          title="Delete service"
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.12)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                            borderRadius: '4px',
+                            color: '#ef4444',
+                            cursor: 'pointer',
+                            padding: '0.3rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="admin-grid-2">
+                      <div className="admin-form-group">
+                        <label className="admin-label">Service Title</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={service.title || ''}
+                          onChange={(e) => handleUpdateService(idx, 'title', e.target.value)}
+                          placeholder="e.g. Website Designing and Development"
+                        />
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Card Image URL</label>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <input
+                            type="text"
+                            className="admin-input"
+                            value={service.image || ''}
+                            onChange={(e) => handleUpdateService(idx, 'image', e.target.value)}
+                            placeholder="/images/Website-Designing.jpg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setServiceImagePickerIdx(idx);
+                              setAboutImageField(null);
+                              setMediaPickerOpen(true);
+                            }}
+                            className="admin-btn admin-btn-secondary"
+                            style={{ height: '42px', whiteSpace: 'nowrap', padding: '0 0.8rem', fontSize: '0.8rem' }}
+                            title="Choose from Media Library"
+                          >
+                            <ImageIcon size={14} />
+                            <span>Media</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="admin-form-group">
+                      <label className="admin-label">Short Description</label>
+                      <textarea
+                        className="admin-textarea"
+                        rows="2"
+                        value={service.shortDesc || ''}
+                        onChange={(e) => handleUpdateService(idx, 'shortDesc', e.target.value)}
+                        placeholder="Brief summary of service for the card..."
+                      />
+                    </div>
+
+                    <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                      <label className="admin-label">Technology & Capability Tags (comma separated)</label>
+                      <input
+                        type="text"
+                        className="admin-input"
+                        value={tagsStr}
+                        onChange={(e) => handleUpdateService(idx, 'tags', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+                        placeholder="e.g. React, Next.js, SEO Optimized, Responsive UI, Custom CMS"
+                      />
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
+                        {(Array.isArray(service.tags) ? service.tags : []).map((t, tIdx) => (
+                          <span
+                            key={tIdx}
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid rgba(255, 255, 255, 0.1)',
+                              borderRadius: '4px',
+                              padding: '0.15rem 0.5rem',
+                              fontSize: '0.72rem',
+                              color: '#9ca3af'
+                            }}
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Card 3: Government & Private Tenders Callout Card */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <ShieldCheck size={20} color="var(--admin-orange)" />
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                  Government & Private Tenders Banner
+                </h3>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+                  The bottom callout card featured below the service grid on the homepage.
+                </p>
+              </div>
+            </div>
+
+            <div className="admin-grid-2">
+              <div className="admin-form-group">
+                <label className="admin-label">Tender Badge</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={tendering.badge || ''}
+                  placeholder="GOVERNMENT & PRIVATE TENDERS"
+                  onChange={(e) => updateTendering('badge', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Action Button Text</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={tendering.btnText || ''}
+                  placeholder="Consult Tender Experts"
+                  onChange={(e) => updateTendering('btnText', e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Tender Banner Title</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={tendering.title || ''}
+                placeholder="Specialized Tendering & e-Procurement Technical Services"
+                onChange={(e) => updateTendering('title', e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Tender Banner Description</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={tendering.desc || ''}
+                placeholder="Black Grapes Softech provides end-to-end technical documentation..."
+                onChange={(e) => updateTendering('desc', e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group" style={{ marginBottom: 0 }}>
+              <label className="admin-label">Compliance Highlights / Check Pills (comma separated)</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={Array.isArray(tendering.pills) ? tendering.pills.join(', ') : (tendering.pills || '')}
+                placeholder="✓ GeM Portal Compliance, ✓ Technical RFP Preparation, ✓ Enterprise Security Certification"
+                onChange={(e) => updateTendering('pills', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+              />
+              <span className="admin-hint">Comma separated pills, e.g. ✓ GeM Portal Compliance, ✓ Technical RFP Preparation</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: ABOUT COMPANY */}
+      {activeTab === 'about' && (
+        <div>
+          {/* Card 1: Section Header & Narrative Lead */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <Award size={20} color="var(--admin-orange)" />
+              <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                About Company Section Header & Narrative
+              </h3>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Section Eyebrow Badge</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={about.badge || ''}
+                placeholder="ABOUT COMPANY"
+                onChange={(e) => updateAbout('badge', e.target.value)}
+              />
+              <span className="admin-hint">e.g. ABOUT COMPANY</span>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Main Header Title (Use | for separators)</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={about.mainTitle || ''}
+                placeholder="Best Website Development Company | Best IT Software Company | Best Mobile App Development Company"
+                onChange={(e) => updateAbout('mainTitle', e.target.value)}
+              />
+              <span className="admin-hint">The pipe "|" character creates the stylish gradient divider between titles.</span>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Section Subtitle / Meta Tagline</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={about.subtitle || ''}
+                placeholder="Black Grapes Softech – Best Website Development Company..."
+                onChange={(e) => updateAbout('subtitle', e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Right Column Narrative Heading</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={about.narrativeHeading || ''}
+                placeholder="Transforming Your Boldest Visions Into High-Performance Reality"
+                onChange={(e) => updateAbout('narrativeHeading', e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Primary Narrative Paragraph</label>
+              <textarea
+                className="admin-textarea"
+                rows="4"
+                value={about.primaryParagraph || ''}
+                placeholder="Black Grapes Softech is an IT Company extending its services in the field of Software Development..."
+                onChange={(e) => updateAbout('primaryParagraph', e.target.value)}
+              />
+            </div>
+
+            <div className="admin-form-group" style={{ marginBottom: 0 }}>
+              <label className="admin-label">Secondary Narrative Paragraph</label>
+              <textarea
+                className="admin-textarea"
+                rows="4"
+                value={about.secondaryParagraph || ''}
+                placeholder="Searching a company/agency for best customized IT solutions at affordable price..."
+                onChange={(e) => updateAbout('secondaryParagraph', e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Card 2: Interactive Core Values Tabs */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                  Interactive Core Values Tabs ({coreValuesList.length})
+                </h3>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+                  The 01, 02, 03 tabs displayed on the website right column. Add, update, reorder or delete tabs.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddCoreValue}
+                className="admin-btn admin-btn-primary"
+                style={{ height: '36px', fontSize: '0.85rem' }}
+              >
+                <Plus size={15} />
+                <span>Add Value Tab</span>
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {coreValuesList.map((valItem, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    border: '1px solid var(--admin-border)',
+                    borderRadius: '8px',
+                    padding: '1rem'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--admin-orange)', letterSpacing: '0.5px' }}>
+                      Tab #{String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveCoreValue(idx, -1)}
+                        disabled={idx === 0}
+                        className="admin-action-btn"
+                        title="Move tab up"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid var(--admin-border)',
+                          borderRadius: '4px',
+                          color: idx === 0 ? '#4b5563' : '#d1d5db',
+                          cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <ArrowUp size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveCoreValue(idx, 1)}
+                        disabled={idx === coreValuesList.length - 1}
+                        className="admin-action-btn"
+                        title="Move tab down"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid var(--admin-border)',
+                          borderRadius: '4px',
+                          color: idx === coreValuesList.length - 1 ? '#4b5563' : '#d1d5db',
+                          cursor: idx === coreValuesList.length - 1 ? 'not-allowed' : 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <ArrowDown size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteCoreValue(idx)}
+                        className="admin-action-btn danger"
+                        title="Delete tab"
+                        style={{
+                          background: 'rgba(239, 68, 68, 0.12)',
+                          border: '1px solid rgba(239, 68, 68, 0.3)',
+                          borderRadius: '4px',
+                          color: '#ef4444',
+                          cursor: 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="admin-form-group" style={{ marginBottom: '0.65rem' }}>
+                    <label className="admin-label">Tab Title</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={valItem.title || ''}
+                      placeholder="e.g. Passionate Craftsmanship"
+                      onChange={(e) => handleUpdateCoreValue(idx, 'title', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                    <label className="admin-label">Tab Description</label>
+                    <textarea
+                      className="admin-textarea"
+                      rows="2"
+                      value={valItem.desc || ''}
+                      placeholder="Relentless attention to code quality, modern UX patterns..."
+                      onChange={(e) => handleUpdateCoreValue(idx, 'desc', e.target.value)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 3: Strategic Consultation Highlights (Q&A Accordion) */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <HelpCircle size={18} color="var(--admin-orange)" />
+                  <span>Strategic Consultation Highlights ({qaItemsList.length})</span>
+                </h3>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+                  The accordion FAQ questions & answers displayed under Strategic Consultation.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddQaItem}
+                className="admin-btn admin-btn-primary"
+                style={{ height: '36px', fontSize: '0.85rem' }}
+              >
+                <Plus size={15} />
+                <span>Add Q&A Item</span>
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {qaItemsList.map((qa, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    border: '1px solid var(--admin-border)',
+                    borderRadius: '8px',
+                    padding: '1rem'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--admin-orange)', letterSpacing: '0.5px' }}>
+                      Question #{idx + 1}
+                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveQaItem(idx, -1)}
+                        disabled={idx === 0}
+                        className="admin-action-btn"
+                        title="Move question up"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid var(--admin-border)',
+                          borderRadius: '4px',
+                          color: idx === 0 ? '#4b5563' : '#d1d5db',
+                          cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <ArrowUp size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveQaItem(idx, 1)}
+                        disabled={idx === qaItemsList.length - 1}
+                        className="admin-action-btn"
+                        title="Move question down"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid var(--admin-border)',
+                          borderRadius: '4px',
+                          color: idx === qaItemsList.length - 1 ? '#4b5563' : '#d1d5db',
+                          cursor: idx === qaItemsList.length - 1 ? 'not-allowed' : 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <ArrowDown size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteQaItem(idx)}
+                        className="admin-action-btn danger"
+                        title="Delete question"
+                        style={{
+                          background: 'rgba(239, 68, 68, 0.12)',
+                          border: '1px solid rgba(239, 68, 68, 0.3)',
+                          borderRadius: '4px',
+                          color: '#ef4444',
+                          cursor: 'pointer',
+                          padding: '0.25rem 0.45rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="admin-form-group" style={{ marginBottom: '0.65rem' }}>
+                    <label className="admin-label">Question</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={qa.q || ''}
+                      placeholder="e.g. The purpose of life coaching & IT strategy?"
+                      onChange={(e) => handleUpdateQaItem(idx, 'q', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                    <label className="admin-label">Answer Pane Content</label>
+                    <textarea
+                      className="admin-textarea"
+                      rows="2"
+                      value={qa.a || ''}
+                      placeholder="Strategic alignment between your commercial vision and technical infrastructure..."
+                      onChange={(e) => handleUpdateQaItem(idx, 'a', e.target.value)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 4: Left Column Visual Showcase & Tech Architecture Cards */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <ImageIcon size={20} color="var(--admin-orange)" />
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0 }}>
+                  Left Column Visual Cards & Infographics
+                </h3>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+                  The graphic artwork cards displayed on the left column of the About Company section.
+                </p>
+              </div>
+            </div>
+
+            {/* Showcase Card 1 */}
+            <div style={{ background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--admin-border)', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem' }}>
+              <h4 style={{ color: '#fff', fontSize: '0.95rem', margin: '0 0 0.75rem' }}>1. Top Grapes Showcase Card</h4>
+              
+              <div className="admin-form-group">
+                <label className="admin-label">Image URL</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.showcaseImage || '/images/blackgrapes-1.png'}
+                    onChange={(e) => updateAbout('showcaseImage', e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAboutImageField('showcaseImage');
+                      setServiceImagePickerIdx(null);
+                      setMediaPickerOpen(true);
+                    }}
+                    className="admin-btn admin-btn-secondary"
+                    style={{ height: '42px', whiteSpace: 'nowrap' }}
+                  >
+                    <ImageIcon size={14} />
+                    <span>Media</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="admin-grid-3">
+                <div className="admin-form-group">
+                  <label className="admin-label">Experience Badge Number</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.experienceYears || '10+ Years'}
+                    onChange={(e) => updateAbout('experienceYears', e.target.value)}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Experience Label</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.experienceLabel || 'of IT & Software Innovation'}
+                    onChange={(e) => updateAbout('experienceLabel', e.target.value)}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Floating Pill Badge Text</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.techBadgeText || 'Web • Mobile • Cloud • AI'}
+                    onChange={(e) => updateAbout('techBadgeText', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Showcase Card 2 */}
+            <div style={{ background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--admin-border)', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem' }}>
+              <h4 style={{ color: '#fff', fontSize: '0.95rem', margin: '0 0 0.75rem' }}>2. High-Velocity Software Ecosystems Card</h4>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Image URL</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.innovationImage || '/images/tech-innovation.jpg'}
+                    onChange={(e) => updateAbout('innovationImage', e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAboutImageField('innovationImage');
+                      setServiceImagePickerIdx(null);
+                      setMediaPickerOpen(true);
+                    }}
+                    className="admin-btn admin-btn-secondary"
+                    style={{ height: '42px', whiteSpace: 'nowrap' }}
+                  >
+                    <ImageIcon size={14} />
+                    <span>Media</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="admin-grid-2">
+                <div className="admin-form-group">
+                  <label className="admin-label">Image Tag</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.innovationTag || 'AI & CLOUD ARCHITECTURE'}
+                    onChange={(e) => updateAbout('innovationTag', e.target.value)}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">KPI Pill Text</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.innovationKpi || '⚡ 99.9% Uptime • Global Data Flow'}
+                    onChange={(e) => updateAbout('innovationKpi', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-grid-2">
+                <div className="admin-form-group">
+                  <label className="admin-label">Card Title</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.innovationTitle || 'High-Velocity Software Ecosystems'}
+                    onChange={(e) => updateAbout('innovationTitle', e.target.value)}
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-label">Card Badge</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={about.innovationBadge || 'Enterprise Ready'}
+                    onChange={(e) => updateAbout('innovationBadge', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Card Description</label>
+                <textarea
+                  className="admin-textarea"
+                  rows="2"
+                  value={about.innovationDesc || ''}
+                  onChange={(e) => updateAbout('innovationDesc', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                <label className="admin-label">Technology Chips (comma separated)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={Array.isArray(about.innovationChips) ? about.innovationChips.join(', ') : (about.innovationChips || '')}
+                  onChange={(e) => updateAbout('innovationChips', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+                />
+              </div>
+            </div>
+
+            {/* Showcase Card 3 */}
+            <div style={{ background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--admin-border)', borderRadius: '8px', padding: '1rem' }}>
+              <h4 style={{ color: '#fff', fontSize: '0.95rem', margin: '0 0 0.75rem' }}>3. Lifecycle Engineering Sub-Card</h4>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Card Title</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={about.lifecycleTitle || 'Full Lifecycle Engineering'}
+                  onChange={(e) => updateAbout('lifecycleTitle', e.target.value)}
+                />
+              </div>
+
+              <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                <label className="admin-label">Card Description</label>
+                <textarea
+                  className="admin-textarea"
+                  rows="2"
+                  value={about.lifecycleDesc || ''}
+                  onChange={(e) => updateAbout('lifecycleDesc', e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 5: WHY CHOOSE US & METRICS */}
       {activeTab === 'why' && (
         <div>
           <div className="admin-card">
@@ -899,7 +1924,7 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 4: BOTTOM CTA BANNER */}
+      {/* TAB 6: BOTTOM CTA BANNER */}
       {activeTab === 'cta' && (
         <div>
           <div className="admin-card">
@@ -962,17 +1987,16 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* Media Picker Modal for Emblem Image */}
+      {/* Media Picker Modal for Images */}
       {mediaPickerOpen && (
         <MediaPickerModal
           isOpen={mediaPickerOpen}
-          onClose={() => setMediaPickerOpen(false)}
-          onSelectMedia={(item) => {
-            if (item && item.url) {
-              updateClock('emblemImage', item.url);
-            }
+          onClose={() => {
             setMediaPickerOpen(false);
+            setServiceImagePickerIdx(null);
+            setAboutImageField(null);
           }}
+          onSelectMedia={handleMediaSelected}
           mediaType="image"
         />
       )}

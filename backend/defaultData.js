@@ -77,6 +77,130 @@ export const DEFAULT_HOME_PAGE = {
     ],
     quoteText: 'Every great vision deserves its defining moment. At Black Grapes, we ensure that moment leads to unquestioned market leadership.'
   },
+    servicesSection: {
+    badge: 'WHAT WE DO',
+    titlePrefix: 'We Provide Best Quality Services & Products At ',
+    titleHighlight: 'Affordable Price',
+    subtitle: 'Here is the list of specialized IT services and scalable digital solutions that we provide to elevate your business.',
+    services: [
+      {
+        id: 'website-development',
+        title: 'Website Designing and Development',
+        shortDesc: 'High-speed, responsive, custom websites and enterprise web applications engineered for engagement and conversion.',
+        image: '/images/Website-Designing.jpg',
+        tags: ['React', 'Next.js', 'SEO Optimized', 'Responsive UI', 'Custom CMS']
+      },
+      {
+        id: 'mobile-app',
+        title: 'Mobile App Development',
+        shortDesc: 'Native and cross-platform mobile apps for Android and iOS with fluid animations and rock-solid offline support.',
+        image: '/images/app.jpg',
+        tags: ['Flutter', 'React Native', 'iOS / Android', 'Firebase', 'API Sync']
+      },
+      {
+        id: 'software-development',
+        title: 'Software Development',
+        shortDesc: 'Custom business software, ERP systems, and automated enterprise workflows built for speed and reliability.',
+        image: '/images/Software.jpg',
+        tags: ['Custom ERP', 'Microservices', 'Cloud Database', 'Python / Node', 'API Gateway']
+      },
+      {
+        id: 'crm-software',
+        title: 'CRM Software Development',
+        shortDesc: 'Custom CRM platforms to track leads, automate sales pipelines, and empower customer success teams.',
+        image: '/images/crm-1.png',
+        tags: ['Lead Scoring', 'Pipeline Automation', 'WhatsApp Integration', 'Role Access']
+      },
+      {
+        id: 'mlm-software',
+        title: 'MLM Software Development',
+        shortDesc: 'High-performance Multi-Level Marketing software with binary, matrix, unilevel plans and secure digital wallets.',
+        image: '/images/mlm-software.png',
+        tags: ['Binary / Matrix Plans', 'Digital Wallet', 'Genealogy Tree', 'Auto Payouts']
+      },
+      {
+        id: 'digital-marketing',
+        title: 'Digital Marketing',
+        shortDesc: 'Data-backed SEO, Google Ads, Meta campaigns, and growth strategies that generate qualified client leads.',
+        image: '/images/digital-marketing.jpg',
+        tags: ['SEO & SEM', 'Social Media', 'Lead Funnels', 'Google Ads', 'Content Growth']
+      },
+      {
+        id: 'graphic-designing',
+        title: 'Graphic Designing',
+        shortDesc: 'Impactful brand visual identity, UI/UX prototyping, marketing graphics, and custom illustration assets.',
+        image: '/images/Graphic-Design-Black-Grapes-Softech.jpg',
+        tags: ['Figma UI/UX', 'Brand Identity', 'Vector Graphics', 'Social Kits', '3D Art']
+      },
+      {
+        id: 'game-development',
+        title: 'Game Development',
+        shortDesc: 'Captivating 2D & 3D games across mobile, web, and desktop with smooth physics and addictive gameplay.',
+        image: '/images/Game-Development.jpg',
+        tags: ['Unity 3D', 'WebGL', 'Cross-Platform', 'Physics Engine', 'In-Game Store']
+      }
+    ],
+    tendering: {
+      badge: 'GOVERNMENT & PRIVATE TENDERS',
+      title: 'Specialized Tendering & e-Procurement Technical Services',
+      desc: 'Black Grapes Softech provides end-to-end technical documentation, GeM portal technical bidding, architecture compliance, and software delivery for government and corporate procurement tenders.',
+      pills: [
+        '✓ GeM Portal Compliance',
+        '✓ Technical RFP Preparation',
+        '✓ Enterprise Security Certification'
+      ],
+      btnText: 'Consult Tender Experts'
+    }
+  },
+    aboutSection: {
+    badge: "ABOUT COMPANY",
+    mainTitle: "Best Website Development Company | Best IT Software Company | Best Mobile App Development Company",
+    subtitle: "Black Grapes Softech – Best Website Development Company, App Development, MLM Software, Digital Marketing Services in Indore at Affordable price and best services",
+    showcaseImage: "/images/blackgrapes-1.png",
+    experienceYears: "10+ Years",
+    experienceLabel: "of IT & Software Innovation",
+    techBadgeText: "Web • Mobile • Cloud • AI",
+    innovationImage: "/images/tech-innovation.jpg",
+    innovationTag: "AI & CLOUD ARCHITECTURE",
+    innovationKpi: "⚡ 99.9% Uptime • Global Data Flow",
+    innovationTitle: "High-Velocity Software Ecosystems",
+    innovationBadge: "Enterprise Ready",
+    innovationDesc: "Architecting resilient microservices, distributed cloud backends, and smart automation pipelines that empower modern digital enterprises.",
+    innovationChips: ["Microservices", "Cloud Network", "API Gateways", "Automated CI/CD"],
+    lifecycleTitle: "Full Lifecycle Engineering",
+    lifecycleDesc: "From technical discovery to deployment and 24/7 proactive monitoring, we build software engineered to scale with your enterprise.",
+    narrativeHeading: "Transforming Your Boldest Visions Into High-Performance Reality",
+    primaryParagraph: "Black Grapes Softech is an IT Company extending its services in the field of Software Development. We’re not just another company; we’re your innovation partner. With a passion for coding and a commitment to excellence, we craft solutions that push the boundaries of what’s possible. Our team of techsavvy wizards brings diverse expertise to the table. From web and mobile apps to cutting-edge AI and IoT solutions, we’ve got it all covered. Our customization prowess knows no bounds. We take your vision and turn it into reality, creating software that aligns perfectly with your goals.",
+    secondaryParagraph: "Searching a company/agency for best customized IT solutions at affordable price, then your search ends here. With more than 10+ Years of experience in IT development field with energetic team of IT professionals, we feel privileged to meet our clients' digital needs in the best professional way. Our dedicated developers are always in search for the development by using latest technologies for app and website developing services to present the best product. Our company has served lots of Startups, Small and Big Organizations to build scalable, enterprise-level apps, websites, and software.",
+    coreValues: [
+      {
+        title: "Passionate Craftsmanship",
+        desc: "Relentless attention to code quality, modern UX patterns, and zero compromises on software reliability."
+      },
+      {
+        title: "End-to-End Customization",
+        desc: "Tailored architecture built specifically around your enterprise workflows rather than cookie-cutter templates."
+      },
+      {
+        title: "Affordable Enterprise Tech",
+        desc: "High-grade engineering delivered at competitive rates, giving startups and SMBs an unfair advantage."
+      }
+    ],
+    qaItems: [
+      {
+        q: "The purpose of life coaching & IT strategy?",
+        a: "Strategic alignment between your commercial vision and technical infrastructure. We formulate tech roadmaps that empower teams and maximize business viability."
+      },
+      {
+        q: "Past, present & future digital exercise",
+        a: "Reviewing legacy blockers, optimizing current workflows, and future-proofing architectures with cloud scalability and AI readiness."
+      },
+      {
+        q: "How do you perceive value & ROI?",
+        a: "Value is measured in operational hours saved, conversions multiplied, and systems that seamlessly scale without compounding overhead."
+      }
+    ]
+  },
   whyChooseUs: {
     badge: 'WHY CHOOSE US ?',
     titlePrefix: 'Built On Security, Uncompromising Quality & ',

@@ -1,13 +1,19 @@
-import express from 'express';
-import cors from 'cors';
-import http from 'http';
+import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { WebSocketServer, WebSocket } from 'ws';
-import apiRouter from './apiRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Explicitly configure dotenv from backend/.env
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+import express from 'express';
+import cors from 'cors';
+import http from 'http';
+import { WebSocketServer, WebSocket } from 'ws';
+import apiRouter from './apiRouter.js';
+import { connectToMongo } from './dbService.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -99,17 +105,22 @@ app.get('/', (req, res) => {
     ws_clients_count: clients.size,
     endpoints: {
       health: '/api/health',
+      dbStatus: '/api/db-status',
       allContent: '/api/all-content',
       inquiries: '/api/inquiries'
     }
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
   console.log(`\n======================================================`);
   console.log(`🚀 Black Grapes Softech Backend Server RUNNING!`);
   console.log(`🌐 HTTP URL: http://localhost:${PORT}`);
   console.log(`⚡ WebSocket URL: ws://localhost:${PORT}`);
-  console.log(`📁 Database: ${path.resolve(__dirname, 'data/db.json')}`);
+  console.log(`📁 Local DB: ${path.resolve(__dirname, 'data/db.json')}`);
+  console.log(`☁️  MongoDB Atlas: ${process.env.MONGODB_URI ? 'Configured in .env' : 'NOT CONFIGURED'}`);
   console.log(`======================================================\n`);
+
+  // Initialize MongoDB Atlas connection
+  await connectToMongo();
 });

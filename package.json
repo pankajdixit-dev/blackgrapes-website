@@ -15,5 +15,9 @@
     "build:all": "npm --prefix frontend run build && npm --prefix admin run build",
     "preview": "npm --prefix frontend run preview",
     "seed": "npm --prefix backend run seed"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "mongoose": "^9.11.4"
   }
 }

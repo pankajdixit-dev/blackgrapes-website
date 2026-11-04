@@ -167,7 +167,7 @@ export async function fetchModuleApi(moduleName, defaultVal) {
   }
 
   const localVal = getLocal(`bgst_${moduleName}`, defaultVal);
-  return deepMergeDefaults(defaultVal, localVal);
+  return localVal !== undefined ? localVal : defaultVal;
 }
 
 export async function saveModuleApi(moduleName, data) {

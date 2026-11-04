@@ -2197,6 +2197,15 @@
   ],
   "activity_logs": [
     {
+      "id": "log-1793775291789",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-04T06:54:51.789Z"
+    },
+    {
       "id": "log-1793773545817",
       "action": "Updated Module",
       "module": "home_page",
@@ -3086,15 +3095,6 @@
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: home_page",
       "created_at": "2026-11-03T12:36:18.469Z"
-    },
-    {
-      "id": "log-1793709378274",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-03T12:36:18.274Z"
     }
   ],
   "content_revisions": [],

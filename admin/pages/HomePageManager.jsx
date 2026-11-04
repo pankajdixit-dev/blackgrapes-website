@@ -18,7 +18,8 @@ import {
   FileText,
   HelpCircle,
   Award,
-  X
+  X,
+  Briefcase
 } from 'lucide-react';
 import { getHomePage, updateHomePage } from '@backend/dataService';
 import MediaPickerModal from '../components/MediaPickerModal';
@@ -50,7 +51,7 @@ export default function HomePageManager() {
   const [homeData, setHomeData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [activeTab, setActiveTab] = useState('about');
+  const [activeTab, setActiveTab] = useState('projects');
 
   // New badge input state
   const [newBadgeName, setNewBadgeName] = useState('');
@@ -94,6 +95,7 @@ export default function HomePageManager() {
   const clock = homeData.clockPhilosophy || {};
   const servicesSec = homeData.servicesSection || {};
   const about = homeData.aboutSection || {};
+  const projectsSec = homeData.projectsSection || {};
   const whyUs = homeData.whyChooseUs || {};
   const cta = homeData.ctaBanner || {};
 
@@ -322,6 +324,69 @@ export default function HomePageManager() {
     updateAbout('qaItems', list);
   };
 
+  // Projects & Portfolio Showcase Handlers
+  const updateProjectsSec = (field, val) => {
+    setHomeData((prev) => ({
+      ...prev,
+      projectsSection: {
+        ...(prev.projectsSection || {}),
+        [field]: val
+      }
+    }));
+  };
+
+  const projectList = Array.isArray(projectsSec.projects)
+    ? projectsSec.projects
+    : [];
+
+  const handleAddProject = () => {
+    const newProj = {
+      name: 'New Project Domain / Name',
+      category: 'Website',
+      type: 'Custom Digital & Software Solution',
+      desc: 'High-performance digital platform engineered for scale, engagement, and rock-solid enterprise reliability.',
+      url: 'https://',
+      status: 'Live Production'
+    };
+    updateProjectsSec('projects', [newProj, ...projectList]);
+  };
+
+  const handleUpdateProject = (index, field, value) => {
+    const updated = [...projectList];
+    updated[index] = {
+      ...updated[index],
+      [field]: value
+    };
+    updateProjectsSec('projects', updated);
+  };
+
+  const handleDeleteProject = (index) => {
+    const proj = projectList[index];
+    const name = proj?.name || `Project #${index + 1}`;
+    if (!window.confirm(`Are you sure you want to remove "${name}" from portfolio showcase?`)) {
+      return;
+    }
+    const updated = projectList.filter((_, i) => i !== index);
+    updateProjectsSec('projects', updated);
+  };
+
+  const handleMoveProject = (index, direction) => {
+    const targetIdx = index + direction;
+    if (targetIdx < 0 || targetIdx >= projectList.length) return;
+    const list = [...projectList];
+    const temp = list[index];
+    list[index] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateProjectsSec('projects', list);
+  };
+
+  const updateProjectBottomCta = (field, val) => {
+    updateProjectsSec('bottomCta', {
+      ...(projectsSec.bottomCta || {}),
+      [field]: val
+    });
+  };
+
   const handleMediaSelected = (item) => {
     if (item && item.url) {
       if (aboutImageField) {
@@ -357,7 +422,9 @@ export default function HomePageManager() {
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <a
-            href={typeof window !== 'undefined' && window.location.port === '5174' ? 'http://localhost:5173/#about' : '/#about'}
+            href={typeof window !== 'undefined' && window.location.port === '5174' 
+              ? `http://localhost:5173/#${activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}` 
+              : `/#${activeTab === 'projects' ? 'projects' : activeTab === 'services' ? 'services' : activeTab === 'clock' ? 'clock-philosophy' : activeTab === 'about' ? 'about' : activeTab === 'why' ? 'why-us' : ''}`}
             target="_blank"
             rel="noreferrer"
             className="admin-btn admin-btn-secondary"
@@ -413,11 +480,19 @@ export default function HomePageManager() {
         </button>
 
         <button
+          className={`admin-tab ${activeTab === 'projects' ? 'active' : ''}`}
+          onClick={() => setActiveTab('projects')}
+        >
+          <Briefcase size={16} />
+          <span>5. Projects & Portfolio Showcase</span>
+        </button>
+
+        <button
           className={`admin-tab ${activeTab === 'why' ? 'active' : ''}`}
           onClick={() => setActiveTab('why')}
         >
           <ShieldCheck size={16} />
-          <span>5. Why Choose Us & Metrics</span>
+          <span>6. Why Choose Us & Metrics</span>
         </button>
 
         <button
@@ -425,7 +500,7 @@ export default function HomePageManager() {
           onClick={() => setActiveTab('cta')}
         >
           <Megaphone size={16} />
-          <span>6. Bottom CTA Banner</span>
+          <span>7. Bottom CTA Banner</span>
         </button>
       </div>
 
@@ -1833,7 +1908,425 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 5: WHY CHOOSE US & METRICS */}
+      {/* TAB 5: PROJECTS & PORTFOLIO SHOWCASE */}
+      {activeTab === 'projects' && (
+        <div>
+          {/* Card 1: Section Header */}
+          <div className="admin-card">
+            <h3 style={{ fontSize: '1.15rem', color: '#fff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Briefcase size={20} color="var(--admin-orange)" />
+              <span>Portfolio Section Header & Subtitle</span>
+            </h3>
+
+            <div className="admin-grid-3">
+              <div className="admin-form-group">
+                <label className="admin-label">Eyebrow Badge Text</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={projectsSec.badge || 'PORTFOLIO SHOWCASE'}
+                  onChange={(e) => updateProjectsSec('badge', e.target.value)}
+                  placeholder="e.g. PORTFOLIO SHOWCASE"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Title Prefix (White text)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={projectsSec.titlePrefix !== undefined ? projectsSec.titlePrefix : 'Our Projects & '}
+                  onChange={(e) => updateProjectsSec('titlePrefix', e.target.value)}
+                  placeholder="e.g. Our Projects & "
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Title Highlight (Gold/Orange text)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={projectsSec.titleHighlight !== undefined ? projectsSec.titleHighlight : 'Proven Deliveries'}
+                  onChange={(e) => updateProjectsSec('titleHighlight', e.target.value)}
+                  placeholder="e.g. Proven Deliveries"
+                />
+              </div>
+            </div>
+
+            <div className="admin-form-group" style={{ marginBottom: 0 }}>
+              <label className="admin-label">Section Subtitle / Description</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={projectsSec.subtitle || ''}
+                onChange={(e) => updateProjectsSec('subtitle', e.target.value)}
+                placeholder="e.g. Explore a selection of successful client products spanning web applications, iOS/Android apps, and eCommerce engines."
+              />
+            </div>
+          </div>
+
+          {/* Card 2: Dynamic Project Cards Manager */}
+          <div className="admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span>Portfolio Showcase Cards</span>
+                  <span
+                    style={{
+                      background: 'rgba(248, 98, 0, 0.2)',
+                      color: 'var(--admin-orange)',
+                      border: '1px solid rgba(248, 98, 0, 0.35)',
+                      padding: '0.15rem 0.55rem',
+                      borderRadius: '12px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    {projectList.length} Active Items
+                  </span>
+                </h3>
+                <p style={{ margin: '0.35rem 0 0', fontSize: '0.825rem', color: '#9ca3af' }}>
+                  Manage the cards displayed in the live Portfolio Showcase grid. Add new projects, edit links, reorder positions, or remove outdated entries.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddProject}
+                className="admin-btn admin-btn-primary"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.55rem 1.1rem' }}
+              >
+                <Plus size={16} />
+                <span>Add New Project</span>
+              </button>
+            </div>
+
+            {projectList.length === 0 ? (
+              <div
+                style={{
+                  padding: '2.5rem 1rem',
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  borderRadius: '8px',
+                  border: '1px dashed var(--admin-border)'
+                }}
+              >
+                <p style={{ color: '#9ca3af', marginBottom: '1rem' }}>
+                  No projects currently configured in the showcase.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddProject}
+                  className="admin-btn admin-btn-secondary"
+                >
+                  <Plus size={15} />
+                  <span>Create First Project Card</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {projectList.map((proj, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: 'rgba(15, 23, 42, 0.65)',
+                      border: '1px solid var(--admin-border)',
+                      borderRadius: '10px',
+                      padding: '1.25rem',
+                      transition: 'border-color 0.2s',
+                      position: 'relative'
+                    }}
+                  >
+                    {/* Project Header Row */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '1rem',
+                        paddingBottom: '0.75rem',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+                        flexWrap: 'wrap',
+                        gap: '0.5rem'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                        <span
+                          style={{
+                            background: 'var(--admin-orange)',
+                            color: '#000',
+                            fontWeight: 700,
+                            fontSize: '0.75rem',
+                            padding: '0.2rem 0.55rem',
+                            borderRadius: '4px'
+                          }}
+                        >
+                          #{idx + 1}
+                        </span>
+                        <strong style={{ color: '#fff', fontSize: '1rem' }}>
+                          {proj.name || 'Untitled Project'}
+                        </strong>
+                        {proj.category && (
+                          <span
+                            style={{
+                              background: 'rgba(147, 51, 234, 0.15)',
+                              border: '1px solid rgba(147, 51, 234, 0.35)',
+                              color: '#c084fc',
+                              fontSize: '0.75rem',
+                              padding: '0.15rem 0.5rem',
+                              borderRadius: '4px'
+                            }}
+                          >
+                            {proj.category}
+                          </span>
+                        )}
+                        {proj.url && proj.url !== '#' ? (
+                          <a
+                            href={proj.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: '#60a5fa', display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', textDecoration: 'none' }}
+                          >
+                            <span>Live Site</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        ) : (
+                          <span style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
+                            [Case Info Modal]
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Reorder and Delete controls */}
+                      <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveProject(idx, -1)}
+                          disabled={idx === 0}
+                          title="Move Up"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === 0 ? '#4b5563' : '#e5e7eb',
+                            cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowUp size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleMoveProject(idx, 1)}
+                          disabled={idx === projectList.length - 1}
+                          title="Move Down"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--admin-border)',
+                            borderRadius: '4px',
+                            color: idx === projectList.length - 1 ? '#4b5563' : '#e5e7eb',
+                            cursor: idx === projectList.length - 1 ? 'not-allowed' : 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ArrowDown size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteProject(idx)}
+                          title="Delete Project"
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.12)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                            borderRadius: '4px',
+                            color: '#ef4444',
+                            cursor: 'pointer',
+                            padding: '0.25rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginLeft: '0.25rem'
+                          }}
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Project Fields Grid */}
+                    <div className="admin-grid-2" style={{ marginBottom: '0.75rem' }}>
+                      <div className="admin-form-group">
+                        <label className="admin-label">Project Name / Domain</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={proj.name || ''}
+                          placeholder="e.g. www.borit.com or IOS App - ReadMore"
+                          onChange={(e) => handleUpdateProject(idx, 'name', e.target.value)}
+                        />
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Product Type / Subtitle</label>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={proj.type || ''}
+                          placeholder="e.g. Corporate Web Experience or Luxury Cosmetics & Lifestyle"
+                          onChange={(e) => handleUpdateProject(idx, 'type', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-grid-2" style={{ marginBottom: '0.75rem' }}>
+                      <div className="admin-form-group">
+                        <label className="admin-label">
+                          Category (Filter Group)
+                        </label>
+                        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+                          {['Website', 'Android / IOS - Mobile Apps', 'Web Apps', 'E-Commerce'].map((catOpt) => (
+                            <button
+                              key={catOpt}
+                              type="button"
+                              onClick={() => handleUpdateProject(idx, 'category', catOpt)}
+                              style={{
+                                background: proj.category === catOpt ? 'var(--admin-orange)' : 'rgba(255, 255, 255, 0.05)',
+                                color: proj.category === catOpt ? '#000' : '#d1d5db',
+                                border: '1px solid var(--admin-border)',
+                                borderRadius: '4px',
+                                padding: '0.15rem 0.5rem',
+                                fontSize: '0.72rem',
+                                cursor: 'pointer',
+                                fontWeight: proj.category === catOpt ? 600 : 400
+                              }}
+                            >
+                              {catOpt}
+                            </button>
+                          ))}
+                        </div>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={proj.category || ''}
+                          placeholder="Type or select a category above"
+                          onChange={(e) => handleUpdateProject(idx, 'category', e.target.value)}
+                        />
+                      </div>
+
+                      <div className="admin-form-group">
+                        <label className="admin-label">Status Dot Badge</label>
+                        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+                          {['Live Production', 'Enterprise Live', 'Beta Release', 'Client Case Study'].map((stOpt) => (
+                            <button
+                              key={stOpt}
+                              type="button"
+                              onClick={() => handleUpdateProject(idx, 'status', stOpt)}
+                              style={{
+                                background: (proj.status || 'Live Production') === stOpt ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                                color: (proj.status || 'Live Production') === stOpt ? '#34d399' : '#9ca3af',
+                                border: '1px solid var(--admin-border)',
+                                borderRadius: '4px',
+                                padding: '0.15rem 0.5rem',
+                                fontSize: '0.72rem',
+                                cursor: 'pointer',
+                                fontWeight: 500
+                              }}
+                            >
+                              {stOpt}
+                            </button>
+                          ))}
+                        </div>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={proj.status || 'Live Production'}
+                          placeholder="e.g. Live Production"
+                          onChange={(e) => handleUpdateProject(idx, 'status', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-form-group" style={{ marginBottom: '0.75rem' }}>
+                      <label className="admin-label">
+                        Project URL / Destination Link
+                      </label>
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        <input
+                          type="text"
+                          className="admin-input"
+                          value={proj.url || ''}
+                          placeholder="https://example.com or #"
+                          onChange={(e) => handleUpdateProject(idx, 'url', e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateProject(idx, 'url', '#')}
+                          className="admin-btn admin-btn-secondary"
+                          style={{ height: '40px', whiteSpace: 'nowrap', fontSize: '0.75rem' }}
+                          title="Set link to modal case inquiry"
+                        >
+                          Set to '#' Modal
+                        </button>
+                      </div>
+                      <span className="admin-hint">
+                        Provide a full URL (e.g. <code>https://www.borit.com</code>) to open the live client website in a new tab, or use <code>#</code> to open the Case Info inquiry popup.
+                      </span>
+                    </div>
+
+                    <div className="admin-form-group" style={{ marginBottom: 0 }}>
+                      <label className="admin-label">Project Description</label>
+                      <textarea
+                        className="admin-textarea"
+                        rows="2"
+                        value={proj.desc || ''}
+                        placeholder="Brief summary of the architecture, key deliverables, and commercial impact..."
+                        onChange={(e) => handleUpdateProject(idx, 'desc', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Card 3: Bottom Callout Banner */}
+          <div className="admin-card">
+            <h3 style={{ fontSize: '1.15rem', color: '#fff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Megaphone size={18} color="var(--admin-orange)" />
+              <span>Portfolio Bottom Callout Banner</span>
+            </h3>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Callout Pitch Text</label>
+              <textarea
+                className="admin-textarea"
+                rows="2"
+                value={projectsSec.bottomCta?.text || ''}
+                onChange={(e) => updateProjectBottomCta('text', e.target.value)}
+                placeholder="e.g. Have a project in mind? Let's turn your concept into our next featured success story."
+              />
+            </div>
+
+            <div className="admin-form-group" style={{ marginBottom: 0 }}>
+              <label className="admin-label">Action Button Label</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={projectsSec.bottomCta?.btnText || ''}
+                onChange={(e) => updateProjectBottomCta('btnText', e.target.value)}
+                placeholder="e.g. Start Your Project With Us"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 6: WHY CHOOSE US & METRICS */}
       {activeTab === 'why' && (
         <div>
           <div className="admin-card">
@@ -1924,7 +2417,7 @@ export default function HomePageManager() {
         </div>
       )}
 
-      {/* TAB 6: BOTTOM CTA BANNER */}
+      {/* TAB 7: BOTTOM CTA BANNER */}
       {activeTab === 'cta' && (
         <div>
           <div className="admin-card">

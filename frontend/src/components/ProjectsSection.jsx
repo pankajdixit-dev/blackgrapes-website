@@ -1,20 +1,35 @@
 import React, { useState } from 'react';
+import { useHomePage } from '@backend/useContent';
 import { PROJECTS } from '../data/siteData';
 
 export default function ProjectsSection({ onOpenModal }) {
+  const { home } = useHomePage();
   const [activeFilter, setActiveFilter] = useState('All');
 
-  const categories = [
-    'All',
-    'Website',
-    'Android / IOS - Mobile Apps',
-    'Web Apps',
-    'E-Commerce'
-  ];
+  const ps = home?.projectsSection || {};
+  const badge = ps.badge || 'PORTFOLIO SHOWCASE';
+  const titlePrefix = ps.titlePrefix !== undefined ? ps.titlePrefix : 'Our Projects & ';
+  const titleHighlight = ps.titleHighlight !== undefined ? ps.titleHighlight : 'Proven Deliveries';
+  const subtitle = ps.subtitle || 'Explore a selection of successful client products spanning web applications, iOS/Android apps, and eCommerce engines.';
 
-  const filteredProjects = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === activeFilter);
+  const projectList = (Array.isArray(ps.projects) && ps.projects.length > 0)
+    ? ps.projects
+    : PROJECTS;
+
+  // Extract unique categories dynamically
+  const uniqueCategories = Array.from(
+    new Set(projectList.map((p) => p.category).filter(Boolean))
+  );
+  const categories = ['All', ...uniqueCategories];
+
+  const currentFilter = categories.includes(activeFilter) ? activeFilter : 'All';
+
+  const filteredProjects = currentFilter === 'All'
+    ? projectList
+    : projectList.filter((p) => p.category === currentFilter);
+
+  const bottomCtaText = ps.bottomCta?.text || "Have a project in mind? Let's turn your concept into our next featured success story.";
+  const bottomCtaBtn = ps.bottomCta?.btnText || "Start Your Project With Us";
 
   return (
     <section id="projects" className="section projects-section">
@@ -23,13 +38,13 @@ export default function ProjectsSection({ onOpenModal }) {
         <div className="section-header text-center">
           <div className="section-badge">
             <span className="badge-sparkle">✦</span>
-            <span>PORTFOLIO SHOWCASE</span>
+            <span>{badge}</span>
           </div>
           <h2 className="section-title">
-            Our Projects & <span className="text-highlight">Proven Deliveries</span>
+            {titlePrefix}<span className="text-highlight">{titleHighlight}</span>
           </h2>
           <p className="section-subtitle">
-            Explore a selection of successful client products spanning web applications, iOS/Android apps, and eCommerce engines.
+            {subtitle}
           </p>
         </div>
 
@@ -37,14 +52,14 @@ export default function ProjectsSection({ onOpenModal }) {
         <div className="portfolio-filter-tabs">
           {categories.map((cat) => {
             const count = cat === 'All'
-              ? PROJECTS.length
-              : PROJECTS.filter((p) => p.category === cat).length;
+              ? projectList.length
+              : projectList.filter((p) => p.category === cat).length;
 
             return (
               <button
                 key={cat}
                 type="button"
-                className={`portfolio-tab-btn ${activeFilter === cat ? 'tab-btn-active' : ''}`}
+                className={`portfolio-tab-btn ${currentFilter === cat ? 'tab-btn-active' : ''}`}
                 onClick={() => setActiveFilter(cat)}
               >
                 <span>{cat}</span>
@@ -60,7 +75,7 @@ export default function ProjectsSection({ onOpenModal }) {
             <div key={idx} className="project-card">
               <div className="project-card-top">
                 <span className="project-category-badge">{proj.category}</span>
-                <span className="project-status-dot">Live Production</span>
+                <span className="project-status-dot">{proj.status || 'Live Production'}</span>
               </div>
 
               <div className="project-card-body">
@@ -70,7 +85,7 @@ export default function ProjectsSection({ onOpenModal }) {
               </div>
 
               <div className="project-card-footer">
-                {proj.url !== '#' ? (
+                {proj.url && proj.url !== '#' ? (
                   <a
                     href={proj.url}
                     target="_blank"
@@ -87,7 +102,7 @@ export default function ProjectsSection({ onOpenModal }) {
                   <button
                     type="button"
                     className="project-case-btn"
-                    onClick={() => onOpenModal(`Project Case: ${proj.name}`)}
+                    onClick={() => onOpenModal && onOpenModal(`Project Case: ${proj.name}`)}
                   >
                     <span>View Case Info</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -102,7 +117,7 @@ export default function ProjectsSection({ onOpenModal }) {
                   type="button"
                   className="project-inquire-icon"
                   title="Inquire about similar solution"
-                  onClick={() => onOpenModal(`Similar solution to ${proj.name}`)}
+                  onClick={() => onOpenModal && onOpenModal(`Similar solution to ${proj.name}`)}
                 >
                   ⚡
                 </button>
@@ -114,14 +129,14 @@ export default function ProjectsSection({ onOpenModal }) {
         {/* Portfolio Bottom CTA */}
         <div className="portfolio-bottom-cta">
           <p className="portfolio-cta-text">
-            Have a project in mind? Let's turn your concept into our next featured success story.
+            {bottomCtaText}
           </p>
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => onOpenModal('New Project Inquiry')}
+            onClick={() => onOpenModal && onOpenModal('New Project Inquiry')}
           >
-            Start Your Project With Us
+            {bottomCtaBtn}
           </button>
         </div>
       </div>

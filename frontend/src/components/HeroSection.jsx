@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { COMPANY_INFO } from '../data/siteData';
 import { useHomePage } from '@backend/useContent';

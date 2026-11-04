@@ -42,7 +42,7 @@ async function seed() {
       await ModuleContent.findOneAndUpdate(
         { module: key },
         { data, updated_at: new Date() },
-        { upsert: true, new: true, setDefaultsOnInsert: true }
+        { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
       );
       console.log(`  ✓ Synced module: "${key}"`);
     }

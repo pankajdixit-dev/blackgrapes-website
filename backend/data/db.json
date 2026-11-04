@@ -34,7 +34,7 @@
       "badge": "10+ Years of Proven IT Excellence • Indore, India ",
       "prefix": "Innovate. Integrate. Elevate.  ",
       "break_text": "And Digitalize Your Ideas into Success via ",
-      "brand_highlight": "BLACK GRAPES SOFTECH ",
+      "brand_highlight": "BLACK GRAPES SOFTECH",
       "suffix": "Where Innovation And ideas Meets Excellence. ",
       "description": "Get Free Consultation From Our Industry Experts. We engineer scalable custom software, iOS & Android mobile apps, enterprise CRMs, MLM platforms, and high-conversion websites for ambitious startups and global enterprises. ",
       "cta_primary_text": "Request a Demo ",
@@ -2197,6 +2197,15 @@
   ],
   "activity_logs": [
     {
+      "id": "log-1793777016332",
+      "action": "Updated Module",
+      "module": "home_page",
+      "record_id": "home_page",
+      "user_email": "admin@blackgrapessoftech.com",
+      "description": "Saved live modifications for module: home_page",
+      "created_at": "2026-11-04T07:23:36.332Z"
+    },
+    {
       "id": "log-1793775291789",
       "action": "Updated Module",
       "module": "home_page",
@@ -3086,15 +3095,6 @@
       "user_email": "admin@blackgrapessoftech.com",
       "description": "Saved live modifications for module: home_page",
       "created_at": "2026-11-03T12:36:18.481Z"
-    },
-    {
-      "id": "log-1793709378468",
-      "action": "Updated Module",
-      "module": "home_page",
-      "record_id": "home_page",
-      "user_email": "admin@blackgrapessoftech.com",
-      "description": "Saved live modifications for module: home_page",
-      "created_at": "2026-11-03T12:36:18.469Z"
     }
   ],
   "content_revisions": [],

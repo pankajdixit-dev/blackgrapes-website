@@ -122,7 +122,8 @@ export async function seedAllToMongo() {
       await ModuleContent.findOneAndUpdate(
         { module: key },
         { data: localDb[key], updated_at: new Date() },
-        { upsert: true, new: true, setDefaultsOnInsert: true }
+
+        { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
       );
       count++;
     }
@@ -168,7 +169,7 @@ export async function saveModule(moduleName, data, userEmail = 'admin@blackgrape
       await ModuleContent.findOneAndUpdate(
         { module: moduleName },
         { data, updated_at: new Date() },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: 'after' }
       );
       console.log(`[MongoDB] Successfully saved module "${moduleName}" to MongoDB Atlas`);
     } catch (err) {
